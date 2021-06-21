@@ -1,16 +1,23 @@
 Package: actdata
-Title: What the Package Does (One Line, Title Case)
+Title: Affect Control Theory Dictionaries and Equations
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Aidan",
+           family = "Combs",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "aidan.combs@duke.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package contains all Affect Control Theory dictionary and equation datasets that have been made public (as of June 2021), including their metadata. It also contains helper functions for listing, comparing, and subsetting datasets.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports: 
+    dplyr,
+    magrittr,
+    stringr,
+    tidyselect
+Depends: 
+    R (>= 2.10)
