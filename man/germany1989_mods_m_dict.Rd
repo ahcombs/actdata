@@ -16,7 +16,7 @@ A data frame with 68 rows and 5 variables:
 }
 }
 \source{
-"Interact (May 2021)"
+Interact (May 2021)
 }
 \usage{
 germany1989_mods_m_dict

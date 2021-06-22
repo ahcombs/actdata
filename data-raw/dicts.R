@@ -123,7 +123,7 @@ for(file in file_list){
     # now deal with covariance datasets which will be different.
     # The one provided (georgia-duke 2015; probably same data as UGA 2015) does not split by gender
     # cov data has 9 additional columns
-    # honestly can probably just leave as is maybe with the exception of standardizing term format
+    # can leave as is with the exception of standardizing term format
   } else if (datatype == "COV") {
     names(data) <- c('term', 'E', 'P', 'A', 'cov1', 'cov2', 'cov3', 'cov4', 'cov5', 'cov6', 'cov7', 'cov8', 'cov9')
     data_clean <- standardize_terms(data, key, component)

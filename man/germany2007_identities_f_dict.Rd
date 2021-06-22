@@ -16,7 +16,7 @@ A data frame with 371 rows and 5 variables:
 }
 }
 \source{
-"Interact (May 2021)"
+Interact (May 2021)
 }
 \usage{
 germany2007_identities_f_dict
