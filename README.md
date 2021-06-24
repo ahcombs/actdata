@@ -54,7 +54,7 @@ dict_info("nc1978")
 
 Dictionary datasets are named according to the following format:
 
-\[key\]*\[component\]*\[gender\]\_\[datatype\]\_dict
+\[key\]\_\[component\]\_\[gender\]\_\[datatype\]\_dict
 
   - *Key* is an identifier unique to a particular study (e.g. `nc1978`;
     `morocco2015`). Call `dict_info()` to see the keys for the provided
@@ -63,14 +63,21 @@ Dictionary datasets are named according to the following format:
     dictionary dataset. Typically, studies provide dictionary datasets
     with more than one component, but not all studies provide all
     possible components. Components include:
-      - *identities*: Words that describe actors. Typically nouns
-        (e.g. academic, woman, youngster)
-      - *behaviors*: Actions that actors can perform. Typically verbs
-        (e.g. wheedle, acclaim, work)
-      - *mods*: Modifiers. Typically adjectives that can be applied to
-        identities (e.g. active, witty, young)
-      - *settings*: Places and situations (e.g. airplane, alley,
-        worship\_service)
+      -   - *identities*  
+            Words that describe actors. Typically nouns (e.g. academic,
+            woman, youngster)
+    
+      -   - *behaviors*  
+            Actions that actors can perform. Typically verbs
+            (e.g. wheedle, acclaim, work)
+    
+      -   - *mods*  
+            Modifiers. Typically adjectives that can be applied to
+            identities (e.g. active, witty, young)
+    
+      -   - *settings*  
+            Places and situations (e.g. airplane, alley,
+            worship\_service)
   - *Gender* indicates the gender of the participants who rated the
     terms. Options are `m`, `f`, and `av`. Av (average) indicates that
     participants of all genders were included, though the way this is
@@ -157,7 +164,7 @@ titles are based on labels applied in Interact.
 
 The equation datasets are named according to the following convention:
 
-\[key\]*\[component\]*\[gender\]\_eqn
+\[key\]\_\[component\]\_\[gender\]\_eqn
 
   - *Key* is a unique identifier for the study in which the equation
     coefficients were estimated. Some of these overlap with dictionary
@@ -165,19 +172,27 @@ The equation datasets are named according to the following convention:
   - *Component* indicates the type of equations represented. The
     following components are possible (more information on each is
     available in section 18.2 of David Heise’s *Expressive Order*
-    (2007)):
-      - *impressionabo*: Impression change equations including actor,
-        behavior, and object terms
-      - *impressionabos*: Impression change equations including actor,
-        behavior, object, and setting terms
-      - *selfdir*: Equations for self-directed action, including actor
-        and behavior terms.
-      - *traitid*: Equations for combining a trait modifier with an
-        identity. In some datasets, this set is the same as the
-        emotionid set.
-      - *emotionid*: Equations for combining an emotion modifier with an
-        identity. In some datasets, this set is the same as the traitid
-        set.
+    (2007)).
+      -   - *impressionabo*  
+            Impression change equations including actor, behavior, and
+            object terms
+    
+      -   - *impressionabos*  
+            Impression change equations including actor, behavior,
+            object, and setting terms
+    
+      -   - *selfdir*  
+            Equations for self-directed action, including actor and
+            behavior terms.
+    
+      -   - *traitid*  
+            Equations for combining a trait modifier with an identity.
+            In some datasets, this set is the same as the emotionid set.
+    
+      -   - *emotionid*  
+            Equations for combining an emotion modifier with an
+            identity. In some datasets, this set is the same as the
+            traitid set.
   - *Gender* indicates the gender of study participants whose ratings
     are used to estimate the equation coefficients. Options are `m`,
     `f`, and `av`. Call `dict_info()` to check which genders are
