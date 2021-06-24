@@ -9,12 +9,6 @@ dict_info(name = NA)
 \arguments{
 \item{name}{string}
 }
-\value{
-
-}
 \description{
 Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
-}
-\examples{
-dict_info('nc1978')
 }

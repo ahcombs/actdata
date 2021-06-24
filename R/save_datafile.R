@@ -48,7 +48,6 @@ saveit <- function(..., name, type = NA) {
 #' @param type string ("dict" or "eqn") indicating type of data
 #' @param filename string the filepath at which to save (must end in .txt)
 #'
-#' @return
 #' @export
 save_for_interact <- function(data, type = "dict", filename = paste0(deparse(substitute(data)), ".txt")){
   if(length(filename) != 1){
@@ -64,8 +63,8 @@ save_for_interact <- function(data, type = "dict", filename = paste0(deparse(sub
   }
 
   if(type == "dict"){
-    write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    utils::write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
   } else {
-    write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
+    utils::write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
   }
 }

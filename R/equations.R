@@ -11,15 +11,15 @@ get_eqns <- function(){
 
   ## CONSTANTS
   # available equations
-  setClass("equation",
-           representation(
+  methods::setClass("equation",
+           methods::representation(
              key = "character",
              genders = "vector",
              filetype = "character",
              source = "character",
              description = "character",
              citation = "character"),
-           prototype(key = NA_character_,
+           methods::prototype(key = NA_character_,
                      genders = c("male", "female"),
                      filetype = ".dat",
                      source = "Interact 2.1 (May 2021)",
@@ -41,7 +41,7 @@ get_eqns <- function(){
       else {
         genders <- c("neutral")
       }
-      eqns <- append(eqns, new("equation",
+      eqns <- append(eqns, methods::new("equation",
                                key = key,
                                genders = genders,
                                filetype = filetype))
@@ -57,10 +57,7 @@ get_eqns <- function(){
 #'
 #' @param name string
 #'
-#' @return
 #' @export
-#'
-#' @examples eqn_info('nc1978')
 eqn_info <- function(name = NA){
   eqns <- get_eqns()
 

@@ -9,12 +9,6 @@ eqn_info(name = NA)
 \arguments{
 \item{name}{string}
 }
-\value{
-
-}
 \description{
 Print metadata for requested equation name or (if name is not specified) for all available equations
-}
-\examples{
-eqn_info('nc1978')
 }

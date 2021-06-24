@@ -11,7 +11,28 @@
 #'
 #' @format A data frame with 2198 rows and 22 variables:
 #' \describe{
-#'   \item{term}{dictionary term}
+#'   \item{term}{identity term}
+#'   \item{china1999}{dictionary}
+#'   \item{egypt2015}{dictionary}
+#'   \item{germany1989}{dictionary}
+#'   \item{germany2007}{dictionary}
+#'   \item{household1994}{dictionary}
+#'   \item{indiana2003}{dictionary}
+#'   \item{internet1998}{dictionary}
+#'   \item{japan19892002}{dictionary}
+#'   \item{morocco2015}{dictionary}
+#'   \item{nc1978}{dictionary}
+#'   \item{nireland1977}{dictionary}
+#'   \item{ontario1980}{dictionary}
+#'   \item{ontario2001}{dictionary}
+#'   \item{politics2003}{dictionary}
+#'   \item{prisonersdilemma}{dictionary}
+#'   \item{texas1998}{dictionary}
+#'   \item{uga2015}{dictionary}
+#'   \item{uga2015bayesactsubset}{dictionary}
+#'   \item{usfullsurveyor2015}{dictionary}
+#'   \item{usmturk2015}{dictionary}
+#'   \item{usstudent2015}{dictionary}
 #'   ...
 #' }
 "term_table_ident"
@@ -24,7 +45,24 @@
 #'
 #' @format A data frame with 787 rows and 18 variables:
 #' \describe{
-#'   \item{term}{dictionary term}
+#'   \item{term}{modifier term}
+#'   \item{china1999}{dictionary}
+#'   \item{egypt2015}{dictionary}
+#'   \item{germany1989}{dictionary}
+#'   \item{germany2007}{dictionary}
+#'   \item{indiana2003}{dictionary}
+#'   \item{japan19892002}{dictionary}
+#'   \item{morocco2015}{dictionary}
+#'   \item{nc1978}{dictionary}
+#'   \item{ontario1980}{dictionary}
+#'   \item{ontario2001}{dictionary}
+#'   \item{prisonersdilemma}{dictionary}
+#'   \item{texas1998}{dictionary}
+#'   \item{uga2015}{dictionary}
+#'   \item{uga2015bayesactsubset}{dictionary}
+#'   \item{usfullsurveyor2015}{dictionary}
+#'   \item{usmturk2015}{dictionary}
+#'   \item{usstudent2015}{dictionary}
 #'   ...
 #' }
 "term_table_mod"
@@ -37,7 +75,14 @@
 #'
 #' @format A data frame with 503 rows and 8 variables:
 #' \describe{
-#'   \item{term}{dictionary term}
+#'   \item{term}{setting term}
+#'   \item{china1999}{dictionary}
+#'   \item{germany2007}{dictionary}
+#'   \item{indiana2003}{dictionary}
+#'   \item{internet1998}{dictionary}
+#'   \item{japan19892002}{dictionary}
+#'   \item{nc1978}{dictionary}
+#'   \item{ontario2001}{dictionary}
 #'   ...
 #' }
 "term_table_set"
@@ -50,7 +95,32 @@
 #'
 #' @format A data frame with 1655 rows and 26 variables:
 #' \describe{
-#'   \item{term}{dictionary term}
+#'   \item{term}{behavior term}
+#'   \item{china1999}{dictionary}
+#'   \item{egypt2015}{dictionary}
+#'   \item{expressive2002}{dictionary}
+#'   \item{gaysex1980}{dictionary}
+#'   \item{germany1989}{dictionary}
+#'   \item{germany2007}{dictionary}
+#'   \item{household1994}{dictionary}
+#'   \item{indiana2003}{dictionary}
+#'   \item{internationaldomesticrelations1981}{dictionary}
+#'   \item{internet1998}{dictionary}
+#'   \item{japan19892002}{dictionary}
+#'   \item{morocco2015}{dictionary}
+#'   \item{nc1978}{dictionary}
+#'   \item{nireland1977}{dictionary}
+#'   \item{ontario1980}{dictionary}
+#'   \item{ontario2001}{dictionary}
+#'   \item{politics2003}{dictionary}
+#'   \item{prisonersdilemma}{dictionary}
+#'   \item{prisonersdilemmaCOV}{dictionary}
+#'   \item{texas1998}{dictionary}
+#'   \item{uga2015}{dictionary}
+#'   \item{uga2015bayesactsubset}{dictionary}
+#'   \item{usfullsurveyor2015}{dictionary}
+#'   \item{usmturk2015}{dictionary}
+#'   \item{usstudent2015}{dictionary}
 #'   ...
 #' }
 "term_table_beh"
@@ -266,7 +336,7 @@
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///egypt-dictionary-2015/}
-"egypt2015_identities_av_dict"
+"egypt2015_behaviors_av_dict"
 
 #' Egypt 2015 identities (gender = average)
 #'
@@ -296,7 +366,7 @@
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///egypt-dictionary-2015/}
-"egypt2015_identities_av_dict"
+"egypt2015_mods_av_dict"
 
 
 #' Expressive behaviors 2002 (gender = average)
@@ -358,7 +428,7 @@
 #'   ...
 #' }
 #' @source \url{https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/gay_sex.htm}
-"gaysex1980_behaviors_f_dict"
+"gaysex1980_behaviors_av_dict"
 
 
 #' Germany 1989 behaviors (gender = average)
@@ -2323,7 +2393,15 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{cov#}{covariance matrix value}
+#'   \item{cov1}{covariance matrix value}
+#'   \item{cov2}{covariance matrix value}
+#'   \item{cov3}{covariance matrix value}
+#'   \item{cov4}{covariance matrix value}
+#'   \item{cov5}{covariance matrix value}
+#'   \item{cov6}{covariance matrix value}
+#'   \item{cov7}{covariance matrix value}
+#'   \item{cov8}{covariance matrix value}
+#'   \item{cov9}{covariance matrix value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2577,7 +2655,15 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{cov#}{covariance matrix value}
+#'   \item{cov1}{covariance matrix value}
+#'   \item{cov2}{covariance matrix value}
+#'   \item{cov3}{covariance matrix value}
+#'   \item{cov4}{covariance matrix value}
+#'   \item{cov5}{covariance matrix value}
+#'   \item{cov6}{covariance matrix value}
+#'   \item{cov7}{covariance matrix value}
+#'   \item{cov8}{covariance matrix value}
+#'   \item{cov9}{covariance matrix value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2593,7 +2679,15 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{cov#}{covariance matrix value}
+#'   \item{cov1}{covariance matrix value}
+#'   \item{cov2}{covariance matrix value}
+#'   \item{cov3}{covariance matrix value}
+#'   \item{cov4}{covariance matrix value}
+#'   \item{cov5}{covariance matrix value}
+#'   \item{cov6}{covariance matrix value}
+#'   \item{cov7}{covariance matrix value}
+#'   \item{cov8}{covariance matrix value}
+#'   \item{cov9}{covariance matrix value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2609,7 +2703,15 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{cov#}{covariance matrix value}
+#'   \item{cov1}{covariance matrix value}
+#'   \item{cov2}{covariance matrix value}
+#'   \item{cov3}{covariance matrix value}
+#'   \item{cov4}{covariance matrix value}
+#'   \item{cov5}{covariance matrix value}
+#'   \item{cov6}{covariance matrix value}
+#'   \item{cov7}{covariance matrix value}
+#'   \item{cov8}{covariance matrix value}
+#'   \item{cov9}{covariance matrix value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2624,7 +2726,9 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{sd#}{standard deviation value}
+#'   \item{sd1}{standard deviation value}
+#'   \item{sd2}{standard deviation value}
+#'   \item{sd3}{standard deviation value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2640,7 +2744,9 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{sd#}{standard deviation value}
+#'   \item{sd1}{standard deviation value}
+#'   \item{sd2}{standard deviation value}
+#'   \item{sd3}{standard deviation value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2656,7 +2762,9 @@
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{sd#}{standard deviation value}
+#'   \item{sd1}{standard deviation value}
+#'   \item{sd2}{standard deviation value}
+#'   \item{sd3}{standard deviation value}
 #'   ...
 #' }
 #' @source \url{http://bayesact.ca/}
@@ -2774,7 +2882,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2789,7 +2899,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2804,7 +2919,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2819,7 +2939,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2834,7 +2965,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2849,7 +2991,15 @@
 #' @format A data frame with 15 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2864,7 +3014,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2879,7 +3031,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2895,7 +3049,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2910,7 +3066,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2925,7 +3086,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2940,7 +3106,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2955,7 +3132,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2970,7 +3158,15 @@
 #' @format A data frame with 20 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -2985,7 +3181,15 @@
 #' @format A data frame with 20 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3000,7 +3204,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3015,7 +3221,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3031,7 +3239,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3046,7 +3256,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3061,7 +3276,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3076,7 +3296,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3091,7 +3322,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3106,7 +3348,15 @@
 #' @format A data frame with 15 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3121,7 +3371,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3136,7 +3388,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3152,7 +3406,9 @@
 #' @format A data frame with 13 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3167,7 +3423,9 @@
 #' @format A data frame with 13 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3182,7 +3440,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3197,7 +3460,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3212,7 +3480,18 @@
 #' @format A data frame with 29 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3227,7 +3506,18 @@
 #' @format A data frame with 29 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3242,7 +3532,15 @@
 #' @format A data frame with 22 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3257,7 +3555,15 @@
 #' @format A data frame with 25 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3272,7 +3578,9 @@
 #' @format A data frame with 13 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3287,7 +3595,9 @@
 #' @format A data frame with 13 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3303,7 +3613,9 @@
 #' @format A data frame with 11 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3318,7 +3630,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3333,7 +3650,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3348,7 +3670,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3363,7 +3696,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3378,7 +3722,15 @@
 #' @format A data frame with 49 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3393,7 +3745,9 @@
 #' @format A data frame with 11 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3409,7 +3763,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3424,7 +3780,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3439,7 +3800,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3454,7 +3820,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3469,7 +3846,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3484,7 +3872,15 @@
 #' @format A data frame with 14 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3499,7 +3895,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3514,7 +3912,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3530,7 +3930,9 @@
 #' @format A data frame with 10 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3545,7 +3947,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3560,7 +3964,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3575,7 +3984,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3590,7 +4004,18 @@
 #' @format A data frame with 29 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3605,7 +4030,18 @@
 #' @format A data frame with 29 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3620,7 +4056,15 @@
 #' @format A data frame with 14 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3635,7 +4079,15 @@
 #' @format A data frame with 12 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3650,7 +4102,9 @@
 #' @format A data frame with 10 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3665,7 +4119,9 @@
 #' @format A data frame with 9 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3681,7 +4137,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3696,7 +4154,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3711,7 +4174,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3726,7 +4194,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3741,7 +4220,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3756,7 +4246,15 @@
 #' @format A data frame with 16 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3771,7 +4269,15 @@
 #' @format A data frame with 16 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3786,7 +4292,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3802,7 +4310,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3817,7 +4327,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3832,7 +4347,12 @@
 #' @format A data frame with 12 rows (terms) and 7 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3847,7 +4367,18 @@
 #' @format A data frame with 36 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3862,7 +4393,18 @@
 #' @format A data frame with 34 rows (terms) and 13 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
+#'   \item{V11}{equation}
+#'   \item{V12}{equation}
+#'   \item{V13}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3877,7 +4419,15 @@
 #' @format A data frame with 38 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3887,12 +4437,20 @@
 #'
 #' These values are reported as given in Interact. If gender is listed as average, this indicates that for the given study and subset, the values provided in Interact for male and female are identical.
 #'
-#' For more information about available equation files, call eqn_info()
+#' For more information about available equation files, call eqn_info().
 #'
 #' @format A data frame with 38 rows (terms) and 10 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
+#'   \item{V5}{equation}
+#'   \item{V6}{equation}
+#'   \item{V7}{equation}
+#'   \item{V8}{equation}
+#'   \item{V9}{equation}
+#'   \item{V10}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)
@@ -3907,7 +4465,9 @@
 #' @format A data frame with 8 rows (terms) and 4 variables:
 #' \describe{
 #'   \item{V1}{term}
-#'   \item{V2-VN}{equations}
+#'   \item{V2}{equation}
+#'   \item{V3}{equation}
+#'   \item{V4}{equation}
 #'   ...
 #' }
 #' @source Interact (May 2021)

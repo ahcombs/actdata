@@ -7,7 +7,32 @@
 \format{
 A data frame with 1655 rows and 26 variables:
 \describe{
-\item{term}{dictionary term}
+\item{term}{behavior term}
+\item{china1999}{dictionary}
+\item{egypt2015}{dictionary}
+\item{expressive2002}{dictionary}
+\item{gaysex1980}{dictionary}
+\item{germany1989}{dictionary}
+\item{germany2007}{dictionary}
+\item{household1994}{dictionary}
+\item{indiana2003}{dictionary}
+\item{internationaldomesticrelations1981}{dictionary}
+\item{internet1998}{dictionary}
+\item{japan19892002}{dictionary}
+\item{morocco2015}{dictionary}
+\item{nc1978}{dictionary}
+\item{nireland1977}{dictionary}
+\item{ontario1980}{dictionary}
+\item{ontario2001}{dictionary}
+\item{politics2003}{dictionary}
+\item{prisonersdilemma}{dictionary}
+\item{prisonersdilemmaCOV}{dictionary}
+\item{texas1998}{dictionary}
+\item{uga2015}{dictionary}
+\item{uga2015bayesactsubset}{dictionary}
+\item{usfullsurveyor2015}{dictionary}
+\item{usmturk2015}{dictionary}
+\item{usstudent2015}{dictionary}
 ...
 }
 }

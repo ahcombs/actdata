@@ -8,7 +8,9 @@
 A data frame with 11 rows (terms) and 4 variables:
 \describe{
 \item{V1}{term}
-\item{V2-VN}{equations}
+\item{V2}{equation}
+\item{V3}{equation}
+\item{V4}{equation}
 ...
 }
 }

@@ -7,7 +7,14 @@
 \format{
 A data frame with 503 rows and 8 variables:
 \describe{
-\item{term}{dictionary term}
+\item{term}{setting term}
+\item{china1999}{dictionary}
+\item{germany2007}{dictionary}
+\item{indiana2003}{dictionary}
+\item{internet1998}{dictionary}
+\item{japan19892002}{dictionary}
+\item{nc1978}{dictionary}
+\item{ontario2001}{dictionary}
 ...
 }
 }

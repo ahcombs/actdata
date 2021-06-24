@@ -11,7 +11,9 @@ A data frame with 815 rows and 7 variables:
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
 \item{A}{activity mean value}
-\item{sd#}{standard deviation value}
+\item{sd1}{standard deviation value}
+\item{sd2}{standard deviation value}
+\item{sd3}{standard deviation value}
 ...
 }
 }

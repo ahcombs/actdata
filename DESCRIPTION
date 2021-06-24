@@ -8,8 +8,7 @@ Authors@R:
            email = "aidan.combs@duke.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This package contains all affect control theory dictionary and equation datasets that have been made public (as of June 2021), including their metadata. 
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -17,8 +16,11 @@ RoxygenNote: 7.1.1
 Imports: 
     dplyr,
     magrittr,
+    methods,
+    rlang,
     stringr,
-    tidyselect
+    tidyselect,
+    utils
 Depends: 
     R (>= 2.10)
 Suggests: 

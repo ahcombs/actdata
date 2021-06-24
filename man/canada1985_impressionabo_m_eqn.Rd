@@ -8,7 +8,15 @@
 A data frame with 38 rows (terms) and 10 variables:
 \describe{
 \item{V1}{term}
-\item{V2-VN}{equations}
+\item{V2}{equation}
+\item{V3}{equation}
+\item{V4}{equation}
+\item{V5}{equation}
+\item{V6}{equation}
+\item{V7}{equation}
+\item{V8}{equation}
+\item{V9}{equation}
+\item{V10}{equation}
 ...
 }
 }
@@ -22,6 +30,6 @@ canada1985_impressionabo_m_eqn
 These values are reported as given in Interact. If gender is listed as average, this indicates that for the given study and subset, the values provided in Interact for male and female are identical.
 }
 \details{
-For more information about available equation files, call eqn_info()
+For more information about available equation files, call eqn_info().
 }
 \keyword{datasets}

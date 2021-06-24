@@ -8,7 +8,15 @@
 A data frame with 38 rows (terms) and 10 variables:
 \describe{
 \item{V1}{term}
-\item{V2-VN}{equations}
+\item{V2}{equation}
+\item{V3}{equation}
+\item{V4}{equation}
+\item{V5}{equation}
+\item{V6}{equation}
+\item{V7}{equation}
+\item{V8}{equation}
+\item{V9}{equation}
+\item{V10}{equation}
 ...
 }
 }

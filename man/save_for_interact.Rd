@@ -17,9 +17,6 @@ save_for_interact(
 
 \item{filename}{string the filepath at which to save (must end in .txt)}
 }
-\value{
-
-}
 \description{
 Saves dictionary and equation files in a format that can be directly copy/pasted into Interact.
 This may be useful for easily creating subsets of data to use in Interact or for importing dictionaries that are not already included.

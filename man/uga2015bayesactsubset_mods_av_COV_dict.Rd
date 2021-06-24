@@ -11,7 +11,15 @@ A data frame with 658 rows and 13 variables:
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
 \item{A}{activity mean value}
-\item{cov#}{covariance matrix value}
+\item{cov1}{covariance matrix value}
+\item{cov2}{covariance matrix value}
+\item{cov3}{covariance matrix value}
+\item{cov4}{covariance matrix value}
+\item{cov5}{covariance matrix value}
+\item{cov6}{covariance matrix value}
+\item{cov7}{covariance matrix value}
+\item{cov8}{covariance matrix value}
+\item{cov9}{covariance matrix value}
 ...
 }
 }
