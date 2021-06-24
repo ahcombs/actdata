@@ -22,7 +22,7 @@ The Tidyverse makes it easy to create new combinations or subsets of these dicti
 
 Say we are interested in comparing changes in evaluation ratings for identities over time in whatever countries possible. First, we look through the available dictionaries to pick ones to use: 
 
-```r
+```{r}
 dict_info()
 ```
 

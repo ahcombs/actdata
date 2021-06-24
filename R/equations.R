@@ -1,3 +1,52 @@
+#' Equation class
+#'
+#' @slot key character.
+#' @slot genders vector.
+#' @slot filetype character.
+#' @slot source character.
+#' @slot description character.
+#' @slot citation character.
+#'
+#' @return a new object
+methods::setClass("equation",
+                  slots = list(
+                    key = "character",
+                    genders = "vector",
+                    filetype = "character",
+                    source = "character",
+                    description = "character",
+                    citation = "character"))
+
+
+#' Initializer for the equation class
+#'
+#' @param equation equation object
+#'
+#' @param .Object equation object (self)
+#' @param key equation set name
+#' @param genders available genders
+#' @param filetype original source filetype
+#' @param source where data came from
+#' @param description description provided for data
+#' @param citation citation provided for data
+setMethod(f = "initialize", signature = "equation",
+          definition = function(.Object,
+                                key = NA_character_,
+                                genders = c("male", "female"),
+                                filetype = ".dat",
+                                source = "Interact 2.1 (May 2021)",
+                                description = "unknown",
+                                citation = "unknown"){
+            .Object@key <- key
+            .Object@genders <- genders
+            .Object@filetype <- filetype
+            .Object@source <- source
+            .Object@description <- description
+            .Object@citation <- citation
+            return(.Object)
+          }
+)
+
 #' Get equation information
 #'
 #' Return metadata for all available equations as a list of equation objects

@@ -205,4 +205,4 @@ dataset). All filepaths must end in .txt.
 ## Working within and across dictionaries: an example using the Tidyverse
 
 To see an example of working with the dictionaries included in this
-package, see the included vignette.
+package, see the included [vignette](tidyversesubsetexample.html).

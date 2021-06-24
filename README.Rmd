@@ -103,4 +103,4 @@ The `save_for_interact(data, type, filename)` function in this package makes it 
 
 ## Working within and across dictionaries: an example using the Tidyverse
 
-To see an example of working with the dictionaries included in this package, see the included vignette.
+To see an example of working with the dictionaries included in this package, see the included [vignette](tidyversesubsetexample.html).
