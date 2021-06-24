@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 This package is intended to be a repository for standarized versions of all publicly released affect control theory dictionaries and equations. These datasets are currently stored in several different places and in several different formats. Standardizing them and providing them together in one R package is intended to make them easier to access and make part of a reproducible analysis workflow.
 
-Details on standarization procedures for dictionaries and equation sets as well as instructions for how to access the data in this package are provided below. 
+Details on standarization procedures for dictionaries and equation sets, instructions for how to access the data in this package, and a worked example using the Tidyverse to manipulate these datasets are provided below. 
 
 ## Installation
 
@@ -71,10 +71,10 @@ To facilitate comparisons between dictionaries, the terms in all have been trans
 
 One of the main goals of this package is to make it easy to compare across dictionaries. To this end, the package provides four *term tables* that show at a glance which terms are included in which dictionaries. There is one table for each component (identities, behaviors, modifiers, settings). Load these tables into your environment using: 
 
-    * `data("term_table_ident")`
-    * `data("term_table_beh")`
-    * `data("term_table_mod")`
-    * `data("term_table_set")`
+    `data("term_table_ident")`
+    `data("term_table_beh")`
+    `data("term_table_mod")`
+    `data("term_table_set")`
     
 Each column in these tables represents a dictionary (labeled with its key) and each row is a term. Cell entries (0/1) indicate whether or not the specified dictionary has the specified term. These tables can easily be modified further to generate summaries across a set of dictionaries of interest. 
 
@@ -130,13 +130,13 @@ data(term_table_ident)
 term_table_short <- term_table_ident %>% 
   # we only need the columns for our chosen dictionaries
   select(term, nc1978, texas1998, usfullsurveyor2015, ontario1980, ontario2001, germany1989, germany2007) %>% 
-  # filter to those terms present in all five datasets
+  # filter to those terms present in all chosen dictionaries
   filter(nc1978 + texas1998 + usfullsurveyor2015 + ontario1980 + ontario2001 + germany2007 + germany1989 == 7)
 
 head(term_table_short)
 ```
 
-We now have a list of the `length(term_table_short)` identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
+We now have a list of the `{r} length(term_table_short)` identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
 
 ```{r}
 # there are many valid ways to join datasets together. Here I will use the inner_join function from the dplyr package. 
@@ -194,4 +194,3 @@ library(ggplot2)
 ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term, color = place)) +
   geom_line(alpha = .7)
 ```
-

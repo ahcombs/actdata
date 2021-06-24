@@ -14,9 +14,10 @@ several different formats. Standardizing them and providing them
 together in one R package is intended to make them easier to access and
 make part of a reproducible analysis workflow.
 
-Details on standarization procedures for dictionaries and equation sets
-as well as instructions for how to access the data in this package are
-provided below.
+Details on standarization procedures for dictionaries and equation sets,
+instructions for how to access the data in this package, and a worked
+example using the Tidyverse to manipulate these datasets are provided
+below.
 
 ## Installation
 
@@ -135,10 +136,10 @@ dictionaries. There is one table for each component (identities,
 behaviors, modifiers, settings). Load these tables into your environment
 using:
 
-    * `data("term_table_ident")`
-    * `data("term_table_beh")`
-    * `data("term_table_mod")`
-    * `data("term_table_set")`
+    `data("term_table_ident")`
+    `data("term_table_beh")`
+    `data("term_table_mod")`
+    `data("term_table_set")`
 
 Each column in these tables represents a dictionary (labeled with its
 key) and each row is a term. Cell entries (0/1) indicate whether or not
@@ -465,7 +466,7 @@ data(term_table_ident)
 term_table_short <- term_table_ident %>% 
   # we only need the columns for our chosen dictionaries
   select(term, nc1978, texas1998, usfullsurveyor2015, ontario1980, ontario2001, germany1989, germany2007) %>% 
-  # filter to those terms present in all five datasets
+  # filter to those terms present in all chosen dictionaries
   filter(nc1978 + texas1998 + usfullsurveyor2015 + ontario1980 + ontario2001 + germany2007 + germany1989 == 7)
 
 head(term_table_short)
@@ -485,10 +486,10 @@ head(term_table_short)
 #> 6           1           1
 ```
 
-We now have a list of the `length(term_table_short)` identities included
-in all seven dictionaries. Now we need the evaluation values for these
-terms. These are located in the dictionary objects. I will use the
-gender averaged datasets here.
+We now have a list of the `{r} length(term_table_short)` identities
+included in all seven dictionaries. Now we need the evaluation values
+for these terms. These are located in the dictionary objects. I will use
+the gender averaged datasets here.
 
 ``` r
 # there are many valid ways to join datasets together. Here I will use the inner_join function from the dplyr package. 
