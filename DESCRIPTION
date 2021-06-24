@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aidan.combs@duke.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package contains all Affect Control Theory dictionary and equation datasets that have been made public (as of June 2021), including their metadata. It also contains helper functions for listing, comparing, and subsetting datasets.
+Description: This package contains all affect control theory dictionary and equation datasets that have been made public (as of June 2021), including their metadata. 
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
@@ -21,3 +21,9 @@ Imports:
     tidyselect
 Depends: 
     R (>= 2.10)
+Suggests: 
+    rmarkdown,
+    knitr,
+    tidyr,
+    ggplot2
+VignetteBuilder: knitr

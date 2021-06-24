@@ -202,6 +202,7 @@ dict_info <- function(name = NA){
         paste("Description:", thisdict@description),
         paste("Components:", paste(unlist(thisdict@components), collapse = ', ')),
         paste("Genders:", paste(unlist(thisdict@genders), collapse = ', ')),
+        paste("Types:", paste(unlist(thisdict@types), collapse = ', ')),
         paste("Source:", thisdict@source),
         paste("Citation:", thisdict@citation),
         sep = "\n"
@@ -216,6 +217,7 @@ dict_info <- function(name = NA){
           paste("Description:", d@description),
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
           paste("Genders:", paste(unlist(d@genders), collapse = ', ')),
+          paste("Types:", paste(unlist(thisdict@types), collapse = ', ')),
           paste("Source:", d@source),
           paste("Citation:", d@citation),
           sep = "\n"
