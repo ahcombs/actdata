@@ -37,7 +37,7 @@ This package makes available 25 affect control theory dictionaries that have bee
 
 To see details--including descriptions and citation information--for the dictionaries available, call `dict_info()`. Include a dictionary key as an argument to see information for just that dictionary: 
 
-```r
+```{r}
 library(actdata)
 dict_info("nc1978")
 ```
@@ -103,4 +103,86 @@ The `save_for_interact(data, type, filename)` function in this package makes it 
 
 ## Working within and across dictionaries: an example using the Tidyverse
 
-To see an example of working with the dictionaries included in this package, see the included [vignette](tidyversesubsetexample.html).
+The Tidyverse makes it easy to create new combinations or subsets of these dictionaries in a way that is completely replicable, and to visualize quantities of interest over time and/or across countries. An example of how these data sets can be used along with `dplyr`, `tidyr`, and `ggplot` is included below.
+
+Say we are interested in comparing changes in evaluation ratings for identities over time in whatever countries possible. First, we look through the available dictionaries to pick ones to use: 
+
+```{r}
+dict_info()
+```
+
+The three countries in which multiple dictionaries have been collected are the U.S., Canada, and Germany. We choose three U.S. dictionaries (nc1978, texas1998, and usfullsurveyor2015), two Canadian dictionaries (ontario1980 and ontario2001), and two German dictionaries (germany1989 and germany2007). Now we need to find the identity terms that are in all seven dictionaries. The term table is useful to quickly get a first look at this.
+
+```{r}
+library(dplyr)
+
+data(term_table_ident)
+
+term_table_short <- term_table_ident %>% 
+  # we only need the columns for our chosen dictionaries
+  select(term, nc1978, texas1998, usfullsurveyor2015, ontario1980, ontario2001, germany1989, germany2007) %>% 
+  # filter to those terms present in all five datasets
+  filter(nc1978 + texas1998 + usfullsurveyor2015 + ontario1980 + ontario2001 + germany2007 + germany1989 == 7)
+
+head(term_table_short)
+```
+
+We now have a list of the `length(term_table_short)` identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
+
+```{r}
+# there are many valid ways to join datasets together. Here I will use the inner_join function from the dplyr package. 
+
+# load dictionaries into the global environment
+data("nc1978_identities_av_dict")
+data("texas1998_identities_av_dict")
+data("usfullsurveyor2015_identities_av_dict")
+data("ontario1980_identities_av_dict")
+data("ontario2001_identities_av_dict")
+data("germany1989_identities_av_dict")
+data("germany2007_identities_av_dict")
+
+
+# we don't actually need the modified term table we created to generate this subset--inner_join will do the filtering for us. However, it is useful for seeing quickly which terms are in which sets without having to load and manipulate the actual dictionaries. 
+identity_subset <- inner_join(nc1978_identities_av_dict, texas1998_identities_av_dict, by = 'term', suffix = c("", ".texas1998")) %>% 
+  inner_join(usfullsurveyor2015_identities_av_dict, by = 'term', suffix = c("", ".usfullsurveyor2015")) %>% 
+  inner_join(ontario1980_identities_av_dict, by = 'term', suffix = c("", ".ontario1980")) %>% 
+  inner_join(germany1989_identities_av_dict, by = 'term', suffix = c("", ".germany1989")) %>% 
+  inner_join(germany2007_identities_av_dict, by = 'term', suffix = c("", ".germany2007")) %>% 
+  inner_join(ontario2001_identities_av_dict, by = 'term', suffix = c(".nc1978", ".ontario2001")) %>% 
+  # we only need the term column and evaluation columns
+  select(term, starts_with("E"))
+
+# Note that this data frame is longer (115 rows) than the list of identity terms in all datasets (114 rows). This is because there are multiple entries for some terms in some dictionaries (see "clown"). This is not an error in the package but rather a quirk of the original data. 
+
+head(identity_subset)
+```
+
+Now we have a dataframe that contains just the evaluation values for the terms that the five dictionaries share. For visualization purposes, we will transform this dataframe from wide to long using `pivot_longer` from the tidyr package and cut it down to a manageable number of identities by filtering for those that are very positive (E > 2), very negative (E < -2) or neutral (-.15 < E < .15). We will also add in a column for year and a column for country, to aid visualization. 
+
+```{r}
+library(tidyr)
+identity_subset_toplot <- identity_subset %>% 
+  # base filtering on nc1978
+  filter(E.nc1978 > 2 |
+           E.nc1978 < -2 |
+           (E.nc1978 > -.15 & E.nc1978 < .15)) %>%
+  pivot_longer(starts_with('E'), 
+               names_to = c('place', 'year'), 
+               names_prefix = "E\\.", 
+               names_sep = -4,
+               values_to = "Evaluation") %>% 
+  mutate(place = case_when(place %in% c("texas", "nc", "usfullsurveyor") ~ "US",
+                           place == 'germany' ~ "Germany", 
+                           TRUE ~ "Canada"),
+         term = paste0(term, "_", place),
+         year = as.numeric(year))
+```
+
+Now we can plot this using ggplot.
+
+```{r}
+library(ggplot2)
+ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term, color = place)) +
+  geom_line(alpha = .7)
+```
+
