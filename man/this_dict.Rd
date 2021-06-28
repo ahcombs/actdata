@@ -17,4 +17,3 @@ dictionary object
 \description{
 Extracts metadata object for a single dictionary or equation of a given name from the master list
 }
-\keyword{internal}

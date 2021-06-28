@@ -51,7 +51,7 @@ eqn_subset <- function(eqns, gender = NA){
 #' @param class string (\code{"equation"} or \code{"dictionary"})
 #'
 #' @return dictionary object
-#' @keywords internal
+#' @export
 this_dict <- function(name, class = 'dictionary'){
   if(class == 'dictionary'){
     dicts <- get_dicts()
