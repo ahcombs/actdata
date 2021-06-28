@@ -50,18 +50,14 @@ Dictionary datasets are named according to the following format:
 
 * *Key* is an identifier unique to a particular study (e.g. `nc1978`; `morocco2015`). Call `dict_info()` to see the keys for the provided datasets. 
 * *Component* indicates what kind of terms are included in the dictionary dataset. Typically, studies provide dictionary datasets with more than one component, but not all studies provide all possible components. Components include: 
-    * *identities*
-        : Words that describe actors. Typically nouns (e.g. academic, woman, youngster)
-    * *behaviors*
-        : Actions that actors can perform. Typically verbs (e.g. wheedle, acclaim, work)
-    * *mods*
-        : Modifiers. Typically adjectives that can be applied to identities (e.g. active, witty, young)
-    * *settings*
-        : Places and situations (e.g. airplane, alley, worship_service)
+    * *identities*: Words that describe actors. Typically nouns (e.g. academic, woman, youngster)
+    * *behaviors*: Actions that actors can perform. Typically verbs (e.g. wheedle, acclaim, work)
+    * *mods*: Modifiers. Typically adjectives that can be applied to identities (e.g. active, witty, young)
+    * *settings*: Places and situations (e.g. airplane, alley, worship_service)
 * *Gender* indicates the gender of the participants who rated the terms. Options are `m`, `f`, and `av`. Av (average) indicates that participants of all genders were included, though the way this is calculated differs slightly by dictionary. Some dictionaries (e.g. the 2015 US, Morocco, and Egypt dictionaries) are originally published as average values over raters of all genders. In these cases, `av` is the only provided option. Other dictionaries are originally published in male and female subsets. Average values over all raters are not provided in these originally published sets. In this case, the package calculates an approximate average by averaging the male and female values. Typically, studies recruit approximately equal numbers of men and women and men and women's ratings do not differ substantially on most terms, so we expect these approximate average values to be reasonably close to those that we would obtain from an average over all raters. For these dictionaries that provide male and female subsets separately, the package provides male, female, and approximate average versions. For more information on gender and affect control theory dictionaries, see section 4.1 of David Heise's *Expressive Order* (2007). 
 * *Datatype* is used when the desired dictionary provides variance information in addition to mean values. Most research in the affect control theory tradition to date has only utilized mean evaluation, potency, and activity values, and most dictionaries provide only means. However, BayesACT, a recent expansion of affect control theory, makes it possible to use variance information around these means (see Schröder, Hoey, and Rogers's 2016 American Sociological Review publication for description of BayesACT). This package currently includes one dictionary  (uga2015bayesactsubset) with standard deviation and covariance matrix data. The datasets corresponding to this dictionary include `SD` or `COV` in the `datatype` slot, depending on whether they include standard deviation or covariance matrix values. For all other dictionaries, which include means only, leave this slot empty. 
 
-Load data sets using `data()` with the desired data set name as the argument. See information on the structure and size of each data set using `?`.
+See information on the structure and size of each data set using `?`. Load data sets into your environment using `data()` with the desired data set name as the argument (e.g., `data("egypt2015_identities_av_dict")`).
 
 ### Term standardization
 
@@ -69,12 +65,14 @@ To facilitate comparisons between dictionaries, the terms in all have been trans
 
 ### Term tables
 
-One of the main goals of this package is to make it easy to compare across dictionaries. To this end, the package provides four *term tables* that show at a glance which terms are included in which dictionaries. There is one table for each component (identities, behaviors, modifiers, settings). Load these tables into your environment using: 
+One of the main goals of this package is to make it easy to compare across dictionaries. To this end, the package provides four *term tables* that show at a glance which terms are included in which dictionaries. There is one table for each component (identities, behaviors, modifiers, settings). Load these tables into your environment using `data()`: 
 
-    `data("term_table_ident")`
-    `data("term_table_beh")`
-    `data("term_table_mod")`
-    `data("term_table_set")`
+```{r eval = FALSE}
+data("term_table_ident")
+data("term_table_beh")
+data("term_table_mod")
+data("term_table_set")
+```
     
 Each column in these tables represents a dictionary (labeled with its key) and each row is a term. Cell entries (0/1) indicate whether or not the specified dictionary has the specified term. These tables can easily be modified further to generate summaries across a set of dictionaries of interest. 
 
@@ -114,9 +112,9 @@ The `save_for_interact(data, type, filename)` function in this package makes it 
 
 The Tidyverse makes it easy to create new combinations or subsets of these dictionaries in a way that is completely replicable, and to visualize quantities of interest over time and/or across countries. An example of how these data sets can be used along with `dplyr`, `tidyr`, and `ggplot` is included below.
 
-Say we are interested in comparing changes in evaluation ratings for identities over time in whatever countries possible. First, we look through the available dictionaries to pick ones to use: 
+Say we are interested in comparing changes in evaluation ratings for identities over time in whatever countries possible. First, we look through the available dictionaries to pick ones to use using `dict_info()` (this produces lengthy output that is not duplicated here): 
 
-```{r}
+```{r eval=FALSE}
 dict_info()
 ```
 
@@ -136,7 +134,7 @@ term_table_short <- term_table_ident %>%
 head(term_table_short)
 ```
 
-We now have a list of the `{r} length(term_table_short)` identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
+We now have a list of the `r length(term_table_short)` identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
 
 ```{r}
 # there are many valid ways to join datasets together. Here I will use the inner_join function from the dplyr package. 
@@ -166,15 +164,16 @@ identity_subset <- inner_join(nc1978_identities_av_dict, texas1998_identities_av
 head(identity_subset)
 ```
 
-Now we have a dataframe that contains just the evaluation values for the terms that the five dictionaries share. For visualization purposes, we will transform this dataframe from wide to long using `pivot_longer` from the tidyr package and cut it down to a manageable number of identities by filtering for those that are very positive (E > 2), very negative (E < -2) or neutral (-.15 < E < .15). We will also add in a column for year and a column for country, to aid visualization. 
+Now we have a dataframe that contains just the evaluation values for the terms that the five dictionaries share. For visualization purposes, we will transform this dataframe from wide to long using `pivot_longer()` from the tidyr package. We will also randomly select three terms to visualize.
 
 ```{r}
 library(tidyr)
+
+set.seed(6)
+random_terms <- data.frame(term = sample(identity_subset$term, 3))
+
 identity_subset_toplot <- identity_subset %>% 
-  # base filtering on nc1978
-  filter(E.nc1978 > 2 |
-           E.nc1978 < -2 |
-           (E.nc1978 > -.15 & E.nc1978 < .15)) %>%
+  semi_join(random_terms, by = "term") %>% 
   pivot_longer(starts_with('E'), 
                names_to = c('place', 'year'), 
                names_prefix = "E\\.", 
@@ -183,7 +182,7 @@ identity_subset_toplot <- identity_subset %>%
   mutate(place = case_when(place %in% c("texas", "nc", "usfullsurveyor") ~ "US",
                            place == 'germany' ~ "Germany", 
                            TRUE ~ "Canada"),
-         term = paste0(term, "_", place),
+         term_place = paste0(term, "_", place),
          year = as.numeric(year))
 ```
 
@@ -191,6 +190,30 @@ Now we can plot this using ggplot.
 
 ```{r}
 library(ggplot2)
-ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term, color = place)) +
-  geom_line(alpha = .7)
+ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term_place, color = place, shape = term)) +
+  geom_point(size = 2.5) +
+  geom_line(alpha = .5)
 ```
+Perhaps unsurprisingly, the term "god" is rated as very good and "bill_collector" is rated modestly bad, and these ratings are relatively stable across time in the three countries. "Homosexual" rises substantially in evaluation in both the U.S. and Canada and rises modestly in Germany, ending at roughly the same score in the three countries. The rise in Canada appears to occur before the rise in the US. It is not hard to imagine how this may have been driven by social change in these countries during this time period.
+
+How are meanings changing overall? We can calculate meaning change summary statistics to get a better sense of this:
+
+```{r}
+eval_change <- identity_subset %>% 
+  mutate(change.US = E.usfullsurveyor2015 - E.nc1978,
+         change.Germany = E.germany2007 - E.germany1989,
+         change.Canada = E.ontario2001 - E.ontario1980) 
+
+summary(select(eval_change, starts_with("change")))
+```
+
+Mean and median change for all three countries are close to 0, suggesting broad stability in cultural meanings over time, but in all three datasets there are terms which change meaning substantially. Let's find the terms that have undergone large changes in evaluation in at least one of the countries:
+
+```{r}
+eval_change_substantial <- eval_change %>% 
+  filter(abs(change.US) > 1 | abs(change.Germany) > 1 | abs(change.Canada) > 1)
+
+head(eval_change_substantial)
+```
+
+This kind of cross-data set analysis can serve as a useful start point to a study.
