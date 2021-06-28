@@ -64,13 +64,13 @@ Dictionary datasets are named according to the following format:
     dictionary dataset. Typically, studies provide dictionary datasets
     with more than one component, but not all studies provide all
     possible components. Components include:
-      - *identities*: Words that describe actors. Typically nouns
+      - *identities:* Words that describe actors. Typically nouns
         (e.g. academic, woman, youngster)
-      - *behaviors*: Actions that actors can perform. Typically verbs
+      - *behaviors:* Actions that actors can perform. Typically verbs
         (e.g. wheedle, acclaim, work)
-      - *mods*: Modifiers. Typically adjectives that can be applied to
+      - *mods:* Modifiers. Typically adjectives that can be applied to
         identities (e.g. active, witty, young)
-      - *settings*: Places and situations (e.g. airplane, alley,
+      - *settings:* Places and situations (e.g. airplane, alley,
         worship\_service)
   - *Gender* indicates the gender of the participants who rated the
     terms. Options are `m`, `f`, and `av`. Av (average) indicates that
@@ -170,26 +170,18 @@ The equation datasets are named according to the following convention:
     following components are possible (more information on each is
     available in section 18.2 of David Heise’s *Expressive Order*
     (2007)).
-      -   - *impressionabo*  
-            Impression change equations including actor, behavior, and
-            object terms
-    
-      -   - *impressionabos*  
-            Impression change equations including actor, behavior,
-            object, and setting terms
-    
-      -   - *selfdir*  
-            Equations for self-directed action, including actor and
-            behavior terms.
-    
-      -   - *traitid*  
-            Equations for combining a trait modifier with an identity.
-            In some datasets, this set is the same as the emotionid set.
-    
-      -   - *emotionid*  
-            Equations for combining an emotion modifier with an
-            identity. In some datasets, this set is the same as the
-            traitid set.
+      - *impressionabo:* Impression change equations including actor,
+        behavior, and object terms
+      - *impressionabos:* Impression change equations including actor,
+        behavior, object, and setting terms
+      - *selfdir:* Equations for self-directed action, including actor
+        and behavior terms.
+      - *traitid:* Equations for combining a trait modifier with an
+        identity. In some datasets, this set is the same as the
+        emotionid set.
+      - *emotionid:* Equations for combining an emotion modifier with an
+        identity. In some datasets, this set is the same as the traitid
+        set.
   - *Gender* indicates the gender of study participants whose ratings
     are used to estimate the equation coefficients. Options are `m`,
     `f`, and `av`. Call `dict_info()` to check which genders are
@@ -232,8 +224,9 @@ and `ggplot` is included below.
 Say we are interested in comparing changes in evaluation ratings for
 identities over time in whatever countries possible. First, we look
 through the available dictionaries to pick ones to use using
-`dict_info()` (this produces lengthy output that is not duplicated
-here):
+`dict_info()`. This produces lengthy output that is not duplicated here,
+but users are encouraged to run this command to see the full list of
+available dictionaries.
 
 ``` r
 dict_info()
@@ -283,7 +276,7 @@ head(term_table_short)
 #> 6           1           1
 ```
 
-We now have a list of the 8 identities included in all seven
+We now have a list of the 114 identities included in all seven
 dictionaries. Now we need the evaluation values for these terms. These
 are located in the dictionary objects. I will use the gender averaged
 datasets here.
@@ -363,9 +356,9 @@ ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term_place,
 ```
 
 <img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
-Perhaps unsurprisingly, the term “god” is rated as very good and
-“bill\_collector” is rated modestly bad, and these ratings are
-relatively stable across time in the three countries. “Homosexual” rises
+Perhaps unsurprisingly, the term “god” is rated as very good and “bill
+collector” is rated modestly bad, and these ratings are relatively
+stable across time in the three countries. “Homosexual” rises
 substantially in evaluation in both the U.S. and Canada and rises
 modestly in Germany, ending at roughly the same score in the three
 countries. The rise in Canada appears to occur before the rise in the
@@ -401,19 +394,17 @@ least one of the countries:
 eval_change_substantial <- eval_change %>% 
   filter(abs(change.US) > 1 | abs(change.Germany) > 1 | abs(change.Canada) > 1)
 
-head(eval_change_substantial)
-#> # A tibble: 6 x 11
+head(select(eval_change_substantial, term, starts_with("change")))
+#> # A tibble: 6 x 4
 #> # Rowwise: 
-#>   term      E.nc1978 E.texas1998 E.usfullsurveyor20… E.ontario1980 E.germany1989
-#>   <chr>        <dbl>       <dbl>               <dbl>         <dbl>         <dbl>
-#> 1 academic     0.975       1.83                 2.34          1.38         0.81 
-#> 2 adulterer   -1.80       -2.77                -2.98         -1.92        -1.6  
-#> 3 authority    0.695       0.305                0.7           0.5         -0.085
-#> 4 baby         2.46        2.96                 2.5           1.78         2.37 
-#> 5 burglar     -2.22       -2.92                -3.37         -2.29        -2.84 
-#> 6 champion     1.28        1.98                 2.36          1.50         0.925
-#> # … with 5 more variables: E.germany2007 <dbl>, E.ontario2001 <dbl>,
-#> #   change.US <dbl>, change.Germany <dbl>, change.Canada <dbl>
+#>   term      change.US change.Germany change.Canada
+#>   <chr>         <dbl>          <dbl>         <dbl>
+#> 1 academic    1.36             0.795         0.26 
+#> 2 adulterer  -1.18            -0.86         -0.395
+#> 3 authority   0.00500         -1.82         -0.21 
+#> 4 baby        0.0400           0.295         1.02 
+#> 5 burglar    -1.16            -0.525        -0.145
+#> 6 champion    1.08             0.62          0.265
 ```
 
 This kind of cross-data set analysis can serve as a useful start point
