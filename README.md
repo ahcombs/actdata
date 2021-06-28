@@ -191,14 +191,25 @@ The equation datasets are named according to the following convention:
         set.
   - *Gender* indicates the gender of study participants whose ratings
     are used to estimate the equation coefficients. Options are `m`,
-    `f`, and `av`. Call `dict_info()` to check which genders are
-    available for which dictionaries. Interact, from which all of these
-    equation sets were originally taken, provides male and
-    female-labeled sets for each equation. However, sometimes these sets
-    are identical. In this case, this package simply labels the set as
-    `av` rather than including it twice. All values are provided exactly
-    as they are in Interact–no post-hoc calculations have been
-    performed.
+    `f`, and `av`. Call `eqn_info()` (optionally, with a specific
+    equation key as an argument) to check which components are specified
+    for which genders. Unlike with dictionary files, where all
+    components within a dictionary are available for the same set of
+    genders, the available genders for equation sets vary by component.
+    Interact, from which all of these equation sets were originally
+    taken, provides male and female-labeled sets for each equation.
+    However, sometimes these sets are identical. In this case, this
+    package simply labels the component of the set as `av` rather than
+    including it twice. All values are provided exactly as they are in
+    Interact–no post-hoc calculations have been performed.
+
+<!-- end list -->
+
+``` r
+eqn_info("us2010")
+#> Equation set name: us2010
+#> Component genders: impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f, selfdir_m, traitid_av, emotionid_f, emotionid_m
+```
 
 ## Writing files for Interact
 
@@ -362,7 +373,7 @@ ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term_place,
   geom_line(alpha = .5)
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 Perhaps unsurprisingly, the term “god” is rated as very good and “bill
 collector” is rated modestly bad, and these ratings are relatively
 stable across time in the three countries. “Homosexual” rises

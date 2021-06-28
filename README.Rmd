@@ -94,7 +94,12 @@ The equation datasets are named according to the following convention:
     * *selfdir:* Equations for self-directed action, including actor and behavior terms.
     * *traitid:* Equations for combining a trait modifier with an identity. In some datasets, this set is the same as the emotionid set.
     * *emotionid:* Equations for combining an emotion modifier with an identity. In some datasets, this set is the same as the traitid set.
-* *Gender* indicates the gender of study participants whose ratings are used to estimate the equation coefficients. Options are `m`, `f`, and `av`. Call `dict_info()` to check which genders are available for which dictionaries. Interact, from which all of these equation sets were originally taken, provides male and female-labeled sets for each equation. However, sometimes these sets are identical. In this case, this package simply labels the set as `av` rather than including it twice. All values are provided exactly as they are in Interact--no post-hoc calculations have been performed. 
+* *Gender* indicates the gender of study participants whose ratings are used to estimate the equation coefficients. Options are `m`, `f`, and `av`. Call `eqn_info()` (optionally, with a specific equation key as an argument) to check which components are specified for which genders. Unlike with dictionary files, where all components within a dictionary are available for the same set of genders, the available genders for equation sets vary by component. Interact, from which all of these equation sets were originally taken, provides male and female-labeled sets for each equation. However, sometimes these sets are identical. In this case, this package simply labels the component of the set as `av` rather than including it twice. All values are provided exactly as they are in Interact--no post-hoc calculations have been performed.
+
+```{r}
+eqn_info("us2010")
+```
+
 
 ## Writing files for Interact
 
