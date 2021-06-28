@@ -9,10 +9,13 @@
 
 This package is intended to be a repository for standarized versions of
 all publicly released affect control theory dictionaries and equations.
-These datasets are currently stored in several different places and in
-several different formats. Standardizing them and providing them
-together in one R package is intended to make them easier to access and
-make part of a reproducible analysis workflow.
+Currently, this includes 25 culture and subculture dictionaries and 9
+equation sets that span nearly 45 years and multiple cultures around the
+world. These datasets are currently stored in several different places
+and in several different formats. There is no one resource that provides
+them all. Standardizing them and providing them together in one R
+package is intended to make them easier to access and make part of a
+reproducible analysis workflow.
 
 Details on standarization procedures for dictionaries and equation sets,
 instructions for how to access the data in this package, and a worked
@@ -31,10 +34,6 @@ devtools::install_github("ahcombs/actdata")
 
 ## Dictionaries
 
-This package makes available 25 affect control theory dictionaries that
-have been publicly released. These dictionaries span nearly 45 years and
-have been collected in many locations around the world.
-
 To see details–including descriptions and citation information–for the
 dictionaries available, call `dict_info()`. Include a dictionary key as
 an argument to see information for just that dictionary:
@@ -49,6 +48,14 @@ dict_info("nc1978")
 #> Types: mean
 #> Source: Interact 2.1 beta (May 2021)
 #> Citation: Smith-Lovin, Lynn, and David R. Heise. Mean Affective Ratings of 2,106 Concepts by University of North Carolina Undergraduates in 1978 [Computer file]. Distributed at Affect Control Theory Website, Program Interact <http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html>, 2006.
+dict_info("politics2003")
+#> Dictionary: politics2003
+#> Description: This set of concepts - developed by Kyle Irwin at the University of Missouri-St. Louis - was rated by 47 male and 74 female college students in 2003.
+#> Components: behaviors, identities
+#> Genders: male, female, av
+#> Types: mean
+#> Source: https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm
+#> Citation: unknown
 ```
 
 ### Naming convention
