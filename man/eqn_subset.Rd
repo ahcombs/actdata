@@ -4,12 +4,12 @@
 \alias{eqn_subset}
 \title{Equation subset}
 \usage{
-eqn_subset(eqns, gender = NA)
+eqn_subset(eqns, gendercomponent = NA)
 }
 \arguments{
 \item{eqns}{list of equation objects}
 
-\item{gender}{string}
+\item{gendercomponent}{string}
 }
 \value{
 list of equation keys

@@ -26,15 +26,15 @@ dict_subset <- function(dicts, type = NA, component = NA){
 #' Extracts the keys of equations, optionally subsetted by gender
 #'
 #' @param eqns list of equation objects
-#' @param gender string
+#' @param gendercomponent string
 #'
 #' @return list of equation keys
 #' @export
-eqn_subset <- function(eqns, gender = NA){
+eqn_subset <- function(eqns, gendercomponent = NA){
   names <- c()
-  # subset by gender available
+  # subset by component/gender available
   for(eqn in eqns){
-    if(gender %in% eqn@gender | is.na(gender)){
+    if(gendercomponent %in% eqn@gendercomponents | is.na(gendercomponent)){
       names <- append(names, eqn@key)
     }
   }
