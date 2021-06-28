@@ -7,7 +7,9 @@
 \S4method{initialize}{equation}(
   .Object,
   key = NA_character_,
-  genders = c("male", "female"),
+  gendercomponents = c("impressionabo_f", "impressionabo_m", "impressionabos_f",
+    "impressionabos_m", "selfdir_f", "selfdir_m", "traitid_f", "traitid_m",
+    "emotionid_f", "emotionid_m"),
   filetype = ".dat",
   source = "Interact 2.1 (May 2021)",
   description = "unknown",
@@ -19,7 +21,7 @@
 
 \item{key}{equation set name}
 
-\item{genders}{available genders}
+\item{gendercomponents}{component genders}
 
 \item{filetype}{original source filetype}
 
@@ -31,6 +33,9 @@
 
 \item{equation}{equation object}
 }
+\value{
+a new equation object
+}
 \description{
-Initializer for the equation class
+sets defaults but allows them to be overridden by provided values
 }

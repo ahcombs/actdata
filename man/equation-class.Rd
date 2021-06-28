@@ -3,19 +3,19 @@
 \docType{class}
 \name{equation-class}
 \alias{equation-class}
-\title{Equation class}
+\title{Equation}
 \value{
-a new object
+an equation object
 }
 \description{
-Equation class
+Equation
 }
 \section{Slots}{
 
 \describe{
-\item{\code{key}}{character.}
+\item{\code{key}}{character. The equation name and year}
 
-\item{\code{genders}}{vector.}
+\item{\code{gendercomponents}}{vector.}
 
 \item{\code{filetype}}{character.}
 
