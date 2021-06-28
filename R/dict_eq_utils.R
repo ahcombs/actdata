@@ -7,7 +7,7 @@
 #' @param component string (\code{"identities"}, \code{"behaviors"}, \code{"mods"}, or \code{"settings"})
 #'
 #' @return list of dictionary keys
-#' @keywords internal
+#' @export
 dict_subset <- function(dicts, type = NA, component = NA){
   names <- c()
   # subset by type and/or components available
@@ -29,7 +29,7 @@ dict_subset <- function(dicts, type = NA, component = NA){
 #' @param gender string
 #'
 #' @return list of equation keys
-#' @keywords internal
+#' @export
 eqn_subset <- function(eqns, gender = NA){
   names <- c()
   # subset by gender available

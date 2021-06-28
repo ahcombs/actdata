@@ -19,4 +19,3 @@ list of dictionary keys
 \description{
 Extracts the keys of dictionaries, optionally subsetted by type (mean, SD, COV) or component (identities, behaviors, mods, settings)
 }
-\keyword{internal}

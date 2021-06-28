@@ -17,4 +17,3 @@ list of equation keys
 \description{
 Extracts the keys of equations, optionally subsetted by gender
 }
-\keyword{internal}
