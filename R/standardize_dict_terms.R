@@ -34,6 +34,8 @@ standardize_terms <- function(data, key, component){
            term_new = str_replace_all(.data$term_new, "\\(_", "\\("),
 
            # identities
+           term_new = str_replace(.data$term_new, '^adultress$', "adulteress"),
+           term_new = str_replace(.data$term_new, '^adviser$', "advisor"),
            term_new = str_replace(.data$term_new, '^baby_sitter$', "babysitter"),
            term_new = str_replace(.data$term_new, '^bigbrother$', "big_brother"),
            term_new = str_replace(.data$term_new, '^bigsister$', "big_sister"),
