@@ -40,7 +40,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
 
   data_clean <- data %>%
     dplyr::mutate(
-      term_new = str_replace(.data$term, "^A?n?_", ""),
+      term_new = str_replace(.data$term, "^A?n?i?b?m?s?_", ""),
       term_new = str_replace_all(.data$term_new, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
       term_new = str_replace_all(.data$term_new, "[_-]", " "),
       term_new = stringr::str_squish(.data$term_new),

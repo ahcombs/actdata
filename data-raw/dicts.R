@@ -190,7 +190,47 @@ calc_stats <- function(data, key){
   sum_data <- data %>%
     dplyr::select(term_ID, E, P, A) %>%
     dplyr::rename(term = term_ID)
-  sum_data <- standardize_terms(sum_data, key)
+
+  # TODO: Issue with standardize terms
+  sum_data <- standardize_terms(sum_data, key)%>%
+    dplyr::group_by(term) %>%
+    dplyr::mutate(sd_E = sd(E, na.rm = TRUE),
+                  sd_P = sd(P, na.rm = TRUE),
+                  sd_A = sd(A, na.rm = TRUE)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(across(c(-term, -component), as.numeric))
+
+  # ADD COV
+  # Calculate a separate covariance matrix for each term, and input the values into the dataframe above.
+  allterms <- unique(sum_data$term)
+  covars <- data.frame(matrix(nrow = 0, ncol = 10))
+  names(covars) <- c("term", "cov_EE", "cov_EP", "cov_EA", "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
+  for(t in allterms){
+    subset <- sum_data[sum_data$term == t,] %>%
+      dplyr::select(E, P, A)
+
+    # check how to handle missing values here--right now we are going to listwise delete.
+    # There is also a pairwise option but it sounds more complicated.
+    # Really, we don't need to include all 9 values here; 3 should be repeated.
+    # Also, the diagonals should be the square of the sd values--there's an argument for keeping this in anyway though if we want to report var and sd (but do we need sd?)
+    # TODO: Remove once tested
+    covarmat <- cov(subset, use = "complete.obs") # 3x3 mat
+    covarvec <- data.frame(term = t,
+                           cov_EE = covarmat[1, 1],
+                           cov_EP = covarmat[1, 2],
+                           cov_EA = covarmat[1, 3],
+                           cov_PE = covarmat[2, 1],
+                           cov_PP = covarmat[2, 2],
+                           cov_PA = covarmat[2, 3],
+                           cov_AE = covarmat[3, 1],
+                           cov_AP = covarmat[3, 2],
+                           cov_AA = covarmat[3, 3])
+
+    covars <- rbind(covars, covarvec)
+  }
+
+  sum_data <- dplyr::left_join(sum_data, covars, by = "term")
+  return(sum_data)
 }
 
 
@@ -198,23 +238,59 @@ calc_stats <- function(data, key){
 source_folder <- "data-raw/dicts/individual"
 ind_file_list <- list.files(source_folder)
 for(file in ind_file_list){
-  file = ind_file_list[3]
   path <- paste0(source_folder, "/", file)
 
+  # TODO: maybe some NA values in dukecommunity 2015??
+  print(key)
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
   context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
   year <- stringr::str_extract(key, "[[:digit:]]*$")
 
   data <- read.csv2(path, sep = ",")
-  print(names(data))
 
   sum_data <- calc_stats(data, key)
+  if(!check_sd_cov_vals(sum_data)){
+    stop(print(paste("error with current dataset ", key)))
+  }
+
+  # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+
+  # NEXT: COMPARE AGAINST JESSE'S DATASETS
 
   # then save individual data
 }
 
+check_sd_cov_vals <- function(data){
+  # check if the diagonal of the vcov matrix is the same as the standard deviation squared (ie is it really the variance)
+  dat_check <- data %>%
+    dplyr::mutate(E_var_sd2 = sd_E*sd_E,
+                  P_var_sd2 = sd_P*sd_P,
+                  A_var_sd2 = sd_A*sd_A,
+                  var_E_equal = abs(E_var_sd2 - cov_EE) <= 1e-5,
+                  var_P_equal = abs(P_var_sd2 - cov_PP) <= 1e-5,
+                  var_A_equal = abs(A_var_sd2 - cov_AA) <= 1e-5,
+                  refl1 = cov_EP == cov_PE,
+                  refl2 = cov_EA == cov_AE,
+                  refl3 = cov_AP == cov_PA)
+  if(!all(dat_check$var_E_equal) |
+     !all(dat_check$var_P_equal) |
+     !all(dat_check$var_A_equal)) {
+    return(FALSE)
+  } else {
+    print("variance and sd check out")
+  }
 
+  # check for expected reflection in the vcov matrix
+  if(!all(dat_check$refl1) |
+     !all(dat_check$refl2) |
+     !all(dat_check$refl3)){
+    return(FALSE)
+  } else {
+    print("matrix is upper triangular")
+  }
 
+  return(TRUE)
+}
 
 
 save(mean_epa, file = "data/mean_epa.RData")
