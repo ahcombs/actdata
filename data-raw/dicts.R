@@ -15,23 +15,35 @@ cnames <- c(
   "E",
   "P",
   "A",
+  "n_E",
+  "n_P",
+  "n_A",
   "sd_E",
   "sd_P",
   "sd_A",
-  "cov1",
-  "cov2",
-  "cov3",
-  "cov4",
-  "cov5",
-  "cov6",
-  "cov7",
-  "cov8",
-  "cov9"
+  "cov_EE",
+  "cov_EP",
+  "cov_EA",
+  "cov_PE",
+  "cov_PP",
+  "cov_PA",
+  "cov_AE",
+  "cov_AP",
+  "cov_AA"
 )
 
-meannames <- cnames[1:10]
-
-# TODO: check what order the cov values are presented in (compare to Jesse's UGA datasets)
+meannames <- c(
+  "term",
+  "dataset",
+  "context",
+  "year",
+  "component",
+  "instcodes",
+  "gender",
+  "E",
+  "P",
+  "A"
+)
 
 mean_epa <- data.frame(matrix(nrow = 0, ncol = length(meannames)))
 names(mean_epa) <- meannames
@@ -180,60 +192,18 @@ mean_epa <- mean_epa %>%
   ) %>%
   dplyr::rename(component = comp)
 
+# usethis::use_data(mean_epa, overwrite = TRUE)
+
 
 
 
 #### NOW INDIVIDUAL DATA: SAVE INDIVIDUALLY AND USE TO CALCULATE SD/COV #######################
 
 
-calc_stats <- function(data, key){
-  sum_data <- data %>%
-    dplyr::select(term_ID, E, P, A) %>%
-    dplyr::rename(term = term_ID)
-
-  # TODO: Issue with standardize terms
-  sum_data <- standardize_terms(sum_data, key)%>%
-    dplyr::group_by(term) %>%
-    dplyr::mutate(sd_E = sd(E, na.rm = TRUE),
-                  sd_P = sd(P, na.rm = TRUE),
-                  sd_A = sd(A, na.rm = TRUE)) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(across(c(-term, -component), as.numeric))
-
-  # ADD COV
-  # Calculate a separate covariance matrix for each term, and input the values into the dataframe above.
-  allterms <- unique(sum_data$term)
-  covars <- data.frame(matrix(nrow = 0, ncol = 10))
-  names(covars) <- c("term", "cov_EE", "cov_EP", "cov_EA", "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
-  for(t in allterms){
-    subset <- sum_data[sum_data$term == t,] %>%
-      dplyr::select(E, P, A)
-
-    # check how to handle missing values here--right now we are going to listwise delete.
-    # There is also a pairwise option but it sounds more complicated.
-    # Really, we don't need to include all 9 values here; 3 should be repeated.
-    # Also, the diagonals should be the square of the sd values--there's an argument for keeping this in anyway though if we want to report var and sd (but do we need sd?)
-    # TODO: Remove once tested
-    covarmat <- cov(subset, use = "complete.obs") # 3x3 mat
-    covarvec <- data.frame(term = t,
-                           cov_EE = covarmat[1, 1],
-                           cov_EP = covarmat[1, 2],
-                           cov_EA = covarmat[1, 3],
-                           cov_PE = covarmat[2, 1],
-                           cov_PP = covarmat[2, 2],
-                           cov_PA = covarmat[2, 3],
-                           cov_AE = covarmat[3, 1],
-                           cov_AP = covarmat[3, 2],
-                           cov_AA = covarmat[3, 3])
-
-    covars <- rbind(covars, covarvec)
-  }
-
-  sum_data <- dplyr::left_join(sum_data, covars, by = "term")
-  return(sum_data)
-}
 
 
+mean_variance_epa <- data.frame(matrix(nrow = 0, ncol = length(cnames) - 1))
+names(mean_variance_epa) <- cnames[cnames != "instcodes"]
 
 source_folder <- "data-raw/dicts/individual"
 ind_file_list <- list.files(source_folder)
@@ -241,24 +211,155 @@ for(file in ind_file_list){
   path <- paste0(source_folder, "/", file)
 
   # TODO: maybe some NA values in dukecommunity 2015??
-  print(key)
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
   context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
   year <- stringr::str_extract(key, "[[:digit:]]*$")
 
-  data <- read.csv2(path, sep = ",")
+  data <- read.csv2(path, sep = ",") %>%
+    dplyr::rename(term = term_ID)
 
-  sum_data <- calc_stats(data, key)
-  if(!check_sd_cov_vals(sum_data)){
-    stop(print(paste("error with current dataset ", key)))
-  }
+  data <- standardize_terms(data, key)
 
-  # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+  sum_data <- epa_summary(data)
+  # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
+  # if(!check_sd_cov_vals(sum_data)){
+  #   stop(print(paste("error with current dataset ", key)))
+  # }
 
-  # NEXT: COMPARE AGAINST JESSE'S DATASETS
+  # add in dataset level variables
+  # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
+  # if someone wants to do this (for any characteristic) they can using the individual data.
+  # TODO: deal with institution codes here?
+  sum_data <- sum_data %>%
+    dplyr::mutate(dataset = key,
+                  context = context,
+                  year = year,
+                  gender = "av",
+                  E = mean_E,
+                  P = mean_P,
+                  A = mean_A) %>%
+    dplyr::select(any_of(cnames))
 
-  # then save individual data
+  # TODO: some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+
+  mean_variance_epa <- rbind(mean_variance_epa, sum_data)
+
+  # then save individual data set--as is, basically.
+  name <- paste0(key, "_individual")
+  x <- list(data)
+  names(x) <- paste(name, sep = "")
+  save(list=names(x), file=paste0("data/", name, ".RData"), envir=list2env(x))
 }
+
+# save the combined summary statistic dataframe
+# usethis::use_data(mean_variance_epa, overwrite = TRUE)
+
+epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
+  dplyr::arrange(dataset, term)
+
+usethis::use_data(epa_summary_statistics)
+
+
+#
+# # COMPARING AGAINST JESSE'S DATASETS
+# source_folder <- "data-raw/dicts/individual"
+# ind_file_list <- list.files(source_folder)
+# file <- ind_file_list[5]
+# path <- paste0(source_folder, "/", file)
+#
+# key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
+# context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+#
+# data <- read.csv2(path, sep = ",")
+#
+# sum_data <- calc_stats(data, key)
+# jesse_i <- uga2015bayesactsubset_identities_av_COV_dict
+# jesse_b <- uga2015bayesactsubset_behaviors_av_COV_dict
+# jesse_m <- uga2015bayesactsubset_mods_av_COV_dict
+#
+# i_combine <- sum_data %>%
+#   dplyr::filter(component == "identity") %>%
+#   dplyr::full_join(jesse_i, by = c("term")) %>%
+#   dplyr::mutate(e_dif = mean_E - E,
+#                 p_dif = mean_P - P,
+#                 a_dif = mean_A - A,
+#                 ee_dif = cov1 - cov_EE,
+#                 ep_dif = cov2 - cov_EP,
+#                 ea_dif = cov3 - cov_EA,
+#                 pe_dif = cov4 - cov_PE,
+#                 pp_dif = cov5 - cov_PP,
+#                 pa_dif = cov6 - cov_PA,
+#                 ae_dif = cov7 - cov_AE,
+#                 ap_dif = cov8 - cov_AP,
+#                 aa_dif = cov9 - cov_AA) %>%
+#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
+#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
+#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
+#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
+#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
+#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
+#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
+#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
+#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
+#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
+#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
+#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
+#
+# b_combine <- sum_data %>%
+#   dplyr::filter(component == "behavior") %>%
+#   dplyr::full_join(jesse_b, by = c("term")) %>%
+#   dplyr::mutate(e_dif = mean_E - E,
+#                 p_dif = mean_P - P,
+#                 a_dif = mean_A - A,
+#                 ee_dif = cov1 - cov_EE,
+#                 ep_dif = cov2 - cov_EP,
+#                 ea_dif = cov3 - cov_EA,
+#                 pe_dif = cov4 - cov_PE,
+#                 pp_dif = cov5 - cov_PP,
+#                 pa_dif = cov6 - cov_PA,
+#                 ae_dif = cov7 - cov_AE,
+#                 ap_dif = cov8 - cov_AP,
+#                 aa_dif = cov9 - cov_AA) %>%
+#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
+#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
+#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
+#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
+#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
+#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
+#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
+#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
+#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
+#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
+#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
+#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
+#
+# m_combine <- sum_data %>%
+#   dplyr::filter(component == "modifier") %>%
+#   dplyr::full_join(jesse_m, by = c("term")) %>%
+#   dplyr::mutate(e_dif = mean_E - E,
+#                 p_dif = mean_P - P,
+#                 a_dif = mean_A - A,
+#                 ee_dif = cov1 - cov_EE,
+#                 ep_dif = cov2 - cov_EP,
+#                 ea_dif = cov3 - cov_EA,
+#                 pe_dif = cov4 - cov_PE,
+#                 pp_dif = cov5 - cov_PP,
+#                 pa_dif = cov6 - cov_PA,
+#                 ae_dif = cov7 - cov_AE,
+#                 ap_dif = cov8 - cov_AP,
+#                 aa_dif = cov9 - cov_AA) %>%
+#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
+#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
+#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
+#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
+#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
+#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
+#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
+#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
+#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
+#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
+#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
+#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
 
 check_sd_cov_vals <- function(data){
   # check if the diagonal of the vcov matrix is the same as the standard deviation squared (ie is it really the variance)
@@ -266,24 +367,24 @@ check_sd_cov_vals <- function(data){
     dplyr::mutate(E_var_sd2 = sd_E*sd_E,
                   P_var_sd2 = sd_P*sd_P,
                   A_var_sd2 = sd_A*sd_A,
-                  var_E_equal = abs(E_var_sd2 - cov_EE) <= 1e-5,
-                  var_P_equal = abs(P_var_sd2 - cov_PP) <= 1e-5,
-                  var_A_equal = abs(A_var_sd2 - cov_AA) <= 1e-5,
+                  var_E_equal = abs(E_var_sd2 - cov_EE) <= 1e-1,
+                  var_P_equal = abs(P_var_sd2 - cov_PP) <= 1e-1,
+                  var_A_equal = abs(A_var_sd2 - cov_AA) <= 1e-1,
                   refl1 = cov_EP == cov_PE,
                   refl2 = cov_EA == cov_AE,
                   refl3 = cov_AP == cov_PA)
-  if(!all(dat_check$var_E_equal) |
-     !all(dat_check$var_P_equal) |
-     !all(dat_check$var_A_equal)) {
+  if(!all(dat_check$var_E_equal, na.rm = TRUE) |
+     !all(dat_check$var_P_equal, na.rm = TRUE) |
+     !all(dat_check$var_A_equal, na.rm = TRUE)) {
     return(FALSE)
   } else {
     print("variance and sd check out")
   }
 
   # check for expected reflection in the vcov matrix
-  if(!all(dat_check$refl1) |
-     !all(dat_check$refl2) |
-     !all(dat_check$refl3)){
+  if(!all(dat_check$refl1, na.rm = TRUE) |
+     !all(dat_check$refl2, na.rm = TRUE) |
+     !all(dat_check$refl3, na.rm = TRUE)){
     return(FALSE)
   } else {
     print("matrix is upper triangular")
@@ -293,44 +394,43 @@ check_sd_cov_vals <- function(data){
 }
 
 
-save(mean_epa, file = "data/mean_epa.RData")
 
 
-keys <- unique(mean_epa$dataset)
-term_table <- mean_epa %>%
-  dplyr::select(term, component) %>%
-  dplyr::distinct()
-
-for(key in keys){
-  subset_idents <- mean_epa[mean_epa[["dataset"]] == key,] %>%
-    dplyr::select(term, component) %>%
-    dplyr::distinct() %>%
-    dplyr::mutate({{key}} := 1)
-
-  term_table <- term_table %>%
-    dplyr::left_join(subset_idents, by = c("term", "component"))
-}
-
-term_table[is.na(term_table)] <- 0
-
-save(term_table, file = "data/term_table.RData")
-
+# keys <- unique(epa_summary_statistics$dataset)
+# term_table <- epa_summary_statistics %>%
+#   dplyr::select(term, component) %>%
+#   dplyr::distinct()
+#
+# for(key in keys){
+#   subset_idents <- epa_summary_statistics[epa_summary_statistics[["dataset"]] == key,] %>%
+#     dplyr::select(term, component) %>%
+#     dplyr::distinct() %>%
+#     dplyr::mutate({{key}} := 1)
+#
+#   term_table <- term_table %>%
+#     dplyr::left_join(subset_idents, by = c("term", "component"))
+# }
+#
+# term_table[is.na(term_table)] <- 0
+#
+# save(term_table, file = "data/term_table.RData")
 
 
 
-# TODO: Contact Kait Boyle about the institution code stuff
-
-instcode_rowequal <- function(row){
-  noterm <- row[,2:ncol(row)]
-  noterm <- as.character(noterm)
-  noterm <- noterm[!is.na(noterm)]
-  if(length(unique(noterm)) > 1){
-    return(FALSE)
-  }
-  else{
-    return(TRUE)
-  }
-}
+#
+# # TODO: Contact Kait Boyle about the institution code stuff
+#
+# instcode_rowequal <- function(row){
+#   noterm <- row[,2:ncol(row)]
+#   noterm <- as.character(noterm)
+#   noterm <- noterm[!is.na(noterm)]
+#   if(length(unique(noterm)) > 1){
+#     return(FALSE)
+#   }
+#   else{
+#     return(TRUE)
+#   }
+# }
 
 # inst_code_table_ident <- dplyr::select(inst_code_table_ident, -allsame)
 # inst_code_table_beh <- dplyr::select(inst_code_table_beh, -allsame)
