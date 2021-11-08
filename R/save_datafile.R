@@ -25,10 +25,10 @@ saveit <- function(..., name, type = NA) {
     stop("Specify dataset type as dict or eqn")
   }
 
-  # this does the .RData files
+  # this does the .rda files
   x <- list(...)
   names(x) <- paste0(name, "_", type)
-  save(list=names(x), file=paste0("data/", name, "_", type, ".RData"), envir=list2env(x))
+  save(list=names(x), file=paste0("data/", name, "_", type, ".rda"), envir=list2env(x))
 
   # # this does the csvs/.dat files
   # if(type == "dict"){

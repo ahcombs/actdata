@@ -1,4 +1,4 @@
-# TODO: Which dictionaries to include? All? Or should it be limited to those that have been published with (so not gaysex1980)? Should I include subsets (prisoner's dilemma)?
+# TODO: Which dictionaries to include? All? Or should it be limited to those that have been published with? Should I include subsets (prisoner's dilemma)?
 
 source_folder <- "data-raw/dicts/means_only/"
 means_file_list <- list.files(source_folder)
@@ -234,7 +234,7 @@ for(file in ind_file_list){
     dplyr::mutate(dataset = key,
                   context = context,
                   year = year,
-                  gender = "av",
+                  gender = "average",
                   E = mean_E,
                   P = mean_P,
                   A = mean_A) %>%
@@ -257,7 +257,7 @@ for(file in ind_file_list){
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::arrange(dataset, term)
 
-usethis::use_data(epa_summary_statistics)
+usethis::use_data(epa_summary_statistics, overwrite = TRUE)
 
 
 #

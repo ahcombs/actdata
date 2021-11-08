@@ -2,7 +2,7 @@
 
 
 
-
+utils::globalVariables("where")
 #' epa_summary
 #'
 #' Calculates the mean, standard deviation, and variance-covariance matrix for each term in one of the included individual datasets. This is useful when a user wants summary EPA information for a subset of respondents, for example, when comparing cultural meaning across groups.
@@ -11,6 +11,7 @@
 #'
 #' @return a summary dataset with one row per term. Includes the evaluation, potency, and activity mean, standard deviation, and variance-covariance matrix entries for each term.
 #' @export
+#'
 epa_summary <- function(data){
   if(!("term" %in% names(data))){
     stop(message = "data must have a column named 'term'")
@@ -85,6 +86,13 @@ epa_summary <- function(data){
   }
 
   sum_data <- dplyr::left_join(sum_data, covars, by = "tcid") %>%
-    dplyr::select(-tcid)
+    dplyr::select(-tcid) %>%
+    # round to the nearest .01
+    dplyr::mutate(
+      dplyr::across(
+        where(is.numeric),
+        ~round(.,2)
+      )
+    )
   return(sum_data)
 }
