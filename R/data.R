@@ -47,7 +47,6 @@
 
 #' EPA summary statistics, all datasets
 #'
-#' TODO: Finish updating
 #'
 #' For more description and citation information, call dict_info()
 #'

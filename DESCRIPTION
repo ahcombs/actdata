@@ -27,5 +27,7 @@ Suggests:
     rmarkdown,
     knitr,
     tidyr,
-    ggplot2
+    ggplot2,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3

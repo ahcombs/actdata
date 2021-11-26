@@ -4,7 +4,7 @@
 \alias{standardize_terms}
 \title{Dictionary term standardization}
 \usage{
-standardize_terms(data, key, component)
+standardize_terms(data, key, component = "undetermined")
 }
 \arguments{
 \item{data}{the dictionary dataset}

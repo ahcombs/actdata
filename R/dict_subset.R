@@ -1,5 +1,78 @@
-# TODO: helper functions for creating dictionary subsets?
+# TODO: do something with instcodes. Ideally, supply them for all.
 
+get_data <- function(dataset, component = "all", type = "all", gender = "all"){
+  keys_avail <- unique(epa_summary_statistics[,c("dataset")])
+  for(d in dataset){
+    if(!(d %in% unlist(keys_avail))){
+      stop(message = paste0("Invalid dataset '", d,"' provided. Use dict_info() to see datasets available."))
+    }
+  }
+
+  data <- epa_summary_statistics[epa_summary_statistics$"dataset" %in% dataset,]
+
+  if(!("all" %in% component)){
+    check_valid(component, c("identity", "behavior", "modifier", "setting", "i", "b", "m", "s", "behaviour"))
+
+    component <- gsub("^i$", "identity", component)
+    component <- gsub("^b$", "behavior", component)
+    component <- gsub("^m$", "modifier", component)
+    component <- gsub("^s$", "setting", component)
+    component <- gsub("^behaviour$", "behavior", component)
+    component <- unique(component)
+
+    data <- data[data$"component" %in% component,]
+  }
+
+  if(!("all" %in% type)){
+    check_valid(type, c("mean", "sd", "cov", "m", "n"))
+
+    extra <- type[!(type %in% c("mean", "m"))]
+
+    if(length(extra) > 0){
+      if("n" %in% extra){
+        extra <- extra[extra != "n"]
+        extra <- append(extra, grep("n_.*", names(data), value = TRUE))
+      }
+      if("cov" %in% extra){
+        extra <- extra[extra != "cov"]
+        extra <- append(extra, grep("cov_.*", names(data), value = TRUE))
+      }
+      if("sd" %in% extra){
+        extra <- extra[extra != "sd"]
+        extra <- append(extra, grep("sd_.*", names(data), value = TRUE))
+      }
+    }
+    data <- dplyr::select(data, term:A, instcodes, all_of(extra))
+  }
+
+  if(!("all" %in% gender)){
+    check_valid(gender, c("male", "female", "average", "m", "f", "a", "av"))
+
+    gender <- gsub("^m$", "male", gender)
+    gender <- gsub("^f$", "female", gender)
+    gender <- gsub("^a$", "average", gender)
+    gender <- gsub("^av$", "average", gender)
+    gender <- unique(gender)
+
+    data <- data[data$"gender" %in% gender,]
+  }
+
+  if(nrow(data) == 0){
+    warning(message = "This subset is empty. This may be because the specified dataset does not contain the requested element(s).")
+  }
+
+  return(data)
+
+}
+
+check_valid <- function(value, allowed){
+  for(v in value){
+    if(!(v %in% allowed)){
+      stop(paste0("Invalid input '", v, ".'"))
+    }
+  }
+  return(invisible(TRUE))
+}
 
 
 utils::globalVariables("where")

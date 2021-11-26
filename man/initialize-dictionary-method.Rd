@@ -7,9 +7,9 @@
 \S4method{initialize}{dictionary}(
   .Object,
   key = NA_character_,
-  components = c("identities", "behaviors", "mods"),
+  components = c("identity", "behavior", "modifier"),
   types = c("mean"),
-  genders = c("male", "female", "av"),
+  genders = c("male", "female", "average"),
   filetype = ".dat",
   source = "Interact 2.1 beta (May 2021)",
   description = "unknown",
