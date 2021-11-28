@@ -1,5 +1,17 @@
 # TODO: do something with instcodes. Ideally, supply them for all.
 
+#' get_data
+#'
+#' Helper function for filtering the dictionary summary data. This function allows the user to obtain subsets that include only specified datasets, components, genders, and columns.
+#' If the specified combination does not exist, this function throws a warning to the user.
+#'
+#' @param dataset key or list of keys (use dict_info() for list)
+#' @param component component or list of components (identity, behavior, modifier, setting; can abbreviate i, b, s, m)
+#' @param type type or list of types (mean, sd, cov)
+#' @param gender gender or list of genders (male, female, average; can abbreviate m, f, a or av)
+#'
+#' @return a dataframe containing the desired subset of the EPA dictionary summary data.
+#' @export
 get_data <- function(dataset, component = "all", type = "all", gender = "all"){
   keys_avail <- unique(epa_summary_statistics[,c("dataset")])
   for(d in dataset){

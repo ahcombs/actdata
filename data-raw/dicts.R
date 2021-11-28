@@ -408,14 +408,6 @@ check_sd_cov_vals <- function(data){
   return(TRUE)
 }
 
-
-##### CREATE DATAFRAMES WITH DATASET INFORMATION
-d_info <- read_csv("data-raw/dicts/dict_info.csv")
-# TODO: finish this csv
-e_info <- read_csv("data-raw/eqns/eqn_info.csv")
-usethis::use_data(d_info, e_info, internal = TRUE, overwrite = TRUE)
-
-
 ##### CREATE TERM TABLE
 
 keys <- unique(epa_summary_statistics$dataset)

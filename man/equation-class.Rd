@@ -3,6 +3,7 @@
 \docType{class}
 \name{equation-class}
 \alias{equation-class}
+\alias{equation}
 \title{Equation}
 \value{
 an equation object
