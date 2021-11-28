@@ -10,14 +10,15 @@
 #' @importFrom methods "new"
 #'
 #' @return an equation object
-methods::setClass("equation",
+equation <- methods::setClass("equation",
                   slots = list(
                     key = "character",
                     gendercomponents = "vector",
                     filetype = "character",
                     source = "character",
                     description = "character",
-                    citation = "character"))
+                    citation = "character",
+                    notes = "character"))
 
 
 #' Initializer for the equation class
@@ -45,7 +46,8 @@ setMethod(f = "initialize", signature = "equation",
                                 filetype = ".dat",
                                 source = "Interact 2.1 (May 2021)",
                                 description = "unknown",
-                                citation = "unknown"
+                                citation = "unknown",
+                                notes = "none"
                                 ){
             .Object@key <- key
             .Object@gendercomponents <- gendercomponents
@@ -53,6 +55,7 @@ setMethod(f = "initialize", signature = "equation",
             .Object@source <- source
             .Object@description <- description
             .Object@citation <- citation
+            .Object@notes <- notes
             return(.Object)
           }
 )
@@ -65,80 +68,94 @@ setMethod(f = "initialize", signature = "equation",
 #'
 #' @export
 get_eqns <- function(){
-  eqns <- c(
-    new("equation",
-      key = "us2010",
-      gendercomponents = c("impressionabo_av",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "nc1978",
-      gendercomponents = c("impressionabo_f", "impressionabo_m",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "morocco2015",
-      gendercomponents = c("impressionabo_av",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "japan1984",
-      gendercomponents = c("impressionabo_f", "impressionabo_m",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_f", "traitid_m",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "egypt2014",
-      gendercomponents = c("impressionabo_av",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "germany2007",
-      gendercomponents = c("impressionabo_av",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_av"),
-    ),
-    new("equation",
-      key = "china2000",
-      gendercomponents = c("impressionabo_f", "impressionabo_m",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_f", "traitid_m",
-                           "emotionid_f", "emotionid_m"),
-    ),
-    new("equation",
-      key = "canada20012003",
-      gendercomponents = c("impressionabo_f", "impressionabo_m",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_av"),
-    ),
-    new("equation",
-      key = "canada1985",
-      gendercomponents = c("impressionabo_f", "impressionabo_m",
-                           "impressionabos_f", "impressionabos_m",
-                           "selfdir_f", "selfdir_m",
-                           "traitid_av",
-                           "emotionid_av"),
+  eqns = c()
+  for(i in 1:nrow(e_info)){
+    this <- e_info[i,]
+    thiseqn <- equation(
+      key = this$key,
+      gendercomponents = str_split(this$gendercomponents, ", *")[[1]],
+      filetype = this$filetype,
+      source = ifelse(is.na(this$source), "unknown", this$source),
+      description = ifelse(is.na(this$description), "unknown", this$description),
+      citation = ifelse(is.na(this$citation), "unknown", this$citation),
+      notes = ifelse(is.na(this$notes), "none", this$notes)
     )
-  )
+    eqns <- append(eqns, thiseqn)
+  }
+  # eqns <- c(
+  #   new("equation",
+  #     key = "us2010",
+  #     gendercomponents = c("impressionabo_av",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "nc1978",
+  #     gendercomponents = c("impressionabo_f", "impressionabo_m",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "morocco2015",
+  #     gendercomponents = c("impressionabo_av",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "japan1984",
+  #     gendercomponents = c("impressionabo_f", "impressionabo_m",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_f", "traitid_m",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "egypt2014",
+  #     gendercomponents = c("impressionabo_av",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "germany2007",
+  #     gendercomponents = c("impressionabo_av",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_av"),
+  #   ),
+  #   new("equation",
+  #     key = "china2000",
+  #     gendercomponents = c("impressionabo_f", "impressionabo_m",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_f", "traitid_m",
+  #                          "emotionid_f", "emotionid_m"),
+  #   ),
+  #   new("equation",
+  #     key = "canada20012003",
+  #     gendercomponents = c("impressionabo_f", "impressionabo_m",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_av"),
+  #   ),
+  #   new("equation",
+  #     key = "canada1985",
+  #     gendercomponents = c("impressionabo_f", "impressionabo_m",
+  #                          "impressionabos_f", "impressionabos_m",
+  #                          "selfdir_f", "selfdir_m",
+  #                          "traitid_av",
+  #                          "emotionid_av"),
+  #   )
+  # )
   return(eqns)
 }
 
