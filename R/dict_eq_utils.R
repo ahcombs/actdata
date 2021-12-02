@@ -1,14 +1,16 @@
 #' Dictionary subset
 #'
-#' Extracts the keys of dictionaries, optionally subsetted by type (mean, SD, COV) or component (identities, behaviors, mods, settings)
+#' Extracts the keys of dictionaries, optionally subsetted by type (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
 #'
 #' @param dicts list of dictionary objects
 #' @param type string (\code{"mean"}, \code{"sd"}, or \code{"cov"})
-#' @param component string (\code{"identities"}, \code{"behaviors"}, \code{"mods"}, or \code{"settings"})
+#' @param component string (\code{"identity"}, \code{"behavior"}, \code{"modifier"}, or \code{"setting"})
 #'
 #' @return list of dictionary keys
 #' @export
-dict_subset <- function(dicts, type = NA, component = NA){
+dict_subset <- function(type = NA, component = NA, dicts = get_dicts()){
+  # TODO I changed the parameter to make get_dicts() the default and put it last--update within bayesact
+  # TODO allow abbreviations? Is this likely to be used by users or is it just for bayesactr?
   names <- c()
   # subset by type and/or components available
   for(dict in dicts){

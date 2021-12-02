@@ -46,10 +46,11 @@ saveit <- function(..., name, type = NA) {
 #'
 #' @param data dataframe to save
 #' @param type string ("dict" or "eqn") indicating type of data
+#' @param group string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each
 #' @param filename string the filepath at which to save (must end in .txt)
 #'
 #' @export
-save_for_interact <- function(data, type = "dict", filename = paste0(deparse(substitute(data)), ".txt")){
+save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt")){
   if(length(filename) != 1){
     stop("Must provide a single file name.")
   }
@@ -62,9 +63,135 @@ save_for_interact <- function(data, type = "dict", filename = paste0(deparse(sub
     stop("Invalid data type. Must be 'dict' or 'eqn'.")
   }
 
+  # TODO add functionality to check the formatting and alter as necessary.
+  # Do we assume long form? Is there a way to distinguish between and handle either long or wide? Since data is provided in long form I think we should privilege long. We could add an argument for long vs wide.
+
   if(type == "dict"){
-    utils::write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    # TODO check formatting here
+    # we need either 7 columns (one term, six EPA means) or 8 columns (same plus an institution ID column)
+    # If there is no insitution ID Interact fills it in with all 1's
+
+    # first: check that data object is either a tibble or data frame
+    if(!is.data.frame(data) & !tibble::is_tibble(data)){
+      stop("data must be a tibble or data frame")
+    }
+
+    # check for correct/necessary column names: term, E, P, A
+    thesenames <- names(data)
+    if(!("term" %in% thesenames)){
+      stop("data must contain a column titled 'term'")
+    } else if (length(grep("term", thesenames)) > 1){
+      stop("data must only contain one term column")
+    }
+    if(length(grep("^E", thesenames))==0 | length(grep("^P", thesenames))==0 | length(grep("^A", thesenames))==0){
+      stop("data is missing an E, P, or A column")
+    } else if (length(grep("^E", thesenames))>2 | length(grep("^P", thesenames))>2 | length(grep("^A", thesenames))>2){
+      stop("data has too many columns starting with E, P, or A")
+    } else if (length(grep("^[EPA]", thesenames)) != 3 & length(grep("^[EPA]", thesenames)) != 6){
+      stop("data must have either one each or two each of E, P, and A columns")
+    } else if ((length(grep("^E", thesenames))==2 & length(grep("^P", thesenames))==2 & length(grep("^A", thesenames))==2) &
+               group != "none"){
+      stop("cannot provide both multiple E, P, and A columns and a group column")
+    }
+
+    # now check that E, P, and A columns are coercible to numeric and term is coercible to character
+    EPAcols <- data[,grep("^[EPA]", thesenames)]
+    if(suppressWarnings(any(is.na(as.numeric(as.matrix(EPAcols)))))){
+      stop("E, P, or A column must be completely numeric or coercible to numeric")
+    }
+    if(suppressWarnings(any(is.na(as.character(data$term))))){
+      stop("all entries in term column must be coercible to character")
+    }
+
+    # then check for group. Column must exist and variable must have two levels.
+    if(group != "none"){
+      if(length(group) > 1){
+        stop("only one grouping column can be provided")
+      }
+      else if(!(group %in% thesenames)){
+        stop("group column does not exist")
+      }
+      else if(any(is.na(data$group))){
+        stop("group column must not contain NA values")
+      }
+      else if(length(unique(data$group)) != 2){
+        stop("group column must have exactly two unique values")
+      }
+      # check whether each term has two sets of values, one for each group
+      else{
+        v1 <- sort(unique(data$group))[1]
+        v2 <- sort(unique(data$group))[2]
+        t1 <- data[data$group == v1, "term"]
+        t2 <- data[data$group == v2, "term"]
+        if(!identical(sort(t1), sort(t2))){
+          stop("each term must have values for both groups")
+        }
+      }
+    }
+
+    # last but not least, insitution codes. It's okay if they aren't there, but print a warning.
+    if("instcodes" %in% thesenames){
+      icodes <- TRUE
+    } else {
+      warning("There is no column for institution codes (must be named instcodes). When imported to interact, all terms will be given institution code 11 111111111 111 (all institutions).")
+      icodes <- FALSE
+      data$instcodes <- 'placeholder'
+    }
+
+
+    ### NOW do necessary reformatting
+
+    # long
+    if(length(grep("^[EPA]", thesenames)) == 3){
+      data_formatted <- data %>%
+        dplyr::rename(
+          E = starts_with(E),
+          P = starts_with(P),
+          A = starts_with(A)) %>%
+        dplyr::mutate(
+          term = as.character(term),
+          E = as.numeric(E),
+          P = as.numeric(P),
+          A = as.numeric(A),
+          instcodes = as.character(instcodes))
+
+      if(group != "none"){
+        data_formatted <- data_formatted %>%
+          dplyr::mutate(
+            gr = case_when(group == v1 ~ "group1",
+                           group == v2 ~ "group2")
+          ) %>%
+          tidyr::pivot_wider(names_from = group, values_from = c(E, P, A, instcodes))
+
+        if(!identical(data_formatted$instcodes_group1, data_formatted$instcodes_group2)){
+          warning("Institution codes are not always the same within terms. The codes for the first group have been presented in output.")
+        }
+      } else {
+        data_formatted <- data_formatted %>%
+          dplyr::rename(
+            E_group1 = E,
+            P_group1 = P,
+            A_group1 = A,
+            instcodes_group1 = instcodes) %>%
+          dplyr::mutate(
+            E_group2 = E_group1,
+            P_group2 = P_group1,
+            A_group2 = A_group1
+          )
+      }
+
+      data_formatted <- data_formatted %>%
+        dplyr::select(term, E_group1, P_group1, A_group1, E_group2, P_group2, A_group2, instcodes_group1)
+
+    } else {
+      # wide
+      # check that there are only two suffixes OR that they share a suffix but are already in the right order
+
+    }
+
+
+    utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
   } else {
-    utils::write.table(data, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
+    utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
   }
 }
