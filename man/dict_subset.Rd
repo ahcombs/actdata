@@ -2,20 +2,20 @@
 % Please edit documentation in R/dict_eq_utils.R
 \name{dict_subset}
 \alias{dict_subset}
-\title{Dictionary subset}
+\title{dict_subset}
 \usage{
-dict_subset(dicts, type = NA, component = NA)
+dict_subset(type = NA, component = NA, dicts = get_dicts())
 }
 \arguments{
-\item{dicts}{list of dictionary objects}
-
 \item{type}{string (\code{"mean"}, \code{"sd"}, or \code{"cov"})}
 
-\item{component}{string (\code{"identities"}, \code{"behaviors"}, \code{"mods"}, or \code{"settings"})}
+\item{component}{string (\code{"identity"}, \code{"behavior"}, \code{"modifier"}, or \code{"setting"})}
+
+\item{dicts}{list of dictionary objects}
 }
 \value{
 list of dictionary keys
 }
 \description{
-Extracts the keys of dictionaries, optionally subsetted by type (mean, SD, COV) or component (identities, behaviors, mods, settings)
+Dictionary subset. Extracts the keys of dictionaries, optionally subsetted by type (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/equations.R
 \name{eqn_info}
 \alias{eqn_info}
-\title{Print equation metadata}
+\title{eqn_info}
 \usage{
 eqn_info(name = NA)
 }
@@ -10,5 +10,5 @@ eqn_info(name = NA)
 \item{name}{string}
 }
 \description{
-Print metadata for requested equation name or (if name is not specified) for all available equations
+Print equation metadata. Print metadata for requested equation name or (if name is not specified) for all available equations
 }

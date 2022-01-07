@@ -5,17 +5,33 @@
 \alias{epa_summary_statistics}
 \title{EPA summary statistics, all datasets}
 \format{
-A data frame with 75169 rows and 25 variables:
+A data frame with 63400 rows and 25 variables:
 \describe{
 \item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
+\item{component}{}
+\item{dataset}{}
+\item{context}{}
+\item{year}{}
+\item{gender}{}
+\item{instcodes}{}
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
 \item{A}{activity mean value}
+\item{n_E}{}
+\item{n_P}{}
+\item{n_A}{}
+\item{sd_E}{}
+\item{sd_P}{}
+\item{sd_A}{}
+\item{cov_EE}{}
+\item{cov_EP}{}
+\item{cov_EA}{}
+\item{cov_PE}{}
+\item{cov_PP}{}
+\item{cov_PA}{}
+\item{cov_AE}{}
+\item{cov_AP}{}
+\item{cov_AA}{}
 ...
 }
 }

@@ -5,7 +5,7 @@
 \alias{usmturk2015_individual}
 \title{Individual data, US Amazon Turk sample 2015}
 \format{
-A data frame with 75169 rows and 25 variables:
+A data frame with 264844 rows and 49 variables:
 \describe{
 \item{term}{dictionary term}
 \item{term}{dictionary term}
@@ -26,7 +26,7 @@ A data frame with 75169 rows and 25 variables:
 usmturk2015_individual
 }
 \description{
-TODO: Finish updating
+TODO: FINISH UPDATING. What's up with the occupation variables?
 }
 \details{
 For more description and citation information, call dict_info()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/equations.R
 \name{get_eqns}
 \alias{get_eqns}
-\title{Get equation information}
+\title{get_eqns}
 \usage{
 get_eqns()
 }
@@ -10,5 +10,5 @@ get_eqns()
 list of equation objects
 }
 \description{
-Return metadata for all available equations as a list of equation objects
+Get equation information. Return metadata for all available equations as a list of equation objects
 }

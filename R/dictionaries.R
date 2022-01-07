@@ -65,9 +65,9 @@ setMethod(f = "initialize", signature = "dictionary",
           }
 )
 
-#' Get dictionary information
+#' get_dicts
 #'
-#' Return metadata of available dictionaries as a list of dictionary objects
+#' Get dictionary information. Return metadata of available dictionaries as a list of dictionary objects
 #'
 #' @return list of dictionary objects
 #'
@@ -96,9 +96,9 @@ get_dicts <- function(){
 
 
 
-#' Print dictionary info
+#' dict_info
 #'
-#' Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
+#' Print dictionary info. Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
 #'
 #' @param name string
 #'

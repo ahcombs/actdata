@@ -3,6 +3,7 @@
 
 ### TERM TABLE
 
+
 #' Terms
 #'
 #' Terms of all types contained in all available dictionaries with indicators for which dictionary contains them.
@@ -32,7 +33,6 @@
 #'   \item{ontario1980}{dictionary}
 #'   \item{ontario2001}{dictionary}
 #'   \item{politics2003}{dictionary}
-#'   \item{prisonersdilemma}{dictionary}
 #'   \item{texas1998}{dictionary}
 #'   \item{uga2015}{dictionary}
 #'   \item{usfullsurveyor2015}{dictionary}
@@ -50,17 +50,33 @@
 #'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 63400 rows and 25 variables:
 #' \describe{
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
+#'   \item{component}{}
+#'   \item{dataset}{}
+#'   \item{context}{}
+#'   \item{year}{}
+#'   \item{gender}{}
+#'   \item{instcodes}{}
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
+#'   \item{n_E}{}
+#'   \item{n_P}{}
+#'   \item{n_A}{}
+#'   \item{sd_E}{}
+#'   \item{sd_P}{}
+#'   \item{sd_A}{}
+#'   \item{cov_EE}{}
+#'   \item{cov_EP}{}
+#'   \item{cov_EA}{}
+#'   \item{cov_PE}{}
+#'   \item{cov_PP}{}
+#'   \item{cov_PA}{}
+#'   \item{cov_AE}{}
+#'   \item{cov_AP}{}
+#'   \item{cov_AA}{}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -70,21 +86,29 @@
 
 #' Individual data, Duke community sample, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 15766 rows and 19 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{age}{respondent age}
+#'   \item{component}{}
+#'   \item{daded}{father's level of education}
+#'   \item{dademp}{father's employment status}
+#'   \item{grade}{}
+#'   \item{home}{}
+#'   \item{home2}{}
+#'   \item{momed}{mother's level of education}
+#'   \item{momemp}{mother's employment status}
+#'   \item{race1}{}
+#'   \item{race2}{}
+#'   \item{relimp}{religious importance}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -93,21 +117,29 @@
 
 #' Individual data, Duke student sample, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 21481 rows and 19 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{age}{respondent age}
+#'   \item{component}{}
+#'   \item{daded}{father's level of education}
+#'   \item{dademp}{father's employment status}
+#'   \item{grade}{}
+#'   \item{home}{}
+#'   \item{home2}{}
+#'   \item{momed}{mother's level of education}
+#'   \item{momemp}{mother's employment status}
+#'   \item{race1}{}
+#'   \item{race2}{}
+#'   \item{relimp}{religious importance}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -117,21 +149,18 @@
 
 #' Individual data, Egypt, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 124265 rows and 8 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{component}{}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -141,21 +170,18 @@
 
 #' Individual data, Morocco, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 112338 rows and 8 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{component}{}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -165,21 +191,41 @@
 
 #' Individual data, UGA student sample, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 135695 rows and 31 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{Set}{}
+#'   \item{age}{respondent age}
+#'   \item{business}{}
+#'   \item{component}{}
+#'   \item{daded}{father's level of education}
+#'   \item{dademp}{father's employment status}
+#'   \item{grade}{}
+#'   \item{hispanic}{}
+#'   \item{home}{}
+#'   \item{home2}{}
+#'   \item{language}{}
+#'   \item{livedprior}{}
+#'   \item{momed}{mother's level of education}
+#'   \item{momemp}{mother's employment status}
+#'   \item{otherrelig}{}
+#'   \item{parentinc}{}
+#'   \item{parentmarital}{}
+#'   \item{proportionus}{}
+#'   \item{race1}{}
+#'   \item{race2}{}
+#'   \item{religion}{}
+#'   \item{relimp}{religious importance}
+#'   \item{services}{}
+#'   \item{usborn}{}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -189,21 +235,41 @@
 
 #' Individual data, full US surveyor sample, 2015
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 172942 rows and 31 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{Set}{}
+#'   \item{age}{respondent age}
+#'   \item{business}{}
+#'   \item{component}{}
+#'   \item{daded}{father's level of education}
+#'   \item{dademp}{father's employment status}
+#'   \item{grade}{}
+#'   \item{hispanic}{}
+#'   \item{home}{}
+#'   \item{home2}{}
+#'   \item{language}{}
+#'   \item{livedprior}{}
+#'   \item{momed}{mother's level of education}
+#'   \item{momemp}{mother's employment status}
+#'   \item{otherrelig}{}
+#'   \item{parentinc}{}
+#'   \item{parentmarital}{}
+#'   \item{proportionus}{}
+#'   \item{race1}{}
+#'   \item{race2}{}
+#'   \item{religion}{}
+#'   \item{relimp}{religious importance}
+#'   \item{services}{}
+#'   \item{usborn}{}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -213,11 +279,11 @@
 
 #' Individual data, US Amazon Turk sample 2015
 #'
-#' TODO: Finish updating
+#' TODO: FINISH UPDATING. What's up with the occupation variables?
 #'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 264844 rows and 49 variables:
 #' \describe{
 #'   \item{term}{dictionary term}
 #'   \item{term}{dictionary term}
@@ -239,21 +305,41 @@
 #'
 #' Combination of UGA and Duke samples
 #'
-#' TODO: Finish updating
-#'
 #' For more description and citation information, call dict_info()
 #'
-#' @format A data frame with 75169 rows and 25 variables:
+#' @format A data frame with 157176 rows and 31 variables:
 #' \describe{
+#'   \item{Condition}{}
+#'   \item{Gender}{respondent gender}
+#'   \item{UserID}{}
+#'   \item{Set}{}
+#'   \item{age}{respondent age}
+#'   \item{business}{}
+#'   \item{component}{}
+#'   \item{daded}{father's level of education}
+#'   \item{dademp}{father's employment status}
+#'   \item{grade}{}
+#'   \item{hispanic}{}
+#'   \item{home}{}
+#'   \item{home2}{}
+#'   \item{language}{}
+#'   \item{livedprior}{}
+#'   \item{momed}{mother's level of education}
+#'   \item{momemp}{mother's employment status}
+#'   \item{otherrelig}{}
+#'   \item{parentinc}{}
+#'   \item{parentmarital}{}
+#'   \item{proportionus}{}
+#'   \item{race1}{}
+#'   \item{race2}{}
+#'   \item{religion}{}
+#'   \item{relimp}{religious importance}
+#'   \item{services}{}
+#'   \item{usborn}{}
 #'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{term}{dictionary term}
-#'   \item{E}{evaluation mean value}
-#'   \item{P}{potency mean value}
-#'   \item{A}{activity mean value}
+#'   \item{E}{evaluation rating}
+#'   \item{P}{potency rating}
+#'   \item{A}{activity rating}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}

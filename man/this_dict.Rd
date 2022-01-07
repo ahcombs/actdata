@@ -2,7 +2,7 @@
 % Please edit documentation in R/dict_eq_utils.R
 \name{this_dict}
 \alias{this_dict}
-\title{Get dictionary or equation object}
+\title{this_dict}
 \usage{
 this_dict(name, class = "dictionary")
 }
@@ -15,5 +15,5 @@ this_dict(name, class = "dictionary")
 dictionary object
 }
 \description{
-Extracts metadata object for a single dictionary or equation of a given name from the master list
+Get dictionary or equation object. Extracts metadata object for a single dictionary or equation of a given name from the master list
 }

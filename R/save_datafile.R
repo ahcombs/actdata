@@ -39,6 +39,8 @@ saveit <- function(..., name, type = NA) {
 }
 
 
+#' save_for_interact
+#'
 #' Save for export to Interact
 #'
 #' Saves dictionary and equation files in a format that can be directly copy/pasted into Interact.
@@ -51,6 +53,12 @@ saveit <- function(..., name, type = NA) {
 #'
 #' @export
 save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt")){
+  # TODO FINISH THIS FUNCTION
+  ### FILE NAME
+  if(!is.character(filename)){
+    stop("File name must be a string.")
+  }
+
   if(length(filename) != 1){
     stop("Must provide a single file name.")
   }
@@ -59,16 +67,18 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
     stop("Invalid file extension. Extension .txt required.")
   }
 
+  ### TYPE
   if(!(type %in% c("dict", "eqn"))){
     stop("Invalid data type. Must be 'dict' or 'eqn'.")
   }
 
-  # TODO add functionality to check the formatting and alter as necessary.
-  # Do we assume long form? Is there a way to distinguish between and handle either long or wide? Since data is provided in long form I think we should privilege long. We could add an argument for long vs wide.
+  ### GROUP
+  if(length(group) > 1){
+    stop("only one grouping column can be provided")
+  }
+
 
   if(type == "dict"){
-    # TODO check formatting here
-    # we need either 7 columns (one term, six EPA means) or 8 columns (same plus an institution ID column)
     # If there is no insitution ID Interact fills it in with all 1's
 
     # first: check that data object is either a tibble or data frame
@@ -103,27 +113,28 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
       stop("all entries in term column must be coercible to character")
     }
 
-    # then check for group. Column must exist and variable must have two levels.
+
     if(group != "none"){
-      if(length(group) > 1){
-        stop("only one grouping column can be provided")
-      }
-      else if(!(group %in% thesenames)){
+      if(!(group %in% thesenames)){
         stop("group column does not exist")
       }
-      else if(any(is.na(data$group))){
+      else if(any(is.na(data[,group]))){
         stop("group column must not contain NA values")
       }
-      else if(length(unique(data$group)) != 2){
+      else if(length(unlist(unique(data[,group]))) != 2){
         stop("group column must have exactly two unique values")
       }
       # check whether each term has two sets of values, one for each group
       else{
-        v1 <- sort(unique(data$group))[1]
-        v2 <- sort(unique(data$group))[2]
-        t1 <- data[data$group == v1, "term"]
-        t2 <- data[data$group == v2, "term"]
-        if(!identical(sort(t1), sort(t2))){
+        v1 <- sort(unlist(unique(data[,group])))[[1]]
+        v2 <- sort(unlist(unique(data[,group])))[[2]]
+        t1 <- data %>%
+          dplyr::filter(UQ(rlang::sym(group)) == v1) %>%
+          dplyr::select(term)
+        t2 <- data %>%
+          dplyr::filter(UQ(rlang::sym(group)) == v2) %>%
+          dplyr::select(term)
+        if(!identical(dplyr::arrange(t1, term), dplyr::arrange(t2, term))){
           stop("each term must have values for both groups")
         }
       }
@@ -133,7 +144,7 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
     if("instcodes" %in% thesenames){
       icodes <- TRUE
     } else {
-      warning("There is no column for institution codes (must be named instcodes). When imported to interact, all terms will be given institution code 11 111111111 111 (all institutions).")
+      warning("There is no column named instcodes. When imported to interact, all terms will be given institution code 11 111111111 111, indicating all institutions.")
       icodes <- FALSE
       data$instcodes <- 'placeholder'
     }
@@ -145,9 +156,9 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
     if(length(grep("^[EPA]", thesenames)) == 3){
       data_formatted <- data %>%
         dplyr::rename(
-          E = starts_with(E),
-          P = starts_with(P),
-          A = starts_with(A)) %>%
+          E = starts_with("E"),
+          P = starts_with("P"),
+          A = starts_with("A")) %>%
         dplyr::mutate(
           term = as.character(term),
           E = as.numeric(E),
@@ -156,12 +167,14 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
           instcodes = as.character(instcodes))
 
       if(group != "none"){
+        data_formatted[data_formatted[[group]] == v1,"gr"] <- "group1"
+        data_formatted[data_formatted[[group]] == v2,"gr"] <- "group2"
+
         data_formatted <- data_formatted %>%
-          dplyr::mutate(
-            gr = case_when(group == v1 ~ "group1",
-                           group == v2 ~ "group2")
-          ) %>%
-          tidyr::pivot_wider(names_from = group, values_from = c(E, P, A, instcodes))
+          dplyr::select(term, gr, E, P, A, instcodes) %>%
+          tidyr::pivot_wider(names_from = gr, values_from = c(E, P, A, instcodes))
+
+        print(head(data_formatted))
 
         if(!identical(data_formatted$instcodes_group1, data_formatted$instcodes_group2)){
           warning("Institution codes are not always the same within terms. The codes for the first group have been presented in output.")
@@ -183,14 +196,18 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
       data_formatted <- data_formatted %>%
         dplyr::select(term, E_group1, P_group1, A_group1, E_group2, P_group2, A_group2, instcodes_group1)
 
+      if(length(unlist(data_formatted$term)) != length(unlist(unique(data_formatted$term)))){
+        warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Ensure duplicates are intentional.")
+      }
+
     } else {
       # wide
       # check that there are only two suffixes OR that they share a suffix but are already in the right order
 
     }
 
-
-    utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    print(head(data_formatted))
+    # utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
   } else {
     utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
   }

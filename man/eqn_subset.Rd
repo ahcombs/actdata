@@ -2,7 +2,7 @@
 % Please edit documentation in R/dict_eq_utils.R
 \name{eqn_subset}
 \alias{eqn_subset}
-\title{Equation subset}
+\title{eqn_subset}
 \usage{
 eqn_subset(eqns, gendercomponent = NA)
 }
@@ -15,5 +15,5 @@ eqn_subset(eqns, gendercomponent = NA)
 list of equation keys
 }
 \description{
-Extracts the keys of equations, optionally subsetted by gender
+Equation subset. Extracts the keys of equations, optionally subsetted by gender
 }

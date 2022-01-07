@@ -28,7 +28,6 @@ A data frame with 5608 rows and 27 variables:
 \item{ontario1980}{dictionary}
 \item{ontario2001}{dictionary}
 \item{politics2003}{dictionary}
-\item{prisonersdilemma}{dictionary}
 \item{texas1998}{dictionary}
 \item{uga2015}{dictionary}
 \item{usfullsurveyor2015}{dictionary}

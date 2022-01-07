@@ -5,17 +5,27 @@
 \alias{dukecommunity2015_individual}
 \title{Individual data, Duke community sample, 2015}
 \format{
-A data frame with 75169 rows and 25 variables:
+A data frame with 15766 rows and 19 variables:
 \describe{
+\item{Condition}{}
+\item{Gender}{respondent gender}
+\item{UserID}{}
+\item{age}{respondent age}
+\item{component}{}
+\item{daded}{father's level of education}
+\item{dademp}{father's employment status}
+\item{grade}{}
+\item{home}{}
+\item{home2}{}
+\item{momed}{mother's level of education}
+\item{momemp}{mother's employment status}
+\item{race1}{}
+\item{race2}{}
+\item{relimp}{religious importance}
 \item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{E}{evaluation mean value}
-\item{P}{potency mean value}
-\item{A}{activity mean value}
+\item{E}{evaluation rating}
+\item{P}{potency rating}
+\item{A}{activity rating}
 ...
 }
 }
@@ -26,9 +36,6 @@ A data frame with 75169 rows and 25 variables:
 dukecommunity2015_individual
 }
 \description{
-TODO: Finish updating
-}
-\details{
 For more description and citation information, call dict_info()
 }
 \keyword{datasets}

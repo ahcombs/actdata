@@ -5,17 +5,39 @@
 \alias{usfullsurveyor2015_individual}
 \title{Individual data, full US surveyor sample, 2015}
 \format{
-A data frame with 75169 rows and 25 variables:
+A data frame with 172942 rows and 31 variables:
 \describe{
+\item{Condition}{}
+\item{Gender}{respondent gender}
+\item{UserID}{}
+\item{Set}{}
+\item{age}{respondent age}
+\item{business}{}
+\item{component}{}
+\item{daded}{father's level of education}
+\item{dademp}{father's employment status}
+\item{grade}{}
+\item{hispanic}{}
+\item{home}{}
+\item{home2}{}
+\item{language}{}
+\item{livedprior}{}
+\item{momed}{mother's level of education}
+\item{momemp}{mother's employment status}
+\item{otherrelig}{}
+\item{parentinc}{}
+\item{parentmarital}{}
+\item{proportionus}{}
+\item{race1}{}
+\item{race2}{}
+\item{religion}{}
+\item{relimp}{religious importance}
+\item{services}{}
+\item{usborn}{}
 \item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{E}{evaluation mean value}
-\item{P}{potency mean value}
-\item{A}{activity mean value}
+\item{E}{evaluation rating}
+\item{P}{potency rating}
+\item{A}{activity rating}
 ...
 }
 }
@@ -26,9 +48,6 @@ A data frame with 75169 rows and 25 variables:
 usfullsurveyor2015_individual
 }
 \description{
-TODO: Finish updating
-}
-\details{
 For more description and citation information, call dict_info()
 }
 \keyword{datasets}

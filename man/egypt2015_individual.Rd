@@ -5,17 +5,16 @@
 \alias{egypt2015_individual}
 \title{Individual data, Egypt, 2015}
 \format{
-A data frame with 75169 rows and 25 variables:
+A data frame with 124265 rows and 8 variables:
 \describe{
+\item{Condition}{}
+\item{Gender}{respondent gender}
+\item{UserID}{}
+\item{component}{}
 \item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{term}{dictionary term}
-\item{E}{evaluation mean value}
-\item{P}{potency mean value}
-\item{A}{activity mean value}
+\item{E}{evaluation rating}
+\item{P}{potency rating}
+\item{A}{activity rating}
 ...
 }
 }
@@ -26,9 +25,6 @@ A data frame with 75169 rows and 25 variables:
 egypt2015_individual
 }
 \description{
-TODO: Finish updating
-}
-\details{
 For more description and citation information, call dict_info()
 }
 \keyword{datasets}

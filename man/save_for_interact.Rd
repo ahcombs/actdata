@@ -2,11 +2,12 @@
 % Please edit documentation in R/save_datafile.R
 \name{save_for_interact}
 \alias{save_for_interact}
-\title{Save for export to Interact}
+\title{save_for_interact}
 \usage{
 save_for_interact(
   data,
   type = "dict",
+  group = "none",
   filename = paste0(deparse(substitute(data)), ".txt")
 )
 }
@@ -15,9 +16,14 @@ save_for_interact(
 
 \item{type}{string ("dict" or "eqn") indicating type of data}
 
+\item{group}{string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each}
+
 \item{filename}{string the filepath at which to save (must end in .txt)}
 }
 \description{
+Save for export to Interact
+}
+\details{
 Saves dictionary and equation files in a format that can be directly copy/pasted into Interact.
 This may be useful for easily creating subsets of data to use in Interact or for importing dictionaries that are not already included.
 }

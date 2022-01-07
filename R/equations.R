@@ -60,9 +60,9 @@ setMethod(f = "initialize", signature = "equation",
           }
 )
 
-#' Get equation information
+#' get_eqns
 #'
-#' Return metadata for all available equations as a list of equation objects
+#' Get equation information. Return metadata for all available equations as a list of equation objects
 #'
 #' @return list of equation objects
 #'
@@ -86,9 +86,9 @@ get_eqns <- function(){
   return(eqns)
 }
 
-#' Print equation metadata
+#' eqn_info
 #'
-#' Print metadata for requested equation name or (if name is not specified) for all available equations
+#' Print equation metadata. Print metadata for requested equation name or (if name is not specified) for all available equations
 #'
 #' @param name string
 #'

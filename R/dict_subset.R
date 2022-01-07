@@ -13,13 +13,8 @@
 #' @return a dataframe containing the desired subset of the EPA dictionary summary data.
 #' @export
 get_data <- function(dataset, component = "all", type = "all", gender = "all"){
-  keys_avail <- unique(epa_summary_statistics[,c("dataset")])
-  for(d in dataset){
-    if(!(d %in% unlist(keys_avail))){
-      stop(message = paste0("Invalid dataset '", d,"' provided. Use dict_info() to see datasets available."))
-    }
-  }
 
+  check_key(dataset)
   data <- epa_summary_statistics[epa_summary_statistics$"dataset" %in% dataset,]
 
   if(!("all" %in% component)){
@@ -88,6 +83,9 @@ check_valid <- function(value, allowed){
 
 
 utils::globalVariables("where")
+# , names(epa_summary_statistics))
+
+
 #' epa_summary
 #'
 #' Calculates the mean, standard deviation, and variance-covariance matrix for each term in one of the included individual datasets. This is useful when a user wants summary EPA information for a subset of respondents, for example, when comparing cultural meaning across groups.
