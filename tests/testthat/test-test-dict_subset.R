@@ -30,7 +30,7 @@ test_that("get_data returns expected dataset", {
   expect_s3_class(get_data(dataset = "nc1978"), "tbl_df")
 
   test1 <- get_data("nc1978", gender = "female", component = "modifier")
-  test1_byhand <- epa_summary_statistics %>%
+  test1_byhand <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "nc1978",
                   gender == "female",
                   component == "modifier")
@@ -39,7 +39,7 @@ test_that("get_data returns expected dataset", {
 
 
   test2 <- get_data("nc1978", gender = "female", component = "modifier", type = "mean")
-  test2_byhand <- epa_summary_statistics %>%
+  test2_byhand <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "nc1978",
                   gender == "female",
                   component == "modifier") %>%
@@ -49,7 +49,7 @@ test_that("get_data returns expected dataset", {
 
 
   test3 <- get_data("uga2015", gender = "av", component = "b", type = "cov")
-  test3_byhand <- epa_summary_statistics %>%
+  test3_byhand <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "uga2015",
                   gender == "average",
                   component == "behavior") %>%
@@ -58,7 +58,7 @@ test_that("get_data returns expected dataset", {
   expect_identical(test3, test3_byhand)
 
   test4 <- get_data(c("uga2015", "nc1978"), gender = c("av", "m"), component = c("i", "b"), type = "cov")
-  test4_byhand <- epa_summary_statistics %>%
+  test4_byhand <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset %in% c("uga2015", "nc1978"),
                   gender %in% c("average", "male"),
                   component %in% c("identity", "behavior")) %>%

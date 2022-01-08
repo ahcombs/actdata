@@ -25,5 +25,7 @@ Equation
 \item{\code{description}}{character.}
 
 \item{\code{citation}}{character.}
+
+\item{\code{notes}}{character.}
 }}
 

@@ -2,8 +2,10 @@
 #'
 #' Dictionary term search
 #'
-#' @param term A term or regular expression to search
-#' @param dict The key of the dictionary (or list of multiple) to search in. Default is "all."
+#' @param expr A term or regular expression to search
+#' @param key The key of the dictionary (or list of multiple) to search in. Default is "all."
+#' @param component The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."
+#' @param gender The gender of the dictionary to use (male, female, average). Default it "all."
 #'
 #' @return FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
 #' @export
@@ -23,7 +25,7 @@ search_dict <- function(expr, key = "all", component = "all", gender = "all"){
     stop("Must provide a character expression or vector")
   }
 
-  subset <- epa_summary_statistics[grepl(expr, epa_summary_statistics$term),]
+  subset <- actdata::epa_summary_statistics[grepl(expr, actdata::epa_summary_statistics$term),]
 
   if(key != "all"){
     k <- key
@@ -132,7 +134,7 @@ this_dict <- function(name, class = 'dictionary'){
 #'
 #' @return TRUE if available; throws error otherwise
 check_key <- function(key){
-  keys_avail <- unique(epa_summary_statistics[,c("dataset")])
+  keys_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
   for(k in key){
     if(!(k %in% unlist(keys_avail))){
       stop(message = paste0("Invalid dataset key '", k,"' provided. Use dict_info() to see datasets available."))
@@ -152,7 +154,7 @@ check_key <- function(key){
 #'     i, ident, identity, identities
 #'     s, set, setting, settings
 #'
-#' @param key string
+#' @param component string
 #'
 #' @return TRUE if available; throws error otherwise
 check_component <- function(component){
@@ -174,7 +176,7 @@ check_component <- function(component){
 #'     f, female, woman
 #'     a, av, average
 #'
-#' @param key string
+#' @param gender string
 #'
 #' @return TRUE if available; throws error otherwise
 check_gender <- function(gender){

@@ -7,7 +7,7 @@
 check_gender(gender)
 }
 \arguments{
-\item{key}{string}
+\item{gender}{string}
 }
 \value{
 TRUE if available; throws error otherwise

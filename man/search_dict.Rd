@@ -7,9 +7,13 @@
 search_dict(expr, key = "all", component = "all", gender = "all")
 }
 \arguments{
-\item{term}{A term or regular expression to search}
+\item{expr}{A term or regular expression to search}
 
-\item{dict}{The key of the dictionary (or list of multiple) to search in. Default is "all."}
+\item{key}{The key of the dictionary (or list of multiple) to search in. Default is "all."}
+
+\item{component}{The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."}
+
+\item{gender}{The gender of the dictionary to use (male, female, average). Default it "all."}
 }
 \value{
 FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.

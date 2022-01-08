@@ -6,6 +6,7 @@
 #' @slot source character.
 #' @slot description character.
 #' @slot citation character.
+#' @slot notes character.
 #'
 #' @importFrom methods "new"
 #'
@@ -33,6 +34,7 @@ equation <- methods::setClass("equation",
 #' @param source where data came from
 #' @param description description provided for data
 #' @param citation citation provided for data
+#' @param notes any notes provided for the dataset
 #'
 #' @return a new equation object
 setMethod(f = "initialize", signature = "equation",

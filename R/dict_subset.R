@@ -15,7 +15,7 @@
 get_data <- function(dataset, component = "all", type = "all", gender = "all"){
 
   check_key(dataset)
-  data <- epa_summary_statistics[epa_summary_statistics$"dataset" %in% dataset,]
+  data <- actdata::epa_summary_statistics[actdata::epa_summary_statistics$"dataset" %in% dataset,]
 
   if(!("all" %in% component)){
     check_valid(component, c("identity", "behavior", "modifier", "setting", "i", "b", "m", "s", "behaviour"))
@@ -49,7 +49,7 @@ get_data <- function(dataset, component = "all", type = "all", gender = "all"){
         extra <- append(extra, grep("sd_.*", names(data), value = TRUE))
       }
     }
-    data <- dplyr::select(data, term:A, instcodes, all_of(extra))
+    data <- dplyr::select(data, .data$term:.data$A, .data$instcodes, dplyr::all_of(extra))
   }
 
   if(!("all" %in% gender)){
@@ -69,7 +69,6 @@ get_data <- function(dataset, component = "all", type = "all", gender = "all"){
   }
 
   return(data)
-
 }
 
 check_valid <- function(value, allowed){
@@ -100,25 +99,25 @@ epa_summary <- function(data){
     stop(message = "data must have a column named 'term'")
   }
   trim_data <- data %>%
-    dplyr::select(term, component, E, P, A)
+    dplyr::select("term", "component", "E", "P", "A")
 
   trim_data <- trim_data %>%
-    mutate(tcid = paste(term, component, sep = ""))
+    mutate(tcid = paste(.data$term, .data$component, sep = ""))
 
   sum_data <- trim_data %>%
-    dplyr::mutate(across(c(-term, -component, -tcid), as.numeric)) %>%
-    dplyr::group_by(term, component, tcid) %>%
+    dplyr::mutate(dplyr::across(c(-.data$term, -.data$component, -.data$tcid), as.numeric)) %>%
+    dplyr::group_by(.data$term, .data$component, .data$tcid) %>%
     dplyr::summarize(
       # TODO: what's the deal with the zeros? skips? Do all datasets have a lot of zeros?
-      n_E = sum(!is.na(E)),
-      n_P = sum(!is.na(P)),
-      n_A = sum(!is.na(A)),
-      mean_E = mean(E, na.rm = TRUE),
-      mean_P = mean(P, na.rm = TRUE),
-      mean_A = mean(A, na.rm = TRUE),
-      sd_E = ifelse(n_E > 1, sd(E, na.rm = TRUE), NA),
-      sd_P = ifelse(n_P > 1, sd(P, na.rm = TRUE), NA),
-      sd_A = ifelse(n_A > 1, sd(A, na.rm = TRUE), NA)) %>%
+      n_E = sum(!is.na(.data$E)),
+      n_P = sum(!is.na(.data$P)),
+      n_A = sum(!is.na(.data$A)),
+      mean_E = mean(.data$E, na.rm = TRUE),
+      mean_P = mean(.data$P, na.rm = TRUE),
+      mean_A = mean(.data$A, na.rm = TRUE),
+      sd_E = ifelse(.data$n_E > 1, stats::sd(.data$E, na.rm = TRUE), NA),
+      sd_P = ifelse(.data$n_P > 1, stats::sd(.data$P, na.rm = TRUE), NA),
+      sd_A = ifelse(.data$n_A > 1, stats::sd(.data$A, na.rm = TRUE), NA)) %>%
     dplyr::ungroup()
 
   # ADD COV
@@ -128,8 +127,8 @@ epa_summary <- function(data){
   names(covars) <- c("term", "cov_EE", "cov_EP", "cov_EA", "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   for(t in alltcid){
     subset <- trim_data[trim_data$tcid == t,] %>%
-      dplyr::select(E, P, A) %>%
-      dplyr::mutate(across(everything(), as.numeric))
+      dplyr::select("E", "P", "A") %>%
+      dplyr::mutate(dplyr::across(dplyr::everything(), as.numeric))
 
     nE <- sum_data[sum_data$tcid == t, "n_E"][[1]]
     nP <- sum_data[sum_data$tcid == t, "n_P"][[1]]
@@ -141,7 +140,7 @@ epa_summary <- function(data){
     # Also, the diagonals should be the square of the sd values--there's an argument for keeping this in anyway though if we want to report var and sd (but do we need sd?)
     # TODO: Remove once tested
     if(nE > 0 & nP > 0 & nA > 0){
-      covarmat <- cov(subset, use = "complete.obs") # 3x3 mat
+      covarmat <- stats::cov(subset, use = "complete.obs") # 3x3 mat
       covarvec <- data.frame(tcid = t,
                              cov_EE = ifelse(nE > 1, covarmat[1, 1], NA),
                              cov_EP = ifelse(nE > 1 & nP > 1, covarmat[1, 2], NA),
@@ -169,7 +168,7 @@ epa_summary <- function(data){
   }
 
   sum_data <- dplyr::left_join(sum_data, covars, by = "tcid") %>%
-    dplyr::select(-tcid) %>%
+    dplyr::select(-.data$tcid) %>%
     # round to the nearest .01
     dplyr::mutate(
       dplyr::across(

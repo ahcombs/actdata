@@ -28,7 +28,7 @@ saveit <- function(..., name, type = NA) {
   # this does the .rda files
   x <- list(...)
   names(x) <- paste0(name, "_", type)
-  save(list=names(x), file=paste0("data/", name, "_", type, ".rda"), envir=list2env(x))
+  save(list=names(x), file=paste0("data/", name, "_", type, ".rda"), envir=list2env(x), compress = "gzip")
 
   # # this does the csvs/.dat files
   # if(type == "dict"){
@@ -129,12 +129,12 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
         v1 <- sort(unlist(unique(data[,group])))[[1]]
         v2 <- sort(unlist(unique(data[,group])))[[2]]
         t1 <- data %>%
-          dplyr::filter(UQ(rlang::sym(group)) == v1) %>%
-          dplyr::select(term)
+          dplyr::filter(!!(rlang::sym(group)) == v1) %>%
+          dplyr::select("term")
         t2 <- data %>%
-          dplyr::filter(UQ(rlang::sym(group)) == v2) %>%
-          dplyr::select(term)
-        if(!identical(dplyr::arrange(t1, term), dplyr::arrange(t2, term))){
+          dplyr::filter(!!(rlang::sym(group)) == v2) %>%
+          dplyr::select("term")
+        if(!identical(dplyr::arrange(t1, .data$term), dplyr::arrange(t2, .data$term))){
           stop("each term must have values for both groups")
         }
       }
@@ -156,25 +156,25 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
     if(length(grep("^[EPA]", thesenames)) == 3){
       data_formatted <- data %>%
         dplyr::rename(
-          E = starts_with("E"),
-          P = starts_with("P"),
-          A = starts_with("A")) %>%
+          E = dplyr::starts_with("E"),
+          P = dplyr::starts_with("P"),
+          A = dplyr::starts_with("A")) %>%
         dplyr::mutate(
-          term = as.character(term),
-          E = as.numeric(E),
-          P = as.numeric(P),
-          A = as.numeric(A),
-          instcodes = as.character(instcodes))
+          term = as.character(.data$term),
+          E = as.numeric(.data$E),
+          P = as.numeric(.data$P),
+          A = as.numeric(.data$A),
+          instcodes = as.character(.data$instcodes))
 
       if(group != "none"){
         data_formatted[data_formatted[[group]] == v1,"gr"] <- "group1"
         data_formatted[data_formatted[[group]] == v2,"gr"] <- "group2"
 
         data_formatted <- data_formatted %>%
-          dplyr::select(term, gr, E, P, A, instcodes) %>%
-          tidyr::pivot_wider(names_from = gr, values_from = c(E, P, A, instcodes))
+          dplyr::select("term", "gr", "E", "P", "A", "instcodes") %>%
+          tidyr::pivot_wider(names_from = .data$gr, values_from = c("E", "P", "A", "instcodes"))
 
-        print(head(data_formatted))
+        # print(utils::head(data_formatted))
 
         if(!identical(data_formatted$instcodes_group1, data_formatted$instcodes_group2)){
           warning("Institution codes are not always the same within terms. The codes for the first group have been presented in output.")
@@ -182,19 +182,19 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
       } else {
         data_formatted <- data_formatted %>%
           dplyr::rename(
-            E_group1 = E,
-            P_group1 = P,
-            A_group1 = A,
-            instcodes_group1 = instcodes) %>%
+            E_group1 = .data$E,
+            P_group1 = .data$P,
+            A_group1 = .data$A,
+            instcodes_group1 = .data$instcodes) %>%
           dplyr::mutate(
-            E_group2 = E_group1,
-            P_group2 = P_group1,
-            A_group2 = A_group1
+            E_group2 = .data$E_group1,
+            P_group2 = .data$P_group1,
+            A_group2 = .data$A_group1
           )
       }
 
       data_formatted <- data_formatted %>%
-        dplyr::select(term, E_group1, P_group1, A_group1, E_group2, P_group2, A_group2, instcodes_group1)
+        dplyr::select("term", "E_group1", "P_group1", "A_group1", "E_group2", "P_group2", "A_group2", "instcodes_group1")
 
       if(length(unlist(data_formatted$term)) != length(unlist(unique(data_formatted$term)))){
         warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Ensure duplicates are intentional.")
@@ -206,7 +206,7 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
 
     }
 
-    print(head(data_formatted))
+    # print(utils::head(data_formatted))
     # utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
   } else {
     utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")

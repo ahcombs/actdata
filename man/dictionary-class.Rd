@@ -29,5 +29,7 @@ Dictionary
 \item{\code{description}}{character. Description provided by the source for the dataset.}
 
 \item{\code{citation}}{character. Citation information for the dataset.}
+
+\item{\code{notes}}{character. Any notes for the dataset.}
 }}
 

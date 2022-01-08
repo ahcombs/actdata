@@ -7,7 +7,7 @@
 check_component(component)
 }
 \arguments{
-\item{key}{string}
+\item{component}{string}
 }
 \value{
 TRUE if available; throws error otherwise

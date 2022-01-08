@@ -32,6 +32,8 @@
 
 \item{citation}{citation provided for data}
 
+\item{notes}{any notes provided for the dataset}
+
 \item{equation}{equation object}
 }
 \value{

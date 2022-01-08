@@ -1,5 +1,5 @@
 test_that("file name and type and data frame type error handling works", {
-  data <- epa_summary_statistics %>%
+  data <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "nc1978")
 
   expect_error(save_for_interact(data, filename = 1), "File name must be a string.")
@@ -15,7 +15,7 @@ test_that("file name and type and data frame type error handling works", {
 })
 
 test_that("error handling for column names and institution codes works", {
-  data <- epa_summary_statistics %>%
+  data <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "indiana2003")
 
   data_twogender <- data %>%

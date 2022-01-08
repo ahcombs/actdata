@@ -263,7 +263,7 @@ for(file in ind_file_list){
   name <- paste0(key, "_individual")
   x <- list(data)
   names(x) <- paste(name, sep = "")
-  save(list=names(x), file=paste0("data/", name, ".RData"), envir=list2env(x))
+  save(list=names(x), file=paste0("data/", name, ".rda"), envir=list2env(x), compress = "gzip")
 }
 
 # save the combined summary statistic dataframe
@@ -272,7 +272,7 @@ for(file in ind_file_list){
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::arrange(dataset, term)
 
-usethis::use_data(epa_summary_statistics, overwrite = TRUE)
+usethis::use_data(epa_summary_statistics, overwrite = TRUE, compress = "bzip2")
 
 
 #
@@ -428,7 +428,7 @@ for(key in keys){
 term_table <- term_table %>%
   dplyr::mutate(across(-c("term", "component"), ~replace(., is.na(.), 0)))
 
-usethis::use_data(term_table, overwrite = TRUE)
+usethis::use_data(term_table, overwrite = TRUE, compress = "bzip2")
 
 
 

@@ -8,6 +8,7 @@
 #' @slot source character. Where original data came from.
 #' @slot description character. Description provided by the source for the dataset.
 #' @slot citation character. Citation information for the dataset.
+#' @slot notes character. Any notes for the dataset.
 #'
 #' @importFrom methods "new"
 #'
@@ -38,6 +39,7 @@ dictionary <- methods::setClass("dictionary",
 #' @param source where data came from
 #' @param description description provided for data
 #' @param citation citation provided for data
+#' @param notes any notes for the dataset
 #'
 #' @return a new dictionary object
 setMethod(f = "initialize", signature = "dictionary",
@@ -157,9 +159,9 @@ dict_info <- function(name = NA){
 #' @return dataframe
 read_metadata <- function(type){
   if(type == "dict"){
-    meta <- read.csv("data-raw/dicts/dict_info.csv")
+    meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
   } else if(type == "eqn") {
-    meta <- read.csv("data-raw/eqns/eqn_info.csv")
+    meta <- utils::read.csv("data-raw/eqns/eqn_info.csv")
   } else {
     stop("Invalid metadata type provided.")
   }

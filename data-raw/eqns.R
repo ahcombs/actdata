@@ -4,6 +4,7 @@ source_folder <- "data-raw/eqns"
 file_list <- list.files(source_folder)
 
 base_list <- unique(unlist(lapply(file_list, function(x) gsub("_[f|m]", "", x))))
+base_list <- base_list[base_list != "eqn_info.csv"]
 
 info <- data.frame(matrix(nrow = length(base_list), ncol = 2))
 colnames(info) <- c("dataset", "genderneutral")

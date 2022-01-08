@@ -36,6 +36,8 @@
 
 \item{citation}{citation provided for data}
 
+\item{notes}{any notes for the dataset}
+
 \item{dictionary}{dictionary object}
 }
 \value{
