@@ -14,7 +14,7 @@
 #' @export
 get_data <- function(dataset, component = "all", type = "all", gender = "all"){
 
-  check_key(dataset)
+  check_dataset(dataset)
   data <- actdata::epa_summary_statistics[actdata::epa_summary_statistics$"dataset" %in% dataset,]
 
   if(!("all" %in% component)){

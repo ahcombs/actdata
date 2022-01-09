@@ -1,51 +1,104 @@
 #' search_dict
 #'
-#' Dictionary term search
+#' Dictionary search and subset
 #'
-#' @param expr A term or regular expression to search
-#' @param key The key of the dictionary (or list of multiple) to search in. Default is "all."
+#' @param expr A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.
+#' @param dataset The key of the dataset (or list of multiple) to search in. Default is "all.
 #' @param component The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."
 #' @param gender The gender of the dictionary to use (male, female, average). Default it "all."
+#' @param stat The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results.
+#' @param stat_na_exclude Ignored if stat is not specified. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.
+#' @param instcodes Logical, whether to include the institution codes in the output. Default is TRUE.
 #'
 #' @return FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
 #' @export
-search_dict <- function(expr, key = "all", component = "all", gender = "all"){
-  # TODO TEST THIS FUNCTION
-  if(key != "all"){
-    check_key(key)
+search_dict <- function(expr = ".*", dataset = "all", component = "all", gender = "all", stat = "all", stat_na_exclude = TRUE, instcodes = TRUE){
+  if(all(dataset != "all")){
+    check_dataset(dataset)
   }
-  if(component != "all"){
+  if(all(component != "all")){
     check_component(component)
+    component <- standardize_option(component, "component")
   }
-  if(gender != "all"){
+  if(all(gender != "all")){
     check_gender(gender)
+    gender <- standardize_option(gender, "gender")
+  }
+  if(all(stat != "all")){
+    check_stat(stat)
+    stat <- standardize_option(stat, "stat")
   }
 
   if(!is.character(expr)){
     stop("Must provide a character expression or vector")
   }
 
-  subset <- actdata::epa_summary_statistics[grepl(expr, actdata::epa_summary_statistics$term),]
-
-  if(key != "all"){
-    k <- key
-    subset <- subset %>%
-      dplyr::filter(key %in% k)
+  if(!is.logical(instcodes)){
+    stop("instcodes parameter must be TRUE or FALSE")
+    # TODO later: add better support for filtering by institution.
   }
 
-  if(component != "all"){
+  # if a list of regexes has been provided, concatenate together (treat as "or")
+  if(length(expr) > 1){
+    expr <- paste0("(", paste(expr, collapse = ")|("), ")")
+  }
+
+  subset <- actdata::epa_summary_statistics[grepl(expr, actdata::epa_summary_statistics$term),]
+
+  if(all(dataset != "all")){
+    k <- dataset
+    subset <- subset %>%
+      dplyr::filter(dataset %in% k)
+  }
+
+  if(all(component != "all")){
     c <- component
     subset <- subset %>%
       dplyr::filter(component %in% c)
   }
 
-  if(gender != "all"){
+  if(all(gender != "all")){
     g <- gender
     subset <- subset %>%
       dplyr::filter(gender %in% g)
   }
 
-  if(nrow(subset == 0)){
+  if(all(stat != "all")){
+    if(!("cov" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("cov"))
+    }
+    if(!("sd" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("sd"))
+    }
+    if(!("n" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("n"))
+    }
+    if(!("mean" %in% stat)){
+      subset <- dplyr::select(subset, -"E", -"P", -"A")
+    }
+
+    if(stat_na_exclude){
+      if("cov" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("cov"), ~ !is.na(.x)))
+      }
+      if("sd" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("sd"), ~ !is.na(.x)))
+      }
+      if("n" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("n"), ~ !is.na(.x)))
+      }
+      if("mean" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(c("E", "P", "A"), ~ !is.na(.x)))
+      }
+    }
+  }
+
+  if(!instcodes){
+    subset <- dplyr::select(subset, -instcodes)
+  }
+
+  if(nrow(subset) == 0){
+    warning("The search did not match any dictionary entries.")
     return(FALSE)
   }
 
@@ -126,18 +179,18 @@ this_dict <- function(name, class = 'dictionary'){
   }
 }
 
-#' Valid key check
+#' Valid dataset check
 #'
-#' Checks provided key(s) to see if they are available in the summary statistics supplied.
+#' Checks provided dataset(s) to see if they are available in the summary statistics supplied.
 #'
-#' @param key string
+#' @param dataset string
 #'
 #' @return TRUE if available; throws error otherwise
-check_key <- function(key){
-  keys_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
-  for(k in key){
-    if(!(k %in% unlist(keys_avail))){
-      stop(message = paste0("Invalid dataset key '", k,"' provided. Use dict_info() to see datasets available."))
+check_dataset <- function(dataset){
+  datasets_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
+  for(k in dataset){
+    if(!(k %in% unlist(datasets_avail))){
+      stop(message = paste0("Invalid dataset key '", k,"' provided. Use the dict_info() function to see datasets available."))
     }
   }
 
@@ -158,7 +211,10 @@ check_key <- function(key){
 #'
 #' @return TRUE if available; throws error otherwise
 check_component <- function(component){
-  components_avail <- c("behavior", "modifier", "identity", "setting", "b", "beh", "m", "mod", "i", "ident", "s", "set", "behaviors", "modifiers", "settings", "identities", "behaviour", "behaviours")
+  components_avail <- c("behavior", "modifier", "identity", "setting",
+                        "b", "beh", "m", "mod", "i", "ident", "s", "set",
+                        "behaviors", "modifiers", "settings", "identities",
+                        "behaviour", "behaviours")
   for(c in component){
     if(!(c %in% unlist(components_avail))){
       stop(message = paste0("Invalid component '", c,"' provided. Valid components are identity, behavior, modifier, and setting."))
@@ -190,6 +246,28 @@ check_gender <- function(gender){
   return(TRUE)
 }
 
+#' Valid stat check
+#'
+#' Checks provided stat(s) to see if they are valid designators. Takes certain abbreviations/alternate spellings.
+#' Accepted values are:
+#'    mean, m
+#'    sd, standard deviation, s
+#'    cov, covar, covariance, c
+#'
+#' @param stat string
+#'
+#' @return TRUE if available; throws error otherwise
+check_stat <- function(stat){
+  stats_avail <- c("mean", "m", "sd", "standard deviation", "s", "cov", "covar", "covariance", "c", "n", "number")
+  for(s in stat){
+    if(!(s %in% unlist(stats_avail))){
+      stop(message = paste0("Invalid statistic '", s,"' provided. Valid statistics are mean, sd, cov, and n."))
+    }
+  }
+
+  return(TRUE)
+}
+
 #' standardize_option
 #'
 #' This function deals with abbreviations in parameter specification and returns the spellings that are used in the datasets.
@@ -197,8 +275,9 @@ check_gender <- function(gender){
 #' @param input the string to standardize
 #' @param param the type expected (gender, component, or stat)
 #'
-#' @return
+#' @return the standardized version of the input string
 standardize_option <- function(input, param){
+  input <- trimws(tolower(input))
   for(i in 1:length(input)){
     if(param == "gender"){
       input[i] <- dplyr::case_when(substr(input[i], 1, 1) == "m" ~ "male",

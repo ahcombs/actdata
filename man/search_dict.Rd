@@ -4,20 +4,34 @@
 \alias{search_dict}
 \title{search_dict}
 \usage{
-search_dict(expr, key = "all", component = "all", gender = "all")
+search_dict(
+  expr = ".*",
+  dataset = "all",
+  component = "all",
+  gender = "all",
+  stat = "all",
+  stat_na_exclude = TRUE,
+  instcodes = TRUE
+)
 }
 \arguments{
-\item{expr}{A term or regular expression to search}
+\item{expr}{A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.}
 
-\item{key}{The key of the dictionary (or list of multiple) to search in. Default is "all."}
+\item{dataset}{The key of the dataset (or list of multiple) to search in. Default is "all.}
 
 \item{component}{The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."}
 
 \item{gender}{The gender of the dictionary to use (male, female, average). Default it "all."}
+
+\item{stat}{The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results.}
+
+\item{stat_na_exclude}{Ignored if stat is not specified. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.}
+
+\item{instcodes}{Logical, whether to include the institution codes in the output. Default is TRUE.}
 }
 \value{
 FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
 }
 \description{
-Dictionary term search
+Dictionary search and subset
 }
