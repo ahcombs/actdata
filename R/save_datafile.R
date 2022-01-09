@@ -1,44 +1,3 @@
-#' Save data files
-#'
-#' Adapted from https://stackoverflow.com/questions/21248065/r-rename-r-object-while-save-ing-it : see Marco Wirthlin's answer
-#'
-#' @param ... data object
-#' @param name desired object name (filename without type and extension)
-#' @param type data type (dict or eqn)
-saveit <- function(..., name, type = NA) {
-  if(is.na(type)){
-    if(is.element(TRUE, grepl("identities", name)) |
-       is.element(TRUE, grepl("behaviors", name)) |
-       is.element(TRUE, grepl("mods", name)) |
-       is.element(TRUE, grepl("settings", name)) |
-       is.element(TRUE, grepl("emotions", name))) {
-      type <- "dict"
-    } else if (is.element(TRUE, grepl("emotionid", name)) |
-               is.element(TRUE, grepl("impressionabo", name)) |
-               is.element(TRUE, grepl("selfdir", name)) |
-               is.element(TRUE, grepl("traitid", name))){
-      type <- "eqn"
-    }
-  }
-
-  if(!(type %in% c("dict", "eqn"))){
-    stop("Specify dataset type as dict or eqn")
-  }
-
-  # this does the .rda files
-  x <- list(...)
-  names(x) <- paste0(name, "_", type)
-  save(list=names(x), file=paste0("data/", name, "_", type, ".rda"), envir=list2env(x), compress = "gzip")
-
-  # # this does the csvs/.dat files
-  # if(type == "dict"){
-  #   write.csv(..., paste0("inst/extdata/", name, "_", type, ".csv"))
-  # } else {
-  #   write.table(..., file = paste0("inst/extdata/", name, "_", type, ".dat"), quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
-  # }
-}
-
-
 #' save_for_interact
 #'
 #' Save for export to Interact
@@ -53,7 +12,7 @@ saveit <- function(..., name, type = NA) {
 #'
 #' @export
 save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt")){
-  # TODO FINISH THIS FUNCTION
+  # TODO FINISH TESTING THIS FUNCTION
   ### FILE NAME
   if(!is.character(filename)){
     stop("File name must be a string.")

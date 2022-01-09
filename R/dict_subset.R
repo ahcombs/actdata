@@ -1,180 +1,177 @@
-# TODO: do something with instcodes. Ideally, supply them for all.
-
-#' get_data
+#' epa_subset
 #'
-#' Helper function for filtering the dictionary summary data. This function allows the user to obtain subsets that include only specified datasets, components, genders, and columns.
-#' If the specified combination does not exist, this function throws a warning to the user.
+#' EPA summary statistics dictionary search and subset
 #'
-#' @param dataset key or list of keys (use dict_info() for list)
-#' @param component component or list of components (identity, behavior, modifier, setting; can abbreviate i, b, s, m)
-#' @param type type or list of types (mean, sd, cov)
-#' @param gender gender or list of genders (male, female, average; can abbreviate m, f, a or av)
+#' @param expr A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.
+#' @param dataset The key of the dataset (or list of multiple) to search in. Default is "all.
+#' @param component The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."
+#' @param gender The gender of the dictionary to use (male, female, average). Default it "all."
+#' @param stat The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results.
+#' @param stat_na_exclude Ignored if stat is not specified. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.
+#' @param instcodes Logical, whether to include the institution codes in the output. Default is TRUE.
 #'
-#' @return a dataframe containing the desired subset of the EPA dictionary summary data.
+#' @return FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
 #' @export
-get_data <- function(dataset, component = "all", type = "all", gender = "all"){
-
-  check_dataset(dataset)
-  data <- actdata::epa_summary_statistics[actdata::epa_summary_statistics$"dataset" %in% dataset,]
-
-  if(!("all" %in% component)){
-    check_valid(component, c("identity", "behavior", "modifier", "setting", "i", "b", "m", "s", "behaviour"))
-
-    component <- gsub("^i$", "identity", component)
-    component <- gsub("^b$", "behavior", component)
-    component <- gsub("^m$", "modifier", component)
-    component <- gsub("^s$", "setting", component)
-    component <- gsub("^behaviour$", "behavior", component)
-    component <- unique(component)
-
-    data <- data[data$"component" %in% component,]
+epa_subset <- function(expr = ".*", dataset = "all", component = "all", gender = "all", stat = "all", stat_na_exclude = TRUE, instcodes = TRUE){
+  if(all(dataset != "all")){
+    check_dataset(dataset)
+  }
+  if(all(component != "all")){
+    check_component(component)
+    component <- standardize_option(component, "component")
+  }
+  if(all(gender != "all")){
+    check_gender(gender)
+    gender <- standardize_option(gender, "gender")
+  }
+  if(all(stat != "all")){
+    check_stat(stat)
+    stat <- standardize_option(stat, "stat")
   }
 
-  if(!("all" %in% type)){
-    check_valid(type, c("mean", "sd", "cov", "m", "n"))
+  if(!is.character(expr)){
+    stop("Must provide a character expression or vector")
+  }
 
-    extra <- type[!(type %in% c("mean", "m"))]
+  if(!is.logical(instcodes)){
+    stop("instcodes parameter must be TRUE or FALSE")
+    # TODO later: add better support for filtering by institution.
+  }
 
-    if(length(extra) > 0){
-      if("n" %in% extra){
-        extra <- extra[extra != "n"]
-        extra <- append(extra, grep("n_.*", names(data), value = TRUE))
-      }
-      if("cov" %in% extra){
-        extra <- extra[extra != "cov"]
-        extra <- append(extra, grep("cov_.*", names(data), value = TRUE))
-      }
-      if("sd" %in% extra){
-        extra <- extra[extra != "sd"]
-        extra <- append(extra, grep("sd_.*", names(data), value = TRUE))
-      }
+  # if a list of regexes has been provided, concatenate together (treat as "or")
+  if(length(expr) > 1){
+    expr <- paste0("(", paste(expr, collapse = ")|("), ")")
+  }
+
+  subset <- actdata::epa_summary_statistics[grepl(expr, actdata::epa_summary_statistics$term),]
+
+  if(all(dataset != "all")){
+    k <- dataset
+    subset <- subset %>%
+      dplyr::filter(dataset %in% k)
+  }
+
+  if(all(component != "all")){
+    c <- component
+    subset <- subset %>%
+      dplyr::filter(component %in% c)
+  }
+
+  if(all(gender != "all")){
+    g <- gender
+    subset <- subset %>%
+      dplyr::filter(gender %in% g)
+  }
+
+  if(all(stat != "all")){
+    if(!("cov" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("cov"))
     }
-    data <- dplyr::select(data, .data$term:.data$A, .data$instcodes, dplyr::all_of(extra))
-  }
-
-  if(!("all" %in% gender)){
-    check_valid(gender, c("male", "female", "average", "m", "f", "a", "av"))
-
-    gender <- gsub("^m$", "male", gender)
-    gender <- gsub("^f$", "female", gender)
-    gender <- gsub("^a$", "average", gender)
-    gender <- gsub("^av$", "average", gender)
-    gender <- unique(gender)
-
-    data <- data[data$"gender" %in% gender,]
-  }
-
-  if(nrow(data) == 0){
-    warning(message = "This subset is empty. This may be because the specified dataset does not contain the requested element(s).")
-  }
-
-  return(data)
-}
-
-check_valid <- function(value, allowed){
-  for(v in value){
-    if(!(v %in% allowed)){
-      stop(paste0("Invalid input '", v, ".'"))
+    if(!("sd" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("sd"))
     }
-  }
-  return(invisible(TRUE))
-}
-
-
-utils::globalVariables("where")
-# , names(epa_summary_statistics))
-
-
-#' epa_summary
-#'
-#' Calculates the mean, standard deviation, and variance-covariance matrix for each term in one of the included individual datasets. This is useful when a user wants summary EPA information for a subset of respondents, for example, when comparing cultural meaning across groups.
-#'
-#' @param data individual level data
-#'
-#' @return a summary dataset with one row per term. Includes the evaluation, potency, and activity mean, standard deviation, and variance-covariance matrix entries for each term.
-#' @export
-#'
-epa_summary <- function(data){
-  if(!("term" %in% names(data))){
-    stop(message = "data must have a column named 'term'")
-  }
-  trim_data <- data %>%
-    dplyr::select("term", "component", "E", "P", "A")
-
-  trim_data <- trim_data %>%
-    mutate(tcid = paste(.data$term, .data$component, sep = ""))
-
-  sum_data <- trim_data %>%
-    dplyr::mutate(dplyr::across(c(-.data$term, -.data$component, -.data$tcid), as.numeric)) %>%
-    dplyr::group_by(.data$term, .data$component, .data$tcid) %>%
-    dplyr::summarize(
-      # TODO: what's the deal with the zeros? skips? Do all datasets have a lot of zeros?
-      n_E = sum(!is.na(.data$E)),
-      n_P = sum(!is.na(.data$P)),
-      n_A = sum(!is.na(.data$A)),
-      mean_E = mean(.data$E, na.rm = TRUE),
-      mean_P = mean(.data$P, na.rm = TRUE),
-      mean_A = mean(.data$A, na.rm = TRUE),
-      sd_E = ifelse(.data$n_E > 1, stats::sd(.data$E, na.rm = TRUE), NA),
-      sd_P = ifelse(.data$n_P > 1, stats::sd(.data$P, na.rm = TRUE), NA),
-      sd_A = ifelse(.data$n_A > 1, stats::sd(.data$A, na.rm = TRUE), NA)) %>%
-    dplyr::ungroup()
-
-  # ADD COV
-  # Calculate a separate covariance matrix for each term, and input the values into the dataframe above.
-  alltcid <- unique(sum_data$tcid)
-  covars <- data.frame(matrix(nrow = 0, ncol = 10))
-  names(covars) <- c("term", "cov_EE", "cov_EP", "cov_EA", "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
-  for(t in alltcid){
-    subset <- trim_data[trim_data$tcid == t,] %>%
-      dplyr::select("E", "P", "A") %>%
-      dplyr::mutate(dplyr::across(dplyr::everything(), as.numeric))
-
-    nE <- sum_data[sum_data$tcid == t, "n_E"][[1]]
-    nP <- sum_data[sum_data$tcid == t, "n_P"][[1]]
-    nA <- sum_data[sum_data$tcid == t, "n_A"][[1]]
-
-    # check how to handle missing values here--right now we are going to listwise delete.
-    # There is also a pairwise option but it sounds more complicated.
-    # Really, we don't need to include all 9 values here; 3 should be repeated.
-    # Also, the diagonals should be the square of the sd values--there's an argument for keeping this in anyway though if we want to report var and sd (but do we need sd?)
-    # TODO: Remove once tested
-    if(nE > 0 & nP > 0 & nA > 0){
-      covarmat <- stats::cov(subset, use = "complete.obs") # 3x3 mat
-      covarvec <- data.frame(tcid = t,
-                             cov_EE = ifelse(nE > 1, covarmat[1, 1], NA),
-                             cov_EP = ifelse(nE > 1 & nP > 1, covarmat[1, 2], NA),
-                             cov_EA = ifelse(nE > 1 & nA > 1, covarmat[1, 3], NA),
-                             cov_PE = ifelse(nP > 1 & nE > 1, covarmat[2, 1], NA),
-                             cov_PP = ifelse(nP > 1, covarmat[2, 2], NA),
-                             cov_PA = ifelse(nP > 1 & nA > 1, covarmat[2, 3], NA),
-                             cov_AE = ifelse(nA > 1 & nE > 1, covarmat[3, 1], NA),
-                             cov_AP = ifelse(nA > 1 & nP > 1, covarmat[3, 2], NA),
-                             cov_AA = ifelse(nA > 1,covarmat[3, 3], NA))
-    } else {
-      covarvec <- data.frame(tcid = t,
-                             cov_EE = NA,
-                             cov_EP = NA,
-                             cov_EA = NA,
-                             cov_PE = NA,
-                             cov_PP = NA,
-                             cov_PA = NA,
-                             cov_AE = NA,
-                             cov_AP = NA,
-                             cov_AA = NA)
+    if(!("n" %in% stat)){
+      subset <- dplyr::select(subset, -dplyr::starts_with("n"))
+    }
+    if(!("mean" %in% stat)){
+      subset <- dplyr::select(subset, -"E", -"P", -"A")
     }
 
-    covars <- rbind(covars, covarvec)
+    if(stat_na_exclude){
+      if("cov" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("cov"), ~ !is.na(.x)))
+      }
+      if("sd" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("sd"), ~ !is.na(.x)))
+      }
+      if("n" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(dplyr::starts_with("n"), ~ !is.na(.x)))
+      }
+      if("mean" %in% stat){
+        subset <- dplyr::filter(subset, dplyr::if_any(c("E", "P", "A"), ~ !is.na(.x)))
+      }
+    }
   }
 
-  sum_data <- dplyr::left_join(sum_data, covars, by = "tcid") %>%
-    dplyr::select(-.data$tcid) %>%
-    # round to the nearest .01
-    dplyr::mutate(
-      dplyr::across(
-        where(is.numeric),
-        ~round(.,2)
-      )
-    )
-  return(sum_data)
+  if(!instcodes){
+    subset <- dplyr::select(subset, -instcodes)
+  }
+
+  if(nrow(subset) == 0){
+    warning("The search did not match any dictionary entries.")
+    return(FALSE)
+  }
+
+  return(subset)
 }
+
+#' #' get_data
+#' #'
+#' #' Helper function for filtering the dictionary summary data. This function allows the user to obtain subsets that include only specified datasets, components, genders, and columns.
+#' #' If the specified combination does not exist, this function throws a warning to the user.
+#' #'
+#' #' @param dataset key or list of keys (use dict_info() for list)
+#' #' @param component component or list of components (identity, behavior, modifier, setting; can abbreviate i, b, s, m)
+#' #' @param type type or list of types (mean, sd, cov)
+#' #' @param gender gender or list of genders (male, female, average; can abbreviate m, f, a or av)
+#' #'
+#' #' @return a dataframe containing the desired subset of the EPA dictionary summary data.
+#' #' @export
+#' get_data <- function(dataset, component = "all", type = "all", gender = "all"){
+#'
+#'   check_dataset(dataset)
+#'   data <- actdata::epa_summary_statistics[actdata::epa_summary_statistics$"dataset" %in% dataset,]
+#'
+#'   if(!("all" %in% component)){
+#'     check_valid(component, c("identity", "behavior", "modifier", "setting", "i", "b", "m", "s", "behaviour"))
+#'
+#'     component <- gsub("^i$", "identity", component)
+#'     component <- gsub("^b$", "behavior", component)
+#'     component <- gsub("^m$", "modifier", component)
+#'     component <- gsub("^s$", "setting", component)
+#'     component <- gsub("^behaviour$", "behavior", component)
+#'     component <- unique(component)
+#'
+#'     data <- data[data$"component" %in% component,]
+#'   }
+#'
+#'   if(!("all" %in% type)){
+#'     check_valid(type, c("mean", "sd", "cov", "m", "n"))
+#'
+#'     extra <- type[!(type %in% c("mean", "m"))]
+#'
+#'     if(length(extra) > 0){
+#'       if("n" %in% extra){
+#'         extra <- extra[extra != "n"]
+#'         extra <- append(extra, grep("n_.*", names(data), value = TRUE))
+#'       }
+#'       if("cov" %in% extra){
+#'         extra <- extra[extra != "cov"]
+#'         extra <- append(extra, grep("cov_.*", names(data), value = TRUE))
+#'       }
+#'       if("sd" %in% extra){
+#'         extra <- extra[extra != "sd"]
+#'         extra <- append(extra, grep("sd_.*", names(data), value = TRUE))
+#'       }
+#'     }
+#'     data <- dplyr::select(data, .data$term:.data$A, .data$instcodes, dplyr::all_of(extra))
+#'   }
+#'
+#'   if(!("all" %in% gender)){
+#'     check_valid(gender, c("male", "female", "average", "m", "f", "a", "av"))
+#'
+#'     gender <- gsub("^m$", "male", gender)
+#'     gender <- gsub("^f$", "female", gender)
+#'     gender <- gsub("^a$", "average", gender)
+#'     gender <- gsub("^av$", "average", gender)
+#'     gender <- unique(gender)
+#'
+#'     data <- data[data$"gender" %in% gender,]
+#'   }
+#'
+#'   if(nrow(data) == 0){
+#'     warning(message = "This subset is empty. This may be because the specified dataset does not contain the requested element(s).")
+#'   }
+#'
+#'   return(data)
+#' }
