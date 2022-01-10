@@ -1,6 +1,6 @@
 Package: actdata
 Title: Affect Control Theory Dictionaries and Equations
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Aidan",
            family = "Combs",
