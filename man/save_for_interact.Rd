@@ -8,7 +8,8 @@ save_for_interact(
   data,
   type = "dict",
   group = "none",
-  filename = paste0(deparse(substitute(data)), ".txt")
+  filename = paste0(deparse(substitute(data)), ".txt"),
+  savefile = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ save_for_interact(
 \item{group}{string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each}
 
 \item{filename}{string the filepath at which to save (must end in .txt)}
+
+\item{savefile}{logical denotes whether to actually save the file (FALSE is primarily useful for testing purposes). Default is TRUE.}
 }
 \value{
 the dataframe that is written to file

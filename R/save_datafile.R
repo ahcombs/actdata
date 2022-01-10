@@ -9,12 +9,12 @@
 #' @param type string ("dict" or "eqn") indicating type of data
 #' @param group string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each
 #' @param filename string the filepath at which to save (must end in .txt)
+#' @param savefile logical that denotes whether to actually save the file (FALSE is primarily useful for testing purposes). Default is TRUE.
 #'
 #' @return the dataframe that is written to file
 #'
 #' @export
-save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt")){
-  # TODO INSTITUTION CODES DONT WORK IN INTERACT. REMOVE BEFORE SAVING.
+save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt"), savefile = TRUE){
   ### FILE NAME
   if(!is.character(filename)){
     stop("File name must be a string.")
@@ -195,10 +195,14 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
 
     message("Importing institution codes into interact does not work at this time. Insitution codes can be seen in the data frame output of this function, but will not be saved in the output file.")
     data_save <- dplyr::select(data_formatted, -.data$instcodes)
-    utils::write.table(data_save, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    if(savefile){
+      utils::write.table(data_save, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    }
   } else {
     # equations don't get any reformatting
-    utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
+    if(savefile){
+      utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
+    }
   }
 
   return(invisible(data_formatted))
