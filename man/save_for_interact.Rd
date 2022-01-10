@@ -20,6 +20,9 @@ save_for_interact(
 
 \item{filename}{string the filepath at which to save (must end in .txt)}
 }
+\value{
+the dataframe that is written to file
+}
 \description{
 Save for export to Interact
 }

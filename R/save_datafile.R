@@ -10,9 +10,11 @@
 #' @param group string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each
 #' @param filename string the filepath at which to save (must end in .txt)
 #'
+#' @return the dataframe that is written to file
+#'
 #' @export
 save_for_interact <- function(data, type = "dict", group = "none", filename = paste0(deparse(substitute(data)), ".txt")){
-  # TODO FINISH TESTING THIS FUNCTION
+  # TODO INSTITUTION CODES DONT WORK IN INTERACT. REMOVE BEFORE SAVING.
   ### FILE NAME
   if(!is.character(filename)){
     stop("File name must be a string.")
@@ -99,19 +101,19 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
       }
     }
 
-    # last but not least, insitution codes. It's okay if they aren't there, but print a warning.
+    # last but not least, institution codes. It's okay if they aren't there, but print a warning.
     if("instcodes" %in% thesenames){
       icodes <- TRUE
     } else {
-      warning("There is no column named instcodes. When imported to interact, all terms will be given institution code 11 111111111 111, indicating all institutions.")
+      warning("There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
       icodes <- FALSE
-      data$instcodes <- 'placeholder'
+      data$instcodes <- ""
     }
 
 
     ### NOW do necessary reformatting
 
-    # long
+    # LONG
     if(length(grep("^[EPA]", thesenames)) == 3){
       data_formatted <- data %>%
         dplyr::rename(
@@ -126,6 +128,10 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
           instcodes = as.character(.data$instcodes))
 
       if(group != "none"){
+        if(length(unlist(unique(data_formatted$term))) < .5 * length(unlist(data_formatted$term))){
+          stop("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. All terms must be uniquely named if a long dataset is provided and grouping is used.")
+        }
+
         data_formatted[data_formatted[[group]] == v1,"gr"] <- "group1"
         data_formatted[data_formatted[[group]] == v2,"gr"] <- "group2"
 
@@ -133,12 +139,14 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
           dplyr::select("term", "gr", "E", "P", "A", "instcodes") %>%
           tidyr::pivot_wider(names_from = .data$gr, values_from = c("E", "P", "A", "instcodes"))
 
-        # print(utils::head(data_formatted))
-
         if(!identical(data_formatted$instcodes_group1, data_formatted$instcodes_group2)){
           warning("Institution codes are not always the same within terms. The codes for the first group have been presented in output.")
         }
       } else {
+        if(length(unlist(unique(data_formatted$term))) < length(unlist(data_formatted$term))){
+          warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+        }
+
         data_formatted <- data_formatted %>%
           dplyr::rename(
             E_group1 = .data$E,
@@ -150,24 +158,48 @@ save_for_interact <- function(data, type = "dict", group = "none", filename = pa
             P_group2 = .data$P_group1,
             A_group2 = .data$A_group1
           )
+
+        v1 <- "1"
+        v2 <- "2"
       }
 
       data_formatted <- data_formatted %>%
         dplyr::select("term", "E_group1", "P_group1", "A_group1", "E_group2", "P_group2", "A_group2", "instcodes_group1")
 
-      if(length(unlist(data_formatted$term)) != length(unlist(unique(data_formatted$term)))){
-        warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Ensure duplicates are intentional.")
-      }
+      names(data_formatted) <- c("term", paste0("E_", v1), paste0("P_", v1), paste0("A_", v1), paste0("E_", v2), paste0("P_", v2), paste0("A_", v2), "instcodes")
 
     } else {
-      # wide
-      # check that there are only two suffixes OR that they share a suffix but are already in the right order
+      # WIDE
+      # check that there are exactly two suffixes
+      # if there is only one it's too hard to order. Ambiguous.
+      # and if there are more than two it's also ambiguous
+      epanames <- grep("^[EPA]", thesenames, value = TRUE)
+      suffixes <- sort(unique(substring(epanames, 2)))
+      if(length(unique(suffixes)) > 2 | length(unique(suffixes)) == 1){
+        stop(message = "Names of E, P, and A columns must have exactly two unique suffixes denoting two groups")
+      } else if (length(unique(suffixes)) == 2) {
+        if(length(unique(epanames)) < 6){
+          stop("Two or more of the E, P, and A columns are named identically.")
+        }
+        s1 <- suffixes[1]
+        s2 <- suffixes[2]
+        order <- c("term", paste0("E", s1), paste0("P", s1), paste0("A", s1), paste0("E", s2), paste0("P", s2), paste0("A", s2), "instcodes")
+      }
 
+      data_formatted <- dplyr::select(data, dplyr::all_of(order))
+
+      if(length(unlist(unique(data_formatted$term))) < length(unlist(data_formatted$term))){
+        warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+      }
     }
 
-    # print(utils::head(data_formatted))
-    # utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
+    message("Importing institution codes into interact does not work at this time. Insitution codes can be seen in the data frame output of this function, but will not be saved in the output file.")
+    data_save <- dplyr::select(data_formatted, -.data$instcodes)
+    utils::write.table(data_save, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = ", ")
   } else {
+    # equations don't get any reformatting
     utils::write.table(data_formatted, file = filename, quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
   }
+
+  return(invisible(data_formatted))
 }

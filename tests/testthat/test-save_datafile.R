@@ -83,16 +83,60 @@ test_that("error handling for column names and institution codes works", {
   expect_error(save_for_interact(data, group = "gender", filename = "file.txt"), "group column must have exactly two unique values")
   data_nofirstrow <- data_twogender[-1,]
   expect_error(save_for_interact(data_nofirstrow, group = "gender", filename = "file.txt"), "each term must have values for both groups")
-  expect_warning(save_for_interact(data, filename = "file.txt"), "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Ensure duplicates are intentional.")
+  expect_warning(save_for_interact(data, filename = "file.txt"),
+                 "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
 
 
   ### INSTITUTION CODES
   data_noinstcodes <- data[,-ncol(data)] %>%
     dplyr::filter(component == "identity",
                   gender == "average")
-  expect_warning(save_for_interact(data_noinstcodes, filename = "file.txt"), "There is no column named instcodes. When imported to interact, all terms will be given institution code 11 111111111 111, indicating all institutions.")
+  expect_warning(save_for_interact(data_noinstcodes, filename = "file.txt"), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
 })
 
+test_that("error handling for reformatting works", {
+  ### LONG
+  longdf <- epa_subset(dataset = "germany2007", gender = c("male", "female"), component = "behavior", stat = "mean")
+  # longdf$instcodes <- "abcde"
+  longdf_icode <- longdf
+  longdf_icode$instcodes[1] <- "notthesame"
 
-# unsure what this was for?
-# save_for_interact(data_twogender, group = "gender", filename = "file.txt")
+  expect_warning(save_for_interact(longdf_icode, group = "gender", filename = "file.txt"), "Institution codes are not always the same within terms. The codes for the first group have been presented in output.")
+  expect_warning(save_for_interact(longdf, filename = "file.txt"),
+               "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+
+  longdf_dup <- epa_subset(dataset = "nc1978", gender = c("male", "female"), component = "identity", stat = "mean")
+  expect_error(save_for_interact(longdf_dup, group = "gender", filename = "file.txt"),
+               "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. All terms must be uniquely named if a long dataset is provided and grouping is used.")
+
+  ### WIDE
+  widedf <- longdf %>%
+    tidyr::pivot_wider(names_from = "gender", values_from = c("E", "P", "A"))
+  widedf_nosuffix <- widedf
+  names(widedf_nosuffix) <- gsub("(_male)|(_female)", "", names(widedf))
+  expect_error(save_for_interact(widedf_nosuffix, filename = "file.txt"), "Names of E, P, and A columns must have exactly two unique suffixes denoting two groups")
+
+  widedf_twoidentical <- widedf
+  names(widedf_twoidentical)[7] <- "E_female"
+  expect_error(save_for_interact(widedf_twoidentical, filename = "file.txt", "Two or more of the E, P, and A columns are named identically."))
+
+  widedf_dup <- widedf
+  widedf_dup[408,] <- widedf[407,]
+  expect_warning(save_for_interact(widedf_dup, filename = "file.txt"),
+                 "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+})
+
+test_that("output data frame format looks good", {
+  ### LONG
+  longdf <- epa_subset(dataset = "germany2007", gender = c("male", "female"), component = "behavior", stat = "mean")
+
+  ### WIDE
+  widedf <- longdf %>%
+    tidyr::pivot_wider(names_from = "gender", values_from = c("E", "P", "A"))
+
+  out_df <- widedf %>%
+    dplyr::select("term", "E_female", "P_female", "A_female", "E_male", "P_male", "A_male", "instcodes")
+
+  expect_equal(save_for_interact(longdf, group = "gender", filename = "file.txt"), out_df)
+  expect_equal(save_for_interact(widedf, filename = "file.txt"), out_df)
+})
