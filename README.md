@@ -63,7 +63,7 @@ control theory dictionary datasets. Metadata for these datasets is shown
 in the table below. More detail on each of the columns is included below
 the table.
 
-<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
+<table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -85,13 +85,10 @@ Components
 Genders
 </th>
 <th style="text-align:left;">
-Description
+More information
 </th>
 <th style="text-align:left;">
 Notes
-</th>
-<th style="text-align:left;">
-Source
 </th>
 </tr>
 </thead>
@@ -116,11 +113,11 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
+\<a
+href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-combined-surveyor-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -143,11 +140,11 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
+\<a
+href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-combined-surveyor-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -170,16 +167,10 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 449 Identities, 300 Behaviors, 98 Emotions, 150 Traits, and
-149 Settings were obtained with Attitude from about 380 undergraduate
-students at Fudan University in Shanghai, Peoples Republic of China,
-1999-2000.
+\<a href=“<http://affectcontroltheory.org/china-dictionary-1999/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -202,13 +193,10 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Data collected in Egypt between 2012 and 2014. n = 1716, identities =
-397, behaviors = 368, modifiers = 233
+\<a href=“<http://affectcontroltheory.org/egypt-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///egypt-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -231,16 +219,11 @@ behavior
 average
 </td>
 <td style="text-align:left;">
-Appendix of Lisa Slattery Rashotte, 2002, What does that smile mean? The
-meaning of nonverbal behaviors in social interaction. Social Psychology
-Quarterly 65: 92-102. EPA values are means across 230 females and 172
-males; these cross-sex EPA profiles are given in both the “male” and the
-“female” positions.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/expressive_acts.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/expressive_acts.htm>
 </td>
 </tr>
 <tr>
@@ -263,20 +246,13 @@ behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-Data were gathered from ten San Francisco gay men in the 1980s by
-Professor Don Barrett, California State University, San Marcos. All data
-are from males. The ‘male’ dictionary present the mean EPA ratings of
-those with traditional sentiments about unsafe sex practices, feeling
-that those practices are more pleasurable than new practices. The
-‘female’ dictionary shows the sentiments of those who think that
-safe-sex practices are more pleasurable.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/gay_sex.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
 All respondents are men. “Male” and “female” sets are coded this way for
 compatibility with Interact.
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/gay_sex.htm>
 </td>
 </tr>
 <tr>
@@ -299,20 +275,10 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 442 Identities, 295 Behaviors, and 67 Modifiers, selected for
-back-translatability with the 1978 U.S.A. dictionary were obtained with
-the Attitude program from 520 Mannheim students. Subjects were matched
-to the American undergraduate population by proportional inclusion of 12
-and 13 grade youths at two German Studenten des Grundstudiums and
-Gymnasiasten, along with subjects from Mannheim University, which
-attracts students mainly from the Rhein-Neckar region in former West
-Germany.
+\<a href=“<http://affectcontroltheory.org/germany-dictionary-1989/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -335,23 +301,11 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 376 Identities, 393 Behaviors, 331 Modifiers. (Some of the
-words are classified as 19 settings in Interact.) Ratings were obtained
-with Surveyor from 1905 subjects (734 male and 1171 female) from all
-over Germany. The research was advertised as a ‘study of language and
-emotion’ in an extensive recruitment campaign including mailing lists
-from different universities, weblogs, newspaper reports and radio
-interviews. Most of the participants (N = 1029) were between 20 and 29
-years of age, but the sample covered all ages, including N = 129 being
-younger than 20 and N = 92 older than 60 years. The data of 83 persons
-(4.4 %) were excluded from the analysis, as they had indicated German
-not being their mother tongue.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -374,14 +328,11 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-This set of concepts - developed by Professor Amy Kroska at the
-University of Oklahoma, and others, for studying gender and household
-roles - was rated by 23 male and 46 female college students in 1994.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/household.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/household.htm>
 </td>
 </tr>
 <tr>
@@ -404,16 +355,10 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 500 Identities, 500 Behaviors, 300 Modifiers, and 200
-Settings were collected at Indiana University, via the Internet using
-the Surveyor applet. The 1027 respondents lived in the U.S.A. at age 16,
-and were about equally male and female.
+\<a href=“<http://affectcontroltheory.org/usa-indiana-2003/>” style=” ”
+\>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -436,14 +381,11 @@ behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-125 inter-state behaviors and 113 domestic behaviors. The behaviors were
-rated by professionals in international relations, and by individuals
-from the general population.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/international_relations.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/international_relations.htm>
 </td>
 </tr>
 <tr>
@@ -466,13 +408,11 @@ identity, behavior, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-This set of concepts related to Internet culture was developed by Adam
-King, and rated by 2,431 respondents (56% male and 44% female) in 1998.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/InternetCulture.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/InternetCulture.htm>
 </td>
 </tr>
 <tr>
@@ -495,25 +435,11 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 403 Identities and 307 Behaviors, and a few Settings were
-obtained with the Attitude program from 323 Tohoku University students
-in 1989. In 1995 and 1996, 120 women students at Kyoritsu Women’s, Japan
-Women’s, and Teikyo Universities and 120 men students at Teikyo and
-Rikkyo Universities rated an additional 300 settings, 300 modifiers
-(mainly traits), 200 business identities, and 75 behaviors. Yoichi
-Murase (Rikkyo University) and Nozomu Matsubara (Tokyo University)
-provided access to students who rated 102 emotions, 70 behaviors and 55
-identities in 2002 using Surveyor. Total numbers of entries in Interact
-lexicon are: 713 Identities, 455 Behaviors, 426 Modifiers, and 300
-Settings. Number of male or female raters generally is about 30 for each
-concept.
+\<a href=“<http://affectcontroltheory.org/japan-dictionary-1989-2002/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
 Data collection was in several stages between 1989 and 2002
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -536,13 +462,10 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Data collected in Morocco. n = 1546, identities = 397, behaviors = 368,
-modifiers = 233
+\<a href=“<http://affectcontroltheory.org/morocco-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///morocco-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -565,19 +488,10 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 721 Identities, 600 Behaviors, 440 Modifiers, and 345
-Settings were obtained with paper questionnaires from 1,225 North
-Carolina undergraduates. (Ratings for some emotion words in this data
-set were obtained by Heise from Indiana University undergraduates in
-1985.) Number of male or female raters generally is about 25 for each
-word. Funded by National Institute of Mental Health Grant
-1-R01-MH29978-01-SSR.
+\<a href=“<http://affectcontroltheory.org/usa-north-carolina-1978/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -600,16 +514,11 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 528 Identities and 498 Behaviors were obtained with paper
-questionnaires from 319 Belfast teenagers in Catholic high schools in
-1977. Ratings of modifiers and settings were not obtained in the Belfast
-study. Up to 18 females and 14 males rated each concept.
+\<a
+href=“<http://affectcontroltheory.org/northern-ireland-dictionary-1977/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -620,7 +529,7 @@ ontario1980
 Canada
 </td>
 <td style="text-align:left;">
-1980
+1980-1986
 </td>
 <td style="text-align:left;">
 mean
@@ -632,16 +541,10 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Data on 843 Identities and 593 Behaviors were obtained from 5,534
-Guelph, Ontario, undergraduates with paper questionnaires in 1980-3, and
-495 Modifiers rated by 1,260 Guelph undergraduates were added in 1985-6.
-Funded by the Social Science and Humanities Research Council of Canada.
+\<a href=“<http://affectcontroltheory.org/canada-1980-1986/>” style=” ”
+\>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -652,7 +555,7 @@ ontario2001
 Canada
 </td>
 <td style="text-align:left;">
-2001
+2001-2003
 </td>
 <td style="text-align:left;">
 mean
@@ -664,17 +567,10 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Data on 993 Identities, 601 Behaviors, and 500 Modifiers, and 200
-Settings were gathered with the Attitude program from Guelph, Ontario,
-undergraduates in 2001-2. Data on settings were gathered with the
-Surveyor program at Guelph in 2003. Funded by the Social Science and
-Humanities Research Council of Canada.
+\<a href=“<http://affectcontroltheory.org/canada-dictionary-2001-2003/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -697,14 +593,11 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-This set of concepts - developed by Kyle Irwin at the University of
-Missouri-St. Louis - was rated by 47 male and 74 female college students
-in 2003.
+\<a
+href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm>
 </td>
 </tr>
 <tr>
@@ -727,15 +620,10 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-From <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>:
-Ratings of 443 Identities, 278 Behaviors, 65 Modifiers, and 1 Setting
-were collected at Texas Tech University with the Attitude program. The
-482 respondents were nearly equally male and female.
+\<a href=“<http://affectcontroltheory.org/usa-texas-1998/>” style=” ”
+\>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Interact 2.1 beta (May 2021)
 </td>
 </tr>
 <tr>
@@ -758,13 +646,10 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Sentiment dictionary data collected at the University of Georgia. n =
-1368, identities = 930, behaviors = 814, modifiers = 660
+\<a href=“<http://affectcontroltheory.org/usa-georgia-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-georgia-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -787,16 +672,13 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Combined sentiment dictionary data collected at the University of
-Georgia, Duke University, and in the Durham, NC community using
-Surveyor. n = 1742, identities = 929, behaviors = 814, modifiers = 660
+\<a
+href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student, 2015 UGA student, and 2015 Duke
 community dictionaries
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-combined-surveyor-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -819,13 +701,10 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Collected from Amazon Mechanical Turk workers in 2015. Identities = 968,
-behaviors = 853, modifiers = 660.
+\<a href=“<http://affectcontroltheory.org/usa-online-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-online-dictionary-2015/>
 </td>
 </tr>
 <tr>
@@ -848,15 +727,12 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-Combined sentiment dictionary data collected at the University of
-Georgia and Duke University using Surveyor. n = 1584, identities = 929,
-behaviors = 814, modifiers = 660
+\<a
+href=“<http://affectcontroltheory.org/usa-student-surveyor-dictionary-2015/>”
+style=” ” \>Webpage\</a>
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student and 2015 UGA student dictionaries
-</td>
-<td style="text-align:left;">
-<http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/>
 </td>
 </tr>
 </tbody>
