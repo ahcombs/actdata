@@ -113,9 +113,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -140,9 +138,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -167,8 +163,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/china-dictionary-1999/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/china-dictionary-1999/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -193,8 +188,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/egypt-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/egypt-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -219,9 +213,7 @@ behavior
 average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/expressive_acts.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/expressive_acts.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -246,9 +238,7 @@ behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/gay_sex.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/gay_sex.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 All respondents are men. “Male” and “female” sets are coded this way for
@@ -275,8 +265,7 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/germany-dictionary-1989/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/germany-dictionary-1989/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -301,9 +290,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -328,9 +315,7 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/household.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/household.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -355,8 +340,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/usa-indiana-2003/>” style=” ”
-\>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-indiana-2003/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -381,9 +365,7 @@ behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/international_relations.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/international_relations.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -408,9 +390,7 @@ identity, behavior, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/InternetCulture.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/InternetCulture.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -435,8 +415,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/japan-dictionary-1989-2002/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/japan-dictionary-1989-2002/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 Data collection was in several stages between 1989 and 2002
@@ -462,8 +441,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/morocco-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/morocco-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -488,8 +466,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/usa-north-carolina-1978/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-north-carolina-1978/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -514,9 +491,7 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<http://affectcontroltheory.org/northern-ireland-dictionary-1977/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/northern-ireland-dictionary-1977/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -541,8 +516,7 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/canada-1980-1986/>” style=” ”
-\>Webpage\</a>
+<a href="http://affectcontroltheory.org/canada-1980-1986/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -567,8 +541,7 @@ identity, behavior, modifier, setting
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/canada-dictionary-2001-2003/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/canada-dictionary-2001-2003/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -593,9 +566,7 @@ identity, behavior
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm>”
-style=” ” \>Webpage\</a>
+<a href="https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -620,8 +591,7 @@ identity, behavior, modifier
 male, female, average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/usa-texas-1998/>” style=” ”
-\>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-texas-1998/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -646,8 +616,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/usa-georgia-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-georgia-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -672,9 +641,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student, 2015 UGA student, and 2015 Duke
@@ -701,8 +668,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a href=“<http://affectcontroltheory.org/usa-online-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-online-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 </td>
@@ -727,9 +693,7 @@ identity, behavior, modifier
 average
 </td>
 <td style="text-align:left;">
-\<a
-href=“<http://affectcontroltheory.org/usa-student-surveyor-dictionary-2015/>”
-style=” ” \>Webpage\</a>
+<a href="http://affectcontroltheory.org/usa-student-surveyor-dictionary-2015/" style="     ">Webpage</a>
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student and 2015 UGA student dictionaries

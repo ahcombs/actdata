@@ -48,14 +48,14 @@ dict_table <- actdata:::read_metadata("dict") %>%
   dplyr::select(key, context, year, types, components, genders, information, notes) %>% 
   mutate(linkname = "Webpage")
 
-dict_table$information <- kableExtra::text_spec(dict_table$linkname, format = "html", link = dict_table$information)
+dict_table$information <- kableExtra::cell_spec(dict_table$linkname, format = "html", link = dict_table$information)
 
 dict_table <- dplyr::select(dict_table, -linkname)
 
 names(dict_table) <- c("Dataset key", "Country or context", "Year", "Data types", "Components", "Genders", "More information", "Notes")
 
 dict_table %>% 
-  kableExtra::kable() %>% 
+  kableExtra::kable(escape = FALSE) %>% 
   kableExtra::kable_styling()
 ```
 
