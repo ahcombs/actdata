@@ -16,6 +16,10 @@ Dictionary
 \describe{
 \item{\code{key}}{character. The dictionary name and year.}
 
+\item{\code{context}}{character. Country or context collected from.}
+
+\item{\code{year}}{character. Year collected (approximate in some cases).}
+
 \item{\code{components}}{vector. What types of terms are included (identities, behaviors, mods, settings)}
 
 \item{\code{types}}{vector. What type of data is available (mean, SD, COV)}

@@ -74,6 +74,8 @@ this_dict <- function(name, class = 'dictionary'){
 #' Dictionary
 #'
 #' @slot key character. The dictionary name and year.
+#' @slot context character. Country or context collected from.
+#' @slot year character. Year collected (approximate in some cases).
 #' @slot components vector. What types of terms are included (identities, behaviors, mods, settings)
 #' @slot types vector. What type of data is available (mean, SD, COV)
 #' @slot genders vector. What genders are available (male, female, av)
@@ -89,6 +91,8 @@ this_dict <- function(name, class = 'dictionary'){
 dictionary <- methods::setClass("dictionary",
                                 slots = list(
                                   key = "character",
+                                  context = "character",
+                                  year = "character",
                                   components = "vector",
                                   types = "vector",
                                   genders = "vector",
@@ -105,6 +109,8 @@ dictionary <- methods::setClass("dictionary",
 #' @param dictionary dictionary object
 #' @param .Object dictionary object (self)
 #' @param key dictionary name
+#' @param context country or context collected in
+#' @param year year collected
 #' @param components available components
 #' @param types available data types
 #' @param genders available genders
@@ -118,6 +124,8 @@ dictionary <- methods::setClass("dictionary",
 setMethod(f = "initialize", signature = "dictionary",
           definition = function(.Object,
                                 key = NA_character_,
+                                context = NA_character_,
+                                year = NA_character_,
                                 components = c("identity", "behavior", "modifier"),
                                 types = c("mean"),
                                 genders = c("male", "female", "average"),
@@ -128,6 +136,8 @@ setMethod(f = "initialize", signature = "dictionary",
                                 notes = "none"
           ){
             .Object@key <- key
+            .Object@context <- context
+            .Object@year <- year
             .Object@components <- components
             .Object@types <- types
             .Object@genders <- genders
@@ -154,6 +164,8 @@ get_dicts <- function(){
     this <- d_info[i,]
     thisdict <- dictionary(
       key = this$key,
+      context = this$context,
+      year = as.character(this$year),
       components = stringr::str_split(this$components, ", *")[[1]],
       types = stringr::str_split(this$types, ", *")[[1]],
       genders = stringr::str_split(this$genders, ", *")[[1]],
@@ -192,6 +204,8 @@ dict_info <- function(name = NA){
     cat(
       paste(
         paste("Dictionary:", name),
+        paste("Country or context:", thisdict@context),
+        paste("Year:", thisdict@year),
         paste("Description:", thisdict@description),
         paste("Components:", paste(unlist(thisdict@components), collapse = ', ')),
         paste("Genders:", paste(unlist(thisdict@genders), collapse = ', ')),
@@ -208,6 +222,8 @@ dict_info <- function(name = NA){
       cat(
         paste(
           paste("Dictionary:", d@key),
+          paste("Country or context:", d@context),
+          paste("Year:", d@year),
           paste("Description:", d@description),
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
           paste("Genders:", paste(unlist(d@genders), collapse = ', ')),

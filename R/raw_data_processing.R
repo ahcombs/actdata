@@ -177,6 +177,11 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, "^new_years'_eve$", "new_year's_eve"),
       term_new = str_replace(.data$term_new, '^peniteniary$', 'penitentiary'),
       term_new = str_replace(.data$term_new, '^petstore$', 'pet_store'),
+
+      # remove parentheses and single and double quotes -- interact does not accept them
+      term_new = str_replace_all(.data$term_new, "\\(", ""),
+      term_new = str_replace_all(.data$term_new, "'", ""),
+      term_new = str_replace_all(.data$term_new, '"', "")
     ) %>%
     dplyr::select(-.data$term) %>%
     dplyr::rename(term = .data$term_new) %>%

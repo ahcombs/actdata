@@ -7,6 +7,8 @@
 \S4method{initialize}{dictionary}(
   .Object,
   key = NA_character_,
+  context = NA_character_,
+  year = NA_character_,
   components = c("identity", "behavior", "modifier"),
   types = c("mean"),
   genders = c("male", "female", "average"),
@@ -21,6 +23,10 @@
 \item{.Object}{dictionary object (self)}
 
 \item{key}{dictionary name}
+
+\item{context}{country or context collected in}
+
+\item{year}{year collected}
 
 \item{components}{available components}
 

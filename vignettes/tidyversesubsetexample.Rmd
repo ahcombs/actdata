@@ -1,5 +1,5 @@
 ---
-title: "Working Within and Across Dictionaries: A Tidyverse Example"
+title: "Working Within and Across Dictionaries: An Example Using the Tidyverse"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Working Within and Across Dictionaries: A Tidyverse Example}
@@ -15,88 +15,97 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-# library(actdata)
+library(actdata)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 ```
 
-The Tidyverse makes it easy to create new combinations or subsets of these dictionaries in a way that is completely replicable, and to visualize quantities of interest over time and/or across countries. An example of how these data sets can be used along with `dplyr`, `tidyr`, and `ggplot` is included below.
+The Tidyverse makes it easy to create new combinations or subsets of ACT dictionaries in a way that is completely replicable, and to visualize quantities of interest over time and/or across countries. An example of how these data sets can be used along with `dplyr`, `tidyr`, and `ggplot` is presented here.
 
-Say we are interested in comparing changes in evaluation ratings for identities over time in whatever countries possible. First, we look through the available dictionaries to pick ones to use: 
+Say we are interested in comparing changes in evaluation ratings for terms over time in whatever countries possible. The dictionary table above as well as `dict_info()` show that the three countries in which multiple dictionaries have been collected are the U.S., Canada, and Germany. Let's choose three U.S. dictionaries (nc1978, texas1998, and usfullsurveyor2015), two Canadian dictionaries (ontario1980 and ontario2001), and two German dictionaries (germany1989 and germany2007). Now we need to find the terms that are in all seven dictionaries. The term table is useful to quickly get a first look at this.
 
 ```{r}
-# dict_info()
+datasets <- c("nc1978", "texas1998", "usfullsurveyor2015", "ontario1980", "ontario2001", "germany1989", "germany2007")
+
+term_table_short <- term_table %>% 
+  # we only need the columns for our chosen dictionaries
+  select(term, component, all_of(datasets)) %>% 
+  # filter to those terms present in all chosen dictionaries
+  filter(if_all(datasets, ~ . == 1))
+
+head(term_table_short)
 ```
 
-The three countries in which multiple dictionaries have been collected are the U.S., Canada, and Germany. We choose three U.S. dictionaries (nc1978, texas1998, and usfullsurveyor2015), two Canadian dictionaries (ontario1980 and ontario2001), and two German dictionaries (germany1989 and germany2007). Now we need to find the identity terms that are in all seven dictionaries. The term table is useful to quickly get a first look at this.
+We now have a list of the `r nrow(term_table_short)` identities included in all seven dictionaries. Let's get the mean EPA values for these terms.
 
 ```{r}
-# library(dplyr)
-# 
-# data(term_table_ident)
-# 
-# term_table_short <- term_table_ident %>% 
-#   # we only need the columns for our chosen dictionaries
-#   select(term, nc1978, texas1998, usfullsurveyor2015, ontario1980, ontario2001, germany1989, germany2007) %>% 
-#   # filter to those terms present in all five datasets
-#   filter(nc1978 + texas1998 + usfullsurveyor2015 + ontario1980 + ontario2001 + germany2007 + germany1989 == 7)
-# 
-# head(term_table_short)
+# trim the term table further to get rid of the dataset key columns
+term_table_forfilter <- term_table_short %>% 
+  select(term, component)
+
+# Now, merge this list with the EPA summary dataset to get epa values for the countries and years we are interested in.
+# First, subset the epa summary dataframe to the dictionaries we want, to only include means, and to only include gender averaged values.
+term_subset <- epa_subset(dataset = datasets, stat = "mean", gender = "average") %>% 
+  # then right join with the term list we built before to subset to only the terms we are interested in. 
+  right_join(term_table_forfilter, by = c("term", "component")) %>% 
+  arrange(term)
+
+term_subset[1:20,]
 ```
 
-We now have a list of the length(term_table_short) identities included in all seven dictionaries. Now we need the evaluation values for these terms. These are located in the dictionary objects. I will use the gender averaged datasets here.
+Now we have a dataframe that contains just the gender-averaged EPA values for the terms that the seven dictionaries share. 
+
+How are meanings changing overall? We can calculate meaning change summary statistics to get a better sense of this:
 
 ```{r}
-# # there are many valid ways to join datasets together. Here I will use the inner_join function from the dplyr package. 
-# 
-# # load dictionaries into the global environment
-# data("nc1978_identities_av_dict")
-# data("texas1998_identities_av_dict")
-# data("usfullsurveyor2015_identities_av_dict")
-# data("ontario1980_identities_av_dict")
-# data("ontario2001_identities_av_dict")
-# data("germany1989_identities_av_dict")
-# data("germany2007_identities_av_dict")
-# 
-# 
-# # we don't actually need the modified term table we created to generate this subset--inner_join will do the filtering for us. However, it is useful for seeing quickly which terms are in which sets without having to load and manipulate the actual dictionaries. 
-# identity_subset <- inner_join(nc1978_identities_av_dict, texas1998_identities_av_dict, by = 'term', suffix = c("", ".texas1998")) %>% 
-#   inner_join(usfullsurveyor2015_identities_av_dict, by = 'term', suffix = c("", ".usfullsurveyor2015")) %>% 
-#   inner_join(ontario1980_identities_av_dict, by = 'term', suffix = c("", ".ontario1980")) %>% 
-#   inner_join(germany1989_identities_av_dict, by = 'term', suffix = c("", ".germany1989")) %>% 
-#   inner_join(germany2007_identities_av_dict, by = 'term', suffix = c("", ".germany2007")) %>% 
-#   inner_join(ontario2001_identities_av_dict, by = 'term', suffix = c(".nc1978", ".ontario2001")) %>% 
-#   # we only need the term column and evaluation columns
-#   select(term, starts_with("E"))
-# 
-# # Note that this data frame is longer (115 rows) than the list of identity terms in all datasets (114 rows). This is because there are multiple entries for some terms in some dictionaries (see "clown"). This is not an error in the package but rather a quirk of the original data. 
-# 
-# head(identity_subset)
+eval_change <- term_subset %>% 
+  # get rid of the texas dataset here; just use the first and last US sets for a change calculation. Drop institution codes too, we won't use them here.
+  filter(dataset != "texas1998") %>% 
+  # first pivot longer so that there is one sentiment value per row
+  pivot_longer(cols = c(E, P, A), names_to = "dimension", values_to = "rating") %>% 
+  select(term, component, context, year, dimension, rating, -instcodes) %>%
+  mutate(order = ifelse(year %in% c("2015", "2007", "2001"), "late", "early")) %>% 
+  select(-year) %>% 
+  # then pivot wider by time order
+  pivot_wider(names_from = order, values_from = rating) %>% 
+  # we get a warning here because there are a few duplicate terms. Clown, secretary, and waiter are all included more than once in the nc1978 dataset. This is something to watch for; there are other duplicates in other datasets as well. These are in the original raw data files and they have been left as is in this package. Here, I remove these terms. I also remove "no_emotion" here.
+  filter(!(term %in% c("waiter", "clown", "secretary", "no_emotion"))) %>% 
+  # now calculate change
+  mutate(change = as.numeric(late) - as.numeric(early)) 
+
+summary(eval_change$change)
 ```
 
-Now we have a dataframe that contains just the evaluation values for the terms that the five dictionaries share. For visualization purposes, we will transform this dataframe from wide to long using `pivot_longer` from the tidyr package and cut it down to a manageable number of identities by filtering for those that are very positive (E > 2), very negative (E < -2) or neutral (-.15 < E < .15). We will also add in a column for year and a column for country, to aid visualization. 
+Mean and median change for all three countries are close to 0, suggesting broad stability in cultural meanings over time, but in all three datasets there are terms which change meaning substantially. Let's find the terms that have undergone the biggest changes in meaning:
 
 ```{r}
-# library(tidyr)
-# identity_subset_toplot <- identity_subset %>% 
-#   # base filtering on nc1978
-#   filter(E.nc1978 > 2 |
-#            E.nc1978 < -2 |
-#            (E.nc1978 > -.15 & E.nc1978 < .15)) %>%
-#   pivot_longer(starts_with('E'), 
-#                names_to = c('place', 'year'), 
-#                names_prefix = "E\\.", 
-#                names_sep = -4,
-#                values_to = "Evaluation") %>% 
-#   mutate(place = case_when(place %in% c("texas", "nc", "usfullsurveyor") ~ "US",
-#                            place == 'germany' ~ "Germany", 
-#                            TRUE ~ "Canada"),
-#          term = paste0(term, "_", place),
-#          year = as.numeric(year))
+eval_change_substantial <- eval_change %>% 
+  arrange(-abs(change))
+
+head(eval_change_substantial)
 ```
 
-Now we can plot this using ggplot.
+This data format is amenable to plotting with ggplot. Let's look at a few of the terms which have seen substantial meaning change. 
 
-```{r}
-# library(ggplot2)
-# ggplot(identity_subset_toplot, aes(x = year, y = Evaluation, group = term, color = place)) +
-#   geom_line(alpha = .7)
+```{r plot, fig.width=7}
+change_terms <- c("lesbian", "junkie", "depressed")
+
+# I'm returning to the subset data frame here
+terms_toplot <- term_subset %>% 
+  filter(term %in% change_terms) %>% 
+  rename(Evaluation = E, 
+         Potency = P,
+         Activity = A) %>% 
+  pivot_longer(cols = c(Evaluation, Potency, Activity), names_to = "dimension", values_to = "rating") %>% 
+  mutate(dimension = factor(dimension, levels = c("Evaluation", "Potency", "Activity")))
+
+ggplot(terms_toplot, aes(x = as.numeric(year), y = rating, shape = context, color = term)) +
+  geom_point(size = 2.5) +
+  geom_line(alpha = .5) + 
+  facet_wrap("dimension") + 
+  labs(x = "Year",
+       y = "Mean sentiment rating")
 ```
+
+This shows that "lesbian"  rose on the evaluation and power dimensions in all three countries and "junkie" fell on the activity dimension in all three countries. The trajectory of "depressed" was more place-dependent: it fell on all three dimensions in the US, stayed stable on evaluation and potency in Canada and Germany, and fell on activity in Germany. This type of analysis cannot show causation, of course, but it can be a useful start point for identifying and investigating terms that may have been affected by social movements or other shifts within and/or across countries. Similarly, this kind of analysis could be used to identify terms that vary across cultures, and, in cultures where multiple datasets have been collected, to investigate whether these differences have changed over time. This could serve as a useful starting point to a study.

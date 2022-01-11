@@ -21,7 +21,7 @@ save_for_interact(
 
 \item{filename}{string the filepath at which to save (must end in .txt)}
 
-\item{savefile}{logical denotes whether to actually save the file (FALSE is primarily useful for testing purposes). Default is TRUE.}
+\item{savefile}{logical that denotes whether to actually save the file (FALSE is primarily useful for testing purposes). Default is TRUE.}
 }
 \value{
 the dataframe that is written to file

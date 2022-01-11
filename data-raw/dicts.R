@@ -56,6 +56,8 @@ individual_keys <- c(
   "usfullsurveyor2015"
 )
 
+meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
+
 exclude_keys <- c("prisonersdilemma")
 
 mean_epa <- data.frame(matrix(nrow = 0, ncol = length(meannames)))
@@ -68,8 +70,11 @@ for(file in means_file_list){
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
   # we don't need to include the public means-only data for the sets we have individual level data for.
   if(!(key %in% individual_keys) & !(key %in% exclude_keys)){
-    context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+    # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
     year <- stringr::str_extract(key, "[[:digit:]]*$")
+    context <- meta[meta$key == key, "context"]
+    # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
+    # year <- meta[meta$key == key, "year"]
     filetype <- stringr::str_extract(file, "\\.[[:alpha:]]*$")
     datatype <- dplyr::case_when(
       grepl("COV", file) ~ "COV",
@@ -227,8 +232,11 @@ for(file in ind_file_list){
 
   # TODO: maybe some NA values in dukecommunity 2015??
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
-  context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+  # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+  context <- meta[meta$key == key, "context"]
+  # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
   year <- stringr::str_extract(key, "[[:digit:]]*$")
+  # year <- meta[meta$key == key, "year"]
 
   data <- read.csv2(path, sep = ",") %>%
     dplyr::rename(term = term_ID)

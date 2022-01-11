@@ -1,0 +1,29 @@
+---
+title: "Meanings in tweets: natural language processing using actdata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Meanings in tweets: natural language processing using actdata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(actdata)
+```
+ 
+ 
+TODO: FINISH. CREDIT CHRIS BAIL AND TEXT AS DATA.
+
+https://cbail.github.io/textasdata/basic-text-analysis/rmarkdown/Basic_Text_Analysis_in_R.html
+
+
+```{r}
+trump_tweets <- load(url("https://cbail.github.io/Trump_Tweets.Rdata"))
+```
