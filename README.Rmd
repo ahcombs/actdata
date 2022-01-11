@@ -45,13 +45,13 @@ This package contains data from 24 different publicly available affect control t
 ```{r dict key table, echo = FALSE}
 dict_table <- actdata:::read_metadata("dict") %>% 
   dplyr::select(-filetype) %>% 
-  dplyr::select(key, context, year, types, components, genders, description, citation, notes, source)
+  dplyr::select(key, context, year, types, components, genders, description, notes, source)
 
-names(dict_table) <- c("Dataset key", "Country or context", "Year", "Data types", "Components", "Genders", "Description", "Citation", "Notes", "Source")
+names(dict_table) <- c("Dataset key", "Country or context", "Year", "Data types", "Components", "Genders", "Description", "Notes", "Source")
 
 dict_table %>% 
   kableExtra::kable() %>% 
-  kableExtra::kable_styling()
+  kableExtra::kable_styling(font_size = 10)
 ```
 
 * *Dataset key*: an identifier unique to a particular study (e.g. `nc1978`; `morocco2015`). These keys are used within this package's functions to access particular datasets.

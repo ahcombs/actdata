@@ -63,7 +63,7 @@ control theory dictionary datasets. Metadata for these datasets is shown
 in the table below. More detail on each of the columns is included below
 the table.
 
-<table class="table" style="margin-left: auto; margin-right: auto;">
+<table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -86,9 +86,6 @@ Genders
 </th>
 <th style="text-align:left;">
 Description
-</th>
-<th style="text-align:left;">
-Citation
 </th>
 <th style="text-align:left;">
 Notes
@@ -123,8 +120,6 @@ average
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
 <http://affectcontroltheory.org///usa-combined-surveyor-dictionary-2015/>
 </td>
 </tr>
@@ -146,8 +141,6 @@ identity, behavior, modifier
 </td>
 <td style="text-align:left;">
 average
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -184,13 +177,6 @@ students at Fudan University in Shanghai, Peoples Republic of China,
 1999-2000.
 </td>
 <td style="text-align:left;">
-Smith, Herman, W. and Yi Cai. Mean Affective Ratings of 1,146 Concepts
-by Shanghai Undergraduates, 1999 \[Computer file\]. Distributed at
-Affect Control Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -218,13 +204,6 @@ average
 <td style="text-align:left;">
 Data collected in Egypt between 2012 and 2014. n = 1716, identities =
 397, behaviors = 368, modifiers = 233
-</td>
-<td style="text-align:left;">
-Hamid Latif, Lynn Smith-Lovin, Dawn T. Robinson, Bryan C. Cannon, Brent
-Curdy, Darys J Kriegel and Jonathan H. Morgan. 2016. “Mean Affective
-Ratings of Identities, Behaviors, and Modifiers by Residents of Cairo,
-Egypt in 2012-2014.” University of Georgia: Distributed at UGA Affect
-Control Theory Website: <http://research.franklin.uga.edu/act/>.
 </td>
 <td style="text-align:left;">
 </td>
@@ -259,11 +238,6 @@ males; these cross-sex EPA profiles are given in both the “male” and the
 “female” positions.
 </td>
 <td style="text-align:left;">
-Appendix of Lisa Slattery Rashotte, 2002, What does that smile mean? The
-meaning of nonverbal behaviors in social interaction. Social Psychology
-Quarterly 65: 92-102.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/expressive_acts.htm>
@@ -296,8 +270,6 @@ those with traditional sentiments about unsafe sex practices, feeling
 that those practices are more pleasurable than new practices. The
 ‘female’ dictionary shows the sentiments of those who think that
 safe-sex practices are more pleasurable.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 All respondents are men. “Male” and “female” sets are coded this way for
@@ -336,13 +308,6 @@ and 13 grade youths at two German Studenten des Grundstudiums and
 Gymnasiasten, along with subjects from Mannheim University, which
 attracts students mainly from the Rhein-Neckar region in former West
 Germany.
-</td>
-<td style="text-align:left;">
-Schneider, Andreas. Mean Affective Ratings of 804 Concepts by West
-German Students in 1989 \[Computer file\]. Distributed at Affect Control
-Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
 </td>
 <td style="text-align:left;">
 </td>
@@ -384,13 +349,6 @@ younger than 20 and N = 92 older than 60 years. The data of 83 persons
 not being their mother tongue.
 </td>
 <td style="text-align:left;">
-Schroder, Tobias. Mean Affective Ratings of 1100 Concepts by German
-Adults in 2007 \[Computer file\]. Distributed at Affect Control Theory
-Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2013.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -419,8 +377,6 @@ male, female, average
 This set of concepts - developed by Professor Amy Kroska at the
 University of Oklahoma, and others, for studying gender and household
 roles - was rated by 23 male and 46 female college students in 1994.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -455,13 +411,6 @@ the Surveyor applet. The 1027 respondents lived in the U.S.A. at age 16,
 and were about equally male and female.
 </td>
 <td style="text-align:left;">
-Francis, Clare, and David R. Heise. Mean Affective Ratings of 1,500
-Concepts by Indiana University Undergraduates in 2002-3 \[Computer
-file\]. Distributed at Affect Control Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -492,11 +441,6 @@ rated by professionals in international relations, and by individuals
 from the general population.
 </td>
 <td style="text-align:left;">
-Azar Edward E. and Steve Lerner 1981. The use of semantic dimensions in
-the scaling of international events. International Interactions 7:
-361-378.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 <https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/international_relations.htm>
@@ -524,10 +468,6 @@ male, female, average
 <td style="text-align:left;">
 This set of concepts related to Internet culture was developed by Adam
 King, and rated by 2,431 respondents (56% male and 44% female) in 1998.
-</td>
-<td style="text-align:left;">
-King, Adam B. 2001. “Affective dimensions of internet culture.” Social
-Science Computer Review 19:414-430.
 </td>
 <td style="text-align:left;">
 </td>
@@ -570,14 +510,6 @@ Settings. Number of male or female raters generally is about 30 for each
 concept.
 </td>
 <td style="text-align:left;">
-Smith, Herman W., Takanori Matsuno, Shuuichirou Ike, and Michio Umino.
-Mean Affective Ratings of 1,894 Concepts by Japanese Undergraduates,
-1989-2002 \[Computer file\]. Distributed at Affect Control Theory
-Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 Data collection was in several stages between 1989 and 2002
 </td>
 <td style="text-align:left;">
@@ -606,8 +538,6 @@ average
 <td style="text-align:left;">
 Data collected in Morocco. n = 1546, identities = 397, behaviors = 368,
 modifiers = 233
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -645,14 +575,6 @@ word. Funded by National Institute of Mental Health Grant
 1-R01-MH29978-01-SSR.
 </td>
 <td style="text-align:left;">
-Smith-Lovin, Lynn, and David R. Heise. Mean Affective Ratings of 2,106
-Concepts by University of North Carolina Undergraduates in 1978
-\[Computer file\]. Distributed at Affect Control Theory Website, Program
-Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -685,14 +607,6 @@ questionnaires from 319 Belfast teenagers in Catholic high schools in
 study. Up to 18 females and 14 males rated each concept.
 </td>
 <td style="text-align:left;">
-Willigan, Dennis, and David R. Heise. Mean Affective Ratings of 1,026
-Concepts by Catholic High School Students in Belfast, Northern Ireland
-in 1977 \[Computer file\]. Distributed at Affect Control Theory Website,
-Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -723,13 +637,6 @@ Data on 843 Identities and 593 Behaviors were obtained from 5,534
 Guelph, Ontario, undergraduates with paper questionnaires in 1980-3, and
 495 Modifiers rated by 1,260 Guelph undergraduates were added in 1985-6.
 Funded by the Social Science and Humanities Research Council of Canada.
-</td>
-<td style="text-align:left;">
-MacKinnon, Neil J. Mean Affective Ratings of 1,931 Concepts by Guelph
-University Undergraduates, Ontario, Canada, in 1980-6 \[Computer file\].
-Distributed at Affect Control Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
 </td>
 <td style="text-align:left;">
 </td>
@@ -765,13 +672,6 @@ Surveyor program at Guelph in 2003. Funded by the Social Science and
 Humanities Research Council of Canada.
 </td>
 <td style="text-align:left;">
-MacKinnon, Neil J. Mean Affective Ratings of 2,294 Concepts by Guelph
-University Undergraduates, Ontario, Canada, in 2001-3 \[Computer file\].
-Distributed at Affect Control Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -800,8 +700,6 @@ male, female, average
 This set of concepts - developed by Kyle Irwin at the University of
 Missouri-St. Louis - was rated by 47 male and 74 female college students
 in 2003.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 </td>
@@ -835,13 +733,6 @@ were collected at Texas Tech University with the Attitude program. The
 482 respondents were nearly equally male and female.
 </td>
 <td style="text-align:left;">
-Schneider, Andreas. Mean Affective Ratings of 787 Concepts by Texas Tech
-University Undergraduates in 1998 \[Computer file\]. Distributed at
-Affect Control Theory Website, Program Interact
-\<<http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html%3E>;,
-2006.
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 Interact 2.1 beta (May 2021)
@@ -869,14 +760,6 @@ average
 <td style="text-align:left;">
 Sentiment dictionary data collected at the University of Georgia. n =
 1368, identities = 930, behaviors = 814, modifiers = 660
-</td>
-<td style="text-align:left;">
-Robinson, Dawn T., Lynn Smith-Lovin, Bryan C. Cannon, Jesse K. Clark,
-Robert Freeland, Jonathan H. Morgan and Kimberly B. Rogers. 2016. ‘Mean
-Affective Ratings of 932 Identities, 810 Behaviors, and 660 Modifiers by
-University of Georgia Undergraduates in 2012-2014.’. University of
-Georgia: Distributed at UGA Affect Control Theory Website:
-<http://research.franklin.uga.edu/act/>.
 </td>
 <td style="text-align:left;">
 </td>
@@ -907,15 +790,6 @@ average
 Combined sentiment dictionary data collected at the University of
 Georgia, Duke University, and in the Durham, NC community using
 Surveyor. n = 1742, identities = 929, behaviors = 814, modifiers = 660
-</td>
-<td style="text-align:left;">
-Smith-Lovin, Lynn, Dawn T. Robinson, Bryan C. Cannon, Jesse K. Clark,
-Robert Freeland, Jonathan H. Morgan and Kimberly B. Rogers. 2016. “Mean
-Affective Ratings of 929 Identities, 814 Behaviors, and 660 Modifiers by
-University of Georgia and Duke University Undergraduates and by
-Community Members in Durham, NC, in 2012-2014.”” University of Georgia:
-Distributed at UGA Affect Control Theory Website:
-<http://research.franklin.uga.edu/act/>.
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student, 2015 UGA student, and 2015 Duke
@@ -949,13 +823,6 @@ Collected from Amazon Mechanical Turk workers in 2015. Identities = 968,
 behaviors = 853, modifiers = 660.
 </td>
 <td style="text-align:left;">
-Smith-Lovin, Lynn, Dawn T. Robinson, Bryan C. Cannon, Brent H. Curdy,
-and Jonathan H. Morgan. 2019. ‘Mean Affective Ratings of 968 Identities,
-853 Behaviors, and 660 Modifiers by Amazon Mechanical Turk Workers in
-2015.’ University of Georgia: Distributed at UGA Affect Control Theory
-Website: <http://research.franklin.uga.edu/act/>
-</td>
-<td style="text-align:left;">
 </td>
 <td style="text-align:left;">
 <http://affectcontroltheory.org///usa-online-dictionary-2015/>
@@ -984,14 +851,6 @@ average
 Combined sentiment dictionary data collected at the University of
 Georgia and Duke University using Surveyor. n = 1584, identities = 929,
 behaviors = 814, modifiers = 660
-</td>
-<td style="text-align:left;">
-Smith-Lovin, Lynn, Dawn T. Robinson, Bryan C. Cannon, Jesse K. Clark,
-Robert Freeland, Jonathan H. Morgan and Kimberly B. Rogers. 2016. ‘Mean
-Affective Ratings of 929 Identities, 814 Behaviors, and 660 Modifiers by
-University of Georgia and Duke University Undergraduates in 2012-2014.’
-University of Georgia: Distributed at UGA Affect Control Theory Website:
-<http://research.franklin.uga.edu/act/>.
 </td>
 <td style="text-align:left;">
 A combination of the 2015 Duke student and 2015 UGA student dictionaries
