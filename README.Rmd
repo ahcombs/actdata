@@ -14,12 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(dplyr)
-library(actdata)
-```
-
-
 # actdata
 
 <!-- badges: start -->
@@ -36,6 +30,10 @@ You can install the development version of actdata from [GitHub](https://github.
 ``` r
 # install.packages("devtools")
 devtools::install_github("ahcombs/actdata")
+```
+```{r setup, message = FALSE}
+library(dplyr)
+library(actdata)
 ```
 
 ## Dictionary Data
@@ -69,12 +67,9 @@ dict_table %>%
     * *modifier:* Typically adjectives that can be applied to identities (e.g. active, witty, young)
     * *setting:* Places and situations (e.g. airplane, alley, worship_service)
 * *Genders*: indicates available gender subsets. Options are `male`, `female`, and `average`. "Average" indicates that participants of all genders were included, though the way this is calculated differs slightly by dictionary. Some dictionaries (e.g. the 2015 US, Morocco, and Egypt dictionaries) are originally published as average values over raters of all genders. In these cases, `average` is the only provided option. Other dictionaries are originally published in male and female subsets. Average values over all raters are not provided in these originally published sets. In this case, the package calculates an approximate average by averaging the male and female values. Typically, studies recruit approximately equal numbers of men and women and men and women's ratings do not differ substantially on most terms, so we expect these approximate average values to be reasonably close to those that we would obtain from an average over all raters. For these dictionaries that provide male and female subsets separately, the package provides male, female, and approximate average versions. For more information on gender and affect control theory dictionaries, see section 4.1 of David Heise's *Expressive Order* (2007). 
-* *Description*: Any summary information provided in the original source.
-* *Citation*: Citation information for the original source, as provided by that source (if any).
-* *Source*: Where the raw data for the package was downloaded or otherwise obtained from. These sources are for mean values; all individual data, none of which has previously been made publicly available, was obtained through personal communications. 
 
 
-Within R, this same metadata information can be printed to the console using dict_info(). 
+Within R, this meta information plus descriptions and citations from the sources can be accessed using `dict_info()`. Leaving the argument blank will print information for all datasets. Pass the function a dataset key to see metadata for just that dataset. 
 
 ```{r}
 library(actdata)
@@ -84,9 +79,11 @@ dict_info("politics2003")
 
 ### Accessing dictionary data: summary statistics
 
-Within the package, all summary data is stored in one data frame named `epa_summary_statistics`. This dataframe contains all available EPA means and variances, covariances, and respondent numbers (when available) for all terms in all dictionaries. 
+Within the package, all summary data is stored in one data frame named `epa_summary_statistics`. This dataframe contains all available EPA means and, when available, institution codes, variances, covariances, and respondent numbers for all terms in all dictionaries. There is one row per term-dataset-gender group. 
 
 Researchers will rarely need or want to work with all of these data at one time. To easily build subsets of this dataframe, use the `epa_subset()` function. This function allows users to search by term, filter by dataset, return only certain summary statistics, and more. Both the original dataframe and these subsets are provided in long form, making them easy to manipulate further using the Tidyverse if needed. 
+
+The columns in this dataset correspond to those in the dictionary metadata table above. However, to aid sorting, only one year (instead of a range) is provided for all datasets. 
 
 ```{r subset examples}
 # Return all gender-average entries for terms containing "friend"
@@ -105,8 +102,6 @@ head(all_ontario1980)
 f_mean_ontario1980 <- epa_subset(dataset = "ontario1980", gender = "female", component = "behavior", stat = "mean")
 head(f_mean_ontario1980)
 ```
-
-
 ### Accessing dictionary data: individual-level data
 
 Eight datasets, all from around 2015, include individual-level data. Some of these are subsets of others. These are the following (see the dictionary table above or use `dict_info()` for more information):
@@ -120,34 +115,33 @@ Eight datasets, all from around 2015, include individual-level data. Some of the
 7. usstudent2015 (a combination of 4 and 5)
 8. usfullsurveyor2015 (a combination of 4, 5, and 6)
 
-Access these data by calling the desired set using the format `[key]_individual`. These datasets contain different sets of respondent-level covariates. For summary information, use `?` preceding a dataset name--for example, enter `?dukecommunity_individual` to see documentation for the Duke community dataset. 
+Access these data by calling the desired set using the format `[key]_individual`. These datasets contain different sets of respondent-level covariates. For more information on the datasets and covariates they contain, use `?` preceding a dataset name--for example, enter `?dukecommunity_individual` to see documentation for the Duke community dataset. 
 
 Like the summary datasets, these datasets are provided in long form, with one respondent's ratings of one term per row. 
 
-```{r individual}
-head(usfullsurveyor2015_individual)
-```
-
 ### Term table
 
-One of the main goals of this package is to make it easy to compare across dictionaries. To this end, the package provides a dataframe called `term_table` that shows at a glance which terms are included in which dictionaries. Each column in these tables represents a dictionary (labeled with its key) and each row is a term. Cell entries (0/1) indicate whether or not the specified dictionary has the specified term. These tables can easily be modified further to generate summaries across a set of dictionaries of interest. To see the entries for only a particular component, to search by term, or to limit to a particular set of dictionaries, I recommend using simple Tidyverse functions to filter the term table. 
+One of the main goals of this package is to make it easy to compare across dictionaries. To this end, the package provides a dataframe called `term_table` that shows at a glance which terms are included in which dictionaries. Each column in these tables represents a dictionary (labeled with its key) and each row is a term. Cell entries (0/1) indicate whether or not the specified dictionary has the specified term. These tables can easily be modified further to generate summaries across a set of dictionaries of interest. To see the entries for only a particular component, to search by term, or to limit to a particular set of dictionaries, it is recommended to use simple Tidyverse functions to filter the term table. 
 
 ```{r term table}
 # the whole table
 head(term_table)
 
 # settings only
-term_table %>% 
+set_tt <- term_table %>% 
   dplyr::filter(component == "setting")
+head(set_tt)
 
 # limit to only the two Germany dictionaries and exclude terms in neither
-term_table %>% 
+german_tt <- term_table %>% 
   dplyr::select(term, component, germany1989, germany2007) %>% 
   dplyr::filter(germany1989 + germany2007 >= 1)
+head(german_tt)
 
 # limit to terms that contain "friend"
-term_table %>% 
+friend_tt <- term_table %>% 
   dplyr::filter(stringr::str_detect(term, "friend"))
+head(friend_tt)
 ```
 
 ### Standardization and other processing of raw dictionary data
@@ -160,9 +154,18 @@ Where individual data is available, the mean, standard deviation, and covariance
 
 The second kind of data this package makes available are tables containing estimates of affect control theory equation coefficients. These coefficients can be used in conjunction with dictionaries to calculate affective responses to various situations. See section 18.2 of David Heise's *Expressive Order* (2007) for a detailed description of the structure and use of these tables.
 
-To see information on all equation sets available in this package, call `eqn_info()`. All of the available equation sets were originally sourced from Interact (version 2.1 beta, accessed May 2021), and component titles are based on labels applied in Interact.
+Metadata on available equations is in the table below, and can also be printed to the console in R by running `eqn_info()`. All of the available equation sets were originally sourced from [Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/) (version 2.1 beta, accessed May 2021), and component titles are based on labels applied in Interact.
 
-### Naming convention
+```{r eqn key table, echo = FALSE}
+eqn_table <- actdata:::read_metadata("eqn") %>% 
+  dplyr::select(key, gendercomponents)
+
+names(eqn_table) <- c("Equation key", "Components and genders")
+
+eqn_table %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling()
+```
 
 Because equations contain varying numbers of coefficients, they are stored in the package as separate data frames rather than combined into one as the dictionaries are. The equation datasets are named according to the following convention:
 
@@ -177,13 +180,9 @@ Because equations contain varying numbers of coefficients, they are stored in th
     * *emotionid:* Equations for combining an emotion modifier with an identity. In some datasets, this set is the same as the traitid set.
 * *Gender* indicates the gender of study participants whose ratings are used to estimate the equation coefficients. Options are `m`, `f`, and `av`. Call `eqn_info()` (optionally, with a specific equation key as an argument) to check which components are specified for which genders. Unlike with dictionary files, where all components within a dictionary are available for the same set of genders, the available genders for equation sets vary by component. Interact, from which all of these equation sets were originally taken, provides male and female-labeled sets for each equation. However, sometimes these sets are identical. In this case, this package simply labels the component of the set as `av` rather than including it twice. All values are provided exactly as they are in Interact--no post-hoc calculations have been performed.
 
-```{r}
-eqn_info("us2010")
-```
-
 ## Writing files for Interact
 
-Interact allows users to import their own dictionary and equation files. Though many of the dictionaries and equation sets provided here are available in Interact, several are not. Additionally, sometimes it is useful to use subsets of dictionaries (e.g. when a user wants to restrict the identities, behaviors, or modifiers available), and creating these subsets within Interact itself, while possible, is tedious and not easily replicable.
+[Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/), a Java program that has been the primary tool available for ACT data analysis since the 1990s, allows users to import their own dictionary and equation files. Though many of the dictionaries and equation sets provided here are available in Interact, several are not. Additionally, sometimes it is useful to use subsets of dictionaries (e.g. when a user wants to restrict the identities, behaviors, or modifiers available), and creating these subsets within Interact itself, while possible, is tedious and not easily replicable.
 
 The `save_for_interact()` function in this package makes it easy to write dictionary and equation .txt files that are correctly formatted for copying and pasting into Interact. The `data` argument should be a dataframe that the user wishes to save (it can be one of those provided, or one created by the user). `type` should be either `dict` or `eqn` (by default, it is set to `dict`). `filename` should be the filepath at which the user wishes to save the file (by default, it saves to the working directory under the name of the dataset). All filepaths must end in .txt. 
 

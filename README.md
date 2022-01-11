@@ -1,19 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-``` r
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-library(actdata)
-```
-
 # actdata
 
 <!-- badges: start -->
@@ -54,6 +41,11 @@ You can install the development version of actdata from
 ``` r
 # install.packages("devtools")
 devtools::install_github("ahcombs/actdata")
+```
+
+``` r
+library(dplyr)
+library(actdata)
 ```
 
 ## Dictionary Data
@@ -755,17 +747,11 @@ A combination of the 2015 Duke student and 2015 UGA student dictionaries
     and approximate average versions. For more information on gender and
     affect control theory dictionaries, see section 4.1 of David Heise’s
     *Expressive Order* (2007).
--   *Description*: Any summary information provided in the original
-    source.
--   *Citation*: Citation information for the original source, as
-    provided by that source (if any).
--   *Source*: Where the raw data for the package was downloaded or
-    otherwise obtained from. These sources are for mean values; all
-    individual data, none of which has previously been made publicly
-    available, was obtained through personal communications.
 
-Within R, this same metadata information can be printed to the console
-using dict_info().
+Within R, this meta information plus descriptions and citations from the
+sources can be accessed using `dict_info()`. Leaving the argument blank
+will print information for all datasets. Pass the function a dataset key
+to see metadata for just that dataset.
 
 ``` r
 library(actdata)
@@ -797,8 +783,9 @@ dict_info("politics2003")
 
 Within the package, all summary data is stored in one data frame named
 `epa_summary_statistics`. This dataframe contains all available EPA
-means and variances, covariances, and respondent numbers (when
-available) for all terms in all dictionaries.
+means and, when available, institution codes, variances, covariances,
+and respondent numbers for all terms in all dictionaries. There is one
+row per term-dataset-gender group.
 
 Researchers will rarely need or want to work with all of these data at
 one time. To easily build subsets of this dataframe, use the
@@ -806,6 +793,10 @@ one time. To easily build subsets of this dataframe, use the
 filter by dataset, return only certain summary statistics, and more.
 Both the original dataframe and these subsets are provided in long form,
 making them easy to manipulate further using the Tidyverse if needed.
+
+The columns in this dataset correspond to those in the dictionary
+metadata table above. However, to aid sorting, only one year (instead of
+a range) is provided for all datasets.
 
 ``` r
 # Return all gender-average entries for terms containing "friend"
@@ -887,65 +878,13 @@ dictionary table above or use `dict_info()` for more information):
 
 Access these data by calling the desired set using the format
 `[key]_individual`. These datasets contain different sets of
-respondent-level covariates. For summary information, use `?` preceding
-a dataset name–for example, enter `?dukecommunity_individual` to see
-documentation for the Duke community dataset.
+respondent-level covariates. For more information on the datasets and
+covariates they contain, use `?` preceding a dataset name–for example,
+enter `?dukecommunity_individual` to see documentation for the Duke
+community dataset.
 
 Like the summary datasets, these datasets are provided in long form,
 with one respondent’s ratings of one term per row.
-
-``` r
-head(usfullsurveyor2015_individual)
-#>         term UserID Gender age      grade hispanic                   race1
-#> 1 fun_loving   UGA1 Female  18 First-Year       No Asian or Asian American
-#> 2    curious   UGA1 Female  18 First-Year       No Asian or Asian American
-#> 3        bad   UGA1 Female  18 First-Year       No Asian or Asian American
-#> 4 wallflower   UGA1 Female  18 First-Year       No Asian or Asian American
-#> 5      exalt   UGA1 Female  18 First-Year       No Asian or Asian American
-#> 6       jock   UGA1 Female  18 First-Year       No Asian or Asian American
-#>                                      race2 usborn proportionus
-#> 1 No additional race information to report    Yes      91-100%
-#> 2 No additional race information to report    Yes      91-100%
-#> 3 No additional race information to report    Yes      91-100%
-#> 4 No additional race information to report    Yes      91-100%
-#> 5 No additional race information to report    Yes      91-100%
-#> 6 No additional race information to report    Yes      91-100%
-#>                                    livedprior language         parentinc
-#> 1 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#> 2 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#> 3 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#> 4 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#> 5 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#> 6 South Atlantic = DE MD WV VA NC SC GA FL DC  English Prefer not to say
-#>   parentmarital                             momed           daded      momemp
-#> 1       Married Some college or vocational school Master's degree Not working
-#> 2       Married Some college or vocational school Master's degree Not working
-#> 3       Married Some college or vocational school Master's degree Not working
-#> 4       Married Some college or vocational school Master's degree Not working
-#> 5       Married Some college or vocational school Master's degree Not working
-#> 6       Married Some college or vocational school Master's degree Not working
-#>                            dademp home             home2          business
-#> 1 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#> 2 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#> 3 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#> 4 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#> 5 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#> 6 Unemployed or looking for a job  Yes Prefer not to say Prefer not to say
-#>       religion                     services          otherrelig
-#> 1 Christianity a few times in the past year A few times a month
-#> 2 Christianity a few times in the past year A few times a month
-#> 3 Christianity a few times in the past year A few times a month
-#> 4 Christianity a few times in the past year A few times a month
-#> 5 Christianity a few times in the past year A few times a month
-#> 6 Christianity a few times in the past year A few times a month
-#>              relimp Condition          E          P          A Set component
-#> 1 Prefer not to say         8  4.1999998       2.04          0 UGA  modifier
-#> 2 Prefer not to say         8        2.5          2       1.02 UGA  modifier
-#> 3 Prefer not to say         8 -2.4000001        .02  .31999999 UGA  modifier
-#> 4 Prefer not to say         8 -.95999998          2       -.94 UGA  identity
-#> 5 Prefer not to say         8  .98000002       1.14 .059999999 UGA  behavior
-#> 6 Prefer not to say         8        .02 .039999999       2.98 UGA  identity
-```
 
 ### Term table
 
@@ -958,8 +897,8 @@ indicate whether or not the specified dictionary has the specified term.
 These tables can easily be modified further to generate summaries across
 a set of dictionaries of interest. To see the entries for only a
 particular component, to search by term, or to limit to a particular set
-of dictionaries, I recommend using simple Tidyverse functions to filter
-the term table.
+of dictionaries, it is recommended to use simple Tidyverse functions to
+filter the term table.
 
 ``` r
 # the whole table
@@ -982,68 +921,54 @@ head(term_table)
 #> #   usfullsurveyor2015 <dbl>, usmturk2015 <dbl>, usstudent2015 <dbl>
 
 # settings only
-term_table %>% 
+set_tt <- term_table %>% 
   dplyr::filter(component == "setting")
-#> # A tibble: 503 × 26
-#>    term           component china1999 dukecommunity20… dukestudent2015 egypt2015
-#>    <chr>          <chr>         <dbl>            <dbl>           <dbl>     <dbl>
-#>  1 acrobatics     setting           1                0               0         0
-#>  2 adult_booksto… setting           1                0               0         0
-#>  3 adult_educati… setting           1                0               0         0
-#>  4 airplane       setting           1                0               0         0
-#>  5 airport        setting           1                0               0         0
-#>  6 altar          setting           1                0               0         0
-#>  7 ambulance      setting           1                0               0         0
-#>  8 amusement_park setting           1                0               0         0
-#>  9 apartment      setting           1                0               0         0
-#> 10 art_gallery    setting           1                0               0         0
-#> # … with 493 more rows, and 20 more variables: expressive2002 <dbl>,
-#> #   gaymensanfrancisco1980 <dbl>, germany1989 <dbl>, germany2007 <dbl>,
-#> #   household1994 <dbl>, indiana2003 <dbl>,
-#> #   internationaldomesticrelations1981 <dbl>, internet1998 <dbl>,
-#> #   japan1995 <dbl>, morocco2015 <dbl>, nc1978 <dbl>, nireland1977 <dbl>,
-#> #   ontario1980 <dbl>, ontario2001 <dbl>, politics2003 <dbl>, texas1998 <dbl>,
-#> #   uga2015 <dbl>, usfullsurveyor2015 <dbl>, usmturk2015 <dbl>, …
+head(set_tt)
+#> # A tibble: 6 × 26
+#>   term            component china1999 dukecommunity20… dukestudent2015 egypt2015
+#>   <chr>           <chr>         <dbl>            <dbl>           <dbl>     <dbl>
+#> 1 acrobatics      setting           1                0               0         0
+#> 2 adult_bookstore setting           1                0               0         0
+#> 3 adult_educatio… setting           1                0               0         0
+#> 4 airplane        setting           1                0               0         0
+#> 5 airport         setting           1                0               0         0
+#> 6 altar           setting           1                0               0         0
+#> # … with 20 more variables: expressive2002 <dbl>, gaymensanfrancisco1980 <dbl>,
+#> #   germany1989 <dbl>, germany2007 <dbl>, household1994 <dbl>,
+#> #   indiana2003 <dbl>, internationaldomesticrelations1981 <dbl>,
+#> #   internet1998 <dbl>, japan1995 <dbl>, morocco2015 <dbl>, nc1978 <dbl>,
+#> #   nireland1977 <dbl>, ontario1980 <dbl>, ontario2001 <dbl>,
+#> #   politics2003 <dbl>, texas1998 <dbl>, uga2015 <dbl>,
+#> #   usfullsurveyor2015 <dbl>, usmturk2015 <dbl>, usstudent2015 <dbl>
 
 # limit to only the two Germany dictionaries and exclude terms in neither
-term_table %>% 
+german_tt <- term_table %>% 
   dplyr::select(term, component, germany1989, germany2007) %>% 
   dplyr::filter(germany1989 + germany2007 >= 1)
-#> # A tibble: 1,658 × 4
-#>    term          component germany1989 germany2007
-#>    <chr>         <chr>           <dbl>       <dbl>
-#>  1 abandon       behavior            0           1
-#>  2 absent_minded modifier            0           1
-#>  3 abuse         behavior            0           1
-#>  4 academic      identity            1           1
-#>  5 accountant    identity            1           0
-#>  6 accuse        behavior            0           1
-#>  7 accuser       identity            1           0
-#>  8 acquaintance  identity            1           1
-#>  9 active        modifier            0           1
-#> 10 admire        behavior            0           1
-#> # … with 1,648 more rows
+head(german_tt)
+#> # A tibble: 6 × 4
+#>   term          component germany1989 germany2007
+#>   <chr>         <chr>           <dbl>       <dbl>
+#> 1 abandon       behavior            0           1
+#> 2 absent_minded modifier            0           1
+#> 3 abuse         behavior            0           1
+#> 4 academic      identity            1           1
+#> 5 accountant    identity            1           0
+#> 6 accuse        behavior            0           1
 
 # limit to terms that contain "friend"
-term_table %>% 
+friend_tt <- term_table %>% 
   dplyr::filter(stringr::str_detect(term, "friend"))
-#> # A tibble: 14 × 26
-#>    term           component china1999 dukecommunity20… dukestudent2015 egypt2015
-#>    <chr>          <chr>         <dbl>            <dbl>           <dbl>     <dbl>
-#>  1 befriend       behavior          1                1               1         0
-#>  2 boyfriend      identity          1                1               1         0
-#>  3 friendly       modifier          1                1               1         1
-#>  4 girlfriend     identity          1                1               1         0
-#>  5 best_friend    identity          0                1               1         1
-#>  6 ex_boyfriend   identity          0                1               1         1
-#>  7 ex_girlfriend  identity          0                1               1         0
-#>  8 friend         identity          0                1               1         1
-#>  9 unfriend       behavior          0                1               1         0
-#> 10 unfriendly     modifier          0                1               1         1
-#> 11 conducting_or… behavior          0                0               0         0
-#> 12 reaffirming_f… behavior          0                0               0         0
-#> 13 childhood_fri… identity          0                0               0         0
-#> 14 old_friend     identity          0                0               0         0
+head(friend_tt)
+#> # A tibble: 6 × 26
+#>   term         component china1999 dukecommunity2015 dukestudent2015 egypt2015
+#>   <chr>        <chr>         <dbl>             <dbl>           <dbl>     <dbl>
+#> 1 befriend     behavior          1                 1               1         0
+#> 2 boyfriend    identity          1                 1               1         0
+#> 3 friendly     modifier          1                 1               1         1
+#> 4 girlfriend   identity          1                 1               1         0
+#> 5 best_friend  identity          0                 1               1         1
+#> 6 ex_boyfriend identity          0                 1               1         1
 #> # … with 20 more variables: expressive2002 <dbl>, gaymensanfrancisco1980 <dbl>,
 #> #   germany1989 <dbl>, germany2007 <dbl>, household1994 <dbl>,
 #> #   indiana2003 <dbl>, internationaldomesticrelations1981 <dbl>,
@@ -1078,12 +1003,108 @@ calculate affective responses to various situations. See section 18.2 of
 David Heise’s *Expressive Order* (2007) for a detailed description of
 the structure and use of these tables.
 
-To see information on all equation sets available in this package, call
-`eqn_info()`. All of the available equation sets were originally sourced
-from Interact (version 2.1 beta, accessed May 2021), and component
-titles are based on labels applied in Interact.
+Metadata on available equations is in the table below, and can also be
+printed to the console in R by running `eqn_info()`. All of the
+available equation sets were originally sourced from
+[Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/)
+(version 2.1 beta, accessed May 2021), and component titles are based on
+labels applied in Interact.
 
-### Naming convention
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Equation key
+</th>
+<th style="text-align:left;">
+Components and genders
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+us2010
+</td>
+<td style="text-align:left;">
+impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f,
+selfdir_m, traitid_av, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nc1978
+</td>
+<td style="text-align:left;">
+impressionabo_f, impressionabo_m, impressionabos_f, impressionabos_m,
+selfdir_f, selfdir_m, traitid_av, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+morocco2015
+</td>
+<td style="text-align:left;">
+impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f,
+selfdir_m, traitid_av, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+japan1984
+</td>
+<td style="text-align:left;">
+impressionabo_f, impressionabo_m, impressionabos_f, impressionabos_m,
+selfdir_f, selfdir_m, traitid_f, traitid_m, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+egypt2014
+</td>
+<td style="text-align:left;">
+impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f,
+selfdir_m, traitid_av, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+germany2007
+</td>
+<td style="text-align:left;">
+impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f,
+selfdir_m, traitid_av, emotionid_av
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+china2000
+</td>
+<td style="text-align:left;">
+impressionabo_f, impressionabo_m, impressionabos_f, impressionabos_m,
+selfdir_f, selfdir_m, traitid_f, traitid_m, emotionid_f, emotionid_m
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+canada20012003
+</td>
+<td style="text-align:left;">
+impressionabo_f, impressionabo_m, impressionabos_f, impressionabos_m,
+selfdir_f, selfdir_m, traitid_av, emotionid_av
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+canada1985
+</td>
+<td style="text-align:left;">
+impressionabo_f, impressionabo_m, impressionabos_f, impressionabos_m,
+selfdir_f, selfdir_m, traitid_av, emotionid_av
+</td>
+</tr>
+</tbody>
+</table>
 
 Because equations contain varying numbers of coefficients, they are
 stored in the package as separate data frames rather than combined into
@@ -1125,20 +1146,16 @@ to the following convention:
     including it twice. All values are provided exactly as they are in
     Interact–no post-hoc calculations have been performed.
 
-``` r
-eqn_info("us2010")
-#> Equation set name: us2010
-#> Component genders: impressionabo_av, impressionabos_f, impressionabos_m, selfdir_f, selfdir_m, traitid_av, emotionid_f, emotionid_m
-```
-
 ## Writing files for Interact
 
-Interact allows users to import their own dictionary and equation files.
-Though many of the dictionaries and equation sets provided here are
-available in Interact, several are not. Additionally, sometimes it is
-useful to use subsets of dictionaries (e.g. when a user wants to
-restrict the identities, behaviors, or modifiers available), and
-creating these subsets within Interact itself, while possible, is
+[Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/),
+a Java program that has been the primary tool available for ACT data
+analysis since the 1990s, allows users to import their own dictionary
+and equation files. Though many of the dictionaries and equation sets
+provided here are available in Interact, several are not. Additionally,
+sometimes it is useful to use subsets of dictionaries (e.g. when a user
+wants to restrict the identities, behaviors, or modifiers available),
+and creating these subsets within Interact itself, while possible, is
 tedious and not easily replicable.
 
 The `save_for_interact()` function in this package makes it easy to
