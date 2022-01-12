@@ -74,32 +74,19 @@ check_gender <- function(gender){
 #'    cov, covar, covariance, c
 #'
 #' @param stat string
+#' @param stats_avail abbreviations allowed
 #'
 #' @return TRUE if available; throws error otherwise
-check_stat <- function(stat){
-  stats_avail <- c("mean", "m", "sd", "standard deviation", "s", "cov", "covar", "covariance", "c", "n", "number")
+check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviation", "s", "cov", "covar", "covariance", "c", "n", "number")){
   for(s in stat){
     if(!(s %in% unlist(stats_avail))){
-      stop(message = paste0("Invalid statistic '", s,"' provided. Valid statistics are mean, sd, cov, and n."))
+      options <- c("mean", "sd", "cov", "n")
+      options <- options[options %in% stats_avail]
+      stop(message = paste0("Invalid statistic '", s,"' provided. Valid statistics are ", paste(options, collapse = ", "), "."))
     }
   }
 
   return(TRUE)
-}
-
-#' check_valid
-#'
-#' @param value string or list
-#' @param allowed string or list
-#'
-#' @return logical
-check_valid <- function(value, allowed){
-  for(v in value){
-    if(!(v %in% allowed)){
-      stop(paste0("Invalid input '", v, ".'"))
-    }
-  }
-  return(invisible(TRUE))
 }
 
 

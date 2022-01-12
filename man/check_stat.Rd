@@ -4,10 +4,16 @@
 \alias{check_stat}
 \title{Valid stat check}
 \usage{
-check_stat(stat)
+check_stat(
+  stat,
+  stats_avail = c("mean", "m", "sd", "standard deviation", "s", "cov", "covar",
+    "covariance", "c", "n", "number")
+)
 }
 \arguments{
 \item{stat}{string}
+
+\item{stats_avail}{abbreviations allowed}
 }
 \value{
 TRUE if available; throws error otherwise

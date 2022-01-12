@@ -26,7 +26,7 @@ test_that("check_stat works", {
   expect_equal(check_stat("m"), TRUE)
   expect_equal(check_stat(c("mean", "covariance")), TRUE)
   expect_equal(check_stat(c("m", "c", "sd")), TRUE)
-  expect_error(check_stat(c("n", "notastat")), "Invalid statistic 'notastat' provided. Valid statistics are mean, sd, cov, and n.")
+  expect_error(check_stat(c("n", "notastat")), "Invalid statistic 'notastat' provided. Valid statistics are mean, sd, cov, n.")
 })
 
 test_that("standardize_option works", {
@@ -39,22 +39,22 @@ test_that("standardize_option works", {
   expect_error(standardize_option("m", "not a valid parameter"), "Invalid parameter type provided.")
 })
 
-test_that("check_valid catches input of wrong type", {
-  expect_error(check_valid(1, c("s1","s2")))
-  expect_error(check_valid(TRUE, c("s1","s2")))
-  expect_error(check_valid(NA, c("s1","s2")))
-  expect_error(check_valid(c(1, "s1"), c("s1","s2")))
-  expect_error(check_valid(c(NA, TRUE), c("s1","s2")))
-})
-
-test_that("check_valid catches input of wrong string", {
-  expect_error(check_valid("a", c("s1","s2")))
-  expect_error(check_valid(c("a", "s1"), c("s1","s2")))
-})
-
-test_that("check_valid returns TRUE when input is correct", {
-  expect_equal(check_valid("s1", c("s1","s2")), TRUE)
-  expect_equal(check_valid(c("s1", "s1"), c("s1","s2")), TRUE)
-  expect_equal(check_valid(c("s1", "s2"), c("s1","s2")), TRUE)
-})
+# test_that("check_valid catches input of wrong type", {
+#   expect_error(check_valid(1, c("s1","s2")))
+#   expect_error(check_valid(TRUE, c("s1","s2")))
+#   expect_error(check_valid(NA, c("s1","s2")))
+#   expect_error(check_valid(c(1, "s1"), c("s1","s2")))
+#   expect_error(check_valid(c(NA, TRUE), c("s1","s2")))
+# })
+#
+# test_that("check_valid catches input of wrong string", {
+#   expect_error(check_valid("a", c("s1","s2")))
+#   expect_error(check_valid(c("a", "s1"), c("s1","s2")))
+# })
+#
+# test_that("check_valid returns TRUE when input is correct", {
+#   expect_equal(check_valid("s1", c("s1","s2")), TRUE)
+#   expect_equal(check_valid(c("s1", "s1"), c("s1","s2")), TRUE)
+#   expect_equal(check_valid(c("s1", "s2"), c("s1","s2")), TRUE)
+# })
 
