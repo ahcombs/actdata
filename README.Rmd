@@ -31,7 +31,7 @@ You can install the development version of actdata from [GitHub](https://github.
 # install.packages("devtools")
 devtools::install_github("ahcombs/actdata")
 ```
-```{r setup, message = FALSE}
+```{r setup, message = FALSE, echo = FALSE}
 library(dplyr)
 library(actdata)
 ```
@@ -41,7 +41,7 @@ library(actdata)
 This package contains data from 24 different publicly available affect control theory dictionary datasets. Metadata for these datasets is shown in the table below. More detail on each of the columns is included below the table.
 
 ```{r dict key table, echo = FALSE}
-dict_table <- actdata:::read_metadata("dict") %>% 
+dict_table <- actdata:::get_meta("dict") %>% 
   dplyr::select(-filetype) %>% 
   dplyr::select(key, context, year, types, components, genders, information, notes) %>% 
   mutate(linkname = "Webpage")
@@ -73,6 +73,8 @@ Within R, this meta information plus descriptions and citations from the sources
 
 ```{r}
 library(actdata)
+library(dplyr)
+
 dict_info("nc1978")
 dict_info("politics2003")
 ```
@@ -157,7 +159,7 @@ The second kind of data this package makes available are tables containing estim
 Metadata on available equations is in the table below, and can also be printed to the console in R by running `eqn_info()`. All of the available equation sets were originally sourced from [Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/) (version 2.1 beta, accessed May 2021), and component titles are based on labels applied in Interact.
 
 ```{r eqn key table, echo = FALSE}
-eqn_table <- actdata:::read_metadata("eqn") %>% 
+eqn_table <- actdata:::get_meta("eqn") %>% 
   dplyr::select(key, gendercomponents)
 
 names(eqn_table) <- c("Equation key", "Components and genders")

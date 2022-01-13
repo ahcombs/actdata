@@ -43,11 +43,6 @@ You can install the development version of actdata from
 devtools::install_github("ahcombs/actdata")
 ```
 
-``` r
-library(dplyr)
-library(actdata)
-```
-
 ## Dictionary Data
 
 This package contains data from 24 different publicly available affect
@@ -755,6 +750,8 @@ to see metadata for just that dataset.
 
 ``` r
 library(actdata)
+library(dplyr)
+
 dict_info("nc1978")
 #> Dictionary: nc1978
 #> Country or context: US

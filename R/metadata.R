@@ -159,7 +159,7 @@ setMethod(f = "initialize", signature = "dictionary",
 #' @export
 get_dicts <- function(){
   dicts = c()
-  d_info <- read_metadata(type = "dict")
+  d_info <- dict_meta
   for(i in 1:nrow(d_info)){
     this <- d_info[i,]
     thisdict <- dictionary(
@@ -312,7 +312,7 @@ setMethod(f = "initialize", signature = "equation",
 #' @export
 get_eqns <- function(){
   eqns = c()
-  e_info <- read_metadata(type = "eqn")
+  e_info <- eqn_meta
   for(i in 1:nrow(e_info)){
     this <- e_info[i,]
     thiseqn <- equation(
@@ -370,21 +370,16 @@ eqn_info <- function(name = NA){
   }
 }
 
-
-#' read_metadata
-#'
-#' Reads in the metadata associated with equations and dictionaries available.
+#' Just passes along the metadata object from internal data (for readme purposes)
 #'
 #' @param type dict or eqn
 #'
-#' @return dataframe
-read_metadata <- function(type){
+#' @return metatdata df
+get_meta <- function(type){
   if(type == "dict"){
-    meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
-  } else if(type == "eqn") {
-    meta <- utils::read.csv("data-raw/eqns/eqn_info.csv")
+    return(dict_meta)
   } else {
-    stop("Invalid metadata type provided.")
+    return(eqn_meta)
   }
-  return(meta)
 }
+
