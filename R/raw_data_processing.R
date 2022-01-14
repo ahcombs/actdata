@@ -180,6 +180,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
 
       # remove parentheses and single and double quotes -- interact does not accept them
       term_new = str_replace_all(.data$term_new, "\\(", ""),
+      term_new = str_replace_all(.data$term_new, "\\)", ""),
       term_new = str_replace_all(.data$term_new, "'", ""),
       term_new = str_replace_all(.data$term_new, '"', "")
     ) %>%
