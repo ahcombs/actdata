@@ -10,7 +10,7 @@
   context = NA_character_,
   year = NA_character_,
   components = c("identity", "behavior", "modifier"),
-  types = c("mean"),
+  stats = c("mean"),
   genders = c("male", "female", "average"),
   filetype = ".dat",
   source = "Interact 2.1 beta (May 2021)",
@@ -30,7 +30,7 @@
 
 \item{components}{available components}
 
-\item{types}{available data types}
+\item{stats}{available summary statistics}
 
 \item{genders}{available genders}
 

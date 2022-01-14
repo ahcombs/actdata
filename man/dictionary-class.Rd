@@ -22,7 +22,7 @@ Dictionary
 
 \item{\code{components}}{vector. What types of terms are included (identities, behaviors, mods, settings)}
 
-\item{\code{types}}{vector. What type of data is available (mean, SD, COV)}
+\item{\code{stats}}{vector. What summary statistics available (mean, SD, COV)}
 
 \item{\code{genders}}{vector. What genders are available (male, female, av)}
 

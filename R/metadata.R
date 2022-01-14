@@ -2,23 +2,21 @@
 
 #' dict_subset
 #'
-#' Dictionary subset. Extracts the keys of dictionaries, optionally subsetted by type (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
+#' Dictionary subset. Extracts the keys of dictionaries, optionally subsetted by stat (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
 #'
 #' @param dicts list of dictionary objects
-#' @param type string (\code{"mean"}, \code{"sd"}, or \code{"cov"})
-#' @param component string (\code{"identity"}, \code{"behavior"}, \code{"modifier"}, or \code{"setting"})
 #'
 #' @return list of dictionary keys
 #' @export
-dataset_key_subset <- function(type = NA, component = NA, dicts = get_dicts()){
+dataset_keys <- function(dicts = get_dicts()){
   # TODO I changed the parameter to make get_dicts() the default and put it last--update within bayesact
   # TODO allow abbreviations? Is this likely to be used by users or is it just for bayesactr?
   names <- c()
-  # subset by type and/or components available
+  # subset by stat and/or components available
   for(dict in dicts){
-    if((type %in% dict@types | is.na(type)) & (component %in% dict@components | is.na(component))){
+    # if((stat %in% dict@stats | is.na(stat)) & (component %in% dict@components | is.na(component))){
       names <- append(names, dict@key)
-    }
+    # }
   }
 
   return(names)
@@ -77,7 +75,7 @@ this_dict <- function(name, class = 'dictionary'){
 #' @slot context character. Country or context collected from.
 #' @slot year character. Year collected (approximate in some cases).
 #' @slot components vector. What types of terms are included (identities, behaviors, mods, settings)
-#' @slot types vector. What type of data is available (mean, SD, COV)
+#' @slot stats vector. What summary statistics available (mean, SD, COV)
 #' @slot genders vector. What genders are available (male, female, av)
 #' @slot filetype character. Original source file extension.
 #' @slot source character. Where original data came from.
@@ -94,7 +92,7 @@ dictionary <- methods::setClass("dictionary",
                                   context = "character",
                                   year = "character",
                                   components = "vector",
-                                  types = "vector",
+                                  stats = "vector",
                                   genders = "vector",
                                   filetype = "character",
                                   source = "character",
@@ -112,7 +110,7 @@ dictionary <- methods::setClass("dictionary",
 #' @param context country or context collected in
 #' @param year year collected
 #' @param components available components
-#' @param types available data types
+#' @param stats available summary statistics
 #' @param genders available genders
 #' @param filetype original source filetype
 #' @param source where data came from
@@ -127,7 +125,7 @@ setMethod(f = "initialize", signature = "dictionary",
                                 context = NA_character_,
                                 year = NA_character_,
                                 components = c("identity", "behavior", "modifier"),
-                                types = c("mean"),
+                                stats = c("mean"),
                                 genders = c("male", "female", "average"),
                                 filetype = ".dat",
                                 source = "Interact 2.1 beta (May 2021)",
@@ -139,7 +137,7 @@ setMethod(f = "initialize", signature = "dictionary",
             .Object@context <- context
             .Object@year <- year
             .Object@components <- components
-            .Object@types <- types
+            .Object@stats <- stats
             .Object@genders <- genders
             .Object@filetype <- filetype
             .Object@source <- source
@@ -167,14 +165,13 @@ get_dicts <- function(){
       context = this$context,
       year = as.character(this$year),
       components = stringr::str_split(this$components, ", *")[[1]],
-      types = stringr::str_split(this$types, ", *")[[1]],
+      stats = stringr::str_split(this$stats, ", *")[[1]],
       genders = stringr::str_split(this$genders, ", *")[[1]],
       filetype = this$filetype,
       source = ifelse(is.na(this$source), "unknown", this$source),
       description = ifelse(is.na(this$description), "unknown", this$description),
       citation = ifelse(is.na(this$citation), "unknown", this$citation),
       notes = ifelse(is.na(this$notes), "none", this$notes)
-
     )
     dicts <- append(dicts, thisdict)
   }
@@ -197,7 +194,7 @@ dict_info <- function(name = NA){
     thisdict <- this_dict(name)
 
     if(length(thisdict) == 0){
-      dictnames <- dataset_key_subset(dicts)
+      dictnames <- dataset_keys(dicts)
       stop(paste("Invalid dictionary name. Available dictionaries are (use dict_info() for details):", paste(unlist(dictnames), collapse = ', ')))
     }
 
@@ -209,7 +206,7 @@ dict_info <- function(name = NA){
         paste("Description:", thisdict@description),
         paste("Components:", paste(unlist(thisdict@components), collapse = ', ')),
         paste("Genders:", paste(unlist(thisdict@genders), collapse = ', ')),
-        paste("Types:", paste(unlist(thisdict@types), collapse = ', ')),
+        paste("Stats:", paste(unlist(thisdict@stats), collapse = ', ')),
         paste("Source:", thisdict@source),
         paste("Citation:", thisdict@citation),
         paste("Notes:", thisdict@notes),
@@ -227,7 +224,7 @@ dict_info <- function(name = NA){
           paste("Description:", d@description),
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
           paste("Genders:", paste(unlist(d@genders), collapse = ', ')),
-          paste("Types:", paste(unlist(d@types), collapse = ', ')),
+          paste("Stats:", paste(unlist(d@stats), collapse = ', ')),
           paste("Source:", d@source),
           paste("Citation:", d@citation),
           paste("Notes:", d@notes),
