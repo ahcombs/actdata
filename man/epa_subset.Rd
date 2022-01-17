@@ -6,6 +6,7 @@
 \usage{
 epa_subset(
   expr = ".*",
+  exactmatch = FALSE,
   dataset = "all",
   component = "all",
   gender = "all",
@@ -16,6 +17,8 @@ epa_subset(
 }
 \arguments{
 \item{expr}{A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.}
+
+\item{exactmatch}{Logical indicating whether the function should return only exact matches to the expression provided. If FALSE (default), all terms containing the expression are returned.}
 
 \item{dataset}{The key of the dataset (or list of multiple) to search in. Default is "all.}
 

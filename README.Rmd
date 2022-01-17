@@ -43,14 +43,14 @@ This package contains data from 24 different publicly available affect control t
 ```{r dict key table, echo = FALSE}
 dict_table <- actdata:::get_meta("dict") %>% 
   dplyr::select(-filetype) %>% 
-  dplyr::select(key, context, year, types, components, genders, information, notes) %>% 
+  dplyr::select(key, context, year, stats, components, genders, information, notes) %>% 
   mutate(linkname = "Webpage")
 
 dict_table$information <- kableExtra::cell_spec(dict_table$linkname, format = "html", link = dict_table$information)
 
 dict_table <- dplyr::select(dict_table, -linkname)
 
-names(dict_table) <- c("Dataset key", "Country or context", "Year", "Data types", "Components", "Genders", "More information", "Notes")
+names(dict_table) <- c("Dataset key", "Country or context", "Year", "Statistics available", "Components", "Genders", "More information", "Notes")
 
 dict_table %>% 
   kableExtra::kable(escape = FALSE) %>% 
@@ -93,7 +93,7 @@ contains_friend <- epa_subset(expr = "friend", gender = "average")
 head(contains_friend)
 
 # Return all entries for the identity "friend"
-friend <- epa_subset(expr = "^friend$", component = "identity")
+friend <- epa_subset(expr = "friend", exactmatch = TRUE, component = "identity")
 head(friend)
 
 # Return the entire Ontario 1980 dataset

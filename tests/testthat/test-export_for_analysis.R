@@ -88,7 +88,7 @@ test_that("save_for_interact error handling for column names and institution cod
   data_noinstcodes <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "politics2003", gender == "average") %>%
     dplyr::select(-.data$instcodes)
-  expect_message(expect_warning(save_for_interact(data_noinstcodes, filename = "file.txt", savefile = FALSE), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions."))
+  expect_message(expect_message(save_for_interact(data_noinstcodes, filename = "file.txt", savefile = FALSE), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions."))
 })
 
 test_that("save_for_interact error handling for reformatting works", {
@@ -221,11 +221,11 @@ test_that("format_for_bayesact error handling for column names and institution c
   data_noinstcodes <- data[,-ncol(data)] %>%
     dplyr::filter(component == "identity",
                   gender == "average")
-  expect_warning(format_for_bayesact(data_noinstcodes, stat = "mean"), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
+  expect_message(format_for_bayesact(data_noinstcodes, stat = "mean"), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
 
   data_nainst <- epa_subset(dataset = "germany2007", gender = "average", component = "identity")
   data_nainst[1,"instcodes"] <- NA
-  expect_warning(format_for_bayesact(data_nainst, stat = "mean"), "At least one of the institution codes is NA. NA's will be replaced with institution code 11 111111111 111, indicating all institutions.")
+  expect_message(format_for_bayesact(data_nainst, stat = "mean"), "At least one of the institution codes is NA. NA's will be replaced with institution code 11 111111111 111, indicating all institutions.")
 
 })
 

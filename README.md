@@ -63,7 +63,7 @@ Country or context
 Year
 </th>
 <th style="text-align:left;">
-Data types
+Statistics available
 </th>
 <th style="text-align:left;">
 Components
@@ -759,7 +759,7 @@ dict_info("nc1978")
 #> Description: From https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/data.html: Ratings of 721 Identities, 600 Behaviors, 440 Modifiers, and 345 Settings were obtained with paper questionnaires from 1,225 North Carolina undergraduates. (Ratings for some emotion words in this data set were obtained by Heise from Indiana University undergraduates in 1985.) Number of male or female raters generally is about 25 for each word. Funded by National Institute of Mental Health Grant 1-R01-MH29978-01-SSR.
 #> Components: identity, behavior, modifier, setting
 #> Genders: male, female, average
-#> Types: mean
+#> Stats: mean
 #> Source: Interact 2.1 beta (May 2021)
 #> Citation: Smith-Lovin, Lynn, and David R. Heise. Mean Affective Ratings of 2,106 Concepts by University of North Carolina Undergraduates in 1978 [Computer file]. Distributed at Affect Control Theory Website, Program Interact <http://www.indiana.edu/~socpsy/ACT/interact/JavaInteract.html>, 2006.
 #> Notes:
@@ -770,7 +770,7 @@ dict_info("politics2003")
 #> Description: This set of concepts - developed by Kyle Irwin at the University of Missouri-St. Louis - was rated by 47 male and 74 female college students in 2003.
 #> Components: identity, behavior
 #> Genders: male, female, average
-#> Types: mean
+#> Stats: mean
 #> Source: https://cs.uwaterloo.ca/~jhoey/research/ACTBackup/ACT/interact/subcultures/politics.htm
 #> Citation: 
 #> Notes:
@@ -813,7 +813,7 @@ head(contains_friend)
 #> #   cov_PA <dbl>, cov_AE <dbl>, cov_AP <dbl>, cov_AA <dbl>, instcodes <chr>
 
 # Return all entries for the identity "friend"
-friend <- epa_subset(expr = "^friend$", component = "identity")
+friend <- epa_subset(expr = "friend", exactmatch = TRUE, component = "identity")
 head(friend)
 #> # A tibble: 6 × 25
 #>   term   dataset    context year  component gender     E     P     A   n_E   n_P

@@ -3,6 +3,7 @@
 #' EPA summary statistics dictionary search and subset
 #'
 #' @param expr A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.
+#' @param exactmatch Logical indicating whether the function should return only exact matches to the expression provided. If FALSE (default), all terms containing the expression are returned.
 #' @param dataset The key of the dataset (or list of multiple) to search in. Default is "all.
 #' @param component The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."
 #' @param gender The gender of the dictionary to use (male, female, average). Default it "all."
@@ -12,7 +13,7 @@
 #'
 #' @return FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
 #' @export
-epa_subset <- function(expr = ".*", dataset = "all", component = "all", gender = "all", stat = "all", stat_na_exclude = TRUE, instcodes = TRUE){
+epa_subset <- function(expr = ".*", exactmatch = FALSE, dataset = "all", component = "all", gender = "all", stat = "all", stat_na_exclude = TRUE, instcodes = TRUE){
   if(all(dataset != "all")){
     check_dataset(dataset)
   }
@@ -32,10 +33,25 @@ epa_subset <- function(expr = ".*", dataset = "all", component = "all", gender =
   if(!is.character(expr)){
     stop("Must provide a character expression or vector")
   }
+  if(!is.logical(exactmatch)){
+    stop("exactmatch parameter must be TRUE or FALSE")
+  }
 
   if(!is.logical(instcodes)){
     stop("instcodes parameter must be TRUE or FALSE")
     # TODO later: add better support for filtering by institution.
+  }
+
+  # if exactmatch is true, stick ^ on the beginning and $ on the end of each expr (if not there already)
+  if(exactmatch){
+    for(i in 1:length(expr)){
+      if(substr(expr[i], 1, 1) != "^"){
+        expr[i] <- paste0("^", expr[i])
+      }
+      if(substr(expr[i], nchar(expr[i]), nchar(expr[i])) != "$"){
+        expr[i] <- paste0(expr[i], "$")
+      }
+    }
   }
 
   # if a list of regexes has been provided, concatenate together (treat as "or")
