@@ -217,16 +217,17 @@ mean_epa <- mean_epa %>%
 
 
 
-#### NOW INDIVIDUAL DATA: SAVE INDIVIDUALLY AND USE TO CALCULATE SD/COV #######################
+#### NOW INDIVIDUAL DATA: USE TO CALCULATE SD/COV AND LUMP TOGETHER TO SAVE #######################
 
 
 
 
 mean_variance_epa <- data.frame(matrix(nrow = 0, ncol = length(cnames) - 1))
+individual <- data.frame()
 names(mean_variance_epa) <- cnames[cnames != "instcodes"]
 
 source_folder <- "data-raw/dicts/individual"
-ind_file_list <- list.files(source_folder)
+ind_file_list <- grep("RDS$", list.files(source_folder), value = TRUE)
 for(file in ind_file_list){
   path <- paste0(source_folder, "/", file)
 
@@ -238,10 +239,12 @@ for(file in ind_file_list){
   year <- stringr::str_extract(key, "[[:digit:]]*$")
   # year <- meta[meta$key == key, "year"]
 
-  data <- read.csv2(path, sep = ",") %>%
-    dplyr::rename(term = term_ID)
-
-  data <- standardize_terms(data, key)
+  data <- readRDS(file = path) %>%
+    dplyr::mutate(dataset = key,
+                  context = context,
+                  year = year) %>%
+    dplyr::select(dataset, context, year, dplyr::everything()) %>%
+    dplyr::mutate(across(everything(), as.character))
 
   sum_data <- epa_summary(data)
   # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
@@ -264,15 +267,47 @@ for(file in ind_file_list){
     dplyr::select(any_of(cnames))
 
   # TODO: some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
-
   mean_variance_epa <- rbind(mean_variance_epa, sum_data)
 
-  # then save individual data set--as is, basically.
-  name <- paste0(key, "_individual")
-  x <- list(data)
-  names(x) <- paste(name, sep = "")
-  save(list=names(x), file=paste0("data/", name, ".rda"), envir=list2env(x), compress = "gzip")
+  if(nrow(individual) == 0){
+    individual <- data.frame(matrix("", nrow = 0, ncol = ncol(data)))
+    names(individual) <- names(data)
+  }
+
+  individual <- dplyr::full_join(individual, data)
 }
+
+duplicateid <- individual %>%
+  dplyr::select(dataset, userid) %>%
+  dplyr::distinct() %>%
+  dplyr::group_by(userid) %>%
+  dplyr::mutate(n = dplyr::n()) %>%
+  dplyr::filter(n > 1,
+                dataset %in% c("usfullsurveyor2015", "usstudent2015")) %>%
+  dplyr::select(-n)
+
+individual <- individual %>%
+  dplyr::anti_join(duplicateid)
+
+# # no uga userIDs left in the usfullsurveyor dataset--all UGA folks are accounted for under the uga dataset.
+# unique(stringr::str_extract(dplyr::filter(individual, dataset == "usfullsurveyor2015")$userid, "[[:alpha:]]*"))
+
+# duplicated <- individual %>%
+#   dplyr::inner_join(dplyr::select(duplicateid, userid)) %>%
+#   dplyr::distinct(dplyr::across(-dataset))
+#
+# # Only issue is that two people in duke community got the same identifier--modify so they are different.
+# problemmatch <- duplicated %>%
+#   dplyr::group_by(userid, term, component) %>%
+#   dplyr::mutate(n = dplyr::n()) %>%
+#   dplyr::filter(n > 1)
+
+individual <- individual %>%
+  dplyr::mutate(
+    userid = dplyr::case_when(userid == "DComm597" & gender == "Female" ~ "DComm597a",
+                              userid == "DComm597" & gender == "Male" ~ "DComm597b",
+                              TRUE ~ userid)
+  )
 
 # save the combined summary statistic dataframe
 # usethis::use_data(mean_variance_epa, overwrite = TRUE)
@@ -282,6 +317,8 @@ epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
 
 usethis::use_data(epa_summary_statistics, overwrite = TRUE, compress = "bzip2")
 
+# save the combined individual dataframe
+usethis::use_data(individual, overwrite = TRUE, compress = "bzip2")
 
 #
 # # COMPARING AGAINST JESSE'S DATASETS

@@ -1,4 +1,5 @@
 # TODO this is super confusing that I have this function here and also a file called dict_subset with other functions. What is this doing and can it be moved?
+# TODO do I really need the dictionary and equation objects now that everything is in summary form?
 
 #' dict_subset
 #'
@@ -23,26 +24,26 @@ dataset_keys <- function(dicts = get_dicts()){
 }
 
 
-#' eqn_subset
+#' #' eqn_subset
+#' #'
+#' #' Equation subset. Extracts the keys of equations, optionally subsetted by gender
+#' #'
+#' #' @param eqns list of equation objects
+#' #' @param gendercomponent string
+#' #'
+#' #' @return list of equation keys
+#' #' @export
+#' eqn_key_subset <- function(eqns, gendercomponent = NA){
+#'   names <- c()
+#'   # subset by component/gender available
+#'   for(eqn in eqns){
+#'     if(gendercomponent %in% eqn@gendercomponents | is.na(gendercomponent)){
+#'       names <- append(names, eqn@key)
+#'     }
+#'   }
 #'
-#' Equation subset. Extracts the keys of equations, optionally subsetted by gender
-#'
-#' @param eqns list of equation objects
-#' @param gendercomponent string
-#'
-#' @return list of equation keys
-#' @export
-eqn_key_subset <- function(eqns, gendercomponent = NA){
-  names <- c()
-  # subset by component/gender available
-  for(eqn in eqns){
-    if(gendercomponent %in% eqn@gendercomponents | is.na(gendercomponent)){
-      names <- append(names, eqn@key)
-    }
-  }
-
-  return(names)
-}
+#'   return(names)
+#' }
 
 
 #' this_dict
@@ -300,31 +301,31 @@ setMethod(f = "initialize", signature = "equation",
           }
 )
 
-#' get_eqns
-#'
-#' Get equation information. Return metadata for all available equations as a list of equation objects
-#'
-#' @return list of equation objects
-#'
-#' @export
-get_eqns <- function(){
-  eqns = c()
-  e_info <- eqn_meta
-  for(i in 1:nrow(e_info)){
-    this <- e_info[i,]
-    thiseqn <- equation(
-      key = this$key,
-      gendercomponents = stringr::str_split(this$gendercomponents, ", *")[[1]],
-      filetype = this$filetype,
-      source = ifelse(is.na(this$source), "unknown", this$source),
-      description = ifelse(is.na(this$description), "unknown", this$description),
-      citation = ifelse(is.na(this$citation), "unknown", this$citation),
-      notes = ifelse(is.na(this$notes), "none", this$notes)
-    )
-    eqns <- append(eqns, thiseqn)
-  }
-  return(eqns)
-}
+#' #' get_eqns
+#' #'
+#' #' Get equation information. Return metadata for all available equations as a list of equation objects
+#' #'
+#' #' @return list of equation objects
+#' #'
+#' #' @export
+#' get_eqns <- function(){
+#'   eqns = c()
+#'   e_info <- eqn_meta
+#'   for(i in 1:nrow(e_info)){
+#'     this <- e_info[i,]
+#'     thiseqn <- equation(
+#'       key = this$key,
+#'       gendercomponents = stringr::str_split(this$gendercomponents, ", *")[[1]],
+#'       filetype = this$filetype,
+#'       source = ifelse(is.na(this$source), "unknown", this$source),
+#'       description = ifelse(is.na(this$description), "unknown", this$description),
+#'       citation = ifelse(is.na(this$citation), "unknown", this$citation),
+#'       notes = ifelse(is.na(this$notes), "none", this$notes)
+#'     )
+#'     eqns <- append(eqns, thiseqn)
+#'   }
+#'   return(eqns)
+#' }
 
 #' eqn_info
 #'

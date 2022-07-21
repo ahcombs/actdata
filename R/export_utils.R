@@ -147,7 +147,7 @@ check_group_col <- function(data, group){
 check_inst_codes <- function(data){
   thesenames <- names(data)
   if(!("instcodes" %in% thesenames)){
-    message("There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
+    message("There is no column named instcodes. All terms will be given institution codef 11 111111111 111, indicating all institutions.")
     data$instcodes <- "11 111111111 111"
   }
   if(any(is.na(data$instcodes))){
