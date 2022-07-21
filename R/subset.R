@@ -130,8 +130,6 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE, dataset = "all", compone
 #'
 #' @return equation dataframe
 #' @export
-#'
-#' @examples
 get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
   gender <- dplyr::case_when(
     gender %in% c("a", "av", "mean") ~ "average",
@@ -140,11 +138,11 @@ get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
     TRUE ~ gender
   )
 
-  if(!(key %in% equations$key)){
+  if(!(key %in% actdata::equations$key)){
     stop(paste0("Key ", key, " is not a valid equation key."))
   }
 
-  keysub <- equations[which(equations$key == key),]
+  keysub <- actdata::equations[which(actdata::equations$key == key),]
 
   if(!(equation_type %in% keysub$equation_type)){
     stop(paste0("Equation type ", equation_type, " is not available for key ", key, "."))

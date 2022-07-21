@@ -88,7 +88,7 @@ test_that("save_for_interact error handling for column names and institution cod
   data_noinstcodes <- actdata::epa_summary_statistics %>%
     dplyr::filter(dataset == "politics2003", gender == "average") %>%
     dplyr::select(-.data$instcodes)
-  expect_message(expect_message(save_for_interact(data_noinstcodes, filename = "file.txt", savefile = FALSE), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions."))
+  expect_message(expect_message(save_for_interact(data_noinstcodes, filename = "file.txt", savefile = FALSE)))
 })
 
 test_that("save_for_interact error handling for reformatting works", {

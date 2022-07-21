@@ -24,28 +24,6 @@ dataset_keys <- function(dicts = get_dicts()){
 }
 
 
-#' #' eqn_subset
-#' #'
-#' #' Equation subset. Extracts the keys of equations, optionally subsetted by gender
-#' #'
-#' #' @param eqns list of equation objects
-#' #' @param gendercomponent string
-#' #'
-#' #' @return list of equation keys
-#' #' @export
-#' eqn_key_subset <- function(eqns, gendercomponent = NA){
-#'   names <- c()
-#'   # subset by component/gender available
-#'   for(eqn in eqns){
-#'     if(gendercomponent %in% eqn@gendercomponents | is.na(gendercomponent)){
-#'       names <- append(names, eqn@key)
-#'     }
-#'   }
-#'
-#'   return(names)
-#' }
-
-
 #' this_dict
 #'
 #' Get dictionary or equation object. Extracts metadata object for a single dictionary or equation of a given name from the master list
@@ -60,7 +38,8 @@ this_dict <- function(name, class = 'dictionary'){
     dicts <- get_dicts()
   }
   else {
-    dicts <- get_eqns()
+    dicts <- actdata::equations$key
+    # dicts <- get_eqns()
   }
 
   for(d in dicts){
@@ -301,32 +280,6 @@ setMethod(f = "initialize", signature = "equation",
           }
 )
 
-#' #' get_eqns
-#' #'
-#' #' Get equation information. Return metadata for all available equations as a list of equation objects
-#' #'
-#' #' @return list of equation objects
-#' #'
-#' #' @export
-#' get_eqns <- function(){
-#'   eqns = c()
-#'   e_info <- eqn_meta
-#'   for(i in 1:nrow(e_info)){
-#'     this <- e_info[i,]
-#'     thiseqn <- equation(
-#'       key = this$key,
-#'       gendercomponents = stringr::str_split(this$gendercomponents, ", *")[[1]],
-#'       filetype = this$filetype,
-#'       source = ifelse(is.na(this$source), "unknown", this$source),
-#'       description = ifelse(is.na(this$description), "unknown", this$description),
-#'       citation = ifelse(is.na(this$citation), "unknown", this$citation),
-#'       notes = ifelse(is.na(this$notes), "none", this$notes)
-#'     )
-#'     eqns <- append(eqns, thiseqn)
-#'   }
-#'   return(eqns)
-#' }
-
 #' eqn_info
 #'
 #' Print equation metadata. Print metadata for requested equation name or (if name is not specified) for all available equations
@@ -335,20 +288,26 @@ setMethod(f = "initialize", signature = "equation",
 #'
 #' @export
 eqn_info <- function(name = NA){
-  eqns <- get_eqns()
+  eqns <- unique(actdata::equations$key)
 
   if(!is.na(name)){
-    thiseqn <- this_dict(name, class = 'equation')
+    thiseqn <- actdata::equations[which(actdata::equations$key == name),] %>%
+      dplyr::mutate(g = dplyr::case_when(gender == "male" ~ "m",
+                                         gender == "female" ~ "f",
+                                         TRUE ~ "av"),
+                    cg = paste0(.data$equation_type, "_", .data$g))
 
-    if(length(thiseqn) == 0){
-      eqnnames <- eqn_key_subset(eqns)
-      stop(paste("Invalid equation key. Available equations are (use eqn_info() for details):", paste(unlist(eqnnames), collapse = ', ')))
+    if(nrow(thiseqn) == 0){
+      eqnnames <- actdata::equations$key
+      stop(paste("Invalid equation key. Available equations sets are (use eqn_info() for details):", paste(unlist(eqnnames), collapse = ', ')))
     }
+
+
 
     cat(
       paste(
         paste("Equation set name:", name),
-        paste("Component genders:", paste(unlist(thiseqn@gendercomponents), collapse = ', ')),
+        paste("Component genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
         sep = "\n"
       )
     )
@@ -356,10 +315,16 @@ eqn_info <- function(name = NA){
     cat("Available equations:")
     cat("\n\n")
     for(e in eqns){
+      thiseqn <- actdata::equations[which(actdata::equations$key == e),] %>%
+        dplyr::mutate(g = dplyr::case_when(gender == "male" ~ "m",
+                                           gender == "female" ~ "f",
+                                           TRUE ~ "av"),
+                      cg = paste0(.data$equation_type, "_", .data$g))
+
       cat(
         paste(
-          paste("Equation set name:", e@key),
-          paste("Component genders:", paste(unlist(e@gendercomponents), collapse = ', ')),
+          paste("Equation set name:", e),
+          paste("Component genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
           sep = "\n"
         )
       )
