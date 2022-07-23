@@ -3,6 +3,7 @@ source_folder <- "data-raw/dicts/individual_raw"
 ind_file_list <- grep("csv$", list.files(source_folder), value = TRUE)
 
 # read in files
+file = ind_file_list[6]
 for(file in ind_file_list){
   path <- paste0(source_folder, "/", file)
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
@@ -12,13 +13,17 @@ for(file in ind_file_list){
   year <- stringr::str_extract(key, "[[:digit:]]*$")
   # year <- meta[meta$key == key, "year"]
 
+  termrename <- c(term = "termID",  term = "variable",
+                  E = "evaluation", P = "potency", A = "activity",
+                  userid = "ResponseId")
   data <- read.csv2(path, sep = ",") %>%
-    dplyr::rename(term = term_ID)
+    dplyr::rename(any_of(termrename))
 
   data <- standardize_terms(data, key) %>%
     dplyr::rename_with(tolower, !dplyr::matches("^[EPA]$")) %>%
     dplyr::select(dplyr::any_of(c("userid", "gender", "age", "race", "race1", "race2", "term", "component", "E", "P", "A"))) %>%
-    dplyr::mutate(dplyr::across(c("E", "P", "A"), ~ifelse(. == "", NA_real_, .)))
+    dplyr::mutate(dplyr::across(c("E", "P", "A"), ~ifelse(. == "", NA_real_, .))) %>%
+    dplyr::mutate(dplyr::across(everything(), ~ifelse(. == "", NA_real_, .)))
 
   # then re-save
   name <- paste0(key, "_individual")

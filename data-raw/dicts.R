@@ -1,5 +1,7 @@
 # TODO: Which dictionaries to include? All? Or should it be limited to those that have been published with? Should I include subsets (prisoner's dilemma)?
 
+
+
 source_folder <- "data-raw/dicts/means_only/"
 means_file_list <- list.files(source_folder)
 
@@ -53,7 +55,9 @@ individual_keys <- c(
   "usmturk2015",
   "egypt2015",
   "morocco2015",
-  "usfullsurveyor2015"
+  "usfullsurveyor2015",
+  "occs2019",
+  "occs2020"
 )
 
 meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
@@ -302,18 +306,43 @@ individual <- individual %>%
 #   dplyr::mutate(n = dplyr::n()) %>%
 #   dplyr::filter(n > 1)
 
+
+
+#### INSTITUTION CODES #################################
+
+instcodes <- utils::read.csv2("data-raw/dicts/instcodes.csv", header = FALSE, sep = ",", col.names = c("term", "component", "instcode"))
+instcodes <- rbind(standardize_terms(instcodes[which(instcodes$component == "identity"),], key = "uga2015", component = "identity"),
+                   standardize_terms(instcodes[which(instcodes$component == "behavior"),], key = "uga2015", component = "behavior"),
+                   standardize_terms(instcodes[which(instcodes$component == "modifier"),], key = "uga2015", component = "modifier"),
+                   standardize_terms(instcodes[which(instcodes$component == "setting"),], key = "uga2015", component = "setting")) %>%
+  mutate(instcode = stringr::str_trim(instcode))
+
+
+# TODO double check when occs data is added
 individual <- individual %>%
   dplyr::mutate(
     userid = dplyr::case_when(userid == "DComm597" & gender == "Female" ~ "DComm597a",
                               userid == "DComm597" & gender == "Male" ~ "DComm597b",
                               TRUE ~ userid)
-  )
+  ) %>%
+  left_join(instcodes, by = c("term", "component")) %>%
+  select(dataset, context, year, userid, gender, age, race1, race2, term, component, instcode, everything())
+
+
+epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
+  dplyr::arrange(dataset, term) %>%
+  select(-instcodes) %>%
+  left_join(instcodes, by = c("term", "component")) %>%
+  select(term, component, dataset, context, year, gender, instcode, everything())
+
+# there are 642 instances where institution codes do not agree between the uga set and whatever the old set was
+# I am overwriting the old codes with the uga codes, for consistency--TODO note this in documentation
+# notequal <- dplyr::filter(epa_summary_statistics, instcode != stringr::str_trim(instcodes))
+
+# TODO: function for decoding the institution codes
 
 # save the combined summary statistic dataframe
 # usethis::use_data(mean_variance_epa, overwrite = TRUE)
-
-epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
-  dplyr::arrange(dataset, term)
 
 usethis::use_data(epa_summary_statistics, overwrite = TRUE, compress = "bzip2")
 
@@ -477,8 +506,6 @@ usethis::use_data(term_table, overwrite = TRUE, compress = "bzip2")
 
 
 
-#
-# # TODO: Contact Kait Boyle about the institution code stuff
 #
 # instcode_rowequal <- function(row){
 #   noterm <- row[,2:ncol(row)]
