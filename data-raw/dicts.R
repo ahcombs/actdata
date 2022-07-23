@@ -310,12 +310,12 @@ individual <- individual %>%
 
 #### INSTITUTION CODES #################################
 
-instcodes <- utils::read.csv2("data-raw/dicts/instcodes.csv", header = FALSE, sep = ",", col.names = c("term", "component", "instcode"))
-instcodes <- rbind(standardize_terms(instcodes[which(instcodes$component == "identity"),], key = "uga2015", component = "identity"),
-                   standardize_terms(instcodes[which(instcodes$component == "behavior"),], key = "uga2015", component = "behavior"),
-                   standardize_terms(instcodes[which(instcodes$component == "modifier"),], key = "uga2015", component = "modifier"),
-                   standardize_terms(instcodes[which(instcodes$component == "setting"),], key = "uga2015", component = "setting")) %>%
-  mutate(instcode = stringr::str_trim(instcode))
+instcodes_df <- utils::read.csv2("data-raw/dicts/instcodes.csv", header = FALSE, sep = ",", col.names = c("term", "component", "instcodes"))
+instcodes_df <- rbind(standardize_terms(instcodes_df[which(instcodes_df$component == "identity"),], key = "uga2015", component = "identity"),
+                   standardize_terms(instcodes_df[which(instcodes_df$component == "behavior"),], key = "uga2015", component = "behavior"),
+                   standardize_terms(instcodes_df[which(instcodes_df$component == "modifier"),], key = "uga2015", component = "modifier"),
+                   standardize_terms(instcodes_df[which(instcodes_df$component == "setting"),], key = "uga2015", component = "setting")) %>%
+  mutate(instcodes = stringr::str_trim(instcodes))
 
 
 # TODO double check when occs data is added
@@ -325,19 +325,34 @@ individual <- individual %>%
                               userid == "DComm597" & gender == "Male" ~ "DComm597b",
                               TRUE ~ userid)
   ) %>%
-  left_join(instcodes, by = c("term", "component")) %>%
-  select(dataset, context, year, userid, gender, age, race1, race2, term, component, instcode, everything())
+  dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
+  dplyr::select(dataset, context, year, userid, gender, age, race1, race2, term, component, instcodes, everything())
 
 
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::arrange(dataset, term) %>%
-  select(-instcodes) %>%
-  left_join(instcodes, by = c("term", "component")) %>%
-  select(term, component, dataset, context, year, gender, instcode, everything())
+  dplyr::rename(instcodes_old = instcodes) %>%
+  dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
+  # merge the old and new instititution codes together -- take the uga one unless there is no uga one
+  dplyr::mutate(instcodes = ifelse(is.na(instcodes), instcodes_old, instcodes)) %>%
+  dplyr::mutate(instcodes = stringr::str_trim(instcodes)) %>%
+  dplyr::select(-instcodes_old) %>%
+  dplyr::select(term, component, dataset, context, year, gender, instcodes, everything())
 
 # there are 642 instances where institution codes do not agree between the uga set and whatever the old set was
 # I am overwriting the old codes with the uga codes, for consistency--TODO note this in documentation
-# notequal <- dplyr::filter(epa_summary_statistics, instcode != stringr::str_trim(instcodes))
+# notequal <- dplyr::filter(epa_summary_statistics, instcodes != stringr::str_trim(instcodes_old))
+# # there are 10389 instances where a term has an institution code in some dataset but not in uga
+# # are there inconsistencies here?
+# notinuga <- dplyr::filter(epa_summary_statistics, is.na(instcodes) & !is.na(instcodes_old)) %>%
+#   dplyr::select(term, component, instcodes_old) %>%
+#   dplyr::distinct() %>%
+#   dplyr::group_by(term, component) %>%
+#   dplyr::mutate(n = dplyr::n()) %>%
+#   filter(n > 1)
+#
+# # there are 27 terms which do not have a code in the uga dataset and which have conflicting codes in other datasets
+# length(unique(notinuga$term))
 
 # TODO: function for decoding the institution codes
 
@@ -349,106 +364,7 @@ usethis::use_data(epa_summary_statistics, overwrite = TRUE, compress = "bzip2")
 # save the combined individual dataframe
 usethis::use_data(individual, overwrite = TRUE, compress = "bzip2")
 
-#
-# # COMPARING AGAINST JESSE'S DATASETS
-# source_folder <- "data-raw/dicts/individual"
-# ind_file_list <- list.files(source_folder)
-# file <- ind_file_list[5]
-# path <- paste0(source_folder, "/", file)
-#
-# key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
-# context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
-#
-# data <- read.csv2(path, sep = ",")
-#
-# sum_data <- calc_stats(data, key)
-# jesse_i <- uga2015bayesactsubset_identities_av_COV_dict
-# jesse_b <- uga2015bayesactsubset_behaviors_av_COV_dict
-# jesse_m <- uga2015bayesactsubset_mods_av_COV_dict
-#
-# i_combine <- sum_data %>%
-#   dplyr::filter(component == "identity") %>%
-#   dplyr::full_join(jesse_i, by = c("term")) %>%
-#   dplyr::mutate(e_dif = mean_E - E,
-#                 p_dif = mean_P - P,
-#                 a_dif = mean_A - A,
-#                 ee_dif = cov1 - cov_EE,
-#                 ep_dif = cov2 - cov_EP,
-#                 ea_dif = cov3 - cov_EA,
-#                 pe_dif = cov4 - cov_PE,
-#                 pp_dif = cov5 - cov_PP,
-#                 pa_dif = cov6 - cov_PA,
-#                 ae_dif = cov7 - cov_AE,
-#                 ap_dif = cov8 - cov_AP,
-#                 aa_dif = cov9 - cov_AA) %>%
-#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
-#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
-#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
-#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
-#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
-#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
-#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
-#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
-#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
-#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
-#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
-#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
-#
-# b_combine <- sum_data %>%
-#   dplyr::filter(component == "behavior") %>%
-#   dplyr::full_join(jesse_b, by = c("term")) %>%
-#   dplyr::mutate(e_dif = mean_E - E,
-#                 p_dif = mean_P - P,
-#                 a_dif = mean_A - A,
-#                 ee_dif = cov1 - cov_EE,
-#                 ep_dif = cov2 - cov_EP,
-#                 ea_dif = cov3 - cov_EA,
-#                 pe_dif = cov4 - cov_PE,
-#                 pp_dif = cov5 - cov_PP,
-#                 pa_dif = cov6 - cov_PA,
-#                 ae_dif = cov7 - cov_AE,
-#                 ap_dif = cov8 - cov_AP,
-#                 aa_dif = cov9 - cov_AA) %>%
-#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
-#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
-#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
-#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
-#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
-#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
-#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
-#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
-#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
-#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
-#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
-#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
-#
-# m_combine <- sum_data %>%
-#   dplyr::filter(component == "modifier") %>%
-#   dplyr::full_join(jesse_m, by = c("term")) %>%
-#   dplyr::mutate(e_dif = mean_E - E,
-#                 p_dif = mean_P - P,
-#                 a_dif = mean_A - A,
-#                 ee_dif = cov1 - cov_EE,
-#                 ep_dif = cov2 - cov_EP,
-#                 ea_dif = cov3 - cov_EA,
-#                 pe_dif = cov4 - cov_PE,
-#                 pp_dif = cov5 - cov_PP,
-#                 pa_dif = cov6 - cov_PA,
-#                 ae_dif = cov7 - cov_AE,
-#                 ap_dif = cov8 - cov_AP,
-#                 aa_dif = cov9 - cov_AA) %>%
-#   dplyr::summarize(e_dif_mean = mean(e_dif, na.rm = TRUE),
-#                    p_dif_mean = mean(p_dif, na.rm = TRUE),
-#                    a_dif_mean = mean(a_dif, na.rm = TRUE),
-#                    ee_dif_mean = mean(ee_dif, na.rm = TRUE),
-#                    ep_dif_mean = mean(ep_dif, na.rm = TRUE),
-#                    ea_dif_mean = mean(ea_dif, na.rm = TRUE),
-#                    pe_dif_mean = mean(pe_dif, na.rm = TRUE),
-#                    pp_dif_mean = mean(pp_dif, na.rm = TRUE),
-#                    pa_dif_mean = mean(pa_dif, na.rm = TRUE),
-#                    ae_dif_mean = mean(ae_dif, na.rm = TRUE),
-#                    ap_dif_mean = mean(ap_dif, na.rm = TRUE),
-#                    aa_dif_mean = mean(aa_dif, na.rm = TRUE))
+
 
 check_sd_cov_vals <- function(data){
   # check if the diagonal of the vcov matrix is the same as the standard deviation squared (ie is it really the variance)
