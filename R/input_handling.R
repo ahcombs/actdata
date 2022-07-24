@@ -1,21 +1,42 @@
 #' Valid dataset check
 #'
-#' Checks provided dataset(s) to see if they are available in the summary statistics supplied.
+#' Checks provided dataset(s) to see if they are available in the data supplied.
 #'
 #' @param dataset string
+#' @param datatype string
 #'
 #' @return TRUE if available; throws error otherwise
-check_dataset <- function(dataset){
-  datasets_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
+check_dataset <- function(dataset, datatype){
+  if(datatype == "summary"){
+    datasets_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
+  } else{
+    # usfullsurveyor and usstudent are amalgamations of the others
+    datasets_avail <- c(unique(actdata::individual$dataset), "usfullsurveyor2015", "usstudent2015")
+  }
   for(k in dataset){
     if(!(k %in% unlist(datasets_avail))){
-      stop(message = paste0("Invalid dataset key '", k,"' provided. Use the dict_info() function to see datasets available."))
+      stop(message = paste0("Invalid dataset key '", k,"' provided for ", datatype," data. Use the dict_info() function to see datasets available."))
+    }
+  }
+  invisible(return(TRUE))
+}
+
+
+#' Check data type
+#'
+#' @param datatype string
+#'
+#' @return TRUE if available; throws error otherwise
+check_datatype <- function(datatype){
+  datatypes_avail <- c("summary", "sum", "s", "individual", "indiv", "i")
+  for(k in datatype){
+    if(!(k %in% unlist(datatypes_avail))){
+      stop(message = paste0("Invalid data type '", k,"' provided. Data type may be summary or individual."))
     }
   }
 
-  return(TRUE)
+  invisible(return(TRUE))
 }
-
 
 #' Valid component check
 #'
@@ -40,7 +61,7 @@ check_component <- function(component){
     }
   }
 
-  return(TRUE)
+  invisible(return(TRUE))
 }
 
 #' Valid gender check
@@ -62,7 +83,7 @@ check_gender <- function(gender){
     }
   }
 
-  return(TRUE)
+  invisible(return(TRUE))
 }
 
 #' Valid stat check
@@ -86,7 +107,36 @@ check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviat
     }
   }
 
-  return(TRUE)
+  invisible(return(TRUE))
+}
+
+#' Check that institutions are valid
+#'
+#' @param institutions list of institutions
+#'
+#' @return logical
+check_institutions <- function(institutions){
+  instlist <- c(
+    "term", "component",
+    "male", "female",
+    "overt", "surmised",
+    "place", "time",
+    "lay", "business", "law", "politics", "academe", "medicine", "religion", "family", "sexual",
+    "monadic", "group", "corporal",
+    "adjective", "adverb",
+    "emotion", "trait", "status", "feature", "emotion_spiral"
+  )
+
+  if(all(institutions %in% instlist)){
+    invisible(return(TRUE))
+  } else {
+    invalid <- institutions[!(institutions %in% instlist)]
+    if(length(invalid) == 1){
+      message(paste0(invalid, " is an invalid institution."))
+    } else {
+      message(paste0("Institutions ", paste(invalid, collapse = ", "), " are invalid."))
+    }
+  }
 }
 
 
@@ -95,7 +145,7 @@ check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviat
 #' This function deals with abbreviations in parameter specification and returns the spellings that are used in the datasets.
 #'
 #' @param input the string to standardize
-#' @param param the type expected (gender, component, or stat)
+#' @param param the type expected (gender, component, stat, datatype)
 #'
 #' @return the standardized version of the input string
 standardize_option <- function(input, param){
@@ -118,7 +168,11 @@ standardize_option <- function(input, param){
                                    substr(input[i], 1, 1) == "c" ~ "cov",
                                    substr(input[i], 1, 1) == "a" ~ "all",
                                    TRUE ~ input[i])
-    } else (
+    } else if(param == "datatype"){
+      input[i] <- dplyr::case_when(substr(input[i], 1, 1) == "s" ~ "summary",
+                                   substr(input[i], 1, 1) == "i" ~ "individual",
+                                   TRUE ~ input[i])
+    }else (
       stop("Invalid parameter type provided.")
     )
   }

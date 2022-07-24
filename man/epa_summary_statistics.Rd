@@ -13,7 +13,7 @@ A data frame with 63400 rows and 25 variables:
 \item{context}{}
 \item{year}{}
 \item{gender}{}
-\item{instcodes}{}
+\item{instcode}{}
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
 \item{A}{activity mean value}

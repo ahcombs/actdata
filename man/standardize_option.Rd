@@ -9,7 +9,7 @@ standardize_option(input, param)
 \arguments{
 \item{input}{the string to standardize}
 
-\item{param}{the type expected (gender, component, or stat)}
+\item{param}{the type expected (gender, component, stat, datatype)}
 }
 \value{
 the standardized version of the input string

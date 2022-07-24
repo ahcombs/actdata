@@ -330,6 +330,7 @@ individual <- individual %>%
 
 
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
+  dplyr::filter(!is.na(E) | !is.na(P) | !is.na(A)) %>%
   dplyr::arrange(dataset, term) %>%
   dplyr::rename(instcodes_old = instcodes) %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%

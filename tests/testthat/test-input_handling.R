@@ -1,10 +1,13 @@
 # TODO: ANYWHERE ELSE IN THE CODE THAT IS CHECKING INPUT, USE THESE HELPER FUNCTIONS
 
 test_that("check_dataset works", {
-  expect_equal(check_dataset("indiana2003"), TRUE)
-  expect_equal(check_dataset(c("nc1978", "politics2003")), TRUE)
-  expect_error(check_dataset(c("germany2007", "notakey")), "Invalid dataset key 'notakey' provided. Use the dict_info\\(\\) function to see datasets available.")
-  expect_error(check_dataset(c("germany2007", TRUE, "notakey")), "Invalid dataset key 'TRUE' provided. Use the dict_info\\(\\) function to see datasets available.")
+  expect_equal(check_dataset("indiana2003", "summary"), TRUE)
+  expect_error(check_dataset("indiana2003", "individual"))
+  expect_equal(check_dataset(c("nc1978", "politics2003"), "summary"), TRUE)
+  expect_equal(check_dataset(c("usfullsurveyor2015", "dukestudent2015"), "individual"), TRUE)
+  expect_error(check_dataset(c("usfullsurveyor2015", "indiana2003"), "individual"))
+  expect_error(check_dataset(c("notakey", "germany2007"), "individual"), "Invalid dataset key 'notakey' provided for individual data. Use the dict_info\\(\\) function to see datasets available.")
+  expect_error(check_dataset(c("germany2007", TRUE, "notakey"), "summary"), "Invalid dataset key 'TRUE' provided for summary data. Use the dict_info\\(\\) function to see datasets available.")
 })
 
 test_that("check_component works", {

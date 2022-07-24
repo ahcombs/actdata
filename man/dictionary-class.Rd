@@ -26,6 +26,8 @@ Dictionary
 
 \item{\code{genders}}{vector. What genders are available (male, female, av)}
 
+\item{\code{individual}}{logical. Whether or not individual data is available.}
+
 \item{\code{filetype}}{character. Original source file extension.}
 
 \item{\code{source}}{character. Where original data came from.}

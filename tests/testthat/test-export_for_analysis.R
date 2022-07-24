@@ -25,51 +25,51 @@ test_that("save_for_interact error handling for column names and institution cod
   names(data) <- rep("", ncol(data))
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data must contain a column titled 'term'")
 
-  names(data) <- c("t", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("t", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data must contain a column titled 'term'")
 
-  names(data) <- c("term", "term", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "term", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data must only contain one term column")
 
 
   ### EPA COLUMN NAMES
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "no_E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "no_E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data is missing an E, P, or A column")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "no_A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "no_A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data is missing an E, P, or A column")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "E_n", "n_P", "n_A", "E_sd", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data has too many columns starting with E, P, or A")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "E_n", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "data must have either one each or two each of E, P, and A columns")
 
-  names(data_twogender) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data_twogender) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "E_n", "P_n", "A_n", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data_twogender, group = "gender", filename = "file.txt", savefile = FALSE), "cannot provide both multiple E, P, and A columns and a group column")
 
   ### TERM AND EPA COLUMN FORMAT AND TYPES
-  names(data) <- c("term", "dataset", "context", "year", "component", "E", "not_E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "instcodes", "E", "not_E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(save_for_interact(data, filename = "file.txt", savefile = FALSE), "E, P, and A columns must be completely numeric or coercible to numeric")
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   data_naterm <- data
   data_naterm$term[1] <- NA
   expect_error(save_for_interact(data_naterm, filename = "file.txt", savefile = FALSE), "all entries in term column must be coercible to character")
@@ -172,68 +172,67 @@ test_that("format_for_bayesact error handling for column names and institution c
   names(data) <- rep("", ncol(data))
   expect_error(format_for_bayesact(data, stat = "mean"), "data must contain a column titled 'term'")
 
-  names(data) <- c("t", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("t", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "mean"), "data must contain a column titled 'term'")
 
-  names(data) <- c("term", "term", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "term", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "cov"), "data must only contain one term column")
 
 
   ### EPA COLUMN NAMES
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "no_E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "no_E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "mean"), "data is missing an E, P, or A column")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "no_A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "no_A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "cov"), "data is missing an E, P, or A column")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "E_n", "n_P", "n_A", "E_sd", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "sd"), "data has too many columns starting with E, P, or A")
 
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "E_n", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "mean"), "data has too many columns starting with E, P, or A")
 
   ### TERM AND EPA COLUMN FORMAT AND TYPES
-  names(data) <- c("term", "dataset", "context", "year", "component", "E", "not_E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "instcodes", "E", "not_E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   expect_error(format_for_bayesact(data, stat = "mean"), "E, P, and A columns must be completely numeric or coercible to numeric")
-  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "E", "P", "A",
+  names(data) <- c("term", "dataset", "context", "year", "component", "gender", "instcodes", "E", "P", "A",
                    "n_E", "n_P", "n_A", "sd_E", "sd_P", "sd_A", "cov_EE", "cov_EP", "cov_EA",
-                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA", "instcodes")
+                   "cov_PE", "cov_PP", "cov_PA", "cov_AE", "cov_AP", "cov_AA")
   data_naterm <- data
   data_naterm$term[1] <- NA
   expect_error(format_for_bayesact(data_naterm, stat = "mean"), "all entries in term column must be coercible to character")
 
 
   ### INSTITUTION CODES
-  data_noinstcodes <- data[,-ncol(data)] %>%
+  data_noinstcodes <- data %>%
     dplyr::filter(component == "identity",
-                  gender == "average")
+                  gender == "average") %>%
+    dplyr::select(-"instcodes")
   expect_message(format_for_bayesact(data_noinstcodes, stat = "mean"), "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
 
   data_nainst <- epa_subset(dataset = "germany2007", gender = "average", component = "identity")
   data_nainst[1,"instcodes"] <- NA
   expect_message(format_for_bayesact(data_nainst, stat = "mean"), "At least one of the institution codes is NA. NA's will be replaced with institution code 11 111111111 111, indicating all institutions.")
-
 })
 
 test_that("format_for_bayesact error handling for reformatting works", {
   data <- epa_subset(dataset = "usmturk2015")
   expect_warning(format_for_bayesact(data, stat = "cov"),
                  "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
-
 })
 
 test_that("format_for_bayesact output data frame format looks good", {

@@ -57,6 +57,7 @@ this_dict <- function(name, class = 'dictionary'){
 #' @slot components vector. What types of terms are included (identities, behaviors, mods, settings)
 #' @slot stats vector. What summary statistics available (mean, SD, COV)
 #' @slot genders vector. What genders are available (male, female, av)
+#' @slot individual logical. Whether or not individual data is available.
 #' @slot filetype character. Original source file extension.
 #' @slot source character. Where original data came from.
 #' @slot description character. Description provided by the source for the dataset.
@@ -74,6 +75,7 @@ dictionary <- methods::setClass("dictionary",
                                   components = "vector",
                                   stats = "vector",
                                   genders = "vector",
+                                  individual = "logical",
                                   filetype = "character",
                                   source = "character",
                                   description = "character",
@@ -92,6 +94,7 @@ dictionary <- methods::setClass("dictionary",
 #' @param components available components
 #' @param stats available summary statistics
 #' @param genders available genders
+#' @param individual whether individual data is available
 #' @param filetype original source filetype
 #' @param source where data came from
 #' @param description description provided for data
@@ -107,6 +110,7 @@ setMethod(f = "initialize", signature = "dictionary",
                                 components = c("identity", "behavior", "modifier"),
                                 stats = c("mean"),
                                 genders = c("male", "female", "average"),
+                                individual = FALSE,
                                 filetype = ".dat",
                                 source = "Interact 2.1 beta (May 2021)",
                                 description = "unknown",
@@ -119,6 +123,7 @@ setMethod(f = "initialize", signature = "dictionary",
             .Object@components <- components
             .Object@stats <- stats
             .Object@genders <- genders
+            .Object@individual <- individual
             .Object@filetype <- filetype
             .Object@source <- source
             .Object@description <- description
@@ -147,6 +152,7 @@ get_dicts <- function(){
       components = stringr::str_split(this$components, ", *")[[1]],
       stats = stringr::str_split(this$stats, ", *")[[1]],
       genders = stringr::str_split(this$genders, ", *")[[1]],
+      individual = this$individual,
       filetype = this$filetype,
       source = ifelse(is.na(this$source), "unknown", this$source),
       description = ifelse(is.na(this$description), "unknown", this$description),
@@ -187,6 +193,7 @@ dict_info <- function(name = NA){
         paste("Components:", paste(unlist(thisdict@components), collapse = ', ')),
         paste("Genders:", paste(unlist(thisdict@genders), collapse = ', ')),
         paste("Stats:", paste(unlist(thisdict@stats), collapse = ', ')),
+        paste("Individual data available? ", ifelse(thisdict@individual == TRUE, "Yes", "No")),
         paste("Source:", thisdict@source),
         paste("Citation:", thisdict@citation),
         paste("Notes:", thisdict@notes),
@@ -205,6 +212,7 @@ dict_info <- function(name = NA){
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
           paste("Genders:", paste(unlist(d@genders), collapse = ', ')),
           paste("Stats:", paste(unlist(d@stats), collapse = ', ')),
+          paste("Individual data available? ", ifelse(thisdict@individual == TRUE, "Yes", "No")),
           paste("Source:", d@source),
           paste("Citation:", d@citation),
           paste("Notes:", d@notes),

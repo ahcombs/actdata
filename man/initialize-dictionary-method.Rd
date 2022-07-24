@@ -12,6 +12,7 @@
   components = c("identity", "behavior", "modifier"),
   stats = c("mean"),
   genders = c("male", "female", "average"),
+  individual = FALSE,
   filetype = ".dat",
   source = "Interact 2.1 beta (May 2021)",
   description = "unknown",
@@ -33,6 +34,8 @@
 \item{stats}{available summary statistics}
 
 \item{genders}{available genders}
+
+\item{individual}{whether individual data is available}
 
 \item{filetype}{original source filetype}
 

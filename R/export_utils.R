@@ -9,7 +9,7 @@ check_data_frame <- function(data){
   if(!is.data.frame(data) & !tibble::is_tibble(data)){
     stop("data must be a tibble or data frame")
   }
-  return(TRUE)
+  invisible(return(TRUE))
 }
 
 #' check_data_cols
@@ -142,17 +142,44 @@ check_group_col <- function(data, group){
 #' TODO: If there are some columns which don't include institution codes, do I need to add them?
 #'
 #' @param data dataframe to check
+#' @param na.sub option indicating what to do with missing institution codes. TRUE (default; count term as belonging to all institutions), FALSE (count term as belonging to no institutions), "drop" (drop terms with missing institution codes), or NA (leave code as NA).
 #'
 #' @return dataframe with institution codes added if needed
-check_inst_codes <- function(data){
+check_inst_codes <- function(data, na.sub = TRUE){
+  if(is.na(na.sub)){
+    subcode <- NA_character_
+    nocolmessage <- "There is no column named instcodes. The returned column will contain all NA values."
+    namessage <- "At least one of the institution codes is NA."
+  } else if(na.sub){
+    subcode <- "11 111111111 111"
+    nocolmessage <- "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions."
+    namessage <- "At least one of the institution codes is NA. NA's will be replaced with institution code 11 111111111 111, indicating all institutions."
+  } else if(!na.sub){
+    subcode <- "00 000000000 000"
+    nocolmessage <- "There is no column named instcodes. All terms will be given institution code 00 000000000 000, indicating no institutions."
+    namessage <- "At least one of the institution codes is NA. NA's will be replaced with institution code 00 000000000 000, indicating no institutions."
+  } else if(na.sub == "drop"){
+    subcode <- NA_character_
+    nocolmessage <- ""
+    namessage <- "At least one of the institution codes is NA. Terms with no institution code will be dropped."
+  } else {
+    stop("Invalid na.sub option")
+  }
+
   thesenames <- names(data)
   if(!("instcodes" %in% thesenames)){
-    message("There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions.")
-    data$instcodes <- "11 111111111 111"
+    if(na.sub == "drop"){
+      stop("There is no column named instcodes.")
+    }
+    message(nocolmessage)
+    data$instcodes <- subcode
   }
   if(any(is.na(data$instcodes))){
-    message("At least one of the institution codes is NA. NA's will be replaced with institution code 11 111111111 111, indicating all institutions.")
-    data$instcodes[is.na(data$instcodes)] <- "11 111111111 111"
+    message(namessage)
+    data$instcodes[is.na(data$instcodes)] <- subcode
+    if(!is.na(na.sub) & na.sub == "drop"){
+      data <- dplyr::filter(data, !is.na(instcodes))
+    }
   }
   data$instcodes <- trimws(data$instcodes)
   return(data)
@@ -173,7 +200,7 @@ check_no_duplicate_terms <- function(terms, group){
   } else if(group != "none" & length(unlist(unique(terms))) < .5 * length(unlist(terms))){
     stop("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. All terms must be uniquely named if a long dataset is provided and grouping is used.")
   }
-  return(TRUE)
+  invisible(return(TRUE))
 }
 
 #' Reformat data to bayesact or interact-friendly format depending on summary statistic desired.

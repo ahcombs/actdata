@@ -9,6 +9,7 @@ epa_subset(
   exactmatch = FALSE,
   dataset = "all",
   component = "all",
+  datatype = "summary",
   gender = "all",
   stat = "all",
   stat_na_exclude = TRUE,
@@ -24,11 +25,13 @@ epa_subset(
 
 \item{component}{The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."}
 
-\item{gender}{The gender of the dictionary to use (male, female, average). Default it "all."}
+\item{datatype}{Whether to retrieve summary or individual data. Default is summary.}
 
-\item{stat}{The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results.}
+\item{gender}{The gender of the dictionary to use (male, female, average). Default is "all." Ignored when datatype is individual.}
 
-\item{stat_na_exclude}{Ignored if stat is not specified. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.}
+\item{stat}{The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results. Ignored if datatype is individual.}
+
+\item{stat_na_exclude}{Ignored if stat is not specified of datatype is individual. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.}
 
 \item{instcodes}{Logical, whether to include the institution codes in the output. Default is TRUE.}
 }
