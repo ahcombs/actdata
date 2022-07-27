@@ -150,6 +150,10 @@ check_inst_codes <- function(data, na.sub = TRUE){
     subcode <- NA_character_
     nocolmessage <- "There is no column named instcodes. The returned column will contain all NA values."
     namessage <- "At least one of the institution codes is NA."
+  } else if(na.sub == "drop"){
+    subcode <- NA_character_
+    nocolmessage <- ""
+    namessage <- "At least one of the institution codes is NA. Terms with no institution code will be dropped."
   } else if(na.sub){
     subcode <- "11 111111111 111"
     nocolmessage <- "There is no column named instcodes. All terms will be given institution code 11 111111111 111, indicating all institutions."
@@ -158,10 +162,6 @@ check_inst_codes <- function(data, na.sub = TRUE){
     subcode <- "00 000000000 000"
     nocolmessage <- "There is no column named instcodes. All terms will be given institution code 00 000000000 000, indicating no institutions."
     namessage <- "At least one of the institution codes is NA. NA's will be replaced with institution code 00 000000000 000, indicating no institutions."
-  } else if(na.sub == "drop"){
-    subcode <- NA_character_
-    nocolmessage <- ""
-    namessage <- "At least one of the institution codes is NA. Terms with no institution code will be dropped."
   } else {
     stop("Invalid na.sub option")
   }
@@ -178,10 +178,10 @@ check_inst_codes <- function(data, na.sub = TRUE){
     message(namessage)
     data$instcodes[is.na(data$instcodes)] <- subcode
     if(!is.na(na.sub) & na.sub == "drop"){
-      data <- dplyr::filter(data, !is.na(instcodes))
+      data <- dplyr::filter(data, !is.na(.data$instcodes))
     }
   }
-  data$instcodes <- trimws(data$instcodes)
+  data$instcodes <- as.character(purrr::map(data$instcodes, ~standardize_inst_code(.)))
   return(data)
 }
 

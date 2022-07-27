@@ -118,13 +118,7 @@ check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviat
 check_institutions <- function(institutions){
   instlist <- c(
     "term", "component",
-    "male", "female",
-    "overt", "surmised",
-    "place", "time",
-    "lay", "business", "law", "politics", "academe", "medicine", "religion", "family", "sexual",
-    "monadic", "group", "corporal",
-    "adjective", "adverb",
-    "emotion", "trait", "status", "feature", "emotion_spiral"
+    inst_all
   )
 
   if(all(institutions %in% instlist)){
@@ -137,6 +131,35 @@ check_institutions <- function(institutions){
       message(paste0("Institutions ", paste(invalid, collapse = ", "), " are invalid."))
     }
   }
+}
+
+#' Checks whether an institution code is properly formatted and returns the code with the proper whitespace
+#'
+#' @param code character institution code
+#'
+#' @return character standardized institution code
+standardize_inst_code <- function(code){
+  errormessage <- paste0("Instutition codes must be character strings containing only 14 1/0 entries and optional whitespace. Code provided was ", code)
+
+  standcode <- NA_character_
+  if(!is.na(code)){
+    # code has to be string with 14 1/0s. It can also be NA.
+    if(typeof(code) != "character"){
+      stop(errormessage)
+    }
+
+    code <- gsub("\\s", "", code)
+    splitcode <- strsplit(code, split = "")[[1]]
+
+    if(nchar(code) != 14 |
+       !(all(splitcode %in% c("0", "1")))){
+      stop(errormessage)
+    }
+
+    standcode <- paste0(substr(code, 1, 2), " ", substr(code, 3, 11), " ", substr(code, 12, 14), collapse = "")
+  }
+
+  return(standcode)
 }
 
 

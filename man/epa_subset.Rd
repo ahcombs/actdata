@@ -13,7 +13,9 @@ epa_subset(
   gender = "all",
   stat = "all",
   stat_na_exclude = TRUE,
-  instcodes = TRUE
+  instcodes = TRUE,
+  institutions = "all",
+  drop.na.instcodes = FALSE
 )
 }
 \arguments{
@@ -33,7 +35,11 @@ epa_subset(
 
 \item{stat_na_exclude}{Ignored if stat is not specified of datatype is individual. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.}
 
-\item{instcodes}{Logical, whether to include the institution codes in the output. Default is TRUE.}
+\item{instcodes}{Logical. Whether to include the institution codes in the output. Default is TRUE.}
+
+\item{institutions}{Character list. Institutions to include (defaults to all)}
+
+\item{drop.na.instcodes}{Logical. When filtering by institution, whether or not to keep terms which have no institution code.}
 }
 \value{
 FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.

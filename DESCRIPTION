@@ -18,6 +18,7 @@ Imports:
     dplyr,
     magrittr,
     methods,
+    purrr,
     rlang,
     stats,
     stringr,

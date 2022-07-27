@@ -58,7 +58,7 @@
 #'   \item{context}{}
 #'   \item{year}{}
 #'   \item{gender}{}
-#'   \item{instcode}{}
+#'   \item{instcodes}{}
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
@@ -100,7 +100,7 @@
 #'   \item{race2}{respondent's secondary racial identification}
 #'   \item{term}{dictionary term}
 #'   \item{component}{the term's type}
-#'   \item{instcode}{institution code}
+#'   \item{instcodes}{institution code}
 #'   \item{E}{evaluation rating}
 #'   \item{P}{potency rating}
 #'   \item{A}{activity rating}

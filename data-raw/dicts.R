@@ -328,6 +328,8 @@ individual <- individual %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
   dplyr::select(dataset, context, year, userid, gender, age, race1, race2, term, component, instcodes, everything())
 
+individual <- tibble::as_tibble(individual)
+
 
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::filter(!is.na(E) | !is.na(P) | !is.na(A)) %>%
@@ -339,6 +341,8 @@ epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::mutate(instcodes = stringr::str_trim(instcodes)) %>%
   dplyr::select(-instcodes_old) %>%
   dplyr::select(term, component, dataset, context, year, gender, instcodes, everything())
+
+epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)
 
 # there are 642 instances where institution codes do not agree between the uga set and whatever the old set was
 # I am overwriting the old codes with the uga codes, for consistency--TODO note this in documentation

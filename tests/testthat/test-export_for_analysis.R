@@ -96,7 +96,7 @@ test_that("save_for_interact error handling for reformatting works", {
   longdf <- epa_subset(dataset = "germany2007", gender = c("male", "female"), component = "behavior", stat = "mean")
   # longdf$instcodes <- "abcde"
   longdf_icode <- longdf
-  longdf_icode$instcodes[1] <- "notthesame"
+  longdf_icode$instcodes[1] <- "11 111111111 111"
 
   expect_message(expect_warning(save_for_interact(longdf_icode, group = "gender", filename = "file.txt", savefile = FALSE), "Institution codes are not always the same within terms. The codes for the first group have been presented in output."))
   expect_message(expect_warning(save_for_interact(longdf, filename = "file.txt", savefile = FALSE),
@@ -143,13 +143,6 @@ test_that("save_for_interact output data frame format looks good", {
     save_for_interact(widedf, filename = "file.txt", savefile = FALSE)
   )))
 })
-
-
-
-
-
-
-
 
 test_that("format_for_bayesact file stat and data frame type error handling works", {
   data <- actdata::epa_summary_statistics %>%
@@ -231,8 +224,8 @@ test_that("format_for_bayesact error handling for column names and institution c
 
 test_that("format_for_bayesact error handling for reformatting works", {
   data <- epa_subset(dataset = "usmturk2015")
-  expect_warning(format_for_bayesact(data, stat = "cov"),
-                 "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+  expect_message(expect_warning(format_for_bayesact(data, stat = "cov"),
+                 "Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named."))
 })
 
 test_that("format_for_bayesact output data frame format looks good", {

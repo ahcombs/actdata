@@ -17,7 +17,7 @@ A data frame with 674389 rows and 13 variables:
 \item{race2}{respondent's secondary racial identification}
 \item{term}{dictionary term}
 \item{component}{the term's type}
-\item{instcode}{institution code}
+\item{instcodes}{institution code}
 \item{E}{evaluation rating}
 \item{P}{potency rating}
 \item{A}{activity rating}

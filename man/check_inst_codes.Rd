@@ -4,10 +4,12 @@
 \alias{check_inst_codes}
 \title{check_inst_codes}
 \usage{
-check_inst_codes(data)
+check_inst_codes(data, na.sub = TRUE)
 }
 \arguments{
 \item{data}{dataframe to check}
+
+\item{na.sub}{option indicating what to do with missing institution codes. TRUE (default; count term as belonging to all institutions), FALSE (count term as belonging to no institutions), "drop" (drop terms with missing institution codes), or NA (leave code as NA).}
 }
 \value{
 dataframe with institution codes added if needed
