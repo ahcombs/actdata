@@ -15,3 +15,4 @@ character standardized institution code
 \description{
 Checks whether an institution code is properly formatted and returns the code with the proper whitespace
 }
+\keyword{internal}

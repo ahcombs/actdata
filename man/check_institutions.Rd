@@ -15,3 +15,4 @@ logical
 \description{
 Check that institutions are valid
 }
+\keyword{internal}

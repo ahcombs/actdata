@@ -5,6 +5,7 @@
 #' @param data dataframe
 #'
 #' @return logical
+#' @keywords internal
 check_data_frame <- function(data){
   if(!is.data.frame(data) & !tibble::is_tibble(data)){
     stop("data must be a tibble or data frame")
@@ -22,6 +23,7 @@ check_data_frame <- function(data){
 #' @param group name of the grouping column (for interact only)
 #'
 #' @return logical
+#' @keywords internal
 check_data_cols <- function(data, program, group = "none", stat = "mean"){
   # check for correct/necessary column names: term, E, P, A
 
@@ -99,6 +101,7 @@ check_data_cols <- function(data, program, group = "none", stat = "mean"){
 #' @param group name of grouping column
 #'
 #' @return logical
+#' @keywords internal
 check_group_col <- function(data, group){
   if(length(group) > 1){
     stop("only one grouping column can be provided")
@@ -145,6 +148,7 @@ check_group_col <- function(data, group){
 #' @param na.sub option indicating what to do with missing institution codes. TRUE (default; count term as belonging to all institutions), FALSE (count term as belonging to no institutions), "drop" (drop terms with missing institution codes), or NA (leave code as NA).
 #'
 #' @return dataframe with institution codes added if needed
+#' @keywords internal
 check_inst_codes <- function(data, na.sub = TRUE){
   if(is.na(na.sub)){
     subcode <- NA_character_
@@ -193,6 +197,7 @@ check_inst_codes <- function(data, na.sub = TRUE){
 #' @param group name of the grouping variable, or "none"
 #'
 #' @return logical indicating success
+#' @keywords internal
 check_no_duplicate_terms <- function(terms, group){
   # for bayesact, issue warnings (I am not sure what Jesse's code does with duplicates). Change to error if it throws an issue in the simulation. Bayesact is definitionally not grouped.
   if(group == "none" & length(unlist(unique(terms))) < length(unlist(terms))){
@@ -215,6 +220,7 @@ check_no_duplicate_terms <- function(terms, group){
 #' @param program bayesact or interact. Mean datasets look the same.
 #'
 #' @return reformatted data frame.
+#' @keywords internal
 #' Interact:
 #'    - term
 #'    - 6 EPA cols, repeated if no group, one set for each group if grouped
@@ -328,6 +334,7 @@ reformat <- function(data, program, stat = "mean", group = "none", groupvals = N
 #' @param required vector the (smaller) list of required columns
 #'
 #' @return logical whether each element of required is in colnames once and only once
+#' @keywords internal
 just_once <- function(colnames, required){
   if(length(setdiff(required, colnames)) != 0){
     return(FALSE)

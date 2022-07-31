@@ -17,3 +17,4 @@ logical indicating success
 \description{
 Check whether there are duplicate terms and throw the appropriate error or warning.
 }
+\keyword{internal}

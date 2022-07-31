@@ -17,3 +17,4 @@ logical
 \description{
 Checks validity of grouping column: if not "none", must have just two unique values.
 }
+\keyword{internal}

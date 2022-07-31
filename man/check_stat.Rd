@@ -25,3 +25,4 @@ mean, m
 sd, standard deviation, s
 cov, covar, covariance, c
 }
+\keyword{internal}

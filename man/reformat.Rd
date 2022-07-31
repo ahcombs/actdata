@@ -19,24 +19,39 @@ reformat(data, program, stat = "mean", group = "none", groupvals = NA)
 }
 \value{
 reformatted data frame.
-Interact:
-\itemize{
-\item term
-\item 6 EPA cols, repeated if no group, one set for each group if grouped
-\item no institution codes
-}
-
-Bayesact:
-\itemize{
-\item term
-\item 3 EPA cols
-\item if mean: 3 more placeholder EPA cols
-\item if sd: 3 sd cols
-\item if cov: 9 cov cols
-\item placeholder institution codes for all.
-}
 }
 \description{
 Assuming here that we've already checked that the necessary columns are present and named correctly.
 This reorders them and drops the unnecessary ones. It also does the grouping if desired for interact files.
 }
+\keyword{-}
+\keyword{3}
+\keyword{6}
+\keyword{9}
+\keyword{Bayesact:}
+\keyword{EPA}
+\keyword{Interact:}
+\keyword{all.}
+\keyword{codes}
+\keyword{cols}
+\keyword{cols,}
+\keyword{cov}
+\keyword{cov:}
+\keyword{each}
+\keyword{for}
+\keyword{group}
+\keyword{group,}
+\keyword{grouped}
+\keyword{if}
+\keyword{institution}
+\keyword{internal}
+\keyword{mean:}
+\keyword{more}
+\keyword{no}
+\keyword{one}
+\keyword{placeholder}
+\keyword{repeated}
+\keyword{sd}
+\keyword{sd:}
+\keyword{set}
+\keyword{term}

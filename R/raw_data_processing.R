@@ -14,6 +14,7 @@
 #' @param component string type of dictionary
 #'
 #' @return the standardized dataset
+#' @keywords internal
 standardize_terms <- function(data, key, component = "undetermined"){
   if(component == "identities" & key %in% c("uga2015", "usfullsurveyor2015", "usmturk2015", "usstudent2015", "indiana2003")){
     data <- data %>%
@@ -314,6 +315,7 @@ epa_summary <- function(data){
 #' @param ... data object
 #' @param name desired object name (filename without type and extension)
 #' @param type data type (dict or eqn)
+#' @keywords internal
 saveit <- function(..., name, type = NA) {
   if(is.na(type)){
     if(is.element(TRUE, grepl("identities", name)) |

@@ -20,3 +20,4 @@ m, mod, modifier, modifiers
 i, ident, identity, identities
 s, set, setting, settings
 }
+\keyword{internal}

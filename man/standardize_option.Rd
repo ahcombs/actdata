@@ -17,3 +17,4 @@ the standardized version of the input string
 \description{
 This function deals with abbreviations in parameter specification and returns the spellings that are used in the datasets.
 }
+\keyword{internal}

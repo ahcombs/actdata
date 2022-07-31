@@ -15,3 +15,4 @@ TRUE if available; throws error otherwise
 \description{
 Check data type
 }
+\keyword{internal}

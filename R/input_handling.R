@@ -6,6 +6,7 @@
 #' @param datatype string
 #'
 #' @return TRUE if available; throws error otherwise
+#' @keywords internal
 check_dataset <- function(dataset, datatype){
   if(datatype == "summary"){
     datasets_avail <- unique(actdata::epa_summary_statistics[,c("dataset")])
@@ -27,6 +28,7 @@ check_dataset <- function(dataset, datatype){
 #' @param datatype string
 #'
 #' @return TRUE if available; throws error otherwise
+#' @keywords internal
 check_datatype <- function(datatype){
   datatypes_avail <- c("summary", "sum", "s", "individual", "indiv", "i")
   for(k in datatype){
@@ -50,6 +52,7 @@ check_datatype <- function(datatype){
 #' @param component string
 #'
 #' @return TRUE if available; throws error otherwise
+#' @keywords internal
 check_component <- function(component){
   components_avail <- c("behavior", "modifier", "identity", "setting",
                         "b", "beh", "m", "mod", "i", "ident", "s", "set",
@@ -75,6 +78,7 @@ check_component <- function(component){
 #' @param gender string
 #'
 #' @return TRUE if available; throws error otherwise
+#' @keywords internal
 check_gender <- function(gender){
   genders_avail <- c("m", "male", "man", "f", "female", "woman", "a", "av", "average")
   for(g in gender){
@@ -98,6 +102,7 @@ check_gender <- function(gender){
 #' @param stats_avail abbreviations allowed
 #'
 #' @return TRUE if available; throws error otherwise
+#' @keywords internal
 check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviation", "s", "cov", "covar", "covariance", "c", "n", "number")){
   for(s in stat){
     if(!(s %in% unlist(stats_avail))){
@@ -115,6 +120,7 @@ check_stat <- function(stat, stats_avail = c("mean", "m", "sd", "standard deviat
 #' @param institutions list of institutions
 #'
 #' @return logical
+#' @keywords internal
 check_institutions <- function(institutions){
   instlist <- c(
     "term", "component",
@@ -138,6 +144,7 @@ check_institutions <- function(institutions){
 #' @param code character institution code
 #'
 #' @return character standardized institution code
+#' @keywords internal
 standardize_inst_code <- function(code){
   errormessage <- paste0("Instutition codes must be character strings containing only 14 1/0 entries and optional whitespace. Code provided was ", code)
 
@@ -171,6 +178,7 @@ standardize_inst_code <- function(code){
 #' @param param the type expected (gender, component, stat, datatype)
 #'
 #' @return the standardized version of the input string
+#' @keywords internal
 standardize_option <- function(input, param){
   input <- trimws(tolower(input))
   for(i in 1:length(input)){

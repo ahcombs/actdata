@@ -20,3 +20,4 @@ the standardized dataset
 This fixes spelling mistakes and standardizes choices of capitalization, spaces, etc so that terms are easily comparable across dictionaries
 Used in the data prep script in the raw data folder
 }
+\keyword{internal}

@@ -61,6 +61,7 @@ this_dict <- function(name){
 #' @importFrom methods "new"
 #'
 #' @return a dictionary object
+#' @keywords internal
 dictionary <- methods::setClass("dictionary",
                                 slots = list(
                                   key = "character",
@@ -96,6 +97,7 @@ dictionary <- methods::setClass("dictionary",
 #' @param notes any notes for the dataset
 #'
 #' @return a new dictionary object
+#' @keywords internal
 setMethod(f = "initialize", signature = "dictionary",
           definition = function(.Object,
                                 key = NA_character_,
@@ -238,6 +240,7 @@ dict_info <- function(name = NA){
 #' @importFrom methods "new"
 #'
 #' @return an equation object
+#' @keywords internal
 equation <- methods::setClass("equation",
                               slots = list(
                                 key = "character",
@@ -264,6 +267,7 @@ equation <- methods::setClass("equation",
 #' @param notes any notes provided for the dataset
 #'
 #' @return a new equation object
+#' @keywords internal
 setMethod(f = "initialize", signature = "equation",
           definition = function(.Object,
                                 key = NA_character_,
@@ -351,6 +355,7 @@ eqn_info <- function(name = NA){
 #' @param type dict or eqn
 #'
 #' @return metatdata df
+#' @keywords internal
 get_meta <- function(type){
   if(type == "dict"){
     return(dict_meta)

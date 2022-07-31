@@ -17,3 +17,4 @@ logical whether each element of required is in colnames once and only once
 \description{
 Tests that all elements of a required vector are in a vector of column names once and only once
 }
+\keyword{internal}

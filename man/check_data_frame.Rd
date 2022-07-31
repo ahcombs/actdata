@@ -15,3 +15,4 @@ logical
 \description{
 Verify that it's either a data frame object or a tibble
 }
+\keyword{internal}

@@ -16,3 +16,4 @@ saveit(..., name, type = NA)
 \description{
 Adapted from https://stackoverflow.com/questions/21248065/r-rename-r-object-while-save-ing-it : see Marco Wirthlin's answer
 }
+\keyword{internal}

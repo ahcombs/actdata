@@ -39,3 +39,4 @@ Dictionary
 \item{\code{notes}}{character. Any notes for the dataset.}
 }}
 
+\keyword{internal}

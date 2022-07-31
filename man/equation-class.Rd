@@ -29,3 +29,4 @@ Equation
 \item{\code{notes}}{character.}
 }}
 
+\keyword{internal}

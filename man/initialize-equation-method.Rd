@@ -42,3 +42,4 @@ a new equation object
 \description{
 sets defaults but allows them to be overridden by provided values
 }
+\keyword{internal}

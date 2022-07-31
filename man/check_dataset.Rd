@@ -17,3 +17,4 @@ TRUE if available; throws error otherwise
 \description{
 Checks provided dataset(s) to see if they are available in the data supplied.
 }
+\keyword{internal}

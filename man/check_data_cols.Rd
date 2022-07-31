@@ -21,3 +21,4 @@ logical
 \description{
 Checks that a dataframe to be reformatted for bayesact or interact has the necessary columns -- term, E, P, A, and sd or cov if needed (bayesact only).
 }
+\keyword{internal}
