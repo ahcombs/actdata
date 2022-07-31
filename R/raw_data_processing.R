@@ -205,13 +205,23 @@ utils::globalVariables("where")
 
 #' epa_summary
 #'
-#' Calculates the mean, standard deviation, and variance-covariance matrix for each term in one of the included individual datasets. This is useful when a user wants summary EPA information for a subset of respondents, for example, when comparing cultural meaning across groups.
+#' Calculates the mean, standard deviation, and variance-covariance matrix for
+#' each term in an individual-level data set. This is useful when a user wants
+#' summary EPA information for a subset of respondents, for example, when comparing
+#' cultural meaning across groups. In this case, a user would first create the
+#' desired individual data subsets using the [epa_subset()] function, then pass the
+#' resulting data frames to this function to calculate relevant summary statistics.
 #'
-#' @param data individual level data
+#' @param data individual level data frame with columns for term, component, E, P, and A.
 #'
-#' @return a summary dataset with one row per term. Includes the evaluation, potency, and activity mean, standard deviation, and variance-covariance matrix entries for each term.
+#' @return a summary dataset with one row per term. Includes the evaluation, potency,
+#'     and activity mean, standard deviation, and variance-covariance matrix entries
+#'     for each term/component combination. Values are rounded to the nearest .01.
 #' @export
 #'
+#' @examples
+#' epa_summary(dplyr::filter(epa_subset(datatype = "individual", dataset = "usfullsurveyor2015"),
+#'     gender == "Male"))
 epa_summary <- function(data){
   if(!("term" %in% names(data))){
     stop(message = "data must have a column named 'term'")
@@ -226,7 +236,6 @@ epa_summary <- function(data){
     dplyr::mutate(dplyr::across(c(-.data$term, -.data$component, -.data$tcid), as.numeric)) %>%
     dplyr::group_by(.data$term, .data$component, .data$tcid) %>%
     dplyr::summarize(
-      # TODO: what's the deal with the zeros? skips? Do all datasets have a lot of zeros?
       n_E = sum(!is.na(.data$E)),
       n_P = sum(!is.na(.data$P)),
       n_A = sum(!is.na(.data$A)),
@@ -255,8 +264,8 @@ epa_summary <- function(data){
     # check how to handle missing values here--right now we are going to listwise delete.
     # There is also a pairwise option but it sounds more complicated.
     # Really, we don't need to include all 9 values here; 3 should be repeated.
-    # Also, the diagonals should be the square of the sd values--there's an argument for keeping this in anyway though if we want to report var and sd (but do we need sd?)
-    # TODO: Remove once tested
+    # Also, the diagonals should be the square of the sd values--there's an argument for
+    # keeping this in anyway though if we want to report var and sd (but do we need sd?)
     if(nE > 0 & nP > 0 & nA > 0){
       covarmat <- stats::cov(subset, use = "complete.obs") # 3x3 mat
       covarvec <- data.frame(tcid = t,

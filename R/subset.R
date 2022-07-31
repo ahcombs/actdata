@@ -1,27 +1,54 @@
-#' epa_subset
+#' EPA dictionary search and subset
 #'
-#' EPA summary statistics dictionary search and subset
+#' Returns a subset of the EPA summary or individual data that fulfills the
+#' given parameters. Filtering can be done by term, data set, component (identity,
+#' behavior, modifier, setting), type of data (summary or individual), statistics
+#' (mean, standard deviation, covariance), institutions the term belongs to, and
+#' gender of raters.
 #'
-#' @param expr A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.
-#' @param exactmatch Logical indicating whether the function should return only exact matches to the expression provided. If FALSE (default), all terms containing the expression are returned.
-#' @param dataset The key of the dataset (or list of multiple) to search in. Default is "all.
-#' @param component The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."
+#' @param expr A term, regular expression, or list of terms or regexs to search.
+#'     If a list is provided, entries will be treated as separated by "or", so
+#'     all terms matching one or more of the entries will be returned. Default
+#'     matches all terms.
+#' @param exactmatch Logical indicating whether the function should return only
+#'     exact matches to the expression provided. If FALSE (default), all terms
+#'     containing the expression are returned.
+#' @param dataset The key of the data set (or list of multiple) to search in.
+#'     Default is "all. Call [dict_info()] to see available data sets.
+#' @param component The component of the dictionary to use (identity, behavior,
+#'     modifier, setting). Default is "all."
 #' @param datatype Whether to retrieve summary or individual data. Default is summary.
-#' @param gender The gender of the dictionary to use (male, female, average). Default is "all." Ignored when datatype is individual.
-#' @param stat The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results. Ignored if datatype is individual.
-#' @param stat_na_exclude Ignored if stat is not specified of datatype is individual. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.
-#' @param instcodes Logical. Whether to include the institution codes in the output. Default is TRUE.
+#' @param gender The gender of the dictionary to use (male, female, average).
+#'     Default is "all." Ignored when datatype is individual.
+#' @param stat The statistics to include in the subset that is returned. Default is all,
+#'     options are mean, sd (standard deviation), cov (covariance), and n (number of
+#'     raters). Terms that do not contain values for the required statistic will be
+#'     excluded from the results. Ignored if datatype is individual.
+#' @param stat_na_exclude Ignored if stat is not specified of datatype is individual.
+#'     A logical indicating whether to exclude entries with NA values for any of
+#'     the required statistics. Default is TRUE.
+#' @param instcodes Logical. Whether to include the institution codes in the
+#'     output. Default is TRUE.
 #' @param institutions Character list. Institutions to include (defaults to all)
-#' @param drop.na.instcodes Logical. When filtering by institution, whether or not to keep terms which have no institution code.
+#' @param drop.na.instcodes Logical. When filtering by institution, whether or
+#'     not to keep terms which have no institution code.
 #'
-#' @return FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
+#' @return a dataset containing the entries that match the given parameters or FALSE
+#'     if no matches are found.
 #' @export
+#'
+#' @examples
+#' epa_subset("teacher")
+#' epa_subset(dataset = "politics2003")
+#' epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
+#'     institutions = c("lay, business"))
+#' epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
+#' epa_subset(dataset = "usmturk2015", datatype = "individual")
 epa_subset <- function(expr = ".*", exactmatch = FALSE,
                        dataset = "all", component = "all",
                        datatype = "summary", gender = "all", stat = "all",
                        stat_na_exclude = TRUE, instcodes = TRUE,
                        institutions = "all", drop.na.instcodes = FALSE){
-  # TODO datasets are different for summary and individual
   if(length(datatype) > 1){
     stop("Only one data type may be provided")
   }
@@ -184,12 +211,16 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
 
 #' Extract single equation data frame
 #'
-#' @param key the name of the equation set, Call eqn_info() or see package readme for options.
+#' @param key the name of the equation set, Call [eqn_info()] or see package readme for options.
 #' @param equation_type the type of the equation. Options: emotionid, impressionabo, impressionabos, selfdir, traitid
 #' @param gender gender. Average, female, or male.
 #'
 #' @return equation dataframe
 #' @export
+#'
+#' @examples
+#' get_eqn("us2010")
+#' get_eqn("nc1978", equation_type = "impressionabos", gender = "male")
 get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
   gender <- dplyr::case_when(
     gender %in% c("a", "av", "mean") ~ "average",
@@ -222,11 +253,19 @@ get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
 
 #' Add logical columns indicating institution membership to dataset
 #'
-#' @param data a data frame to add institution code columns to. Must contain term and component columns.
-#' @param na.sub indicates how to handle institution codes that are NA. Options are: NA (default) for leaving them as NA; TRUE for counting the term as belonging to all institutions; FALSE for counting the term as belonging to no institutions, and "drop" for dropping them.
+#' @param data a data frame to add institution code columns to. Must
+#'     contain term and component columns.
+#' @param na.sub indicates how to handle institution codes that are NA.
+#'    Options are: NA (default) for leaving them as NA; TRUE for
+#'    counting the term as belonging to all institutions; FALSE for
+#'    counting the term as belonging to no institutions, and "drop"
+#'    for dropping them.
 #'
 #' @return input data frame with institution code columns added.
 #' @export
+#'
+#' @examples
+#' expand_instcodes(epa_subset(dataset = "texas1998"))
 expand_instcodes <- function(data, na.sub = NA){
   # requires dataset with a component column and (probably) an instcodes column
   # checks that the data frame is of the correct format
@@ -249,12 +288,6 @@ expand_instcodes <- function(data, na.sub = NA){
   termsubset <- data %>%
     dplyr::select(.data$term, .data$component, "instcodes") %>%
     dplyr::distinct()
-
-  # icodecols <- instcode_to_cols(code = termsubset[1, "instcodes"][[1]], component = termsubset[1, "component"][[1]], term = termsubset[1, "term"][[1]])
-  # for(i in 2:nrow(termsubset)){
-  #   newrow <- instcode_to_cols(code = termsubset[i, "instcodes"][[1]], component = termsubset[i, "component"][[1]], term = termsubset[i, "term"][[1]])
-  #   icodecols <- suppressMessages(dplyr::full_join(icodecols, newrow))
-  # }
 
   icodecols <- termsubset %>%
     dplyr::mutate(male = dplyr::case_when(component == "identity" & substr(instcodes, 1, 1) == 1 ~ TRUE,
@@ -351,47 +384,43 @@ expand_instcodes <- function(data, na.sub = NA){
   return(data)
 }
 
-#' Creates institution code strings from logicals indicating category membership
+#' Create institution code strings from logicals indicating category membership
 #'
-#' This function returns institution codes in string format that is properly formatted
+#' This function returns institution codes in a string format that is properly formatted
 #' for import to Interact and consistent with typical ACT data practices. Relevant
-#' arguments depend on the component. Arguments that do not apply to the given
-#' component will be ignored.
+#' arguments depend on the component. All function parameters are logical, and all defaults
+#' are FALSE, meaning that to create an institution code, users need only set the categories
+#' that apply to TRUE. Arguments that do not apply to the given component will be ignored.
+#' See Heise's 2014 PDF manual for Interact or Heise's 2007 book *Expressive Order* for
+#' more details on these categories.
 #'
-#' Identities: male, female, lay, business, law, politics, academe, medicine, religion, family, sexual, monadic, group, corporal
-#' Behaviors: overt, surmised, lay, business, law, politics, academe, medicine, religion, family, sexual, monadic, group, corporal
+#' Identities: male, female, lay, business, law, politics, academe, medicine,
+#'     religion, family, sexual, monadic, group, corporal
+#' Behaviors: overt, surmised, lay, business, law, politics, academe, medicine,
+#'     religion, family, sexual, monadic, group, corporal
 #' Modifiers: adjective, adverb, emotion, trait, status, feature, emotion_spiral
-#' Settings: place, time, lay, business, law, politics, academe, medicine, religion, family, sexual, monadic, group, corporal
+#' Settings: place, time, lay, business, law, politics, academe, medicine,
+#'     religion, family, sexual, monadic, group, corporal
 #'
 #' @param component whether the term is an identity, behavior, component, or setting
-#' @param male logical identities (whether identities can typically be applied to men)
-#' @param female logical identities (whether identities can typically be applied to women)
-#' @param overt logical behaviors
-#' @param surmised logical behaviors
-#' @param place logical settings
-#' @param time logical settings
-#' @param lay logical identities, behaviors, settings
-#' @param business logical identities, behaviors, settings
-#' @param law logical identities, behaviors, settings
-#' @param politics logical identities, behaviors, settings
-#' @param academe logical identities, behaviors, settings
-#' @param medicine logical identities, behaviors, settings
-#' @param religion logical identities, behaviors, settings
-#' @param family logical identities, behaviors, settings
-#' @param sexual logical identities, behaviors, settings
-#' @param monadic logical identities, behaviors, settings
-#' @param group logical identities, behaviors, settings
-#' @param corporal logical identities, behaviors, settings
-#' @param adjective logical modifiers
-#' @param adverb logical modifiers
-#' @param emotion logical modifiers
-#' @param trait logical modifiers
-#' @param status logical modifiers
-#' @param feature logical modifiers
-#' @param emotion_spiral logical modifiers
+#' @param male,female logical. What genders terms can typically be applied to (identities only)
+#' @param overt,surmised logical. Whether labeling behaviors requires interpretation or insight
+#'     on the part of the observer (behaviors only).
+#' @param place,time logical. Type of setting (settings only).
+#' @param lay,business,law,politics,academe,medicine,religion,family,sexual logical. Societal
+#'     institutions that terms may belong to. Institutions, behaviors, and settings only.
+#' @param monadic,group,corporal logical. How a term requires or implicates others. Identities,
+#'      behaviors, and settings only.
+#' @param adjective,adverb logical. Part of speech for modifiers.
+#' @param emotion,trait,status,feature,emotion_spiral logical. Categories for modifiers.
 #'
 #' @return character string institution code
 #' @export
+#'
+#' @examples
+#' create_instcode(component = "identity", male = TRUE, female = TRUE, lay = TRUE)
+#' create_instcode(component = "behavior", overt = TRUE, business = TRUE, group = TRUE)
+#' create_instcode(component = "modifier", adjective = TRUE, emotion = TRUE)
 create_instcode <- function(component,
                             male = F, female = F,
                             overt = F, surmised = F,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/metadata.R
 \name{dict_info}
 \alias{dict_info}
-\title{dict_info}
+\title{Print dictionary information}
 \usage{
 dict_info(name = NA)
 }
@@ -10,5 +10,9 @@ dict_info(name = NA)
 \item{name}{string}
 }
 \description{
-Print dictionary info. Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
+Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
+}
+\examples{
+dict_info()
+dict_info("china1999")
 }

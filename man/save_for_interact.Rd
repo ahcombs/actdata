@@ -2,7 +2,7 @@
 % Please edit documentation in R/export_for_analysis.R
 \name{save_for_interact}
 \alias{save_for_interact}
-\title{save_for_interact}
+\title{Write a data file in Interact-compatible format}
 \usage{
 save_for_interact(
   data,
@@ -13,25 +13,52 @@ save_for_interact(
 )
 }
 \arguments{
-\item{data}{dataframe to save}
+\item{data}{data frame to save}
 
 \item{type}{string ("dict" or "eqn") indicating type of data}
 
-\item{group}{string indicating the name or numeric index of a column to group on. This column must contain only two values and each term must have one entry for each}
+\item{group}{string indicating the name or numeric index of a column to group on.
+This column must contain only two values and each term must have one entry for each}
 
-\item{filename}{string the filepath at which to save (must end in .txt)}
+\item{filename}{string. the filepath at which to save (must end in .txt)}
 
-\item{savefile}{logical that denotes whether to actually save the file (FALSE is primarily useful for testing purposes). Default is TRUE.}
+\item{savefile}{logical. that denotes whether to actually save the file (FALSE is
+primarily useful for testing purposes). Default is TRUE.}
 }
 \value{
 the dataframe that is written to file
 }
 \description{
-TODO fill out this documentation better. More like the bayesact function below.
+Save a dictionary or equation data frame in a text file format
+that can be copied and pasted into the Java version of Interact
+for analysis using that program. This allows users to create desired
+data subsets using this package rather than manually adding and removing
+lines from datasets Interact provides, facilitating more reproducible
+workflows using Interact Java. This may also help users reformat their own
+imported datasets for use in Interact.
 }
 \details{
-Save a data frame in a format that can be copied and pasted into Interact for analysis using that program.
+Provided data must contain a column titled "term" and either three or six
+numeric columns with EPA values that start with "E", "P", and "A". These requirements
+are generally satisfied by dataframes produced by \code{\link[=epa_subset]{epa_subset()}}.
 
-Saves dictionary and equation files in a format that can be directly copy/pasted into Interact.
-This allows users to
+If three numeric columns are provided, the function can accept an optional "group"
+argument that is the name of a column that contains two values. This column
+will be used to "widen" the data to two sets of EPA columns. The first set will
+correspond with the first value in the group column and the second set will
+correspond with the second value. This is useful when you wish to allow Interact
+to take two different sets of values depending on which of two groups an actor
+is a part of. This is most frequently used to provide gendered data, but it has
+other applications as well--for example, if you wish to allow students and
+teachers to have different meanings for the same terms.
+
+Note that Interact requires identity, behavior, setting, and modifier data to be
+loaded separately, meaning that prior to using this function, users should ensure
+that only one component is represented per file.
+}
+\examples{
+\dontrun{
+save_for_interact(data = epa_subset(dataset = "household1997", component = "behavior"),
+    filename = "household1997behavior.txt")
+}
 }

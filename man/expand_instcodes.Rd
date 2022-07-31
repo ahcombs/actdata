@@ -7,13 +7,21 @@
 expand_instcodes(data, na.sub = NA)
 }
 \arguments{
-\item{data}{a data frame to add institution code columns to. Must contain term and component columns.}
+\item{data}{a data frame to add institution code columns to. Must
+contain term and component columns.}
 
-\item{na.sub}{indicates how to handle institution codes that are NA. Options are: NA (default) for leaving them as NA; TRUE for counting the term as belonging to all institutions; FALSE for counting the term as belonging to no institutions, and "drop" for dropping them.}
+\item{na.sub}{indicates how to handle institution codes that are NA.
+Options are: NA (default) for leaving them as NA; TRUE for
+counting the term as belonging to all institutions; FALSE for
+counting the term as belonging to no institutions, and "drop"
+for dropping them.}
 }
 \value{
 input data frame with institution code columns added.
 }
 \description{
 Add logical columns indicating institution membership to dataset
+}
+\examples{
+expand_instcodes(epa_subset(dataset = "texas1998"))
 }

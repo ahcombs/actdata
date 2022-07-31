@@ -1,17 +1,15 @@
-# TODO this is super confusing that I have this function here and also a file called dict_subset with other functions. What is this doing and can it be moved?
-# TODO do I really need the dictionary and equation objects now that everything is in summary form?
-
-#' dict_subset
+#' Get the list of dataset keys
 #'
-#' Dictionary subset. Extracts the keys of dictionaries, optionally subsetted by stat (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
+#' Returns the names of available datasets
 #'
 #' @param dicts list of dictionary objects
 #'
 #' @return list of dictionary keys
 #' @export
+#'
+#' @examples
+#' dataset_keys()
 dataset_keys <- function(dicts = get_dicts()){
-  # TODO I changed the parameter to make get_dicts() the default and put it last--update within bayesact
-  # TODO allow abbreviations? Is this likely to be used by users or is it just for bayesactr?
   names <- c()
   # subset by stat and/or components available
   for(dict in dicts){
@@ -19,28 +17,24 @@ dataset_keys <- function(dicts = get_dicts()){
       names <- append(names, dict@key)
     # }
   }
-
   return(names)
 }
 
-
-#' this_dict
+#' Get dictionary or equation object
 #'
-#' Get dictionary or equation object. Extracts metadata object for a single dictionary or equation of a given name from the master list
+#' Extracts metadata object for a single dictionary of a given name.
+#' Its main purpose is to allow for testing whether particular dictionaries
+#' have particular elements.
 #'
 #' @param name string
-#' @param class string (\code{"equation"} or \code{"dictionary"})
 #'
 #' @return dictionary object
 #' @export
-this_dict <- function(name, class = 'dictionary'){
-  if(class == 'dictionary'){
-    dicts <- get_dicts()
-  }
-  else {
-    dicts <- actdata::equations$key
-    # dicts <- get_eqns()
-  }
+#'
+#' @examples
+#' this_dict("uga2015")
+this_dict <- function(name){
+  dicts <- get_dicts()
 
   for(d in dicts){
     if(d@key == name){
@@ -133,13 +127,16 @@ setMethod(f = "initialize", signature = "dictionary",
           }
 )
 
-#' get_dicts
+#' Get dictionary information
 #'
-#' Get dictionary information. Return metadata of available dictionaries as a list of dictionary objects
+#' Return metadata of available dictionaries as a list of dictionary objects
 #'
 #' @return list of dictionary objects
 #'
 #' @export
+#'
+#' @examples
+#' get_dicts()
 get_dicts <- function(){
   dicts = c()
   d_info <- dict_meta
@@ -166,13 +163,17 @@ get_dicts <- function(){
 
 
 
-#' dict_info
+#' Print dictionary information
 #'
-#' Print dictionary info. Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
+#' Print metadata for the dictionary name specified or for all available dictionaries (if name is unspecified)
 #'
 #' @param name string
 #'
 #' @export
+#'
+#' @examples
+#' dict_info()
+#' dict_info("china1999")
 dict_info <- function(name = NA){
   dicts <- get_dicts()
 
@@ -212,7 +213,7 @@ dict_info <- function(name = NA){
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
           paste("Genders:", paste(unlist(d@genders), collapse = ', ')),
           paste("Stats:", paste(unlist(d@stats), collapse = ', ')),
-          paste("Individual data available? ", ifelse(thisdict@individual == TRUE, "Yes", "No")),
+          paste("Individual data available? ", ifelse(d@individual == TRUE, "Yes", "No")),
           paste("Source:", d@source),
           paste("Citation:", d@citation),
           paste("Notes:", d@notes),
@@ -288,13 +289,17 @@ setMethod(f = "initialize", signature = "equation",
           }
 )
 
-#' eqn_info
+#' Print equation metadata
 #'
-#' Print equation metadata. Print metadata for requested equation name or (if name is not specified) for all available equations
+#' Print metadata for requested equation name or (if name is not specified) for all available equations
 #'
 #' @param name string
 #'
 #' @export
+#'
+#' @examples
+#' eqn_info()
+#' eqn_info("us2010")
 eqn_info <- function(name = NA){
   eqns <- unique(actdata::equations$key)
 

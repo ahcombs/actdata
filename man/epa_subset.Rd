@@ -2,7 +2,7 @@
 % Please edit documentation in R/subset.R
 \name{epa_subset}
 \alias{epa_subset}
-\title{epa_subset}
+\title{EPA dictionary search and subset}
 \usage{
 epa_subset(
   expr = ".*",
@@ -19,31 +19,59 @@ epa_subset(
 )
 }
 \arguments{
-\item{expr}{A term, regular expression, or list of terms or regexs to search. If a list is provided, entries will be treated as separated by "or", so all terms matching one or more of the entries will be returned. Default matches all terms.}
+\item{expr}{A term, regular expression, or list of terms or regexs to search.
+If a list is provided, entries will be treated as separated by "or", so
+all terms matching one or more of the entries will be returned. Default
+matches all terms.}
 
-\item{exactmatch}{Logical indicating whether the function should return only exact matches to the expression provided. If FALSE (default), all terms containing the expression are returned.}
+\item{exactmatch}{Logical indicating whether the function should return only
+exact matches to the expression provided. If FALSE (default), all terms
+containing the expression are returned.}
 
-\item{dataset}{The key of the dataset (or list of multiple) to search in. Default is "all.}
+\item{dataset}{The key of the data set (or list of multiple) to search in.
+Default is "all. Call \code{\link[=dict_info]{dict_info()}} to see available data sets.}
 
-\item{component}{The component of the dictionary to use (identity, behavior, modifier, setting). Default is "all."}
+\item{component}{The component of the dictionary to use (identity, behavior,
+modifier, setting). Default is "all."}
 
 \item{datatype}{Whether to retrieve summary or individual data. Default is summary.}
 
-\item{gender}{The gender of the dictionary to use (male, female, average). Default is "all." Ignored when datatype is individual.}
+\item{gender}{The gender of the dictionary to use (male, female, average).
+Default is "all." Ignored when datatype is individual.}
 
-\item{stat}{The statistics to include in the subset that is returned. Default is all, options are mean, sd (standard deviation), cov (covariance), and n (number of raters). Terms that do not contain values for the required statistic will be excluded from the results. Ignored if datatype is individual.}
+\item{stat}{The statistics to include in the subset that is returned. Default is all,
+options are mean, sd (standard deviation), cov (covariance), and n (number of
+raters). Terms that do not contain values for the required statistic will be
+excluded from the results. Ignored if datatype is individual.}
 
-\item{stat_na_exclude}{Ignored if stat is not specified of datatype is individual. A logical indicating whether to exclude entries with NA values for any of the required statistics. Default is TRUE.}
+\item{stat_na_exclude}{Ignored if stat is not specified of datatype is individual.
+A logical indicating whether to exclude entries with NA values for any of
+the required statistics. Default is TRUE.}
 
-\item{instcodes}{Logical. Whether to include the institution codes in the output. Default is TRUE.}
+\item{instcodes}{Logical. Whether to include the institution codes in the
+output. Default is TRUE.}
 
 \item{institutions}{Character list. Institutions to include (defaults to all)}
 
-\item{drop.na.instcodes}{Logical. When filtering by institution, whether or not to keep terms which have no institution code.}
+\item{drop.na.instcodes}{Logical. When filtering by institution, whether or
+not to keep terms which have no institution code.}
 }
 \value{
-FALSE if the provided term or expression is not in any provided dictionary. If it occurs at least once, returns the subset of the dictionary(s) of interest where the term matches the provided expression.
+a dataset containing the entries that match the given parameters or FALSE
+if no matches are found.
 }
 \description{
-EPA summary statistics dictionary search and subset
+Returns a subset of the EPA summary or individual data that fulfills the
+given parameters. Filtering can be done by term, data set, component (identity,
+behavior, modifier, setting), type of data (summary or individual), statistics
+(mean, standard deviation, covariance), institutions the term belongs to, and
+gender of raters.
+}
+\examples{
+epa_subset("teacher")
+epa_subset(dataset = "politics2003")
+epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
+    institutions = c("lay, business"))
+epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
+epa_subset(dataset = "usmturk2015", datatype = "individual")
 }

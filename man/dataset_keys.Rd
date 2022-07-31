@@ -2,7 +2,7 @@
 % Please edit documentation in R/metadata.R
 \name{dataset_keys}
 \alias{dataset_keys}
-\title{dict_subset}
+\title{Get the list of dataset keys}
 \usage{
 dataset_keys(dicts = get_dicts())
 }
@@ -13,5 +13,8 @@ dataset_keys(dicts = get_dicts())
 list of dictionary keys
 }
 \description{
-Dictionary subset. Extracts the keys of dictionaries, optionally subsetted by stat (mean, sd, cov, individual) or component (identity, behavior, modifier, setting)
+Returns the names of available datasets
+}
+\examples{
+dataset_keys()
 }

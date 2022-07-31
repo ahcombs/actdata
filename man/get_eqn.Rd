@@ -7,7 +7,7 @@
 get_eqn(key, equation_type = "impressionabo", gender = "average")
 }
 \arguments{
-\item{key}{the name of the equation set, Call eqn_info() or see package readme for options.}
+\item{key}{the name of the equation set, Call \code{\link[=eqn_info]{eqn_info()}} or see package readme for options.}
 
 \item{equation_type}{the type of the equation. Options: emotionid, impressionabo, impressionabos, selfdir, traitid}
 
@@ -18,4 +18,8 @@ equation dataframe
 }
 \description{
 Extract single equation data frame
+}
+\examples{
+get_eqn("us2010")
+get_eqn("nc1978", equation_type = "impressionabos", gender = "male")
 }

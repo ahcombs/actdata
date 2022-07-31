@@ -2,18 +2,21 @@
 % Please edit documentation in R/metadata.R
 \name{this_dict}
 \alias{this_dict}
-\title{this_dict}
+\title{Get dictionary or equation object}
 \usage{
-this_dict(name, class = "dictionary")
+this_dict(name)
 }
 \arguments{
 \item{name}{string}
-
-\item{class}{string (\code{"equation"} or \code{"dictionary"})}
 }
 \value{
 dictionary object
 }
 \description{
-Get dictionary or equation object. Extracts metadata object for a single dictionary or equation of a given name from the master list
+Extracts metadata object for a single dictionary of a given name.
+Its main purpose is to allow for testing whether particular dictionaries
+have particular elements.
+}
+\examples{
+this_dict("uga2015")
 }

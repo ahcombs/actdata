@@ -2,14 +2,15 @@
 % Please edit documentation in R/export_for_analysis.R
 \name{format_for_bayesact}
 \alias{format_for_bayesact}
-\title{format_for_bayesact}
+\title{Format a data frame for use in BayesACT or bayesactR}
 \usage{
 format_for_bayesact(data, stat = "mean")
 }
 \arguments{
 \item{data}{data frame or tibble object to reformat}
 
-\item{stat}{character desired summary statistic to include. Options are "mean", "sd", "cov".}
+\item{stat}{character desired summary statistic to include. Options
+are "mean", "sd", "cov".}
 }
 \value{
 A reformatted data frame. Output data frames have the following columns, in left to right order:
@@ -18,24 +19,41 @@ A reformatted data frame. Output data frames have the following columns, in left
 \item 3 columns containing the given E, P, and A mean values (in that order)
 \item For summary statistic type "mean": Three numeric placeholder column. They are not used by BayesACT in calculations but are required in BayesACT inputs for compatibility with the Interact Java format.
 \item For summary statistic type "sd": 3 numeric columns containing the given E, P, and A standard deviation values.
-\item For summary statistic type "cov": 9 numeric columns containing the given covariance values. These are in order EE, EP, EA, PE, PP, PA, AE, AP, AA. Note that this covariance matrix is symmetric matrix so there are duplicate columns.
+\item For summary statistic type "cov": 9 numeric columns containing the given covariance values. These are, in order, EE, EP, EA, PE, PP, PA, AE, AP, AA. Note that this covariance matrix is symmetric matrix so there are duplicate columns.
 \item An institution codes column. BayesACT does not use this information, but does require it.
 }
 }
 \description{
-This function allows users to easily convert dictionary subsets they have created to the format necessary for providing to BayesACT.
-These reformatted dataframes can be provided to functions in the bayesactR package (recommended) or they can be saved and provided directly to the BayesACT C interface.
+This function allows users to easily convert dictionary subsets they
+have created to the format necessary for providing to BayesACT. These
+reformatted dataframes can be provided to the \code{\link[bayesactR:add_actor]{bayesactR::add_actor()}}
+function in the bayesactR package (recommended) or they can be saved and
+provided directly to the BayesACT C interface.
 }
 \details{
 Input data frames have the following requirements:
 \itemize{
-\item must have a column labeled "term" that is coercible to character. Duplicate entries are allowed but not recommended in this column.
-\item must have three columns titled "E", "P", and "A" that are coercible to numeric. These will be treated as sentiment mean scores in BayesACT.
-\item if summary statistic type is sd (standard deviation), must have be three columns with titles "sd_E", "sd_P", "sd_A" that are coercible to numeric.
-\item if summary statistic type is cov (covariance), must have nine columns with titles "cov_XX", where XX is all two-letter permutations of E, P, and A, that are coercible to numeric
-\item if an institution codes column (titled "instcodes") is not provided, an arbitrary one will be added (this information is required but not used by BayesACT)
+\item must have a column labeled "term" that is coercible to character.
+Duplicate entries are allowed but not recommended in this column.
+\item must have three columns titled "E", "P", and "A" that are coercible
+to numeric. These will be treated as sentiment mean scores in BayesACT.
+\item if summary statistic type is sd (standard deviation), must have
+three columns with titles "sd_E", "sd_P", "sd_A" that are coercible to numeric.
+\item if summary statistic type is cov (covariance), must have nine columns
+with titles "cov_XX", where XX is all two-letter permutations of E, P,
+and A, that are coercible to numeric
+\item if an institution codes column (titled "instcodes") is not provided, an
+arbitrary one will be added (this information is required but not used by BayesACT)
 \item all other columns will be dropped
 }
 
-These column name and format requirements are generally satisfied by subsets of the epa_summary_statistics dataset created by epa_subset().
+These column name and format requirements are generally satisfied by subsets
+of the epa_summary_statistics dataset created by \code{\link[=epa_subset]{epa_subset()}}.
+}
+\examples{
+\dontrun{
+data <- epa_subset(dataset = "egypt2015", component = "identity",
+    institutions = c("law", "business"), stat = "cov")
+data_bayesformat <- format_for_bayesact(data, stat = "cov")
+}
 }

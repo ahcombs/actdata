@@ -2,7 +2,7 @@
 % Please edit documentation in R/export_utils.R
 \name{check_data_cols}
 \alias{check_data_cols}
-\title{check_data_cols}
+\title{Check data columns}
 \usage{
 check_data_cols(data, program, group = "none", stat = "mean")
 }

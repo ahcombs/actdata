@@ -12,7 +12,7 @@ check_data_frame <- function(data){
   invisible(return(TRUE))
 }
 
-#' check_data_cols
+#' Check data columns
 #'
 #' Checks that a dataframe to be reformatted for bayesact or interact has the necessary columns -- term, E, P, A, and sd or cov if needed (bayesact only).
 #'

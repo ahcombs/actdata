@@ -2,7 +2,7 @@
 % Please edit documentation in R/metadata.R
 \name{get_dicts}
 \alias{get_dicts}
-\title{get_dicts}
+\title{Get dictionary information}
 \usage{
 get_dicts()
 }
@@ -10,5 +10,8 @@ get_dicts()
 list of dictionary objects
 }
 \description{
-Get dictionary information. Return metadata of available dictionaries as a list of dictionary objects
+Return metadata of available dictionaries as a list of dictionary objects
+}
+\examples{
+get_dicts()
 }
