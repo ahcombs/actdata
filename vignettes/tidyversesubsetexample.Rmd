@@ -1,8 +1,8 @@
 ---
-title: "Working Within and Across Dictionaries: An Example Using the Tidyverse"
+title: "Comparing meanings: a worked example"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Working Within and Across Dictionaries: A Tidyverse Example}
+  %\VignetteIndexEntry{Comparing meanings: a worked example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -108,4 +108,4 @@ ggplot(terms_toplot, aes(x = as.numeric(year), y = rating, shape = context, colo
        y = "Mean sentiment rating")
 ```
 
-This shows that "lesbian"  rose on the evaluation and power dimensions in all three countries and "junkie" fell on the activity dimension in all three countries. The trajectory of "depressed" was more place-dependent: it fell on all three dimensions in the US, stayed stable on evaluation and potency in Canada and Germany, and fell on activity in Germany. This type of analysis cannot show causation, of course, but it can be a useful start point for identifying and investigating terms that may have been affected by social movements or other shifts within and/or across countries. Similarly, this kind of analysis could be used to identify terms that vary across cultures, and, in cultures where multiple datasets have been collected, to investigate whether these differences have changed over time. This could serve as a useful starting point to a study.
+This shows that "lesbian"  rose on the evaluation and power dimensions in all three countries and "junkie" fell on the activity dimension in all three countries. The trajectory of "depressed" was more place-dependent: it fell on all three dimensions in the US, stayed stable on evaluation and potency in Canada and Germany, and fell on activity in Germany. This type of analysis cannot show causation, of course, but it can be a useful start point for identifying and investigating terms that may have been affected by social movements or other shifts within and/or across countries. Similarly, this kind of analysis could be used to identify terms that vary across cultures, and, in cultures where multiple datasets have been collected, to investigate whether these differences have changed over time.

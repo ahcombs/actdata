@@ -1,0 +1,50 @@
+---
+title: "Equations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Equations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = FALSE}
+library(actdata)
+library(dplyr)
+```
+
+# Equations
+
+This package makes available tables containing estimates of affect control theory equation coefficients. These coefficients can be used in conjunction with dictionaries to calculate affective responses to various situations. See section 18.2 of David Heise's *Expressive Order* (2007) for a detailed description of the structure and use of these tables.
+
+## Accessing equations
+
+Metadata on available equations is in the table below, and can also be printed to the console in R by running `eqn_info()`. All of the available equation sets were originally sourced from [Interact](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/) (version 2.1 beta, accessed May 2021), and component titles are based on labels applied in Interact.
+
+```{r eqn key table, echo = FALSE}
+eqn_table <- actdata:::get_meta("eqn") %>% 
+  dplyr::select(key, gendercomponents)
+
+names(eqn_table) <- c("Equation key", "Components and genders")
+
+eqn_table %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling()
+```
+
+Data frames of equation coefficients are stored in an object called `equations`. To access one, use the `get_eqn()` function. This function takes three pieces of metadata and returns the correct data frame of coefficients. These pieces of metadata are:
+
+* *key* is a unique identifier for the study in which the equation coefficients were estimated. Some of these overlap with dictionary keys, but not all. All keys can be accessed using `eqn_info()`.
+* *equation_type* indicates the type of equations represented. The following components are possible (more information on each is available in section 18.2 of David Heise's *Expressive Order* (2007)). 
+    * *impressionabo:* Impression change equations including actor, behavior, and object terms
+    * *impressionabos:* Impression change equations including actor, behavior, object, and setting terms
+    * *selfdir:* Equations for self-directed action, including actor and behavior terms.
+    * *traitid:* Equations for combining a trait modifier with an identity. In some data sets, this set is the same as the emotionid set.
+    * *emotionid:* Equations for combining an emotion modifier with an identity. In some data sets, this set is the same as the traitid set.
+* *gender* indicates the gender of study participants whose ratings are used to estimate the equation coefficients. Options are `m`, `f`, and `av`. Call `eqn_info()` (optionally, with a specific equation key as an argument) to check which components are specified for which genders. Unlike with dictionary files, where all components within a dictionary are available for the same set of genders, the available genders for equation sets vary by equation type. Interact, from which all of these equation sets were originally taken, provides male and female-labeled sets for each equation. However, sometimes these sets are identical. In this case, this package simply labels the component of the set as `av` rather than including it twice. All values are provided exactly as they are in Interact--no post-hoc calculations have been performed.

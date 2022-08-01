@@ -71,7 +71,7 @@ gender of raters.
 epa_subset("teacher")
 epa_subset(dataset = "politics2003")
 epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
-    institutions = c("lay, business"))
+    institutions = c("lay", "business"))
 epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
 epa_subset(dataset = "usmturk2015", datatype = "individual")
 }

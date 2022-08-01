@@ -1,0 +1,37 @@
+---
+title: "Dictionary standardization details"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Dictionary standardization details}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Standardization and other processing of raw dictionary data
+
+## Term standardization
+
+To facilitate comparisons between dictionaries, the terms in all dictionaries have been transformed into a common format. All terms are provided in all-lowercase and spelling and spacing have been made standard across dictionaries (generally, the US spellings are chosen). Spaces are represented by underscores in all dictionaries. Accents and other punctuation have been removed. For transparency, the code used to perform this standardization is included in the source code of this package at `R/raw_data_processing.R`.
+
+## Summary statistics calculation
+
+Where individual data is available, the mean, standard deviation, and covariance values that are reported in the summary data have been calculated directly from the individual data within this package. The script used for this is located in the source code of this package at `data-raw/dicts.R`, which calls functions included in `R/raw_data_processing.R`. Users can calculate summary statistics for their own subsets of the individual data using epa_summary().
+
+## Institution code standardization
+
+Dictionaries often contain 14-digit binary strings known as "institution codes" that contain information about what contexts terms apply to. See vignette("dictionaries") for more information on what these strings mean and how to use functions within this package that help demystify and filter by them. 
+
+To determine an institution code for a term, researchers code whether or not they believe the term applies in a number of different social contexts. This coding process has been done several times by different researchers over time. 
+
+Because membership in institutional categories is sometimes ambiguous, repeated coding sometimes produces inconsistencies in institution codes in the raw data for the same term between different data sets. In addition, often a term will have an assigned institution code in one data set, but not in other data sets. In the data made available in this package, I have attempted to standardize and extend institution code assignment. 
+
+The most comprehensive attempt at institution code creation was undertaken by [Kaitlyn Boyle](https://www.sc.edu/study/colleges_schools/artsandsciences/criminology_and_criminal_justice/our_people/directory/boyle_kaitlin.php) and [Dawn Robinson](https://sociology.uga.edu/directory/people/dawn-t-robinson), who led a team of coders to develop institution codes for terms contained in the uga2015 dictionary. Where the code assigned to a term by this team conflicts with the code assigned to the same term in another data set, I replace the conflicting code with the UGA code. Where a term has an institution code in uga2015 but not in another dataset, I fill in the institution code in the other dataset with the one assigned in uga2015. The script used for this is located in the source code of this package at `data-raw/dicts.R`.
+
+Note that this processes did not resolve all institution code conflicts, but rather only those for terms that were assigned codes in uga2015. A small number of terms that were not recoded in uga2015 still have conflicting codes in other data sets because in these instances it is not clear which code should be preferred.

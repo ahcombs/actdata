@@ -41,7 +41,7 @@
 #' epa_subset("teacher")
 #' epa_subset(dataset = "politics2003")
 #' epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
-#'     institutions = c("lay, business"))
+#'     institutions = c("lay", "business"))
 #' epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
 #' epa_subset(dataset = "usmturk2015", datatype = "individual")
 epa_subset <- function(expr = ".*", exactmatch = FALSE,
@@ -87,7 +87,6 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
 
   if(!is.logical(instcodes)){
     stop("instcodes parameter must be TRUE or FALSE")
-    # TODO later: add better support for filtering by institution.
   }
 
   # if exactmatch is true, stick ^ on the beginning and $ on the end of each expr (if not there already)
@@ -173,7 +172,7 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
 
   if(drop.na.instcodes){
     subset <- subset %>%
-      dplyr::filter(!is.na(instcodes))
+      dplyr::filter(!is.na(.data$instcodes))
   }
 
   if(all(institutions != "all")){
@@ -181,6 +180,7 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
 
     # want to treat institution lists as an "or"--term must belong to at least one of the provided institutions
     todrop <- expand_instcodes(subset, na.sub = "drop") %>%
+      suppressMessages() %>%
       dplyr::mutate(keep = dplyr::across(dplyr::all_of(goodinsts), ~ !(is.na(.) | . == FALSE))) %>%
       dplyr::rowwise() %>%
       dplyr::mutate(drop = all(dplyr::across(dplyr::starts_with("keep"), ~ .x == FALSE))) %>%
@@ -281,12 +281,13 @@ expand_instcodes <- function(data, na.sub = NA){
   # checks that the institution codes column is there, standardizes, and replaces NAs with correct thing
   data <- check_inst_codes(data, na.sub = na.sub)
 
-  purrr::walk(data$component, check_component)
+  purrr::walk(data$component[which(!is.na(data$component))], check_component)
   data$component <- as.character(purrr::map(data$component, ~standardize_option(., "component")))
 
   # if the same term/component combo is in here multiple times, we only need to run the really slow function on it once
   termsubset <- data %>%
     dplyr::select(.data$term, .data$component, "instcodes") %>%
+    dplyr::filter(!is.na(.data$component)) %>%
     dplyr::distinct()
 
   icodecols <- termsubset %>%
@@ -394,12 +395,12 @@ expand_instcodes <- function(data, na.sub = NA){
 #' See Heise's 2014 PDF manual for Interact or Heise's 2007 book *Expressive Order* for
 #' more details on these categories.
 #'
-#' Identities: male, female, lay, business, law, politics, academe, medicine,
+#' * Identities: male, female, lay, business, law, politics, academe, medicine,
 #'     religion, family, sexual, monadic, group, corporal
-#' Behaviors: overt, surmised, lay, business, law, politics, academe, medicine,
+#' * Behaviors: overt, surmised, lay, business, law, politics, academe, medicine,
 #'     religion, family, sexual, monadic, group, corporal
-#' Modifiers: adjective, adverb, emotion, trait, status, feature, emotion_spiral
-#' Settings: place, time, lay, business, law, politics, academe, medicine,
+#' * Modifiers: adjective, adverb, emotion, trait, status, feature, emotion_spiral
+#' * Settings: place, time, lay, business, law, politics, academe, medicine,
 #'     religion, family, sexual, monadic, group, corporal
 #'
 #' @param component whether the term is an identity, behavior, component, or setting

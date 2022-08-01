@@ -345,7 +345,7 @@ epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
 epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)
 
 # there are 642 instances where institution codes do not agree between the uga set and whatever the old set was
-# I am overwriting the old codes with the uga codes, for consistency--TODO note this in documentation
+# I am overwriting the old codes with the uga codes, for consistency
 # notequal <- dplyr::filter(epa_summary_statistics, instcodes != stringr::str_trim(instcodes_old))
 # # there are 10389 instances where a term has an institution code in some dataset but not in uga
 # # are there inconsistencies here?
@@ -358,8 +358,6 @@ epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)
 #
 # # there are 27 terms which do not have a code in the uga dataset and which have conflicting codes in other datasets
 # length(unique(notinuga$term))
-
-# TODO: function for decoding the institution codes
 
 # save the combined summary statistic dataframe
 # usethis::use_data(mean_variance_epa, overwrite = TRUE)

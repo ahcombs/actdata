@@ -1,0 +1,37 @@
+---
+title: "Exporting data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exporting data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(actdata)
+```
+
+# Exporting data for analysis
+
+The actdata package is designed to complement software that is available for running affect control theory simulations. Using actdata to create or specify the necessary data files allows users more flexibility than using data sets these packages have built in. Using actdata, unlike manually editing and storing data csv files, is also fully reproducible and completely transparent. 
+
+## Using actdata with inteRact and Interact
+
+[**Interact**](http://affectcontroltheory.org/resources-for-researchers/tools-and-software/interact/) (which I often refer to in package documentation as Interact Java) is a Java-based program originally developed by David Heise. It has been the primary tool available for running ACT simulations since the 1990s. It has an intuitive graphic user interface and allows users to import dictionaries and equations. Though many of the dictionaries and equation sets provided here are available in Interact, several are not. Additionally, sometimes it is useful to use subsets of dictionaries (e.g. when a user wants to restrict the identities, behaviors, or modifiers available), and creating these subsets within Interact itself, while possible, is tedious and not easily replicable. actdata can be used to easily and reproducibly modify data sets in the required way. 
+
+The `save_for_interact()` function in this package makes it easy to write dictionary and equation .txt files that are correctly formatted for copying and pasting into Interact. The `data` argument should be a dataframe that the user wishes to save (it can be one of those provided, or one created by the user). `type` should be either `dict` or `eqn` (by default, it is set to `dict`). `filename` should be the filepath at which the user wishes to save the file (by default, it saves to the working directory under the name of the dataset). All filepaths must end in .txt. 
+
+Note that at this time, Interact does not accept institution codes, and so these will be removed from dictionary files before saving. 
+
+[**inteRact**](https://github.com/ekmaloney/inteRact/) is an R package developed by [Em Maloney](https://github.com/ekmaloney). It can be used to perform the same simulations as Interact Java. However, its R-based implementation allows it to offer significantly more functionality than Interact Java. Unlike Interact Java, inteRact offers users the ability to run many simulations at once. It also facilitates more transparent and more easily reproducible ACT simulation work. inteRact accepts keywords from actdata in its simulation functions. See [its documentation](https://github.com/ekmaloney/inteRact/) for more details.
+
+## Writing files for bayesactR and BayesACT
+
+[**BayesACT**](https://cs.uwaterloo.ca/~jhoey/research/bayesact/index.php) and its R wrapper, [bayesactR](https://github.com/ahcombs/bayesactR), can be used to run a recent Bayesian extension of affect control theory developed by [Jesse Hoey](https://cs.uwaterloo.ca/~jhoey/index.php) and colleagues. bayesactR accepts keywords and data frames created by the `epa_subset()` function in actdata. The `format_for_bayesact()` function in actdata can also be used to reformat data frames for use with the base BayesACT code. See the [bayesactR documentation](https://github.com/ahcombs/bayesactR) for more information.

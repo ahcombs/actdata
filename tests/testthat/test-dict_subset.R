@@ -54,7 +54,6 @@ test_that("epa_subset works", {
   b_lay_indiv_drop <- epa_subset(expr = "^b", dataset = "uga2015", institutions = "lay", stat = "mean", datatype = "individual", drop.na.instcodes = TRUE)
 
   b_subset <- epa_subset(expr = "^b", dataset = "uga2015", stat = "mean", datatype = "individual")
-  expect_message(epa_subset(expr = "^b", dataset = "uga2015", institutions = "lay", stat = "mean", datatype = "summary"))
   expect_equal(is.data.frame(b_lay), TRUE)
   expect_false(nrow(b_overt) == nrow(b_pol))
   expect_equal(unique(b_overt$component), "behavior")

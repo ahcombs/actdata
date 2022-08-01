@@ -324,7 +324,7 @@ eqn_info <- function(name = NA){
     cat(
       paste(
         paste("Equation set name:", name),
-        paste("Component genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
+        paste("Equation types and genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
         sep = "\n"
       )
     )
@@ -341,7 +341,7 @@ eqn_info <- function(name = NA){
       cat(
         paste(
           paste("Equation set name:", e),
-          paste("Component genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
+          paste("Equation types and genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
           sep = "\n"
         )
       )

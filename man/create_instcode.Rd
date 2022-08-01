@@ -66,13 +66,15 @@ See Heise's 2014 PDF manual for Interact or Heise's 2007 book \emph{Expressive O
 more details on these categories.
 }
 \details{
-Identities: male, female, lay, business, law, politics, academe, medicine,
+\itemize{
+\item Identities: male, female, lay, business, law, politics, academe, medicine,
 religion, family, sexual, monadic, group, corporal
-Behaviors: overt, surmised, lay, business, law, politics, academe, medicine,
+\item Behaviors: overt, surmised, lay, business, law, politics, academe, medicine,
 religion, family, sexual, monadic, group, corporal
-Modifiers: adjective, adverb, emotion, trait, status, feature, emotion_spiral
-Settings: place, time, lay, business, law, politics, academe, medicine,
+\item Modifiers: adjective, adverb, emotion, trait, status, feature, emotion_spiral
+\item Settings: place, time, lay, business, law, politics, academe, medicine,
 religion, family, sexual, monadic, group, corporal
+}
 }
 \examples{
 create_instcode(component = "identity", male = TRUE, female = TRUE, lay = TRUE)
