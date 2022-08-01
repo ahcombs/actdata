@@ -33,8 +33,9 @@ library(actdata)
 The primary purpose of actdata is to be a repository for publicly available affect control theory data sets in a way that makes them easy to incorporate into a reproducible, transparent R-based analysis workflow. 
 
 Two types of data are available. 
-* **Dictionaries** provide empirically measured evaluation, potency, and activity ratings for terms. Two types of dictionary data are available in this package. The first is summary statistics--the means and in some cases standard deviation and covariance for term ratings provided by respondents. The second type of data, made publicly available for the first time through this package, are respondent-level ratings. See `vignette("dictionaries")` for more information on both types of dictionary data, and run `dict_info()` to see metadata for all available dictionaries.
-* **Equations** provide coefficients that have been estimated for various equations that can be used to calculate affective responses to situations. See `vignette("equations")` for more information, and run `eqn_info()` to see metadata for all available equation sets.
+
+* *Dictionaries* provide empirically measured evaluation, potency, and activity ratings for terms. Two types of dictionary data are available in this package. The first is summary statistics--the means and in some cases standard deviation and covariance for term ratings provided by respondents. The second type of data, made publicly available for the first time through this package, are respondent-level ratings. See `vignette("dictionaries")` for more information on both types of dictionary data, and run `dict_info()` to see metadata for all available dictionaries.
+* *Equations* provide coefficients that have been estimated for various equations that can be used to calculate affective responses to situations. See `vignette("equations")` for more information, and run `eqn_info()` to see metadata for all available equation sets.
 
 Dictionaries have been standardized to make it easy to compare terms across them. See `vignette("standardization")` for more information on these processes. See `vignette("tidyversesubsetexample")` for a worked example of the kind of cross-dictionary, over-time analysis that this standardization makes relatively straightforward.
 
