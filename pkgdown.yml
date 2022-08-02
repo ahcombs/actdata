@@ -1,0 +1,15 @@
+pandoc: 2.14.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  actdata: actdata.html
+  dictionaries: dictionaries.html
+  equations: equations.html
+  export: export.html
+  standardization: standardization.html
+  tidyversesubsetexample: tidyversesubsetexample.html
+last_built: 2022-08-02T01:00Z
+urls:
+  reference: https://ahcombs.github.io/actdata/reference
+  article: https://ahcombs.github.io/actdata/articles
+
