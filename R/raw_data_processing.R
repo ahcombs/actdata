@@ -34,6 +34,9 @@ standardize_terms <- function(data, key, component = "undetermined"){
           grepl("^b_", term) == TRUE ~ "behavior",
           grepl("^s_", term) == TRUE ~ "setting",
           grepl("^m_", term) == TRUE ~ "modifier",
+          grepl("^o_", term) == TRUE ~ "other",
+          # everything in the occupations data set is an identity
+          grepl("occs", key) == TRUE ~ "identity",
           TRUE ~ NA_character_
         )
       )
@@ -41,7 +44,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
 
   data_clean <- data %>%
     dplyr::mutate(
-      term_new = str_replace(.data$term, "^A?n?i?b?m?s?_", ""),
+      term_new = str_replace(.data$term, "^A?n?i?b?m?s?o?_", ""),
       term_new = str_replace_all(.data$term_new, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
       term_new = str_replace_all(.data$term_new, "[_-]", " "),
       term_new = stringr::str_squish(.data$term_new),
@@ -140,6 +143,8 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^youth(f)$', "youth_(female)"),
       term_new = str_replace(.data$term_new, '^youthm$', "youth_(male)"),
       term_new = str_replace(.data$term_new, '^youthf$', "youth_(female)"),
+      term_new = str_replace(.data$term_new, '^male_student_of_commerce$', "student_of_commerce_male"),
+      term_new = str_replace(.data$term_new, '^female_student_of_commerce$', "student_of_commerce_female"),
 
       # behaviors
       term_new = str_replace(.data$term_new, '^complainto$', "complain_to"),
@@ -150,6 +155,9 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^have_heart_to_heart_talk_with$', "have_a_heart_to_heart_talk_with"),
       term_new = str_replace(.data$term_new, '^humour$', 'humor'),
       term_new = str_replace(.data$term_new, '^snear_at$', "sneer_at"),
+      term_new = str_replace(.data$term_new, '^co_operate_with$', "cooperate_with"),
+      term_new = str_replace(.data$term_new, '^deride_mock_scoff_at_ridicule_3$', "deride_mock_scoff_at_ridicule_translation_3"),
+      term_new = str_replace(.data$term_new, '^nudge_push_shove_jostle_3$', "nudge_push_shove_jostle_translation_3"),
 
       # mods
       term_new = str_replace(.data$term_new, '^absentminded$', 'absent_minded'),

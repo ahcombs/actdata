@@ -1,7 +1,3 @@
-# TODO: Which dictionaries to include? All? Or should it be limited to those that have been published with? Should I include subsets (prisoner's dilemma)?
-
-
-
 source_folder <- "data-raw/dicts/means_only/"
 means_file_list <- list.files(source_folder)
 
@@ -218,6 +214,66 @@ mean_epa <- mean_epa %>%
 
 # usethis::use_data(mean_epa, overwrite = TRUE)
 
+#### CALCUTTA DATASET, WHICH HAS MEANS AND SDS ####################################################
+
+source_folder <- "data-raw/dicts/summary_raw/"
+file <- list.files(source_folder)[1]
+path <- paste0(source_folder, "/", file)
+key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
+
+# the calcutta dataset should be split into two: one for all respondents, one for the subset of respondents that uses the scales correctly.
+year <- stringr::str_extract(key, "[[:digit:]]*$")
+
+data <- readr::read_csv(path) %>%
+  dplyr::rename(term = English) %>%
+  dplyr::select(-Bengali) %>%
+  dplyr::mutate(term = tolower(term)) %>%
+  dplyr::rename_with(~stringr::str_replace(., "@", "all_")) %>%
+  dplyr::rename_with(~stringr::str_replace(., "%", "subset_"))
+
+# standardize terms
+data_std <- standardize_terms(data, key = "calcutta", component = "undetermined") %>%
+  mutate(term = case_when(term == "know_it_all" & all_mE == .16 ~ "know_it_all_translation_1",
+                          term == "know_it_all" & all_mE == -.57 ~ "know_it_all_translation_2",
+                          TRUE ~ term))
+
+# term_table_input_calcutta <- cbind(data_std[,1], rep(1, length(data_std[,1])))
+# colnames(term_table_input_calcutta) <- c("term", key)
+
+# CALCUTTA DONE NOW NEED OCCS
+calcutta <- data_std %>%
+  tidyr::pivot_longer(cols = c(starts_with("all"), starts_with("subset")),
+                      names_to = c("dataset", ".value"), names_pattern = "([[:alpha:]]*)_(.*)") %>%
+  dplyr::rowwise() %>%
+  dplyr::mutate(aE = (mE*mEN + fE*fEN)/(mEN + fEN),
+                aP = (mP*mPN + fP*fPN)/(mPN + fPN),
+                aA = (mA*mAN + fA*fAN)/(mAN + fAN),
+                aEN = mEN + fEN,
+                aPN = mPN + fPN,
+                aAN = mAN + fAN,
+                aE_SD = sqrt(((mEN - 1)*mE_SD^2 + (fEN - 1)*fE_SD^2)/(mEN + fEN - 2)),
+                aP_SD = sqrt(((mPN - 1)*mP_SD^2 + (fPN - 1)*fP_SD^2)/(mPN + fPN - 2)),
+                aA_SD = sqrt(((mAN - 1)*mA_SD^2 + (fAN - 1)*fA_SD^2)/(mAN + fAN - 2))
+  ) %>%
+  dplyr::ungroup() %>%
+  tidyr::pivot_longer(cols = c(-term, -component, -dataset),
+                      names_to = c("gender", ".value"),
+                      names_pattern = "^(.)(.*)") %>%
+  dplyr::rename(n_E = EN,
+                n_P = PN,
+                n_A = AN,
+                sd_E = E_SD,
+                sd_P = P_SD,
+                sd_A = A_SD) %>%
+  dplyr::mutate(context = meta[meta$key == "calcuttaall2017", "context"],
+                year = year,
+                dataset = case_when(dataset == "all" ~ "calcuttaall2017",
+                                    dataset == "subset" ~ "calcuttasubset2017"),
+                gender = case_when(gender == "m" ~ "male",
+                                   gender == "f" ~ "female",
+                                   gender == "a" ~ "average")) %>%
+  dplyr::mutate(across(where(is.numeric), ~round(., digits = 2)))
+
 
 
 
@@ -259,7 +315,6 @@ for(file in ind_file_list){
   # add in dataset level variables
   # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
   # if someone wants to do this (for any characteristic) they can using the individual data.
-  # TODO: deal with institution codes here?
   sum_data <- sum_data %>%
     dplyr::mutate(dataset = key,
                   context = context,
@@ -270,7 +325,7 @@ for(file in ind_file_list){
                   A = mean_A) %>%
     dplyr::select(any_of(cnames))
 
-  # TODO: some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+  # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
   mean_variance_epa <- rbind(mean_variance_epa, sum_data)
 
   if(nrow(individual) == 0){
@@ -295,11 +350,11 @@ individual <- individual %>%
 
 # # no uga userIDs left in the usfullsurveyor dataset--all UGA folks are accounted for under the uga dataset.
 # unique(stringr::str_extract(dplyr::filter(individual, dataset == "usfullsurveyor2015")$userid, "[[:alpha:]]*"))
-
+#
 # duplicated <- individual %>%
 #   dplyr::inner_join(dplyr::select(duplicateid, userid)) %>%
 #   dplyr::distinct(dplyr::across(-dataset))
-#
+
 # # Only issue is that two people in duke community got the same identifier--modify so they are different.
 # problemmatch <- duplicated %>%
 #   dplyr::group_by(userid, term, component) %>%
@@ -317,8 +372,6 @@ instcodes_df <- rbind(standardize_terms(instcodes_df[which(instcodes_df$componen
                    standardize_terms(instcodes_df[which(instcodes_df$component == "setting"),], key = "uga2015", component = "setting")) %>%
   mutate(instcodes = stringr::str_trim(instcodes))
 
-
-# TODO double check when occs data is added
 individual <- individual %>%
   dplyr::mutate(
     userid = dplyr::case_when(userid == "DComm597" & gender == "Female" ~ "DComm597a",
@@ -326,13 +379,15 @@ individual <- individual %>%
                               TRUE ~ userid)
   ) %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
-  dplyr::select(dataset, context, year, userid, gender, age, race1, race2, term, component, instcodes, everything())
+  dplyr::select(dataset, context, year, userid, gender, age, eth, race, race1, race2, term, component, instcodes, everything())
 
 individual <- tibble::as_tibble(individual)
 
 
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
+  dplyr::full_join(calcutta) %>%
   dplyr::filter(!is.na(E) | !is.na(P) | !is.na(A)) %>%
+  dplyr::filter(!is.na(term)) %>%
   dplyr::arrange(dataset, term) %>%
   dplyr::rename(instcodes_old = instcodes) %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
@@ -419,7 +474,8 @@ for(key in keys){
 }
 
 term_table <- term_table %>%
-  dplyr::mutate(across(-c("term", "component"), ~replace(., is.na(.), 0)))
+  dplyr::mutate(across(-c("term", "component"), ~replace(., is.na(.), 0))) %>%
+  dplyr::select(term, component, everything())
 
 usethis::use_data(term_table, overwrite = TRUE, compress = "bzip2")
 

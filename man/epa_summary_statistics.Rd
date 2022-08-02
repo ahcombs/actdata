@@ -5,33 +5,34 @@
 \alias{epa_summary_statistics}
 \title{EPA summary statistics, all datasets}
 \format{
-A data frame with 63400 rows and 25 variables:
+A data frame with 72951 rows and 25 variables:
 \describe{
 \item{term}{dictionary term}
-\item{component}{}
-\item{dataset}{}
-\item{context}{}
-\item{year}{}
-\item{gender}{}
-\item{instcodes}{}
+\item{component}{the term's type}
+\item{dataset}{what data collection the statistics originate from}
+\item{context}{the country or other context data were collected in}
+\item{year}{the approximate year of data collection}
+\item{gender}{whether statistics are calculated for male respondents,
+female respondents, or all respondents}
+\item{instcodes}{institution codes}
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
 \item{A}{activity mean value}
-\item{n_E}{}
-\item{n_P}{}
-\item{n_A}{}
-\item{sd_E}{}
-\item{sd_P}{}
-\item{sd_A}{}
-\item{cov_EE}{}
-\item{cov_EP}{}
-\item{cov_EA}{}
-\item{cov_PE}{}
-\item{cov_PP}{}
-\item{cov_PA}{}
-\item{cov_AE}{}
-\item{cov_AP}{}
-\item{cov_AA}{}
+\item{n_E}{number of respondents who gave valid E ratings}
+\item{n_P}{number of respondents who gave valid P ratings}
+\item{n_A}{number of respondents who gave valid A ratings}
+\item{sd_E}{evaluation standard deviation}
+\item{sd_P}{potency standard deviation}
+\item{sd_A}{activity standard deviation}
+\item{cov_EE}{covariance}
+\item{cov_EP}{covariance}
+\item{cov_EA}{covariance}
+\item{cov_PE}{covariance}
+\item{cov_PP}{covariance}
+\item{cov_PA}{covariance}
+\item{cov_AE}{covariance}
+\item{cov_AP}{covariance}
+\item{cov_AA}{covariance}
 ...
 }
 }
@@ -42,6 +43,12 @@ A data frame with 63400 rows and 25 variables:
 epa_summary_statistics
 }
 \description{
-For more description and citation information, call dict_info()
+This data frame contains summary statistics for EPA ratings collected in
+many different data collection efforts. The function \code{epa_subset()} provides
+functionality for easily filtering it in desired ways, and I recommend using
+that function rather than working with this data frame directly.
+}
+\details{
+For more information on data collections, call \code{dict_info()}.
 }
 \keyword{datasets}

@@ -6,14 +6,22 @@
 
 #' Terms
 #'
-#' Terms of all types contained in all available dictionaries with indicators for which dictionary contains them.
-#' Note that terms have been standardized between dictionaries to facilitate comparison, so terms here may differ from those in the original source data files in substantively unimportant ways (capitalization, spacing, spelling, etc).
-#' There is one column per dictionary that includes this type of term. Whether or not a specific dictionary includes a particular term is indicated by 0/1 indicators.
+#' Terms of all types contained in all available dictionaries with
+#' indicators for which dictionary contains them. Note that terms have
+#' been standardized between dictionaries to facilitate comparison, so
+#' terms here may differ from those in the original source data files in
+#' substantively unimportant ways (capitalization, spacing, spelling, etc).
+#' There is one column per dictionary that includes this type of term.
+#' Whether or not a specific dictionary includes a particular term is
+#' indicated by 0/1 indicators.
 #'
 #' @format A data frame with 5608 rows and 27 variables:
 #' \describe{
 #'   \item{term}{concept}
-#'   \item{component}{component this term represents (identity, behavior, modifier, or setting)}
+#'   \item{component}{component this term represents (identity, behavior,
+#'       modifier, or setting)}
+#'   \item{calcuttaall2017}{dictionary}
+#'   \item{calcuttasubset2017}{dictionary}
 #'   \item{china1999}{dictionary}
 #'   \item{dukecommunity2015}{dictionary}
 #'   \item{dukestudent2015}{dictionary}
@@ -30,6 +38,8 @@
 #'   \item{morocco2015}{dictionary}
 #'   \item{nc1978}{dictionary}
 #'   \item{nireland1977}{dictionary}
+#'   \item{occs2019}{dictionary}
+#'   \item{occs2020}{dictionary}
 #'   \item{ontario1980}{dictionary}
 #'   \item{ontario2001}{dictionary}
 #'   \item{politics2003}{dictionary}
@@ -47,36 +57,41 @@
 
 #' EPA summary statistics, all datasets
 #'
+#' This data frame contains summary statistics for EPA ratings collected in
+#' many different data collection efforts. The function `epa_subset()` provides
+#' functionality for easily filtering it in desired ways, and I recommend using
+#' that function rather than working with this data frame directly.
 #'
-#' For more description and citation information, call dict_info()
+#' For more information on data collections, call `dict_info()`.
 #'
-#' @format A data frame with 63400 rows and 25 variables:
+#' @format A data frame with 72951 rows and 25 variables:
 #' \describe{
 #'   \item{term}{dictionary term}
-#'   \item{component}{}
-#'   \item{dataset}{}
-#'   \item{context}{}
-#'   \item{year}{}
-#'   \item{gender}{}
-#'   \item{instcodes}{}
+#'   \item{component}{the term's type}
+#'   \item{dataset}{what data collection the statistics originate from}
+#'   \item{context}{the country or other context data were collected in}
+#'   \item{year}{the approximate year of data collection}
+#'   \item{gender}{whether statistics are calculated for male respondents,
+#'       female respondents, or all respondents}
+#'   \item{instcodes}{institution codes}
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
 #'   \item{A}{activity mean value}
-#'   \item{n_E}{}
-#'   \item{n_P}{}
-#'   \item{n_A}{}
-#'   \item{sd_E}{}
-#'   \item{sd_P}{}
-#'   \item{sd_A}{}
-#'   \item{cov_EE}{}
-#'   \item{cov_EP}{}
-#'   \item{cov_EA}{}
-#'   \item{cov_PE}{}
-#'   \item{cov_PP}{}
-#'   \item{cov_PA}{}
-#'   \item{cov_AE}{}
-#'   \item{cov_AP}{}
-#'   \item{cov_AA}{}
+#'   \item{n_E}{number of respondents who gave valid E ratings}
+#'   \item{n_P}{number of respondents who gave valid P ratings}
+#'   \item{n_A}{number of respondents who gave valid A ratings}
+#'   \item{sd_E}{evaluation standard deviation}
+#'   \item{sd_P}{potency standard deviation}
+#'   \item{sd_A}{activity standard deviation}
+#'   \item{cov_EE}{covariance}
+#'   \item{cov_EP}{covariance}
+#'   \item{cov_EA}{covariance}
+#'   \item{cov_PE}{covariance}
+#'   \item{cov_PP}{covariance}
+#'   \item{cov_PA}{covariance}
+#'   \item{cov_AE}{covariance}
+#'   \item{cov_AP}{covariance}
+#'   \item{cov_AA}{covariance}
 #'   ...
 #' }
 #' @source \url{http://affectcontroltheory.org///usa-student-surveyor-dictionary-2015/}
@@ -86,18 +101,31 @@
 
 #' Individual data
 #'
-#' For more description and citation information, call dict_info()
+#' This data frame contains respondent-level data from a number of recent data collections.
+#' The public release version of these data has been trimmed in order to preserve respondent
+#' privacy. Covariates retained, where available, are gender identification, racial/ethnic
+#' identification, and age. Full versions of these data may be available from the authors.
+#' Call `dict_info()` for citation information.
 #'
-#' @format A data frame with 674389 rows and 13 variables:
+#' Please note that covariates *may not be comparable between data sets*. Different
+#' data collections provided different response options for these questions. No recoding
+#' has been done in this package. Racial and ethnic identification variables show the most
+#' variation between data sets. If you wish to use these variables for research, you should
+#' contact the data authors in order to obtain questionnaire information.
+#'
+#' @format A data frame with 794449 rows and 16 variables:
 #' \describe{
 #'   \item{dataset}{the data collection effort the observation belongs to}
 #'   \item{context}{context in which dataset was collect (usually country)}
 #'   \item{year}{year dataset collected/published}
 #'   \item{userid}{individual identifier}
-#'   \item{gender}{respondent's gender identity}
+#'   \item{gender}{respondent's gender identity. Male/female except in
+#'       occupations data sets, where genderqueer/nonbinary and other are options as well.}
 #'   \item{age}{respondent's age or age bracket}
-#'   \item{race1}{respondent's primary racial identification}
-#'   \item{race2}{respondent's secondary racial identification}
+#'   \item{eth}{respondent's ethnic identification (relevant to uga2015, mturk2015, usstudent2015, usfullsurveyor2015)}
+#'   \item{race}{respondent's racial/ethnic identification (relevant to occs2019 and occs2020)}
+#'   \item{race1}{respondent's primary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
+#'   \item{race2}{respondent's secondary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
 #'   \item{term}{dictionary term}
 #'   \item{component}{the term's type}
 #'   \item{instcodes}{institution code}
@@ -121,11 +149,16 @@
 
 #' All equation dataframes
 #'
-#' These values are reported as given in Interact. If gender is listed as average, this indicates that for the given study and subset, the values provided in Interact for male and female are identical.
+#' This nested data frame provides information and coefficients for ACT equations.
+#' Coefficient values are reported as given in Interact. If gender is listed as average,
+#' this indicates that for the given study and subset, the values provided in
+#' Interact for male and female are identical. To retrieve coefficients for particular
+#' equation sets, I recommend using the `get_eqn()` function rather than working
+#' with this data frame directly.
 #'
 #' For more information about available equation files, call eqn_info()
 #'
-#' @format A data frame with 8 rows (terms) and 4 variables:
+#' @format A nested data frame with 78 rows and 4 columns
 #' \describe{
 #'   \item{key}{equation set name}
 #'   \item{equation_type}{type of equation}

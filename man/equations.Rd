@@ -5,7 +5,7 @@
 \alias{equations}
 \title{All equation dataframes}
 \format{
-A data frame with 8 rows (terms) and 4 variables:
+A nested data frame with 78 rows and 4 columns
 \describe{
 \item{key}{equation set name}
 \item{equation_type}{type of equation}
@@ -21,7 +21,12 @@ Interact (May 2021)
 equations
 }
 \description{
-These values are reported as given in Interact. If gender is listed as average, this indicates that for the given study and subset, the values provided in Interact for male and female are identical.
+This nested data frame provides information and coefficients for ACT equations.
+Coefficient values are reported as given in Interact. If gender is listed as average,
+this indicates that for the given study and subset, the values provided in
+Interact for male and female are identical. To retrieve coefficients for particular
+equation sets, I recommend using the \code{get_eqn()} function rather than working
+with this data frame directly.
 }
 \details{
 For more information about available equation files, call eqn_info()

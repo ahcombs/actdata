@@ -5,16 +5,19 @@
 \alias{individual}
 \title{Individual data}
 \format{
-A data frame with 674389 rows and 13 variables:
+A data frame with 794449 rows and 16 variables:
 \describe{
 \item{dataset}{the data collection effort the observation belongs to}
 \item{context}{context in which dataset was collect (usually country)}
 \item{year}{year dataset collected/published}
 \item{userid}{individual identifier}
-\item{gender}{respondent's gender identity}
+\item{gender}{respondent's gender identity. Male/female except in
+occupations data sets, where genderqueer/nonbinary and other are options as well.}
 \item{age}{respondent's age or age bracket}
-\item{race1}{respondent's primary racial identification}
-\item{race2}{respondent's secondary racial identification}
+\item{eth}{respondent's ethnic identification (relevant to uga2015, mturk2015, usstudent2015, usfullsurveyor2015)}
+\item{race}{respondent's racial/ethnic identification (relevant to occs2019 and occs2020)}
+\item{race1}{respondent's primary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
+\item{race2}{respondent's secondary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
 \item{term}{dictionary term}
 \item{component}{the term's type}
 \item{instcodes}{institution code}
@@ -31,6 +34,17 @@ A data frame with 674389 rows and 13 variables:
 individual
 }
 \description{
-For more description and citation information, call dict_info()
+This data frame contains respondent-level data from a number of recent data collections.
+The public release version of these data has been trimmed in order to preserve respondent
+privacy. Covariates retained, where available, are gender identification, racial/ethnic
+identification, and age. Full versions of these data may be available from the authors.
+Call \code{dict_info()} for citation information.
+}
+\details{
+Please note that covariates \emph{may not be comparable between data sets}. Different
+data collections provided different response options for these questions. No recoding
+has been done in this package. Racial and ethnic identification variables show the most
+variation between data sets. If you wish to use these variables for research, you should
+contact the data authors in order to obtain questionnaire information.
 }
 \keyword{datasets}

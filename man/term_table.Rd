@@ -8,7 +8,10 @@
 A data frame with 5608 rows and 27 variables:
 \describe{
 \item{term}{concept}
-\item{component}{component this term represents (identity, behavior, modifier, or setting)}
+\item{component}{component this term represents (identity, behavior,
+modifier, or setting)}
+\item{calcuttaall2017}{dictionary}
+\item{calcuttasubset2017}{dictionary}
 \item{china1999}{dictionary}
 \item{dukecommunity2015}{dictionary}
 \item{dukestudent2015}{dictionary}
@@ -25,6 +28,8 @@ A data frame with 5608 rows and 27 variables:
 \item{morocco2015}{dictionary}
 \item{nc1978}{dictionary}
 \item{nireland1977}{dictionary}
+\item{occs2019}{dictionary}
+\item{occs2020}{dictionary}
 \item{ontario1980}{dictionary}
 \item{ontario2001}{dictionary}
 \item{politics2003}{dictionary}
@@ -40,8 +45,13 @@ A data frame with 5608 rows and 27 variables:
 term_table
 }
 \description{
-Terms of all types contained in all available dictionaries with indicators for which dictionary contains them.
-Note that terms have been standardized between dictionaries to facilitate comparison, so terms here may differ from those in the original source data files in substantively unimportant ways (capitalization, spacing, spelling, etc).
-There is one column per dictionary that includes this type of term. Whether or not a specific dictionary includes a particular term is indicated by 0/1 indicators.
+Terms of all types contained in all available dictionaries with
+indicators for which dictionary contains them. Note that terms have
+been standardized between dictionaries to facilitate comparison, so
+terms here may differ from those in the original source data files in
+substantively unimportant ways (capitalization, spacing, spelling, etc).
+There is one column per dictionary that includes this type of term.
+Whether or not a specific dictionary includes a particular term is
+indicated by 0/1 indicators.
 }
 \keyword{datasets}
