@@ -1,0 +1,651 @@
+term,label
+accountant,Accountant
+asmblylnwrkr,Assembly Line Worker
+bankmgr,Bank manager
+barber,barber
+bartender,bartender
+busdriver,Bus Driver
+cafserver,Cafeteria Server
+cashier,cashier
+ceofullnm,Chief executive officer
+cook,Cook
+engineer,Engineer
+estchr,Elementary school teachers
+farmownroper,Farm Owner and Operator
+firefighter,Firefighter
+housekeeper,Housekeeper in a private home
+insuragnt,Insurance Agent
+janitor,Janitor
+lawyer,Lawyer
+legislator,Legislator
+librarian,Librarian
+manager,Manager
+medtech,Medical Technician
+musician,Musician
+paramedic,Paramedic
+physician,Physician
+regnurse,Registered Nurse
+secretary,Secretary
+surgeon,Surgeon
+telemarketer,Telemarketers
+welder,Welder
+airportscreener,airport security screener
+automechanic,Automobile Mechanic
+autopainter,Automobile Painter
+blkjackdealer,blackjack dealer
+blktopmachineop,Black-Top-Machine Operator
+bridalconsultnt,Bridal Consultant
+cartester,Car-Tester for an Automobile Factory
+chemeng,Chemical Engineer
+clthpttrnpreppr,Preparer of Clothing Patterns
+coagragnt,County Agricultural Agent
+commfisher,Commercial Fisher
+constriveter,Construction Riveter
+constrlaborer,construction laborer
+credriskanal,credit risk analyst
+currencysorter,Currency Sorter in a Bank
+donutmachineop,donut machine operator
+dormcounselor,dormitory counselor
+drycleaner,Dry Cleaner
+editor,Editor
+eldercareaide,eldercare aide
+elecpwrlninstal,Electrical power-line installer
+elevrepair,Elevator Repairer
+emplbenefdir,employee benefits director
+fittershipyard,Fitter in a Shipyard
+freightelevoper,freight elevator operator
+furnrefinisher,Furniture Refinisher
+horsebreeder,horse breeder
+hospadmin,Hospital Administrator
+hscoordinator,human services coordinator
+infosecuranal,Information security analysts
+itsysdirector,Information technology systems director
+landlord,Landlord
+legalassistant,Legal assistant
+lensgrinder,Lens Grinder
+machassembler,machine assembler
+machineoptextil,Machine Operator in a Textile Mill
+mayorlgcity,Mayor of a Large City
+mgrcmntfctry,Manager of a Cement Factory
+occrehabaide,occupational rehabilitation aide
+orderexpediter,Order Expediter for a Wholesale Business
+pkngofficer,parking enforcement officer
+prspecialist,Public Relations specialist
+ptassistant,Physical Therapy Assistant
+pubopinpollster,Public Opinion Pollster
+salesperson,salesperson
+septiccleaner,septic tank cleaner
+sergeant,sergeant
+shelfstocker,Shelf Stocker in a Grocery Store
+soundengtech,Sound engineering technician
+spedteacher,Special education teacher
+telserviceoper,Telephone-Answering-Service Operator
+theaterusher,theater usher
+tvdirector,TV Director
+upholsterer,Upholsterer
+vidgamerepair,video game repairer in arcade
+waitress,waitress
+woodlatheoper,wood lathe operator
+acmechanic,Air Conditioning Mechanic
+agrresdir,agricultural research director
+ambulncedrvr,Ambulance Driver
+armyprivate,army private
+artist,Artist
+bailbonder,Bail Bond Provider
+bankacctclrk,clerk opening new accounts at bank
+bikerepair,bicycle repairer
+caralarminstlr,car alarm installer
+carpenter,Carpenter
+chainsaw,Toolroom Helper in a Chain Saw Factory
+cheesemaker,Cheese Maker
+chiropractor,Chiropractor
+clerk,Clerk
+conveybltoper,Conveyor-Belt Operator
+courttranscribe,Court Transcriber
+dispatcher911,911 dispatcher
+dramatherapist,drama therapist
+factoryforeman,Foreman in a Factory
+fibermchntndr,fiber machine tender
+foodprocwrkr,food processing worker
+fridgerepairer,Home Refrigerator Repairer
+gamewarden,game warden
+healthcaremgr,Healthcare Manager
+hospattndnt,Hospital Attendant
+insurunderwrtr,Insurance underwriters
+janitorsupervis,supervisor of a janitorial service
+judge,Judge
+loanofficer,loan officer
+lwnmwrrepair,Lawn Mower Engine Repairer
+meatgrader,meat grader
+mechtrblshootr,Mechanical Trouble Shooter
+michaelscott,Regional sales manager
+midwife,Midwife
+missionary,Missionary
+muscurator,Museum Curator
+netadmin,network administrator
+nurseanesth,nurse anesthetist
+pharmaides,Pharmacy aides
+pharmtech,pharmacist technician
+plasterer,Plasterer
+printpressoper,Printing Press Operator
+professor,Professor
+propmgr,Property manager
+pubhlthedclinic,public health educator in a clinic
+railroaddtctve,railroad detective
+retailsalesprsn,Retail salesperson
+servstationmgr,Service Station Manager
+shipdeckengnr,Deck Engineer on a Ship
+shtmtldctinstlr,Sheet-Metal Duct Installer
+tchrasst,Teacher assistant
+toolsharpener,Tool Sharpener
+tvannouncer,TV Announcer
+typist,Typist
+urbanplanner,Urban Planner
+vendmchncoiner,Vending Machine Coin Collector
+windowinstlr,Window Glass Installer
+acupuncturist,Acupuncturist
+armycolonel,Army Colonel
+billcollector,Bill Collector
+biologist,Biologist
+bizprchsgmgr,Purchasing Manager for a Business
+campgnfundrsr,campaign fundraiser
+chef,Chef
+clothdyer,Cloth Dyer
+collegeprof,College Professor
+comphelptech,computer helpdesk technician
+comprepairer,Computer Repairer
+corptrnr,corporate trainer
+craneoper,Crane Operator
+dairyscientst,Dairy Scientist
+daylaborer,Day Laborer
+ditchdigger,Ditch digger
+drywallinstlr,Drywall installer
+elecengineer,Electrical Engineer
+elecmeterinstlr,Electric-Meter Installer
+embalmer,embalmer
+emplbenspec,employee benefits specialist
+fillstationattn,Filling Station Attendant
+forkliftdriver,Fork-Lift Driver
+funeraldir,funeral director
+funrlhomeasst,funeral home assistant
+hairdresser,hairdresser
+hotelsaladmkr,Salad maker in a hotel kitchen
+latheoper,Lathe Operator
+licpracticlnurs,Licensed Practical Nurse
+maid,Maid
+mailman,Mailman
+mechanic,Mechanic
+meteorologist,Meteorologist
+mtlshprmoper,Rolling Mill Operator in a Metal Shop
+narcinvegtr,Narcotics Investigator
+newsproofrdr,Newspaper Proofreader
+offsupervisor,Office Supervisor
+oilwelldriller,Oil-Well Driller
+pianotuner,Piano Tuner
+pkteacher,Preschool teachers
+plantmfgrqc,Quality Checker in a Manufacturing Plant
+prsnfinadvisor,Personal financial advisors
+radtherapist,Radiation therapists
+railtrkrepair,rail track repairer
+realestateagnt,Real Estate Agent
+realestateapprs,Real Estate Appraiser
+rebarworker,rebar (reinforcing iron bar) worker
+rrconductor,Railroad Conductor
+speechthrpst,Speech Therapist
+statistician,Statistician
+subwayopertor,subway operator
+truckdrvrshlpr,Truck Driver's Helper
+vetassistant,veterinarian assistant
+warehshelper,Warehouse Helper
+wholesaledistr,Wholesale Distributor
+windshldinstlr,windshield installer
+windtrbnmech,wind turbine mechanic
+adminasst,Administrative Assistant
+agrengineer,Agricultural engineers
+airlinegcchief,Airline Ground Crew Chief
+animalctrlofcr,Animal-Control Officer
+anmlshltrwrkr,animal shelter worker
+astronomer,Astronomer
+bankteller,Bank Teller
+beermaker,Beer Maker
+btlcapmchoper,bottle capping machine operator
+cabletvinstlr,cable TV installer
+casinocashier,casino cashier
+ccrecclerk4stor,Credit-Card Record Clerk for a Department Store
+civileng,Civil Engineer
+comptechnician,Computer Technician
+cop,Cop
+dentist,Dentist
+drvngschltchr,Driving School Teacher
+economist,Economist
+econresasst,economic research assistant
+elecmotorrpr,Electric Motor Repairer
+empldevdir,employee development director
+envisci,Environmental Scientist
+eventplanner,event planner
+fashionmodel,Fashion Model
+finanalyst,Financial analyst
+fridgemachoper,refrigerating machine operator
+geologist,Geologist
+grocerybagger,Grocery Bagger
+heavyeqoper,Heavy-Equipment Operator on a Road Construction Job
+hsteacher,High School Teacher
+insuractuary,Actuary for an Insurance Company
+lawncaretaker,Lawn Caretaker
+machmech,Machinery mechanic
+mathtician,Mathematician
+millwright,Millwright
+mobhomeinstlr,mobile home installer
+paperhanger,Paperhanger
+paroleoffcr,parole officer
+phlbtmst,technician drawing blood
+photographer,Photographer
+plasticmoldoper,Plastic mold maker
+postmaster,Postmaster
+privateeye,Private Detective
+pubhlthanal,Public Health Analyst
+pubsafetydir,public safety director
+rrswitchman,Railroad Switchman
+sawsharpener,Saw Sharpener
+shippingclerk,Shipping Clerk
+sociologist,Sociologist
+solpaninstlr,solar panel installer
+steampresserfac,Steam Presser in a Garment Factory
+stlmillfrgoper,Forge Operator in a Steel Mill
+trashhauler,Trash Hauler
+travelagent,travel agent
+trkdelservsuper,Supervisor of a Truck Delivery Service
+tvrepairman,TV Repairman
+writer,Writers
+animaltrnr,Animal trainer
+autoplntmgr,Manager of an Automobile Plant
+autorepairman,Automobile Repairman
+bankloanprocsr,Loan Processor for a Bank
+billingclerk,Billing Clerk
+bizsalesrep,business services sales representative
+bricklayer,Bricklayer
+carrntlagnt,car rental agent
+carwashattnd,Carwash Attendant
+casewrkraide,caseworker aide
+cementfinisher,cement finisher
+ceo,CEO
+clthgrdrtxtmil,Cloth Grader in a Textile Mill
+compprgmr,Computer programmers
+crtbailiff,Court Bailiff
+databasadmin,Database administrators
+deepseadiver,Deep-Sea Diver
+dentistasst,Dentist's Attendant
+detective,Detective
+dispplntoper,Disposal Plant Operator
+dressmkr,Dressmaker
+drillpressoper,Drill-Press Operator
+elevsafeinspctr,Elevator Safety Inspector
+engnrdesmgr,engineering design manager
+fireman,Fireman
+freightshpagnt,freight shipping agent
+fshndesigner,Fashion designer
+funehomedir,funeral home director
+geoltech,geological technician
+icerinkatndnt,attendant in an ice-skating rink
+insulationinstl,Insulation Installer
+journalist,Journalist
+jwlrymaker,Jewelry Maker
+librcirctech,library circulation technician
+lifeguard,lifeguard
+mailcarrier,Mail carrier
+mbrcitycouncil,Member of City Council
+minedirtshovlr,Dirt Shoveler in a Mine
+nurseprac,Nurse Practitioner
+physicist,Physicist
+powplntoper,power plant operator
+protrainedfrstr,Professionally Trained Forester
+ptrnmkrmtlshp,Pattern Maker in a Metal Shop
+rbrstmpmkr,Rubber-Stamp Maker
+rrsignloper,Railroad Signal-Tower Operator
+semicondasmblr,semiconductor assembler
+shoeshiner,shoeshiner
+steelriggerxtrc,Steel Rigger on a Construction Job
+stuadminclerk,student admissions clerk
+tankcrewmbr,tank crew member
+taxidriver,Taxicab Driver
+telephoneoper,Telephone Operator
+truckdriver,Truck Driver
+woodmdlmkr,Wood-Model Maker
+woodwrkr,Woodworker
+yrnspnrtxtlmll,Yarn Spinner in a Textile Mill
+airplnmech,Airplane Mechanic
+airtrfcctrlr,Air Traffic Controller
+appdesigner,app designer
+audiologists,Audiologists
+autorprsuper,Supervisor in a Auto Repair Shop
+autorprwomn,Automobile Repairwoman
+banker,Banker
+boxfldmachoper,Box-Folding-Machine Operator
+butcher,Butcher
+cabinetmkr,Cabinet Maker
+chemist,Chemist
+cinematogrphr,cinematographer
+compscientist,Computer Scientist
+compsysanal,Computer systems analysts
+constrctnmgr,Construction managers
+correctoffsuper,corrections officers supervisor
+d2dsalesman,Door-to-Door Salesman
+dieselmech,Diesel Motor Mechanic
+drawbrdgeoper,Drawbridge Tender
+electechn,Electrical Technician
+fastfoodwrkr,Fast food worker
+freightchkr,Freight Checker
+gardener,Gardener
+hazmatremov,hazardous materials removal worker
+htslngmchoper,Heat-Sealing-Machine Operator
+inctaxprep,Income-Tax Preparer
+locomoeng,Locomotive Engineer
+machoperinfac,Machine Operator in a Factory
+marineeng,Marine Engineer
+medreclibhosp,Medical-Record Librarian in a Hospital
+migrantwrkr,Migrant Worker
+mineroofbolt,roof bolter in mine
+minesandflloper,sandfill operator in a mine
+mldngmachoper,molding machine operator
+motelchnmgr,Manager for a Motel Chain
+mrktresanal,Market Research analyst
+natbirthincinst,Natural Childbirth and Infant Care Instructor
+occtherapist,Occupational therapists
+painttstrinplnt,Paint Tester in a Paint Manufacturing Plant
+payrollclrk,Payroll Clerk
+pharmacist,Pharmacists
+physicasst,Physician assistants
+podiatrist,Podiatrist
+policeman,Policeman
+prisonguard,Prison Guard
+reporter,Reporter
+sailor,Sailor
+socialworker,Social Worker
+socsecadmin,Social Security Administrator
+spotlightoper,spotlight operator
+stenographer,Stenographer
+stlmlblstfurnhl,Blast Furnace Helper in a Steel Mill
+teleinstlr,Telephone Installer
+tooldiemkr,Tool and Die Maker
+txtilewrkr,Textile worker
+welfareintrvwr,Welfare Interviewer
+actress,actress
+airlinerefueler,airline refueler
+airticketagnt,Airline Ticket Agent
+animaltrapper,Animal Trapper
+bankexaminer,bank examiner
+boilermaker,Boilermaker
+bookkeeper,Bookkeeper
+bridgeironwrkr,bridge ironworker
+btlwshmchoper,Bottle-Washing-Machine Operator
+casinomgr,casino manager
+casinoslotsuper,casino slot supervisor
+childcarewrkr,Childcare workers
+coalhauloper,coal hauler operator
+combmchtloper,combination machine tool operator
+compoper,Computer operator
+custservrep,Customer service representatives
+cutmachoper,Cutting Machine Operator
+dataentryclrk,Data Entry Clerk
+diettech,dietary technician
+draftsman,Draftsman
+dsktpbldr,Desktop publisher
+eqppurchagnt,equipment purchasing agent
+filmeditor,film editor
+flourmiller,Flour Miller
+frgnlangtrans,Foreign Language Translator
+guidedogtrnr,guidedog trainer
+headcook,Head cook
+homehlthaide,Home health aides
+housepainter,House Painter
+importer,Importer
+insurclaimadj,Insurance Claims adjuster
+insursalesuper,insurance sales supervisor
+libraryasst,Library assistant
+lumberjack,Lumberjack
+machattndfac,Machine Attendant in a Factory
+manicurist,manicurist
+mechhelper,Mechanic's Helper
+metermaid,meter maid
+miningeng,Mining Engineer
+mrktrsrchintr,market research interviewer
+nuketech,nuclear technician
+nutroaster,Nut Roaster
+pdcmpgnstffr,Paid Campaign Staff Member
+photogdevel,Photograph Developer
+proathlete,Professional Athlete
+rabbi,Rabbi
+regmgrbusco,Regional Manager for a Bus Company
+resthostess,restaurant hostess
+rugmgrcrptcutr,Carpet Cutter for a Rug Manufacturer
+sewer,Sewer
+sewingmachoper,Sewing Machine Operator
+sewmachassmblr,Sewing Machine Assembler
+shrtordrcook,Short-Order Cook
+taxcollector,Tax Collector
+tblclrrrest,table clearer in a restaurant
+typesetter,Typesetter
+aerobicsinstr,aerobics instructor
+aircraftriveter,aircraft riveter
+airlinepilot,Airline Pilot
+airstewardess,Airline Stewardess
+architect,Architect
+armycorporal,Army Corporal
+armyenlistman,Enlisted Man in the Army
+auctioneer,Auctioneer
+autoprtsclerk,Counter Clerk in a Auto Parts Store
+backhoeoper,backhoe operator
+baker,Baker
+bellboy,bell boy
+bulldozermech,bulldozer mechanic
+comphrdwreng,computer hardware engineer
+compneteng,computer network engineer
+correspclerk,Correspondence Clerk
+dairytech,dairy technologist
+envelopestuffer,Envelope Stuffer
+envicompinspct,environmental compliance inspector
+farmforeman,Farm Foreman
+firedeptlt,Fire Department Lieutenant
+forestersaide,Forester's Aide
+genmgrrestrnt,Restaurant General Manager
+hrmanager,human resources manager
+insurclaimsclrk,Insurance claims clerk
+lawclrk4judge,law clerk for judge
+machinist,Machinist
+mailclrkprivco,Mailroom Clerk for a Private Company
+mailsorter,post office mail sorter
+mathengtech,mathematical engineering technician
+medtranscriber,medical transcriber
+metalplater,Metal Plater
+motionpicproj,motion picture projectionist
+mrchntseaman,Merchant Seaman
+navysailor,sailor in Navy
+nukeengineer,Nuclear engineers
+oilrigwrkr,oil rig worker
+operationsanal,operations analyst
+optometrist,Optometrist
+paralegals,Paralegals
+partycaterer,party caterer
+phystherapist,Physical therapists
+postofficeclerk,Post Office Clerk
+purchclerk,purchasing clerk
+radiotester,Radio Tester
+restauranthost,restaurant host
+roofer,Roofer
+shipscapt,Ship's Captain
+socialsci,Social Scientist
+statisticalclrk,statistical clerk
+techmanualwritr,Writer of Technical Manuals
+toolpgmrmfgplnt,Tool Programmer in a Manufacturing Plant
+weightstnoper,weight station operator
+wildlifetech,wildlife technician
+woodmiller,Wood Miller
+woodtech,wood technologist
+actor,actor
+advertsalesman,Advertising Salesman
+airflghtattnd,Airline flight attendant
+autobodyrpr,autobody repairer
+balletdancer,Ballet Dancer
+biomedeng,biomedical engineer
+bkbindmchoper,Bookbinding Machine Operator
+carpentershlpr,Carpenter's Helper
+cashiersuper,cashier supervisor
+clrkinhotel,Desk Clerk in a Hotel
+cnstrctnforeman,Construction Foreman
+cosmetologist,cosmetologist
+cottonpicker,Cotton Picker
+countysheriff,County Sheriff
+courtclerk,Court Clerk
+d2dsaleswoman,Door-to-Door Saleswoman
+daycarewrkr,day care worker
+dietitian,Dietitian
+enviengineer,environmental engineer
+epmloymntclrk,Employment Clerk
+farmprdcbuyer,Farm Produce Buyer
+fileclerk,File Clerk
+fireinspector,Fire Inspector
+fortuneteller,Fortune Teller
+garbagecoll,Garbage Collector
+gencontractor,general contractor
+hrconsultant,human resources consultant
+irrgtnpumpinstl,Irrigation Pump Installer
+lifescientist,Life scientist
+marketmgr,Marketing manager
+medicasst,Medical assistants
+mssagetherpst,massage therapist
+mtrrdrgaselecco,Meter Reader for a Gas or Electric Company
+oilexploreng,Oil Exploration Engineer
+oilrefequipoper,Oil Refining Equipment Operator
+phtocpymchoper,Photocopying-Machine Operator
+pknglotattn,Parking Lot Attendant
+policelt,Police Lieutenant
+policeofficer,Police Officer
+priest,Priest
+pubprkgcsuper,Ground Crew Supervisor in a Public Park
+pumphouseeng,Pump-House Engineer
+receptionist,Receptionist
+religeddirector,Religious Education Director
+schoolcounselor,School Counselor
+schoolprin,School Principal
+schxngguard,School-Crossing Guard
+shoemaker,Shoemaker
+signpainter,Sign Painter
+stockbroker,stock broker
+surveyor,Surveyor
+termiteexterm,termite exterminator
+tourguide,tour guide
+watchassmblr,Watch Assembler
+waterwelldrillr,Water Well Driller
+xraytech,X-ray Technician
+aeronauteng,Aeronautical Engineer
+author,Author
+brglralrminstlr,burglar alarm installer
+carpetinstlr,carpet installer
+chemlabtech,chemical laboratory technician
+counselor,Counselors
+crftmovestim,Crating and Moving Estimator
+crushmchnoper,Crushing-Machine Operator
+dishwasher,dishwasher
+doctor,Doctor
+doggroomer,dog groomer
+dynamiteblastr,Dynamite Blaster
+elecpowrlinemn,electric power lineman
+elecpwrstnattn,Electric Power Station Attendant
+electrician,Electrician
+engraver,Engraver
+farmlaborer,Farm Laborer
+footdoctor,foot doctor
+furnfacstapler,Stapling-Machine Operator in a Furniture Factory
+giftwrprdptstr,Gift Wrapper in a Department Store
+keymaker,Key Maker
+kgteacher,kindergarten teachers
+kitchnstewrd,kitchen steward
+logger,Logger
+logistplanner,logistics planner
+longshoerman,Longshoreman
+loomoperator,Loom Operator
+matereng,Materials engineers
+mecheng,Mechanical Engineer
+mgmtconsultnt,Management Consultant
+movthtrmgr,Manager of a Movie Theater
+mseumsecchief,Museum Security Chief
+mtlcasrfndry,Metal Caster in a Foundry
+nutritionist,Nutritionist
+opermgr,Operations manager
+policewoman,Policewoman
+profbbsitter,Professional Babysitter
+radiooper,Radio operator
+recattndsuper,Recreation Attendant Supervisor
+resptherapist,Respiratory therapists
+rrsignalmech,railroad signal mechanic
+salesengnr,Sales Engineer
+secguard,Security guard
+sftwrdevel,Software developers
+singer,Singer
+soldier,soldier
+sprypntrmfplnt,Spray Painter in a Manufacturing Plant
+streetsweep,Street-Sweeper Operator
+talentagnt,Talent Agent
+technician,Technician
+trainattn,train attendant
+truckdisptchr,Truck Dispatcher
+veterinarian,Veterinarian
+webdevel,Web developers
+winchoper,Winch Operator
+wirplmchoper,wire pulling machine operator
+advertexec,Advertising Executive
+agrinspctor,Agricultural inspector
+aircraftelec,aircraft electrician
+airflighteng,Airline Flight Engineer
+autowrecker,Auto Wrecker
+bikemessenger,Bicycle Messenger
+brokergeclerk,brokerage clerk
+budgetanal,Budget analyst
+cafsuper,Cafeteria supervisor
+clergy,Clergy
+clnngwoman,cleaning woman
+coalminer,Coal Miner
+compsuppspec,Computer support specialists
+dentalhygienist,Dental Hygienist
+depsheriff,Deputy Sheriff
+designer,Designers
+dntlcrwnbrgmkr,Dental Crown and Bridge Maker
+dredgeoper,dredge operator
+exercisether,exercise therapist
+fenceinstlr,fence installer
+generalmgr,General manager
+hairstylist,hairstylist
+hearaidtech,hearing aid technician
+hunter,Hunter
+hwymtncewrkr,Highway maintenance workers
+kilmoperator,kiln oven operator
+lndsvycrewaide,Aide on a Land Survey Crew
+locksmith,Locksmith
+locomoelec,locomotive electrician
+machineoiler,Machine Oiler
+mailorderclerk,Mail-Order Clerk
+mchshopsuper,supervisor in a Machine Shop
+millmachoper,milling machine operator
+msteacher,Middle school teacher
+mtlstmpmchoper,Metal-Stamping-Machine Operator
+officeclerk,Office clerk
+optician,Optician
+piledriveroper,pile-driver operator
+plumber,Plumber
+pmpngsttnoper,Pumping station operator
+prmanager,Public relations manager
+prohealthther,Professionally Trained Health Therapist
+prostheticaide,prosthetic aide
+psychologist,Psychologist
+qcengineer,Quality Control Engineer
+senator,Senator
+shipftrapprntce,ship fitter apprentice
+shoefacmachoper,Machine Operator in a Shoe Factory
+skldmtlwrkcftmn,Skilled Craftsman in a Metalworking Shop
+statetrooper,State Trooper
+tailor,Tailor
+telegrphoper,Telegraph Operator
+tickettaker,Ticket taker
+tireretreader,Tire Retreader
+vengluespreader,Veneer Glue Spreader
+waiter,waiter

@@ -379,7 +379,7 @@ individual <- individual %>%
                               TRUE ~ userid)
   ) %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
-  dplyr::select(dataset, context, year, userid, gender, age, eth, race, race1, race2, term, component, instcodes, everything())
+  dplyr::select(dataset, context, year, userid, gender, age, race, race1, race2, hisp, term, component, instcodes, everything())
 
 individual <- tibble::as_tibble(individual)
 

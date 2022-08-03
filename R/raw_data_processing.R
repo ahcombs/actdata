@@ -42,6 +42,14 @@ standardize_terms <- function(data, key, component = "undetermined"){
       )
   }
 
+  if(grepl("occs", key)){
+    occsterms <- read.csv2("data-raw/dicts/occsterms.csv", sep = ",", header = TRUE)
+    data <- data %>%
+      dplyr::left_join(occsterms, by = "term") %>%
+      dplyr::mutate(term = ifelse(!is.na(label), label, term)) %>%
+      dplyr::select(-label)
+  }
+
   data_clean <- data %>%
     dplyr::mutate(
       term_new = str_replace(.data$term, "^A?n?i?b?m?s?o?_", ""),
