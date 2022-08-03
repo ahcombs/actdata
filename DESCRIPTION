@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Aidan",
            family = "Combs",
            role = c("aut", "cre"),
-           email = "aidan.combs@duke.edu",
+           email = "ahc26@duke.edu",
            comment = c(ORCID = "0000-0003-1955-3572"))
 Description: This package contains affect control theory dictionary and equation datasets that have been made public, including their metadata. 
 License: CC0
