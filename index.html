@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">actdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,9 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="actdata">actdata<a class="anchor" aria-label="anchor" href="#actdata"></a>
 </h1></div>
-<!-- badges: start --><!-- badges: end --><p>This package is a repository for standardized versions of publicly released affect control theory dictionaries and equations, which span nearly 45 years and many cultures worldwide. These data sets can be used by affect control theorists to understand the cultural meaning of objects and events, as well as how these meanings vary across time and place. The package also provides helper functions for subsetting, summarizing, augmenting, reformatting, and exporting these data. For information on get started with actdata, see <code><a href="articles/actdata.html">vignette("actdata")</a></code>.</p>
+<!-- badges: start --><!-- badges: end --><p>This package is a repository for standardized versions of publicly released affect control theory dictionaries and equations, which span nearly 45 years and many cultures worldwide. These data sets can be used by affect control theorists to understand the cultural meaning of objects and events, as well as how these meanings vary across time and place.</p>
+<p>The ACT research community has a long and commendable history of making their tools and data publicly available. This package provides that data in a standardized format alongside functions that help users search, subset, and export it in a format that works for their analysis program of choice. It makes it unnecessary for researchers to store their own local copies of publicly available data, and greatly simplifies the process of comparing values across cultures or time periods.</p>
+<p>For information on get started with actdata, see the <a href="https://ahcombs.github.io/actdata/articles/actdata.html">Getting Started</a> page.</p>
 <div class="section level2">
 <h2 id="affect-control-theory">Affect control theory<a class="anchor" aria-label="anchor" href="#affect-control-theory"></a>
 </h2>
@@ -75,7 +77,23 @@
 <div class="section level2">
 <h2 id="why-actdata">Why actdata?<a class="anchor" aria-label="anchor" href="#why-actdata"></a>
 </h2>
-<p>Many affect control theory data sets have been publicly released by the researchers who collected them. However, these data sets are stored in several different places and in several different formats. The actdata R package standardizes them and brings them together in one place in order to make them easier to access and make part of a reproducible analysis workflow. Details on standardization procedures for dictionaries and equation sets are located in <code><a href="articles/standardization.html">vignette("standardization")</a></code>.</p>
+<p>Many affect control theory data sets have been publicly released by the researchers who collected them. However, these data sets are stored in several different places and in several different formats. The actdata R package standardizes them and brings them together in one place in order to make them easier to access and make part of a reproducible analysis workflow. Details on standardization procedures for dictionaries and equation sets are located on the <a href="https://ahcombs.github.io/actdata/articles/standardization.html">standardization details page</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="this-is-a-work-in-progress">This is a work in progress!<a class="anchor" aria-label="anchor" href="#this-is-a-work-in-progress"></a>
+</h2>
+<p>This package is still in a beta state. Development is ongoing, and I can’t promise that there won’t be breaking changes in future versions. I ask that you bear with me as I work towards the goal of developing a tool that is as flexible, useful, and user-friendly as possible!</p>
+<p>Please get in touch with <a href="https://aidancombs.netlify.app/" class="external-link">me</a> (ahc26atduke.edu) if I have missed any data sets, if you encounter any bugs or confusions, or if you have thoughts about how this might be made a more useful tool. All feedback is helpful and appreciated!</p>
+</div>
+<div class="section level2">
+<h2 id="you-may-also-be-interested-in">You may also be interested in…<a class="anchor" aria-label="anchor" href="#you-may-also-be-interested-in"></a>
+</h2>
+<p>This package was developed in conjunction with two other open-source R packages that may also be of interest to the ACT research community. Together, the goal of these packages is to make ACT research more accessible, and to make it possible to use R to do analysis in a self-contained and completely reproducible and transparent way.</p>
+<p>Both packages provide functions that allow users to take these data and run interaction simulations with it.</p>
+<ul>
+<li><p><a href="https://ekmaloney.github.io/inteRact/" class="external-link"><strong>inteRact</strong></a>: inteRact, developed and maintained by <a href="https://sociology.duke.edu/em-maloney" class="external-link">Em Maloney</a>, is a package that allows users to run affect control theory simulations in R. It was built to be an open source, R-based version of its namesake Java program, INTERACT, which has been used by researchers to run affect control theory simulations since the 1990s. inteRact uses an R-based interface, rather than a graphic user interface, making re-running simulations much simpler and less time-consuming. It also provides support for running batches of simulations at one time.</p></li>
+<li><p><a href="https://ahcombs.github.io/bayesactR/" class="external-link"><strong>bayesactR</strong></a>: bayesactR, which <a href="https://aidancombs.netlify.app/" class="external-link">I</a> develop and maintain, is an R package that serves as an R wrapper for the BayesACT tool, developed by Jesse Hoey and colleagues. BayesACT is a Bayesian extension of affect control theory that treats meanings as distributions, rather than points, and simulations as probabilistic rather than determinative. See the <a href="https://ahcombs.github.io/bayesactR/" class="external-link">package website</a> for more information.</p></li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

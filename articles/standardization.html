@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">actdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,7 @@
 <div class="section level3">
 <h3 id="institution-code-standardization">Institution code standardization<a class="anchor" aria-label="anchor" href="#institution-code-standardization"></a>
 </h3>
-<p>Dictionaries often contain 14-digit binary strings known as “institution codes” that contain information about what contexts terms apply to. See vignette(“dictionaries”) for more information on what these strings mean and how to use functions within this package that help demystify and filter by them.</p>
+<p>Dictionaries often contain 14-digit binary strings known as “institution codes” that contain information about what contexts terms apply to. See the <a href="https://ahcombs.github.io/actdata/articles/dictionaries.html">dictionaries help page</a> for more information on what these strings mean and how to use functions within this package that help demystify and filter by them.</p>
 <p>To determine an institution code for a term, researchers code whether or not they believe the term applies in a number of different social contexts. This coding process has been done several times by different researchers over time.</p>
 <p>Because membership in institutional categories is sometimes ambiguous, repeated coding sometimes produces inconsistencies in institution codes in the raw data for the same term between different data sets. In addition, often a term will have an assigned institution code in one data set, but not in other data sets. In the data made available in this package, I have attempted to standardize and extend institution code assignment.</p>
 <p>The most comprehensive attempt at institution code creation was undertaken by <a href="https://www.sc.edu/study/colleges_schools/artsandsciences/criminology_and_criminal_justice/our_people/directory/boyle_kaitlin.php" class="external-link">Kaitlyn Boyle</a> and <a href="https://sociology.uga.edu/directory/people/dawn-t-robinson" class="external-link">Dawn Robinson</a>, who led a team of coders to develop institution codes for terms contained in the uga2015 dictionary. Where the code assigned to a term by this team conflicts with the code assigned to the same term in another data set, I replace the conflicting code with the UGA code. Where a term has an institution code in uga2015 but not in another dataset, I fill in the institution code in the other dataset with the one assigned in uga2015. The script used for this is located in the source code of this package at <code>data-raw/dicts.R</code>.</p>
