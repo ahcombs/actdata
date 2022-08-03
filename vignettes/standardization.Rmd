@@ -26,7 +26,7 @@ Where individual data is available, the mean, standard deviation, and covariance
 
 ## Institution code standardization
 
-Dictionaries often contain 14-digit binary strings known as "institution codes" that contain information about what contexts terms apply to. See vignette("dictionaries") for more information on what these strings mean and how to use functions within this package that help demystify and filter by them. 
+Dictionaries often contain 14-digit binary strings known as "institution codes" that contain information about what contexts terms apply to. See the [dictionaries help page](https://ahcombs.github.io/actdata/articles/dictionaries.html) for more information on what these strings mean and how to use functions within this package that help demystify and filter by them. 
 
 To determine an institution code for a term, researchers code whether or not they believe the term applies in a number of different social contexts. This coding process has been done several times by different researchers over time. 
 
