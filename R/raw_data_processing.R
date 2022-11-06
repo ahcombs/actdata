@@ -43,7 +43,6 @@ standardize_terms <- function(data, key, component = "undetermined"){
   }
 
   if(grepl("occs", key)){
-    occsterms <- read.csv2("data-raw/dicts/occsterms.csv", sep = ",", header = TRUE)
     data <- data %>%
       dplyr::left_join(occsterms, by = "term") %>%
       dplyr::mutate(term = ifelse(!is.na(label), label, term)) %>%
@@ -52,13 +51,15 @@ standardize_terms <- function(data, key, component = "undetermined"){
 
   data_clean <- data %>%
     dplyr::mutate(
-      term_new = str_replace(.data$term, "^A?n?i?b?m?s?o?_", ""),
-      term_new = str_replace_all(.data$term_new, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
+      term_new = str_replace_all(.data$term, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
       term_new = str_replace_all(.data$term_new, "[_-]", " "),
       term_new = stringr::str_squish(.data$term_new),
       term_new = tolower(.data$term_new),
       term_new = str_replace_all(.data$term_new, "[\\s-]", "_"),
       term_new = str_replace_all(.data$term_new, "\\(_", "\\("),
+      term_new = str_replace_all(.data$term_new, "\\.", "_"),
+      term_new = str_replace_all(.data$term_new, "__", "_"),
+      term_new = str_replace(.data$term_new, "^a?A?n?i?b?m?s?o?_", ""),
 
       # identities
       term_new = str_replace(.data$term_new, '^adultress$', "adulteress"),
@@ -195,6 +196,11 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^peniteniary$', 'penitentiary'),
       term_new = str_replace(.data$term_new, '^petstore$', 'pet_store'),
 
+      # values
+      term_new = str_replace(.data$term_new, "^sucessful$", "successful"),
+      term_new = str_replace(.data$term_new, "^tranquillity$", "tranquility"),
+      term_new = str_replace(.data$term_new, "^reciprocation_of_favours$", "reciprocation_of_favors"),
+
       # remove parentheses and single and double quotes -- interact does not accept them
       term_new = str_replace_all(.data$term_new, "\\(", ""),
       term_new = str_replace_all(.data$term_new, "\\)", ""),
@@ -211,6 +217,136 @@ standardize_terms <- function(data, key, component = "undetermined"){
       dplyr::filter(!grepl("^divor.{,7}$", .data$term)) %>%
       dplyr::filter(!grepl("^fian", .data$term)) %>%
       dplyr::filter(!grepl("blackm|educatedm|elderlym|employedm|femalem|lower_classm|malem|middle_agedm|middle_classm|oldm$|poorm|richm|uneducatedm|unemployedm|wealthym|whitem|youngm", .data$term))
+  }
+
+  # The Lulham and Shank data--assign component
+  if(grepl("artifact", key)){
+    data_clean <- data_clean %>%
+      dplyr::mutate(
+        component = dplyr::case_when(
+          grepl("with", term) ~ "modified_identity",
+          term %in% c(
+            "safe",
+            "sudoku",
+            "baby_blanket",
+            "basketball",
+            "bathroom_towel",
+            "birthday_cake",
+            "black_lipstick",
+            "broken_computer",
+            "cassette_tape_player",
+            "chain_saw",
+            "champagne",
+            "chewing_tobacco",
+            "cigar",
+            "cigarette",
+            "clunker_car",
+            "cockroach_bait",
+            "cremation_urn",
+            "crib",
+            "dictionary",
+            "diet_shake",
+            "doll",
+            "flat_basketball",
+            "french_maid_costume",
+            "gas_guzzler",
+            "gothic_clothing",
+            "green_tea",
+            "gun",
+            "hospital_gown",
+            "landline_phone",
+            "lead_painted_toy",
+            "mouse_trap",
+            "noisemaker",
+            "perfume",
+            "pocket_radio",
+            "power_tool",
+            "race_car",
+            "rowboat",
+            "security_camera",
+            "skates",
+            "slippers",
+            "slutty_halloween_costume",
+            "soured_milk",
+            "sports_car",
+            "steroids",
+            "suicide_vest",
+            "totaled_car",
+            "tricycle",
+            "trophy",
+            "umbrella",
+            "vcr",
+            "wall_crucifix",
+            "yard_gnome"
+          ) ~ "artifact",
+          term %in% c(
+            "abortionist",
+            "adolescent",
+            "beginner",
+            "brat",
+            "brute",
+            "buddy",
+            "bully",
+            "champion",
+            "child",
+            "critic",
+            "delinquent",
+            "do_nothing",
+            "drunk",
+            "executioner",
+            "follower",
+            "foster_child",
+            "gangster",
+            "genius",
+            "grandparent",
+            "gunman",
+            "hero",
+            "hoodlum",
+            "idiot",
+            "intern",
+            "introvert",
+            "judge",
+            "librarian",
+            "loafer",
+            "maniac",
+            "mobster",
+            "old_maid",
+            "old_timer",
+            "orphan",
+            "pal",
+            "pastor",
+            "patient",
+            "pedestrian",
+            "pimp",
+            "prostitute",
+            "psychiatrist",
+            "psychopath",
+            "racist",
+            "schoolboy",
+            "schoolgirl",
+            "scientist",
+            "sexist",
+            "sick_person",
+            "spouse",
+            "sweetheart",
+            "teammate",
+            "teenager",
+            "tutor",
+            "underachiever",
+            "widow",
+            "winner",
+            "witness",
+            "youngster",
+            "youth"
+          ) ~ "identity"
+        )
+      )
+  } else if (grepl("humanvalues", key)){
+    data_clean <- data_clean %>%
+      dplyr::mutate(component = "value")
+  } else if (grepl("products", key)){
+    data_clean <- data_clean %>%
+      dplyr::mutate(component = "artifact")
   }
 
   return(data_clean)

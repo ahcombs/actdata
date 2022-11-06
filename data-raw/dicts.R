@@ -53,12 +53,15 @@ individual_keys <- c(
   "morocco2015",
   "usfullsurveyor2015",
   "occs2019",
-  "occs2020"
+  "occs2020",
+  "artifactmods2022",
+  "humanvalues2022",
+  "products2022"
 )
 
 meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
 
-exclude_keys <- c("prisonersdilemma")
+exclude_keys <- c("prisonersdilemma", "occs2019", "occs2020")
 
 mean_epa <- data.frame(matrix(nrow = 0, ncol = length(meannames)))
 names(mean_epa) <- meannames
@@ -233,7 +236,7 @@ data <- readr::read_csv(path) %>%
 
 # standardize terms
 data_std <- standardize_terms(data, key = "calcutta", component = "undetermined") %>%
-  mutate(term = case_when(term == "know_it_all" & all_mE == .16 ~ "know_it_all_translation_1",
+  mutate(term = dplyr::case_when(term == "know_it_all" & all_mE == .16 ~ "know_it_all_translation_1",
                           term == "know_it_all" & all_mE == -.57 ~ "know_it_all_translation_2",
                           TRUE ~ term))
 
@@ -267,19 +270,16 @@ calcutta <- data_std %>%
                 sd_A = A_SD) %>%
   dplyr::mutate(context = meta[meta$key == "calcuttaall2017", "context"],
                 year = year,
-                dataset = case_when(dataset == "all" ~ "calcuttaall2017",
+                dataset = dplyr::case_when(dataset == "all" ~ "calcuttaall2017",
                                     dataset == "subset" ~ "calcuttasubset2017"),
-                gender = case_when(gender == "m" ~ "male",
+                gender = dplyr::case_when(gender == "m" ~ "male",
                                    gender == "f" ~ "female",
                                    gender == "a" ~ "average")) %>%
   dplyr::mutate(across(where(is.numeric), ~round(., digits = 2)))
 
 
 
-
 #### NOW INDIVIDUAL DATA: USE TO CALCULATE SD/COV AND LUMP TOGETHER TO SAVE #######################
-
-
 
 
 mean_variance_epa <- data.frame(matrix(nrow = 0, ncol = length(cnames) - 1))
@@ -293,47 +293,49 @@ for(file in ind_file_list){
 
   # TODO: maybe some NA values in dukecommunity 2015??
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
-  # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
-  context <- meta[meta$key == key, "context"]
-  # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
-  year <- stringr::str_extract(key, "[[:digit:]]*$")
-  # year <- meta[meta$key == key, "year"]
+  if(!(key %in% exclude_keys)){
+    # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+    context <- meta[meta$key == key, "context"]
+    # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
+    year <- stringr::str_extract(key, "[[:digit:]]*$")
+    # year <- meta[meta$key == key, "year"]
 
-  data <- readRDS(file = path) %>%
-    dplyr::mutate(dataset = key,
-                  context = context,
-                  year = year) %>%
-    dplyr::select(dataset, context, year, dplyr::everything()) %>%
-    dplyr::mutate(across(everything(), as.character))
+    data <- readRDS(file = path) %>%
+      dplyr::mutate(dataset = key,
+                    context = context,
+                    year = year) %>%
+      dplyr::select(dataset, context, year, dplyr::everything()) %>%
+      dplyr::mutate(across(everything(), as.character))
 
-  sum_data <- epa_summary(data)
-  # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
-  # if(!check_sd_cov_vals(sum_data)){
-  #   stop(print(paste("error with current dataset ", key)))
-  # }
+    sum_data <- epa_summary(data)
+    # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
+    # if(!check_sd_cov_vals(sum_data)){
+    #   stop(print(paste("error with current dataset ", key)))
+    # }
 
-  # add in dataset level variables
-  # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
-  # if someone wants to do this (for any characteristic) they can using the individual data.
-  sum_data <- sum_data %>%
-    dplyr::mutate(dataset = key,
-                  context = context,
-                  year = year,
-                  gender = "average",
-                  E = mean_E,
-                  P = mean_P,
-                  A = mean_A) %>%
-    dplyr::select(any_of(cnames))
+    # add in dataset level variables
+    # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
+    # if someone wants to do this (for any characteristic) they can using the individual data.
+    sum_data <- sum_data %>%
+      dplyr::mutate(dataset = key,
+                    context = context,
+                    year = year,
+                    gender = "average",
+                    E = mean_E,
+                    P = mean_P,
+                    A = mean_A) %>%
+      dplyr::select(any_of(cnames))
 
-  # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
-  mean_variance_epa <- rbind(mean_variance_epa, sum_data)
+    # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+    mean_variance_epa <- rbind(mean_variance_epa, sum_data)
 
-  if(nrow(individual) == 0){
-    individual <- data.frame(matrix("", nrow = 0, ncol = ncol(data)))
-    names(individual) <- names(data)
-  }
+    if(nrow(individual) == 0){
+      individual <- data.frame(matrix("", nrow = 0, ncol = ncol(data)))
+      names(individual) <- names(data)
+    }
 
-  individual <- dplyr::full_join(individual, data)
+    individual <- dplyr::full_join(individual, data)
+    }
 }
 
 duplicateid <- individual %>%
@@ -362,6 +364,80 @@ individual <- individual %>%
 #   dplyr::filter(n > 1)
 
 
+# #### INDIVIDUAL DATASETS FROM LULHAM AND SHANK #############################################
+#
+#
+# mean_variance_epa <- data.frame(matrix(nrow = 0, ncol = length(cnames) - 1))
+# individual <- data.frame()
+# names(mean_variance_epa) <- cnames[cnames != "instcodes"]
+#
+# source_folder <- "dicts/lulhamshank/indiv/"
+# ind_file_list <- grep("RDS$", list.files(source_folder), value = TRUE)
+# for(file in ind_file_list){
+#   path <- paste0(source_folder, "/", file)
+#
+#   # TODO: maybe some NA values in dukecommunity 2015??
+#   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
+#   if(!(key %in% exclude_keys)){
+#     # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
+#     context <- meta[meta$key == key, "context"]
+#     # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
+#     year <- stringr::str_extract(key, "[[:digit:]]*$")
+#     # year <- meta[meta$key == key, "year"]
+#
+#     data <- readRDS(file = path) %>%
+#       dplyr::mutate(dataset = key,
+#                     context = context,
+#                     year = year) %>%
+#       dplyr::select(dataset, context, year, dplyr::everything()) %>%
+#       dplyr::mutate(across(everything(), as.character))
+#
+#     sum_data <- epa_summary(data)
+#     # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
+#     # if(!check_sd_cov_vals(sum_data)){
+#     #   stop(print(paste("error with current dataset ", key)))
+#     # }
+#
+#     # add in dataset level variables
+#     # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
+#     # if someone wants to do this (for any characteristic) they can using the individual data.
+#     sum_data <- sum_data %>%
+#       dplyr::mutate(dataset = key,
+#                     context = context,
+#                     year = year,
+#                     gender = "average",
+#                     E = mean_E,
+#                     P = mean_P,
+#                     A = mean_A) %>%
+#       dplyr::select(any_of(cnames))
+#
+#     # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
+#     mean_variance_epa <- rbind(mean_variance_epa, sum_data)
+#
+#     if(nrow(individual) == 0){
+#       individual <- data.frame(matrix("", nrow = 0, ncol = ncol(data)))
+#       names(individual) <- names(data)
+#     }
+#
+#     individual <- dplyr::full_join(individual, data)
+#   }
+# }
+#
+# duplicateid <- individual %>%
+#   dplyr::select(dataset, userid) %>%
+#   dplyr::distinct() %>%
+#   dplyr::group_by(userid) %>%
+#   dplyr::mutate(n = dplyr::n()) %>%
+#   dplyr::filter(n > 1,
+#                 dataset %in% c("usfullsurveyor2015", "usstudent2015")) %>%
+#   dplyr::select(-n)
+#
+# individual <- individual %>%
+#   dplyr::anti_join(duplicateid)
+
+
+
+
 
 #### INSTITUTION CODES #################################
 
@@ -379,7 +455,9 @@ individual <- individual %>%
                               TRUE ~ userid)
   ) %>%
   dplyr::left_join(instcodes_df, by = c("term", "component")) %>%
-  dplyr::select(dataset, context, year, userid, gender, age, race, race1, race2, hisp, term, component, instcodes, everything())
+  dplyr::select(any_of(c("dataset", "context", "year", "userid", "gender", "age",
+                         "raceeth", "race", "race1", "race2", "hisp", "term", "component", "instcodes")),
+                everything())
 
 individual <- tibble::as_tibble(individual)
 
