@@ -1,6 +1,6 @@
 meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
 
-##### INDIVIDUAL DATA FOR 2015 DUKE/UGA COLLECTIONS #############
+##### INDIVIDUAL DATA FOR 2015 US, EGYPT, AND MOROCCO COLLECTIONS AND OCCS #############
 
 source_folder <- "data-raw/dicts/individual_raw"
 ind_file_list <- grep("csv$", list.files(source_folder), value = TRUE)
