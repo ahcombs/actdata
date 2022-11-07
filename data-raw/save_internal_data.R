@@ -1,6 +1,6 @@
-dict_meta <- utils::read.csv("dicts/dict_info.csv")
-eqn_meta <- utils::read.csv("eqns/eqn_info.csv")
-occsterms <- utils::read.csv2("dicts/occsterms.csv", sep = ",", header = TRUE)
+dict_meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
+eqn_meta <- utils::read.csv("data-raw/eqns/eqn_info.csv")
+occsterms <- utils::read.csv2("data-raw/dicts/occsterms.csv", sep = ",", header = TRUE)
 
 # this saves some institution code information that can be used by other functions in subset.R
 

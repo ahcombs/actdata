@@ -160,6 +160,150 @@
 
 
 
-####################
+#################### LULHAM INDIVIDUAL DATA: COMPARE AGAINST MEANS ###########
 
 
+#### ARTIFACTMODS
+
+artifactmeans <- readxl::read_excel("data-raw/dicts/lulhamshank/means/ABS Lulham Shank artifact modiferdata.xlsx") %>%
+  dplyr::rename(term = "...1") %>%
+  dplyr::select(-...6) %>%
+  tidyr::pivot_longer(cols = c(dplyr::starts_with("Women"), dplyr::starts_with("Men")),
+                      names_to = c("gender", ".value"), names_sep = "_") %>%
+  standardize_terms(key = "artifactmeans2022")
+
+artifactmeans_gendav <- artifactmeans %>%
+  dplyr::group_by(term) %>%
+  dplyr::summarize(total_n = sum(n),
+                   E_means = round(sum(E*n)/total_n, digits = 2),
+                   P_means = round(sum(P*n)/total_n, digits = 2),
+                   A_means = round(sum(A*n)/total_n, digits = 2)) %>%
+  dplyr::rename(n_means = total_n)
+
+indiv_means <- epa_subset(dataset = "artifactmods2022", instcodes = FALSE) %>%
+  dplyr::select(term, dplyr::starts_with("n"), E, P, A) %>% # there is one discrepancy between n_E, n_A and n_P (n_P has one more respondent than the other two for idiot_with_a_french_maid_costume)
+  dplyr::rename(n_indiv = n_E,
+                E_indiv = E,
+                P_indiv = P,
+                A_indiv = A) %>%
+  dplyr::select(-n_P, -n_A)
+
+artifacts <- dplyr::full_join(artifactmeans_gendav, indiv_means, by = "term") %>%
+  mutate(E_equal = E_means == E_indiv,
+         P_equal = P_means == P_indiv,
+         A_equal = A_means == A_indiv,
+         n_equal = n_means == n_indiv,
+         n_indiv_bigger = n_indiv >= n_means,
+         E_dif_large = abs(E_means - E_indiv) > .05,
+         P_dif_large = abs(P_means - P_indiv) > .05,
+         A_dif_large = abs(A_means - A_indiv) > .05)
+
+all(artifacts$n_indiv_bigger)
+all(!artifacts$E_dif_large)
+all(!artifacts$P_dif_large)
+all(!artifacts$A_dif_large)
+
+# It looks like there were some additional people screened out of the individual data before Rohan and Daniel calculated means.
+# n for the individual data is usually a little bigger than n for the means data
+
+# but it also looks like this doesn't generally make a big difference--all differences between the individual and mean data are less than .05
+
+# Found it--my numbers are consistent with the "valid n" in the spreadsheet. i am counting "SM" responses where I should be making them NA.
+
+# look at individual data itself
+indiv <- epa_subset(dataset = "artifactmods2022", datatype = "individual") %>%
+  dplyr::select(userid, term, E, P, A) %>%
+  dplyr::filter(term == "pal")
+
+# from the excel sheet--see if I can figure out the number discrepancy
+pal <- readxl::read_excel("/Users/aidan/Desktop/School/Grad_school/ACT/ACT_data_nonpub/ShankLulhamObjects/for_data_check/pal_forcheck.xlsx") %>%
+  dplyr::filter(!is.na(rating))
+
+# GOT IT. In the means data, the n comes from excel's COUNT function minus the number of SM responses.
+# BUT, this actually double-subtracts the SM responses, because COUNT only considers cells that are numeric, not text values.
+# So the "total N" in the excel sheet is actually the valid n, and my numbers should match that. CONFIRMED with spot checks.
+# The means in the sheet should be correct. This appears to be okay within rounding error.
+
+
+### HUMAN VALUES
+
+# I don't have overall averages here and n is not reported with the gendered means so I can't calculate gender averaged values from the means data.
+# But I can calculate gendered values from the individual data. This isn't a test of whether the mean calculations to create the summary data works;
+# instead it is a test of whether the provided individual data is consistent with the provided mean data.
+# But I test whether the calculation of means works with the other datasets--so I think this is okay.
+
+valuesmeans_gendered <- read.csv("data-raw/dicts/lulhamshank/means/Human Values file 21.12.csv") %>%
+  dplyr::rename(term = X) %>%
+  dplyr::select(-X.1) %>%
+  dplyr::filter(term != "") %>%
+  tidyr::pivot_longer(cols = -term, names_to = c(".value", "gender"), names_sep = "\\.") %>%
+  # there is one term (friendly) where there's some accidental excel junk in a cell--remove
+  dplyr::mutate(E = str_replace(E, "\\+.*$", ""),
+                P = str_replace(P, "\\+.*$", ""),
+                A = str_replace(A, "\\+.*$", "")) %>%
+  dplyr::mutate(dplyr::across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
+  dplyr::mutate(gender = ifelse(gender == "m", "Male", "Female")) %>%
+  dplyr::rename(E_means = E,
+                P_means = P,
+                A_means = A) %>%
+  standardize_terms(key = "humanvalues2022")
+
+valuesindiv_gendered <- epa_subset(dataset = "humanvalues2022", datatype = "individual") %>%
+  dplyr::mutate(E = as.numeric(E),
+                P = as.numeric(P),
+                A = as.numeric(A)) %>%
+  dplyr::group_by(term, gender) %>%
+  dplyr::summarize(E_indiv = mean(E),
+            P_indiv = mean(P),
+            A_indiv = mean(A),
+            n = dplyr::n())%>%
+  dplyr::mutate(across(c(E_indiv, P_indiv, A_indiv), ~ round(., digits = 2)))
+
+values <- dplyr::full_join(valuesmeans_gendered, valuesindiv_gendered, by = c("term", "gender")) %>%
+  dplyr::mutate(E_equal = E_means == E_indiv,
+         P_equal = P_means == P_indiv,
+         A_equal = A_means == A_indiv)
+
+# two of these are clearly just rounding differences
+# self-respect is different--appears to be because two versions of it didn't get collapsed as they should have for calculating the mean data
+# looks like self-respect was collected twice by accident (included in two modules) and one version had a dash and the other didn't.
+# I think lumping them together is the way to go--my calculated means are fine
+values_notequal <- values %>%
+  dplyr::filter(!E_equal | !P_equal | !A_equal)
+
+
+
+### EVERYDAY PRODUCTS
+
+productsmeans_gendered <- readxl::read_excel("data-raw/dicts/lulhamshank/means/Everyday products data EPA.xlsx") %>%
+  dplyr::rename(term = "...1") %>%
+  dplyr::filter(!is.na(term)) %>%
+  tidyr::pivot_longer(cols = -term, names_to = c(".value", "gender"), names_sep = "-") %>%
+  dplyr::mutate(dplyr::across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
+  dplyr::mutate(gender = ifelse(gender == "m", "Male", "Female")) %>%
+  dplyr::rename(E_means = E,
+                P_means = P,
+                A_means = A) %>%
+  standardize_terms(key = "products2022")
+
+productsindiv_gendered <- epa_subset(dataset = "products2022", datatype = "individual") %>%
+  dplyr::mutate(E = as.numeric(E),
+                P = as.numeric(P),
+                A = as.numeric(A)) %>%
+  dplyr::group_by(term, gender) %>%
+  dplyr::summarize(E_indiv = mean(E),
+                   P_indiv = mean(P),
+                   A_indiv = mean(A),
+                   n = dplyr::n())%>%
+  dplyr::mutate(across(c(E_indiv, P_indiv, A_indiv), ~ round(., digits = 2)))
+
+products <- dplyr::full_join(productsmeans_gendered, productsindiv_gendered, by = c("term", "gender")) %>%
+  dplyr::mutate(E_equal = E_means == E_indiv,
+                P_equal = P_means == P_indiv,
+                A_equal = A_means == A_indiv)
+
+# There are a couple of rounding errors, and there is also "train" and "bus", and it looks like the same thing happened
+# there as with "self-respect" in the values set. They were included in two modules though everything else was just in
+# one, so they have two sets of values. I think lumping them together is fine.
+products_notequal <- products %>%
+  dplyr::filter(!E_equal | !P_equal | !A_equal)

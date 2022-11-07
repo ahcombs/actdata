@@ -122,7 +122,7 @@ for(key in uniquekeys){
         dplyr::filter(userid != "") %>%
         dplyr::select(-matches("^X\\.")) %>%
         # columns ending in .1 are potency, columns ending in .2 are activity, columns with no suffix that are not in the set to keep are evaluation
-        # columns ending in .3--i'm not sure what they are but I think I can drop them. "5LH" is the variable name.
+        # columns ending in .3--i'm not sure what they are but I think I can drop them. "5LH" is the variable name. Possibly time, Rohan says.
         # columns ending in .4--note whether someone skipped a stimulus and are useful for distinguishing between terms people skipped and terms they were not offered.
         dplyr::filter(userid != "ID") %>%
         tidyr::pivot_longer(cols = -c("userid", unique(names(termrename))), names_to = "term", values_to = "rating") %>%

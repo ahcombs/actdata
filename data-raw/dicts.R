@@ -59,7 +59,7 @@ individual_keys <- c(
   "products2022"
 )
 
-meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
+# meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
 
 exclude_keys <- c("prisonersdilemma", "occs2019", "occs2020")
 
@@ -75,7 +75,7 @@ for(file in means_file_list){
   if(!(key %in% individual_keys) & !(key %in% exclude_keys)){
     # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
     year <- stringr::str_extract(key, "[[:digit:]]*$")
-    context <- meta[meta$key == key, "context"]
+    context <- dict_meta[dict_meta$key == key, "context"]
     # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
     # year <- meta[meta$key == key, "year"]
     filetype <- stringr::str_extract(file, "\\.[[:alpha:]]*$")
@@ -217,65 +217,219 @@ mean_epa <- mean_epa %>%
 
 # usethis::use_data(mean_epa, overwrite = TRUE)
 
-#### CALCUTTA DATASET, WHICH HAS MEANS AND SDS ####################################################
+#### MEANS DATASETS THAT NEED MORE REFORMATTING: CALCUTTA, LULHAM AND SHANK ####################################################
 
 source_folder <- "data-raw/dicts/summary_raw/"
-file <- list.files(source_folder)[1]
-path <- paste0(source_folder, "/", file)
-key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
+files <- list.files(source_folder)
 
-# the calcutta dataset should be split into two: one for all respondents, one for the subset of respondents that uses the scales correctly.
-year <- stringr::str_extract(key, "[[:digit:]]*$")
+for(file in files){
+  path <- paste0(source_folder, "/", file)
+  key <- stringr::str_extract(file, "^[[:alnum:]]*")
+  year <- stringr::str_extract(key, "[[:digit:]]*$")
+  # print(key)
 
-data <- readr::read_csv(path) %>%
-  dplyr::rename(term = English) %>%
-  dplyr::select(-Bengali) %>%
-  dplyr::mutate(term = tolower(term)) %>%
-  dplyr::rename_with(~stringr::str_replace(., "@", "all_")) %>%
-  dplyr::rename_with(~stringr::str_replace(., "%", "subset_"))
+  if(grepl("calcutta", key)){
+    # the calcutta dataset should be split into two: one for all respondents, one for the subset of respondents that uses the scales correctly.
+    data <- readr::read_csv(path) %>%
+      dplyr::rename(term = English) %>%
+      dplyr::select(-Bengali) %>%
+      dplyr::mutate(term = tolower(term)) %>%
+      dplyr::rename_with(~stringr::str_replace(., "@", "all_")) %>%
+      dplyr::rename_with(~stringr::str_replace(., "%", "subset_"))
 
-# standardize terms
-data_std <- standardize_terms(data, key = "calcutta", component = "undetermined") %>%
-  mutate(term = dplyr::case_when(term == "know_it_all" & all_mE == .16 ~ "know_it_all_translation_1",
-                          term == "know_it_all" & all_mE == -.57 ~ "know_it_all_translation_2",
-                          TRUE ~ term))
+    # standardize terms
+    data_std <- standardize_terms(data, key = "calcutta", component = "undetermined") %>%
+      mutate(term = dplyr::case_when(term == "know_it_all" & all_mE == .16 ~ "know_it_all_translation_1",
+                                     term == "know_it_all" & all_mE == -.57 ~ "know_it_all_translation_2",
+                                     TRUE ~ term))
 
-# term_table_input_calcutta <- cbind(data_std[,1], rep(1, length(data_std[,1])))
-# colnames(term_table_input_calcutta) <- c("term", key)
+    # term_table_input_calcutta <- cbind(data_std[,1], rep(1, length(data_std[,1])))
+    # colnames(term_table_input_calcutta) <- c("term", key)
 
-# CALCUTTA DONE NOW NEED OCCS
-calcutta <- data_std %>%
-  tidyr::pivot_longer(cols = c(starts_with("all"), starts_with("subset")),
-                      names_to = c("dataset", ".value"), names_pattern = "([[:alpha:]]*)_(.*)") %>%
-  dplyr::rowwise() %>%
-  dplyr::mutate(aE = (mE*mEN + fE*fEN)/(mEN + fEN),
-                aP = (mP*mPN + fP*fPN)/(mPN + fPN),
-                aA = (mA*mAN + fA*fAN)/(mAN + fAN),
-                aEN = mEN + fEN,
-                aPN = mPN + fPN,
-                aAN = mAN + fAN,
-                aE_SD = sqrt(((mEN - 1)*mE_SD^2 + (fEN - 1)*fE_SD^2)/(mEN + fEN - 2)),
-                aP_SD = sqrt(((mPN - 1)*mP_SD^2 + (fPN - 1)*fP_SD^2)/(mPN + fPN - 2)),
-                aA_SD = sqrt(((mAN - 1)*mA_SD^2 + (fAN - 1)*fA_SD^2)/(mAN + fAN - 2))
-  ) %>%
-  dplyr::ungroup() %>%
-  tidyr::pivot_longer(cols = c(-term, -component, -dataset),
-                      names_to = c("gender", ".value"),
-                      names_pattern = "^(.)(.*)") %>%
-  dplyr::rename(n_E = EN,
-                n_P = PN,
-                n_A = AN,
-                sd_E = E_SD,
-                sd_P = P_SD,
-                sd_A = A_SD) %>%
-  dplyr::mutate(context = meta[meta$key == "calcuttaall2017", "context"],
-                year = year,
-                dataset = dplyr::case_when(dataset == "all" ~ "calcuttaall2017",
-                                    dataset == "subset" ~ "calcuttasubset2017"),
-                gender = dplyr::case_when(gender == "m" ~ "male",
-                                   gender == "f" ~ "female",
-                                   gender == "a" ~ "average")) %>%
-  dplyr::mutate(across(where(is.numeric), ~round(., digits = 2)))
+    calcutta <- data_std %>%
+      tidyr::pivot_longer(cols = c(starts_with("all"), starts_with("subset")),
+                          names_to = c("dataset", ".value"), names_pattern = "([[:alpha:]]*)_(.*)") %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(aE = (mE*mEN + fE*fEN)/(mEN + fEN),
+                    aP = (mP*mPN + fP*fPN)/(mPN + fPN),
+                    aA = (mA*mAN + fA*fAN)/(mAN + fAN),
+                    aEN = mEN + fEN,
+                    aPN = mPN + fPN,
+                    aAN = mAN + fAN,
+                    aE_SD = sqrt(((mEN - 1)*mE_SD^2 + (fEN - 1)*fE_SD^2)/(mEN + fEN - 2)),
+                    aP_SD = sqrt(((mPN - 1)*mP_SD^2 + (fPN - 1)*fP_SD^2)/(mPN + fPN - 2)),
+                    aA_SD = sqrt(((mAN - 1)*mA_SD^2 + (fAN - 1)*fA_SD^2)/(mAN + fAN - 2))
+      ) %>%
+      dplyr::ungroup() %>%
+      tidyr::pivot_longer(cols = c(-term, -component, -dataset),
+                          names_to = c("gender", ".value"),
+                          names_pattern = "^(.)(.*)") %>%
+      dplyr::rename(n_E = EN,
+                    n_P = PN,
+                    n_A = AN,
+                    sd_E = E_SD,
+                    sd_P = P_SD,
+                    sd_A = A_SD) %>%
+      dplyr::mutate(context = dict_meta[dict_meta$key == "calcuttaall2017", "context"],
+                    year = year,
+                    dataset = dplyr::case_when(dataset == "all" ~ "calcuttaall2017",
+                                               dataset == "subset" ~ "calcuttasubset2017"),
+                    gender = dplyr::case_when(gender == "m" ~ "male",
+                                              gender == "f" ~ "female",
+                                              gender == "a" ~ "average")) %>%
+      dplyr::mutate(across(where(is.numeric), ~round(., digits = 2)))
+  } else {
+    data <- read.csv(path)
+
+    if(grepl("employeeorg", key)){
+      data_std <- data %>%
+        dplyr::mutate(
+          term = tolower(stringr::str_squish(term)),
+          # there are two term formats here; companies and the people who work for them
+          term = ifelse(condition == "org",
+                        term,
+                        paste0("employee of ", term)
+          ),
+          mean_E = stringr::str_extract(stringr::str_squish(E), ".*(?=\\s)"),
+          sd_E = stringr::str_extract(stringr::str_squish(E), "(?<=\\().*(?=\\))"),
+          mean_P = stringr::str_extract(stringr::str_squish(P), ".*(?=\\s)"),
+          sd_P = stringr::str_extract(stringr::str_squish(P), "(?<=\\().*(?=\\))"),
+          mean_A = stringr::str_extract(stringr::str_squish(A), ".*(?=\\s)"),
+          sd_A = stringr::str_extract(stringr::str_squish(A), "(?<=\\().*(?=\\))"),
+          component = "identity",
+          gender = "average"
+        ) %>%
+        dplyr::mutate(across(c(starts_with("mean"), starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
+        dplyr::select(term, component, gender, starts_with("mean"), starts_with("sd")) %>%
+        dplyr::rename(E = mean_E,
+                      P = mean_P,
+                      A = mean_A) %>%
+        standardize_terms(key = key)
+    } else if (grepl("generaltech", key)){
+      data_std <- data %>%
+        dplyr::rename(term = MEANS,
+                      sd_E = E.1,
+                      sd_P = P.1,
+                      sd_A = A.1) %>%
+        dplyr::select(-SDs) %>%
+        dplyr::mutate(across(c(E, P, A, starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
+        dplyr::mutate(component = "artifact",
+                      gender = "average") %>%
+        standardize_terms(key = key)
+    } else if (grepl("groups2017", key)){
+      data_std <- data %>%
+        dplyr::rename(term = Group_concept,
+                      E = Evaluation,
+                      P = Potency,
+                      A = Activity) %>%
+        dplyr::mutate(component = "identity",
+                      gender = "average") %>%
+        dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
+        standardize_terms(key = key)
+    } else if (grepl("groups2019", key)){
+      data_std <- data %>%
+        dplyr::rename(term = X.1,
+                      E = Means,
+                      P = X.2,
+                      A = X.3) %>%
+        dplyr::select(-X) %>%
+        dplyr::filter(term != "") %>%
+        dplyr::mutate(component = "identity",
+                      gender = "average") %>%
+        dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
+        standardize_terms(key = key)
+    } else if (grepl("nounphrasegrammar2019", key)){
+      data_std <- data %>%
+        standardize_terms(key = key) %>%
+        dplyr::mutate(
+          mean = as.numeric(stringr::str_extract(stringr::str_squish(rating), ".*(?=\\s)")),
+          sd = as.numeric(stringr::str_extract(stringr::str_squish(rating), "(?<=\\().*(?=\\))")),
+          plural = paste0(term, "s")) %>%
+        dplyr::mutate(term_new = dplyr::case_when(
+          condition == 1 & stringr::str_extract(term, "^.") %in% c("a", "e", "i", "o", "u") ~ paste0("an_", term),
+          condition == 1 ~ paste0("a_", term),
+          condition == 2 ~ paste0("the_", term),
+          condition == 3 ~ plural,
+          condition == 4 ~ paste0("the_", plural),
+          condition == 5 ~ paste0("all_", plural)
+        )) %>%
+        dplyr::select(term_new, dimension, mean, sd) %>%
+        tidyr::pivot_wider(names_from = dimension, values_from = c("mean", "sd")) %>%
+        dplyr::rename(E = mean_E,
+                      P = mean_P,
+                      A = mean_A,
+                      term = term_new) %>%
+        dplyr::mutate(across(c(E, P, A, starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
+        dplyr::mutate(component = "identity",
+                      gender = "average")
+    } else if (grepl("techvshuman", key)){
+      data_std <- data %>%
+        dplyr::rename(
+          term_human = X,
+          term_comp = X.1,
+          term_ai = X.2,
+          E_human = Evaluation,
+          E_comp = X.3,
+          E_ai = X.4,
+          P_human = Potency,
+          P_comp = X.5,
+          P_ai = X.6,
+          A_human = Activity,
+          A_comp = X.7,
+          A_ai = X.8
+        ) %>%
+        dplyr::filter(term_human != "human identity") %>%
+        tidyr::pivot_longer(cols = everything(),
+                            names_to = c(".value", "actortype"),
+                            names_pattern = "(.*)_(.*)") %>%
+        dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
+        dplyr::select(-actortype) %>%
+        dplyr::mutate(component = "identity",
+                      gender = "average") %>%
+        standardize_terms(key = key)
+    } else if (grepl("ugatech", key)){
+      data_std <- data %>%
+        dplyr::mutate(n_E_male = n_male,
+                      n_P_male = n_male,
+                      n_A_male = n_male,
+                      n_E_female = n_female,
+                      n_P_female = n_female,
+                      n_A_female = n_female) %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+                      mean_E_average = (mean_E_male * n_male + mean_E_female * n_female)/(n_male + n_female),
+                      mean_P_average = (mean_P_male * n_male + mean_P_female * n_female)/(n_male + n_female),
+                      mean_A_average = (mean_A_male * n_male + mean_A_female * n_female)/(n_male + n_female),
+                      sd_E_average = sqrt(((n_male - 1)*sd_E_male^2 + (n_female - 1)*sd_E_female^2)/(n_male + n_female - 2)),
+                      sd_P_average = sqrt(((n_male - 1)*sd_P_male^2 + (n_female - 1)*sd_P_female^2)/(n_male + n_female - 2)),
+                      sd_A_average = sqrt(((n_male - 1)*sd_A_male^2 + (n_female - 1)*sd_A_female^2)/(n_male + n_female - 2)),
+                      n_E_average = n_male + n_female,
+                      n_P_average = n_male + n_female,
+                      n_A_average = n_male + n_female,
+                      ) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-n_male, -n_female) %>%
+        tidyr::pivot_longer(cols = c(contains("male"), contains("average")),
+                            names_to = c(".value", "dimension", "gender"),
+                            names_sep = "_") %>%
+        dplyr::group_by(term, gender) %>%
+        dplyr::mutate(across(c("mean", "sd"), ~round(., digits = 2))) %>%
+        tidyr::pivot_wider(names_from = "dimension", values_from = c("mean", "sd", "n")) %>%
+        dplyr::rename(E = mean_E,
+                      P = mean_P,
+                      A = mean_A)
+    }
+  }
+
+  data_std <- data_std %>%
+    dplyr::mutate(context = ifelse(!grepl("calcutta", key), dict_meta[dict_meta$key == key, "context"], context),
+                  year = year,
+                  dataset = key) %>%
+    dplyr::select(any_of(cnames))
+
+  mean_epa <- mean_epa %>%
+    dplyr::full_join(data_std)
+}
 
 
 
@@ -295,7 +449,7 @@ for(file in ind_file_list){
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
   if(!(key %in% exclude_keys)){
     # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
-    context <- meta[meta$key == key, "context"]
+    context <- dict_meta[dict_meta$key == key, "context"]
     # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
     year <- stringr::str_extract(key, "[[:digit:]]*$")
     # year <- meta[meta$key == key, "year"]
@@ -364,81 +518,6 @@ individual <- individual %>%
 #   dplyr::filter(n > 1)
 
 
-# #### INDIVIDUAL DATASETS FROM LULHAM AND SHANK #############################################
-#
-#
-# mean_variance_epa <- data.frame(matrix(nrow = 0, ncol = length(cnames) - 1))
-# individual <- data.frame()
-# names(mean_variance_epa) <- cnames[cnames != "instcodes"]
-#
-# source_folder <- "dicts/lulhamshank/indiv/"
-# ind_file_list <- grep("RDS$", list.files(source_folder), value = TRUE)
-# for(file in ind_file_list){
-#   path <- paste0(source_folder, "/", file)
-#
-#   # TODO: maybe some NA values in dukecommunity 2015??
-#   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
-#   if(!(key %in% exclude_keys)){
-#     # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
-#     context <- meta[meta$key == key, "context"]
-#     # I'm leaving year as a regex instead of taking it from meta because this ensures it is numeric and therefore sortable
-#     year <- stringr::str_extract(key, "[[:digit:]]*$")
-#     # year <- meta[meta$key == key, "year"]
-#
-#     data <- readRDS(file = path) %>%
-#       dplyr::mutate(dataset = key,
-#                     context = context,
-#                     year = year) %>%
-#       dplyr::select(dataset, context, year, dplyr::everything()) %>%
-#       dplyr::mutate(across(everything(), as.character))
-#
-#     sum_data <- epa_summary(data)
-#     # commented out because it fails with the mturk dictionary, I think because it calculates the sd with all values but the vcov matrix only with complete pairs.
-#     # if(!check_sd_cov_vals(sum_data)){
-#     #   stop(print(paste("error with current dataset ", key)))
-#     # }
-#
-#     # add in dataset level variables
-#     # in principle you could calculate different gender versions but in practice these are generally not useful so I am going to lump all together.
-#     # if someone wants to do this (for any characteristic) they can using the individual data.
-#     sum_data <- sum_data %>%
-#       dplyr::mutate(dataset = key,
-#                     context = context,
-#                     year = year,
-#                     gender = "average",
-#                     E = mean_E,
-#                     P = mean_P,
-#                     A = mean_A) %>%
-#       dplyr::select(any_of(cnames))
-#
-#     # some of this info is duplicative but also this is what bayesact expects so perhaps it's worth keeping all and just making note... the datasets aren't that big
-#     mean_variance_epa <- rbind(mean_variance_epa, sum_data)
-#
-#     if(nrow(individual) == 0){
-#       individual <- data.frame(matrix("", nrow = 0, ncol = ncol(data)))
-#       names(individual) <- names(data)
-#     }
-#
-#     individual <- dplyr::full_join(individual, data)
-#   }
-# }
-#
-# duplicateid <- individual %>%
-#   dplyr::select(dataset, userid) %>%
-#   dplyr::distinct() %>%
-#   dplyr::group_by(userid) %>%
-#   dplyr::mutate(n = dplyr::n()) %>%
-#   dplyr::filter(n > 1,
-#                 dataset %in% c("usfullsurveyor2015", "usstudent2015")) %>%
-#   dplyr::select(-n)
-#
-# individual <- individual %>%
-#   dplyr::anti_join(duplicateid)
-
-
-
-
-
 #### INSTITUTION CODES #################################
 
 instcodes_df <- utils::read.csv2("data-raw/dicts/instcodes.csv", header = FALSE, sep = ",", col.names = c("term", "component", "instcodes"))
@@ -459,7 +538,10 @@ individual <- individual %>%
                          "raceeth", "race", "race1", "race2", "hisp", "term", "component", "instcodes")),
                 everything())
 
-individual <- tibble::as_tibble(individual)
+individual <- tibble::as_tibble(individual) %>%
+  dplyr::mutate(E = as.numeric(E),
+                P = as.numeric(P),
+                A = as.numeric(A))
 
 
 epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
@@ -475,7 +557,10 @@ epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::select(-instcodes_old) %>%
   dplyr::select(term, component, dataset, context, year, gender, instcodes, everything())
 
-epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)
+epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)  %>%
+  dplyr::mutate(E = as.numeric(E),
+                P = as.numeric(P),
+                A = as.numeric(A))
 
 # there are 642 instances where institution codes do not agree between the uga set and whatever the old set was
 # I am overwriting the old codes with the uga codes, for consistency

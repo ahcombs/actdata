@@ -23,7 +23,9 @@ standardize_terms <- function(data, key, component = "undetermined"){
   } else if (component == "identities") {
     data <- data %>%
       dplyr::mutate(term = str_replace(.data$term, "divorcee", "divorcee (gender neutral)"))
-  } else if (component == "undetermined"){
+  } else if (component == "undetermined" &
+             !(grepl("generaltech", key) | grepl("employeeorg", key) | grepl("ugatech", key) |
+               grepl("groups", key) | grepl("nounphrasegrammar", key) | grepl("techvshuman", key))){
     # this applies to the individual level data where all terms are mixed together. We need to extract the component from the term ID
     # most terms have an indicator on the front followed by an underscore (ie, i_firefighter)
     # in the Egypt and Morocco dictionaries, some do not and instead they have some other code that I don't understand for term ID (ie, mi29)
@@ -49,9 +51,22 @@ standardize_terms <- function(data, key, component = "undetermined"){
       dplyr::select(-label)
   }
 
+  if(!grepl("values", key)){
+    data <- data %>%
+      dplyr::mutate(
+        term = stringr::str_squish(.data$term),
+        term = str_replace_all(.data$term, "\\*", ""),
+        term = str_replace_all(.data$term, "[\\s-]", "_"),
+        term = str_replace(.data$term, "^a?A?n?i?b?m?s?o?_", "")
+        )
+  }
+
   data_clean <- data %>%
     dplyr::mutate(
-      term_new = str_replace_all(.data$term, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
+      term_new = term,
+      term_new = str_replace_all(.data$term_new, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
+      term_new = str_replace_all(.data$term_new, "\\*", ""),
+      term_new = str_replace_all(.data$term_new, "/", " "),
       term_new = str_replace_all(.data$term_new, "[_-]", " "),
       term_new = stringr::str_squish(.data$term_new),
       term_new = tolower(.data$term_new),
@@ -59,7 +74,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace_all(.data$term_new, "\\(_", "\\("),
       term_new = str_replace_all(.data$term_new, "\\.", "_"),
       term_new = str_replace_all(.data$term_new, "__", "_"),
-      term_new = str_replace(.data$term_new, "^a?A?n?i?b?m?s?o?_", ""),
+      # term_new = str_replace(.data$term_new, "^a?A?n?i?b?m?s?o?_", ""),
 
       # remove parentheses and single and double quotes -- interact does not accept them
       term_new = str_replace_all(.data$term_new, "\\(", ""),

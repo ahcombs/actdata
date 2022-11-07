@@ -1,0 +1,62 @@
+﻿,,,Evaluation,,,Potency,,,Activity,,
+human identity,computer system,artificial intelligence,human identity,computer system,artificial intelligence,human identity,computer system,artificial intelligence,human identity,computer system,artificial intelligence
+a background check verification investigator,a background check computer system,a background check artificial intelligence,0.791304348,1.339130435,0.588461538,1.213043478,1.430434783,1.55,-0.647826087,0.826086957,0.003846154
+a bomb disposal technician,a bomb disposal computer system,a bomb disposal artificial intelligence,2.09,2.222222222,2.404166667,1.64,2.444444444,2.266666667,1.125,1.683333333,0.729166667
+a Call of Duty participant,a Call of Duty playing computer system,a Call of Duty playing artificial intelligence,0.648148148,0.210714286,-0.091666667,0.65,0.582758621,0.369230769,1.996296296,1.706666667,0.6
+a card game participant,a card game playing computer system,a card game playing artificial intelligence,0.828571429,1.166666667,0.876666667,-0.055,0.063636364,0.073333333,-0.985714286,0.539393939,-0.093333333
+a cartographer,a cartography computer system,a cartography artificial intelligence,2.213333333,1.447368421,1.116666667,0.866666667,1.194736842,1.011111111,-1.086666667,-0.505263158,-0.672222222
+a character designer,a character design computer system,a character design artificial intelligence,2.25,0.466666667,0.934782609,0.525,0.683333333,0.791666667,0.908333333,0.538888889,0.4375
+a chess game participant,a chess playing computer system,a chess playing artificial intelligence,1.265,1.626086957,1.192,0.76,1.696,1.288461538,-1.533333333,0.336,0.019230769
+a cyber terrorism analyst,a cyber terrorism screening computer system,a cyber terrorism screening artificial intelligence,2.064705882,1.852380952,1.456521739,1.694117647,2.147619048,2.852173913,0.752941176,1.447619048,1.591304348
+a finance manager,a finance management computer system,a finance management artificial intelligence,0.314285714,1.317857143,1.057692308,1.325,1.421428571,1.365384615,0.389285714,0.35,0.896153846
+a gate security guard,a gate security computer system,a gate security artificial intelligence,1.125,1.707692308,0.75,0.753571429,1.465384615,0.9,-0.692857143,-0.115384615,-0.30952381
+a hacker,a hacking computer system,a hacking artificial intelligence,-1.945945946,-1.557575758,-1.693939394,1.964102564,2.5,2.342424242,0.451282051,1.027272727,1.034375
+a hazardous waste disposing employee,a hazardous waste disposing computer system,a hazardous waste disposing artificial intelligence,1.207407407,1.370833333,1.4875,1.039285714,1.254166667,1.6375,0.589285714,0.9,0.995833333
+a health specialist,a health consultation computer system,a health consultation artificial intelligence,2.476190476,1.255,0.868181818,1.938095238,0.933333333,0.9,1.20952381,0.014285714,0.136363636
+a language translating individual,a language translation computer system,a language translation artificial intelligence,2.525,1.838235294,1.765217391,1.225,1.714705882,1.517391304,0.84,0.532352941,0.247826087
+a language tutor,a language tutoring computer system,a language tutoring artificial intelligence,2.548275862,2.046153846,1.693333333,1.362068966,0.715384615,1.229032258,-0.155172414,0.615384615,1.096774194
+a crane operator,a crane operating computer system,a crane operating artificial intelligence,1.026666667,1.18,1.08,1.246666667,1.606666667,1.892307692,1.003333333,1.293333333,1.019230769
+a market data analyst,a market data analysis computer system,a market data analysis artificial intelligence,0.855882353,1.230769231,1.027272727,1.006060606,1.411111111,0.927272727,0.321212121,1.354166667,0.463636364
+a miner,a mining computer system,a mining artificial intelligence,0.78,0.226086957,0.547619048,1.776190476,1.9125,1.504761905,1.90952381,0.445833333,1.30952381
+a missle systems operator,a missile launching computer system,a missile launching artificial intelligence,-0.537142857,-0.9,-0.877272727,2.116666667,2.435714286,2.930434783,1,0.960714286,0.982608696
+a money launderer,a money laundering computer system,a money laundering artificial intelligence,-2.34375,-2.671428571,-2.314814815,0.935294118,1.746428571,1.533333333,-0.196875,0.85,0.562962963
+a field artillery specialist,a field artillery computer system,a field artillery artificial intelligence,0.13125,0.44375,0.038095238,1.98125,2.575,1.995238095,1.0875,2.025,0.957142857
+a helmsperson,a navigation computer system,a navigation artificial intelligence,1.207142857,2.133333333,1.781818182,1.557142857,1.6125,1.879166667,0.628571429,1.195833333,1.1875
+a nutritionist,a nutrition planning computer system,a nutrition planning artificial intelligence,2.14375,1.706060606,1.605263158,0.9375,1.2,0.552631579,-0.065625,0.081818182,0.110526316
+a photo editor,a photo editing computer system,a photo editing artificial intelligence,1.782758621,1.643478261,1.064,0.68,0.965217391,1.16,-0.703333333,0.304347826,-0.02
+a ponzi scammer,a ponzi scamming computer system,a ponzi scamming artificial intelligence,-2.689473684,-3.4125,-3.452941176,0.084210526,1.50625,1.317647059,0.427777778,0.85625,1.50625
+a porn distributor,a porn distribution computer system,a porn distribution artificial intelligence,-1.073684211,-0.18,-0.475,-0.210526316,0.388,0.508333333,0.468421053,0.58,0.795652174
+a combat medic,a portable medical computer system,a portable medical artificial intelligence,2.844444444,2.368,2.046666667,2.383333333,1.84,1.93,2.011111111,1.088,0.833333333
+a preacher,a preaching computer system,a preaching artificial intelligence,0.908,0.146153846,-1.184615385,0.459259259,0.453846154,0.232,1.088888889,0.3,0.328
+a product assembling employee,a product assembling computer system,a product assembling artificial intelligence,1.273913043,1.444,1.303448276,-0.539130435,1.972,1.813333333,0.765217391,2.076,1.783333333
+a proofreading individual,a proofreading computer system,a proofreading artificial intelligence,2.088888889,2.324242424,1.34,0.540740741,1.463636364,0.671428571,-0.562962963,-0.051515152,0.455172414
+a propaganda distributor,a propaganda distributing computer system,a propaganda distributing artificial intelligence,-2.114705882,-2.262962963,-2.124242424,1.744117647,2.185185185,1.718181818,1.908823529,1.748148148,1.051515152
+a resource distributor,a resource distribution computer system,a resource distribution artificial intelligence,0.933333333,1.288235294,0.855,1.175,1.6375,1.257142857,0.6,1.452941176,0.876190476
+a rollercoater maintenance worker,a rollercoaster maintanence computer system,a rollercoaster maintanence artificial intelligence,1.451612903,1.603333333,1.466666667,0.522580645,1.373333333,1.2,0.712903226,0.723333333,1.387096774
+a safety inspector,a safety inspection computer system,a safety inspection artificial intelligence,1.433333333,1.6,1.068,1.1,0.896428571,1.432,0.179166667,0.396428571,-0.152
+a sales forecasting analyst,a sales forecasting computer system,a sales forecasting artificial intelligence,0.83125,1.011111111,1.42173913,1.00625,0.788888889,1.430434783,0.675,0.388888889,0.165217391
+an infantry scout,a military scouting computer system,a military scouting artificial intelligence,1.047058824,1.047826087,-0.15,1.852941176,2.208695652,1.715789474,0.376470588,0.669565217,0.805263158
+a script editor,a script editing computer system,a script editing artificial intelligence,1.472727273,1.5125,1.3,1.2,0.870833333,1.179310345,0.130434783,0.016666667,-0.360714286
+a tailor,a sewing computer system,a sewing artificial intelligence,1.743478261,1.845454545,1.341666667,0.5,1.065217391,0.948,-0.456521739,1.465217391,0.756
+a social media manager,a social media management computer system,a social media management artificial intelligence,0.67826087,0.440909091,0.086206897,0.543478261,0.795652174,0.666666667,0.652173913,0.643478261,0.248275862
+a special tactics officer,a special tactics computer system,a special tactics artificial intelligence,0.380952381,1.068421053,0.83125,2.352380952,1.878947368,1.3875,0.852380952,0.947368421,1.20625
+a submarine navigator,a submarine navigation computer system,a submarine navigation artificial intelligence,1.392592593,2.646428571,1.877777778,2.02962963,2.467857143,2.338888889,0.87037037,1.175,0.658823529
+a suicide bomber,a suicide bombing computer system,a suicide bombing artificial intelligence,-3.3,-2.810344828,-2.039130435,1.24,1.979310345,2.308695652,1.757894737,0.248275862,1.390909091
+a surveillance guard,a surveillance computer system,a surveillance artificial intelligence,1.135714286,0.448275862,-0.411538462,1.046428571,2.065517241,2.111538462,-0.978571429,0.096551724,0.25
+a tank driver,a tank driving computer system,a tank driving artificial intelligence,0.626086957,0.208,-0.45,2.308333333,1.772,2.168,1.4875,1,1.470833333
+a trash collector,a trash collecting computer system,a trash collecting artificial intelligence,2.028125,1.421052632,1.67826087,0.965625,1.010526316,1.426086957,1.840625,0.836842105,1.239130435
+a video game debugger,a video game debugging computer system,a video game debugging artificial intelligence,1.780555556,1.63,1.631578947,0.858333333,1.61,1.28,-0.325,0.41,0.59
+a vocal coach,a vocal feedback computer system,a vocal feedback artificial intelligence,1.847826087,1.245833333,0.616666667,0.886956522,0.745833333,0.456521739,1.817391304,1.054166667,1.252173913
+a volunteer manager,a volunteer management computer system,a volunteer management artificial intelligence,2.279487179,1.681818182,0.941666667,0.746153846,1.038095238,0.841666667,0.4625,0.177272727,0.175
+a water fitness trainer,a water fitness training computer system,a water fitness training artificial intelligence,1.744,1.573333333,0.9,1.54,0.76,-0.076470588,1.488,0.273333333,0.182352941
+a woodworker,a woodworking computer system,a woodworking artificial intelligence,1.585714286,1.638461538,0.903225806,1.540909091,1.433333333,0.633333333,0.831818182,1.214814815,0.825806452
+an account analyst,an account analysis computer system,an account analysis artificial intelligence,0.835,1.472,1.033333333,0.925,0.964,1.057142857,0.03,0.256,0.104761905
+an accountant,an accounting computer system,an accounting artificial intelligence,1.333333333,1.266666667,0.863636364,0.420588235,1.691666667,1.090909091,-0.85,0.116666667,0.277272727
+an air tactics specialist,an air tactics computer system,an air tactics artificial intelligence,0.719047619,1.138461538,1.805,1.30952381,1.592307692,2.17,0.638095238,1.457142857,2.04
+an air traffic controller,an air traffic control computer system,an air traffic control artificial intelligence,1.933333333,1.708,1.1,1.616666667,1.796,1.824,1.541666667,0.608,0.908
+an aircraft maintence specialist,an aircraft maintanence computer system,an aircraft maintanence artificial intelligence,2.073913043,1.91875,1.857142857,1.708333333,2.09375,1.995,0.704166667,0.83125,1.152380952
+an engine repairperson,an engine repair computer system,an engine repair artificial intelligence,1.615555556,2.075,1.431578947,1.384090909,2.15,1.842105263,0.666666667,0.91875,1.178947368
+an entertainment booking individual,an entertainment booking computer system,an entertainment booking artificial intelligence,0.413333333,1.033333333,0.983333333,0.64,0.547619048,0.53,0.833333333,0.623809524,0.623333333
+an explosives disposer,an explosives disposing computer system,an explosives disposing artificial intelligence,2.186363636,1.139285714,1.411111111,2.554545455,1.503571429,2.133333333,0.718181818,1.092857143,1.383333333
+an information analyst,an information analysis computer system,an information analysis artificial intelligence,1.136363636,1.85,0.838709677,1.009090909,2.517857143,1.680645161,-0.327272727,1.596428571,0.558064516
+an online recruiter,an online recruitment computer system,an online recruitment artificial intelligence,0.360869565,-0.015789474,-0.495454545,0.143478261,0.589473684,0.45,0,-0.121052632,0.418181818
