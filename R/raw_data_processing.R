@@ -57,7 +57,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
         term = stringr::str_squish(.data$term),
         term = str_replace_all(.data$term, "\\*", ""),
         term = str_replace_all(.data$term, "[\\s-]", "_"),
-        term = str_replace(.data$term, "^a?A?n?i?b?m?s?o?_", "")
+        term = str_replace(.data$term, "^a?A?n?i?b?m?s?t?o?_", "")
         )
   }
 
@@ -112,6 +112,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^househusband$', "house_husband"),
       term_new = str_replace(.data$term_new, '^houseguest$', "house_guest"),
       term_new = str_replace(.data$term_new, '^illigitimate_child$', "illegitimate_child"),
+      term_new = str_replace(.data$term_new, '^i_myself_as$', "myself_as"),
       term_new = str_replace(.data$term_new, '^justice_supreme_court$', "justice_of_the_supreme_court"),
       term_new = str_replace(.data$term_new, '^ladykiller$', "lady_killer"),
       term_new = str_replace(.data$term_new, '^lawbreaker$', "law_breaker"),
@@ -222,8 +223,42 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, "^tranquillity$", "tranquility"),
       term_new = str_replace(.data$term_new, "^reciprocation_of_favours$", "reciprocation_of_favors"),
 
+      # fixing spacing with "a"
+      term_new = str_replace(.data$term_new, "^bathing_ababy$", "bathing_a_baby"),
+      term_new = str_replace(.data$term_new, "^cleaning_abathroom$", "cleaning_a_bathroom"),
+      term_new = str_replace(.data$term_new, "^cleaning_akitchen$", "cleaning_a_kitchen"),
+      term_new = str_replace(.data$term_new, "^diapering_ababy$", "diapering_a_baby"),
+      term_new = str_replace(.data$term_new, "^feeding_ababy$", "feeding_a_baby"),
+      term_new = str_replace(.data$term_new, "^sweeping_afloor$", "sweeping_a_floor"),
+      term_new = str_replace(.data$term_new, "^vacuuming_acarpet$", "vacuuming_a_carpet"),
+      term_new = str_replace(.data$term_new, "_aharsh_", "_a_harsh_"),
+      term_new = str_replace(.data$term_new, "_ahand_", "_a_hand_"),
+      term_new = str_replace(.data$term_new, "_asweeping_", "_a_sweeping_"),
+      term_new = str_replace(.data$term_new, "_ahigh_", "_a_high_"),
+      term_new = str_replace(.data$term_new, "_ahoarse_", "_a_hoarse_"),
+      term_new = str_replace(.data$term_new, "_amellow_", "_a_mellow_"),
+      term_new = str_replace(.data$term_new, "_alow_", "_a_low_"),
+      term_new = str_replace(.data$term_new, "_amonotone", "_a_monotone"),
+      term_new = str_replace(.data$term_new, "_aquavering_", "_a_quavering_"),
+      term_new = str_replace(.data$term_new, "_astep_", "_a_step_"),
+      term_new = str_replace(.data$term_new, "_afamily", "_a_family"),
+      term_new = str_replace(.data$term_new, "_ajoint_", "_a_joint_"),
+      term_new = str_replace(.data$term_new, "^making_afist$", "making_a_fist"),
+      term_new = str_replace(.data$term_new, "_awar_", "_a_war_"),
+      term_new = str_replace(.data$term_new, "_acease_", "_a_cease_"),
+      term_new = str_replace(.data$term_new, "_athird_", "_a_third_"),
+      term_new = str_replace(.data$term_new, "_ageneral_", "_a_general_"),
+      term_new = str_replace(.data$term_new, "_adraft_", "_a_draft_"),
+      term_new = str_replace(.data$term_new, "_adelegation_", "_a_delegation_"),
+      term_new = str_replace(.data$term_new, "_aprotest_", "_a_protest_")
+
     ) %>%
-    dplyr::select(-.data$term) %>%
+    dplyr::mutate(
+      term_new = dplyr::case_when((grepl("expressive2002", key) | grepl("household1994", key) | grepl("internationaldomesticrelations1981", key)) ~
+                             str_replace(.data$term_new, "(?<=^[[:alpha:]]{1,50})ing(?=(_|$))", ""),
+                           TRUE ~ term_new)
+    ) %>%
+    dplyr::select(-term) %>%
     dplyr::rename(term = .data$term_new) %>%
     dplyr::select(.data$term, tidyselect::everything())
 
@@ -233,6 +268,122 @@ standardize_terms <- function(data, key, component = "undetermined"){
       dplyr::filter(!grepl("^divor.{,7}$", .data$term)) %>%
       dplyr::filter(!grepl("^fian", .data$term)) %>%
       dplyr::filter(!grepl("blackm|educatedm|elderlym|employedm|femalem|lower_classm|malem|middle_agedm|middle_classm|oldm$|poorm|richm|uneducatedm|unemployedm|wealthym|whitem|youngm", .data$term))
+  }
+
+  # fix the "ing" problems
+
+  if(grepl("expressive2002", key) | grepl("household1994", key) | grepl("internationaldomesticrelations1981", key)){
+    data_clean <- data_clean %>%
+      dplyr::mutate(term = str_replace(.data$term, "^bar[e]?(?=(_|$))", "bare"),
+                    term = str_replace(.data$term, "^clapp", "clap"),
+                    term = str_replace(.data$term, "^clos[e]?(?=(_|$))", "close"),
+                    term = str_replace(.data$term, "^giggl[e]?(?=(_|$))", "giggle"),
+                    term = str_replace(.data$term, "^glanc[e]?(?=(_|$))", "glance"),
+                    term = str_replace(.data$term, "^grinn", "grin"),
+                    term = str_replace(.data$term, "^hugg", "hug"),
+                    term = str_replace(.data$term, "^ly", "lie"),
+                    term = str_replace(.data$term, "^mak[e]?(?=(_|$))", "make"),
+                    term = str_replace(.data$term, "^nodd", "nod"),
+                    term = str_replace(.data$term, "^ogl[e]?(?=(_|$))", "ogle"),
+                    term = str_replace(.data$term, "^patt", "pat"),
+                    term = str_replace(.data$term, "^plac[e]?(?=(_|$))", "place"),
+                    term = str_replace(.data$term, "^putt", "put"),
+                    term = str_replace(.data$term, "^rais[e]?(?=(_|$))", "raise"),
+                    term = str_replace(.data$term, "^shak[e]?(?=(_|$))", "shake"),
+                    term = str_replace(.data$term, "^shrugg", "shrug"),
+                    term = str_replace(.data$term, "^sitt", "sit"),
+                    term = str_replace(.data$term, "^smil[e]?(?=(_|$))", "smile"),
+                    term = str_replace(.data$term, "^snuggl[e]?(?=(_|$))", "snuggle"),
+                    term = str_replace(.data$term, "^spitt", "spit"),
+                    term = str_replace(.data$term, "^star[e]?(?=(_|$))", "stare"),
+                    term = str_replace(.data$term, "^tak[e]?(?=(_|$))", "take"),
+                    term = str_replace(.data$term, "^tickl[e]?(?=(_|$))", "tickle"),
+                    term = str_replace(.data$term, "^wav[e]?(?=(_|$))", "wave"),
+                    term = str_replace(.data$term, "^wrinkl[e]?(?=(_|$))", "wrinkle"),
+                    term = str_replace(.data$term, "^bath[e]?(?=(_|$))", "bathe"),
+                    term = str_replace(.data$term, "^driv[e]?(?=(_|$))", "drive"),
+                    term = str_replace(.data$term, "^hav[e]?(?=(_|$))", "have"),
+                    term = str_replace(.data$term, "^pollut[e]?(?=(_|$))", "pollute"),
+                    term = str_replace(.data$term, "^accus[e]?(?=(_|$))", "accuse"),
+                    term = str_replace(.data$term, "^announc[e]?(?=(_|$))", "announce"),
+                    term = str_replace(.data$term, "^apologiz[e]?(?=(_|$))", "apologize"),
+                    term = str_replace(.data$term, "^assassinat[e]?(?=(_|$))", "assassinate"),
+                    term = str_replace(.data$term, "^captur[e]?(?=(_|$))", "capture"),
+                    term = str_replace(.data$term, "^ceas[e]?(?=(_|$))", "cease"),
+                    term = str_replace(.data$term, "^celebrat[e]?(?=(_|$))", "celebrate"),
+                    term = str_replace(.data$term, "^charg[e]?(?=(_|$))", "charge"),
+                    term = str_replace(.data$term, "^com[e]?(?=(_|$))", "come"),
+                    term = str_replace(.data$term, "^communicat[e]?(?=(_|$))", "communicate"),
+                    term = str_replace(.data$term, "^compensat[e]?(?=(_|$))", "compensate"),
+                    term = str_replace(.data$term, "^conclud[e]?(?=(_|$))", "conclude"),
+                    term = str_replace(.data$term, "^conferr", "confer"),
+                    term = str_replace(.data$term, "^creat[e]?(?=(_|$))", "create"),
+                    term = str_replace(.data$term, "^denounc[e]?(?=(_|$))", "denounce"),
+                    term = str_replace(.data$term, "^devaluat[e]?(?=(_|$))", "devaluate"),
+                    term = str_replace(.data$term, "^encourag[e]?(?=(_|$))", "encourage"),
+                    term = str_replace(.data$term, "^exchang[e]?(?=(_|$))", "exchange"),
+                    term = str_replace(.data$term, "^execut[e]?(?=(_|$))", "execute"),
+                    term = str_replace(.data$term, "^expell", "expel"),
+                    term = str_replace(.data$term, "^explor[e]?(?=(_|$))", "explore"),
+                    term = str_replace(.data$term, "^expropriat[e]?(?=(_|$))", "expropriate"),
+                    term = str_replace(.data$term, "^forbidd", "forbid"),
+                    term = str_replace(.data$term, "^freez[e]?(?=(_|$))", "freeze"),
+                    term = str_replace(.data$term, "^giv[e]?(?=(_|$))", "give"),
+                    term = str_replace(.data$term, "^impos[e]?(?=(_|$))", "impose"),
+                    term = str_replace(.data$term, "^improv[e]?(?=(_|$))", "improve"),
+                    term = str_replace(.data$term, "^incit[e]?(?=(_|$))", "incite"),
+                    term = str_replace(.data$term, "^increas[e]?(?=(_|$))", "increase"),
+                    term = str_replace(.data$term, "^interven[e]?(?=(_|$))", "intervene"),
+                    term = str_replace(.data$term, "^issu[e]?(?=(_|$))", "issue"),
+                    term = str_replace(.data$term, "^kidnapp", "kidnap"),
+                    term = str_replace(.data$term, "^legislat[e]?(?=(_|$))", "legislate"),
+                    term = str_replace(.data$term, "^lin[e]?", "line"),
+                    term = str_replace(.data$term, "^manipulat[e]?(?=(_|$))", "manipulate"),
+                    term = str_replace(.data$term, "^meet", "meeting"),
+                    term = str_replace(.data$term, "^merg[e]?(?=(_|$))", "merge"),
+                    term = str_replace(.data$term, "^min[e]?(?=(_|$))", "mine"),
+                    term = str_replace(.data$term, "^mobiliz[e]?(?=(_|$))", "mobilize"),
+                    term = str_replace(.data$term, "^nationaliz[e]?(?=(_|$))", "nationalize"),
+                    term = str_replace(.data$term, "^negotiat[e]?(?=(_|$))", "negotiate"),
+                    term = str_replace(.data$term, "^participat[e]?(?=(_|$))", "participate"),
+                    term = str_replace(.data$term, "^postpon[e]?(?=(_|$))", "postpone"),
+                    term = str_replace(.data$term, "^propos[e]?(?=(_|$))", "propose"),
+                    term = str_replace(.data$term, "^provid[e]?(?=(_|$))", "provide"),
+                    term = str_replace(.data$term, "^pursu[e]?(?=(_|$))", "pursue"),
+                    term = str_replace(.data$term, "^rais[e]?(?=(_|$))", "raise"),
+                    term = str_replace(.data$term, "^recogniz[e]?(?=(_|$))", "recognize"),
+                    term = str_replace(.data$term, "^reduc[e]?(?=(_|$))", "reduce"),
+                    term = str_replace(.data$term, "^refus[e]?(?=(_|$))", "refuse"),
+                    term = str_replace(.data$term, "^reshuffl[e]?(?=(_|$))", "reshuffle"),
+                    term = str_replace(.data$term, "^resum[e]?(?=(_|$))", "resume"),
+                    term = str_replace(.data$term, "^seiz[e]?(?=(_|$))", "seize"),
+                    term = str_replace(.data$term, "^shar[e]?(?=(_|$))", "share"),
+                    term = str_replace(.data$term, "^terminat[e]?(?=(_|$))", "terminate"),
+                    term = str_replace(.data$term, "^tortur[e]?(?=(_|$))", "torture"),
+                    term = str_replace(.data$term, "^violat[e]?(?=(_|$))", "violate"),
+                    term = str_replace(.data$term, "^writ[e]?(?=(_|$))", "write"),
+
+
+                    term = str_replace(.data$term, "_elevating_", "_elevate_"),
+                    term = str_replace(.data$term, "_organizing_", "_organize_"),
+                    term = str_replace(.data$term, "_torturing_", "_torture_"),
+                    term = str_replace(.data$term, "_aiding_", "_aid_"),
+                    term = str_replace(.data$term, "_blocking_", "_block_"),
+                    term = str_replace(.data$term, "_placing_", "_place_"),
+                    term = str_replace(.data$term, "_arresting_", "_arrest_"),
+                    term = str_replace(.data$term, "kidnap_or_assassinations_of_public_officials", "kidnappings_or_assassinations_of_public_officials")
+      )
+  }
+
+
+# politics2003: remove unnecessary "to_X_someone"
+  if(grepl("politics2003", key)){
+    data_clean <- data_clean %>%
+      dplyr::mutate(
+        term = str_replace(.data$term, "^to_", ""),
+        term = str_replace(.data$term, "_someone(?=(_|$))", ""),
+        term = str_replace(.data$term, "^having_", "have_"),
+      )
   }
 
   # The Lulham and Shank data--assign component
