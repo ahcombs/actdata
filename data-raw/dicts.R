@@ -217,7 +217,7 @@ mean_epa <- mean_epa %>%
 
 # usethis::use_data(mean_epa, overwrite = TRUE)
 
-#### MEANS DATASETS THAT NEED MORE REFORMATTING: CALCUTTA, LULHAM AND SHANK ####################################################
+#### MEANS DATASETS THAT NEED MORE REFORMATTING: CALCUTTA, LULHAM AND SHANK, MOSTAFAVI ####################################################
 
 source_folder <- "data-raw/dicts/summary_raw/"
 files <- list.files(source_folder)
@@ -418,6 +418,13 @@ for(file in files){
         dplyr::rename(E = mean_E,
                       P = mean_P,
                       A = mean_A)
+    } else if(grepl("mostafavi", key)){
+      data_std <- data %>%
+        dplyr::select(Original_term, component, E, P, A, E_std, P_std, A_std) %>%
+        dplyr::rename(term = Original_term) %>%
+        dplyr::mutate(gender = "average") %>%
+        standardize_terms(key = key)
+
     }
   }
 

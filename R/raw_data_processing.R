@@ -25,7 +25,8 @@ standardize_terms <- function(data, key, component = "undetermined"){
       dplyr::mutate(term = str_replace(.data$term, "divorcee", "divorcee (gender neutral)"))
   } else if (component == "undetermined" &
              !(grepl("generaltech", key) | grepl("employeeorg", key) | grepl("ugatech", key) |
-               grepl("groups", key) | grepl("nounphrasegrammar", key) | grepl("techvshuman", key))){
+               grepl("groups", key) | grepl("nounphrasegrammar", key) | grepl("techvshuman", key) |
+               grepl("mostafavi", key))){
     # this applies to the individual level data where all terms are mixed together. We need to extract the component from the term ID
     # most terms have an indicator on the front followed by an underscore (ie, i_firefighter)
     # in the Egypt and Morocco dictionaries, some do not and instead they have some other code that I don't understand for term ID (ie, mi29)
@@ -181,10 +182,17 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^complainto$', "complain_to"),
       term_new = str_replace(.data$term_new, '^crossexamine$', "cross_examine"),
       term_new = str_replace(.data$term_new, '^dickerwith$', "dicker_with"),
+      term_new = str_replace(.data$term_new, '^desire_someone_sexually$', "desire_sexually"),
       term_new = str_replace(.data$term_new, '^doublecross$', "double_cross"),
+      term_new = str_replace(.data$term_new, '^escape_from$', "escape"),
+      term_new = str_replace(.data$term_new, '^flee_from$', "flee"),
       term_new = str_replace(.data$term_new, '^freakout$', 'freak_out'),
       term_new = str_replace(.data$term_new, '^have_heart_to_heart_talk_with$', "have_a_heart_to_heart_talk_with"),
       term_new = str_replace(.data$term_new, '^humour$', 'humor'),
+      term_new = str_replace(.data$term_new, '^promise_something$', 'promise_something_to'),
+      term_new = str_replace(.data$term_new, '^scheming$', 'scheme'),
+      term_new = str_replace(.data$term_new, '^sell_to$', 'sell_something_to'),
+      term_new = str_replace(.data$term_new, '^suggest_to$', 'suggest_something_to'),
       term_new = str_replace(.data$term_new, '^snear_at$', "sneer_at"),
       term_new = str_replace(.data$term_new, '^co_operate_with$', "cooperate_with"),
       term_new = str_replace(.data$term_new, '^deride_mock_scoff_at_ridicule_3$', "deride_mock_scoff_at_ridicule_translation_3"),
@@ -250,7 +258,9 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, "_ageneral_", "_a_general_"),
       term_new = str_replace(.data$term_new, "_adraft_", "_a_draft_"),
       term_new = str_replace(.data$term_new, "_adelegation_", "_a_delegation_"),
-      term_new = str_replace(.data$term_new, "_aprotest_", "_a_protest_")
+      term_new = str_replace(.data$term_new, "_aprotest_", "_a_protest_"),
+      term_new = str_replace(.data$term_new, "_apartial_", "_a_partial_"),
+      term_new = str_replace(.data$term_new, "_atotal_", "_a_total_")
 
     ) %>%
     dplyr::mutate(
