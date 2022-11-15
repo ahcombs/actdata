@@ -74,8 +74,8 @@ test_that("epa_subset works", {
                         sort(c("dukecommunity2015", "uga2015", "dukestudent2015"))))
   expect_true(all.equal(sort(unique(epa_subset(dataset = "usstudent2015", datatype = "individual")$dataset)),
                         sort(c("uga2015", "dukestudent2015"))))
-  expect_equal(indiv, epa_subset(expr = "genius", datatype = "individual"))
-  expect_equal(indiv, epa_subset(expr = "genius", datatype = "i"))
+  expect_equal(indiv, epa_subset(expr = "genius", exactmatch = TRUE, datatype = "individual"))
+  expect_equal(indiv, epa_subset(expr = "genius", exactmatch = TRUE, datatype = "i"))
   expect_error(epa_subset(datatype = c("summary", "individual")), "Only one data type may be provided")
   expect_error(epa_subset(datatype = c("summary", "summary")), "Only one data type may be provided")
 

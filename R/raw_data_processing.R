@@ -48,8 +48,8 @@ standardize_terms <- function(data, key, component = "undetermined"){
   if(grepl("occs", key)){
     data <- data %>%
       dplyr::left_join(occsterms, by = "term") %>%
-      dplyr::mutate(term = ifelse(!is.na(label), label, term)) %>%
-      dplyr::select(-label)
+      dplyr::mutate(term = ifelse(!is.na(.data$label), .data$label, .data$term)) %>%
+      dplyr::select(-.data$label)
   }
 
   if(!grepl("values", key)){
@@ -58,13 +58,14 @@ standardize_terms <- function(data, key, component = "undetermined"){
         term = stringr::str_squish(.data$term),
         term = str_replace_all(.data$term, "\\*", ""),
         term = str_replace_all(.data$term, "[\\s-]", "_"),
-        term = str_replace(.data$term, "^a?A?n?i?b?m?s?t?o?_", "")
+        term = str_replace(.data$term, "^a?A?n?i?b?m?s?_", ""),
+        term = str_replace(.data$term, "^t?o?_", "")
         )
   }
 
   data_clean <- data %>%
     dplyr::mutate(
-      term_new = term,
+      term_new = .data$term,
       term_new = str_replace_all(.data$term_new, "(?<!\\.)(?<![[:upper:]])(?=[[:upper:]])", " "),
       term_new = str_replace_all(.data$term_new, "\\*", ""),
       term_new = str_replace_all(.data$term_new, "/", " "),
@@ -98,6 +99,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
       term_new = str_replace(.data$term_new, '^chaperon$', "chaperone"),
       term_new = str_replace(.data$term_new, '^chief_justice_sup_court$', "chief_justice_of_the_supreme_court"),
       term_new = str_replace(.data$term_new, 'computerexpert', "computer_expert"),
+      term_new = str_replace(.data$term_new, "^commerical", "commercial"),
       term_new = str_replace(.data$term_new, '^demogogue$', "demagogue"),
       term_new = str_replace(.data$term_new, '^dicatator$', "dictator"),
       term_new = str_replace(.data$term_new, '^dietitican$', "dietitian"),
@@ -266,9 +268,9 @@ standardize_terms <- function(data, key, component = "undetermined"){
     dplyr::mutate(
       term_new = dplyr::case_when((grepl("expressive2002", key) | grepl("household1994", key) | grepl("internationaldomesticrelations1981", key)) ~
                              str_replace(.data$term_new, "(?<=^[[:alpha:]]{1,50})ing(?=(_|$))", ""),
-                           TRUE ~ term_new)
+                           TRUE ~ .data$term_new)
     ) %>%
-    dplyr::select(-term) %>%
+    dplyr::select(-.data$term) %>%
     dplyr::rename(term = .data$term_new) %>%
     dplyr::select(.data$term, tidyselect::everything())
 
@@ -401,7 +403,7 @@ standardize_terms <- function(data, key, component = "undetermined"){
     data_clean <- data_clean %>%
       dplyr::mutate(
         component = dplyr::case_when(
-          grepl("with", term) ~ "modified_identity",
+          grepl("with", .data$term) ~ "modified_identity",
           term %in% c(
             "safe",
             "sudoku",

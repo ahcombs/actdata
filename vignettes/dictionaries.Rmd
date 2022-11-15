@@ -19,42 +19,52 @@ library(actdata)
 library(dplyr)
 ```
 
-# EPA dictionaries
+# EPA dictionary data
 
-actdata makes available a number of what are known as EPA dictionaries. These dictionaries provide the measured evaluation, potency, and activity values associated with terms. 
+actdata makes available a number of what are known as EPA dictionaries. These dictionaries provide the measured evaluation, potency, and activity (EPA) values associated with terms. 
 
-This package contains data from 26 different publicly available affect control theory dictionary datasets. Metadata for these datasets is shown in the table below. More detail on each of the columns is included below the table. 
+In addition to measured (or in one case, estimated) EPA values, the package provides metadata on the data collection and the term. These metadata are provided as additional variables. These variables are: 
 
-Within R, this meta information plus descriptions and citations from the sources can be accessed using `dict_info()`. Leaving the argument blank will print information for all data sets. Pass the function a data set key to see metadata for just that data set. 
+* **dataset**: an identifier unique to a particular study (e.g. `nc1978`; `morocco2015`). These keys are used within this package's functions to access particular datasets.
+* **context**: The country (or other context, such as the internet) where the data was originally collected. 
+* **year**: The year of data collection. In some cases these are approximate; always check original sources for definitive information.
+* **component**: indicates what category the term belongs to. Not all studies provide all possible components, and some focus on only one component. Components include: 
+    * **identity:** Words that can be used to refer to people. Identities can serve as the actors or the objects in an actor-behavior-object ACT event. They are typically nouns (e.g. academic, woman, youngster).
+    * **modified_identity:** A person with an item that may change their affective connotation (e.g. adolescent with a flat basketball). Note that there are also some identities modified with adjectives mixed into the "identities" category (e.g. white man)--those are classified as identities rather than modified identities at present. 
+    * **behavior:** Actions that people (or other entities, like governments) can perform. Most can serve as the behavior in an actor-behavior-object ACT event. These are typically verbs (e.g. wheedle, acclaim, work).
+    * **modifier:** Typically adjectives that can be applied to identities (e.g. active, witty, young)
+    * **setting:** Places and situations (e.g. airplane, alley, worship_service)
+    * **value:** Traits that people can have (some overlap with modifiers) or concepts or states of being that they may consider desirable or undesirable (e.g. authenticity, accessibility, tradition, risk averse)
+    * **artifact:** A non-human thing (e.g. cigar, gas guzzler, sports car, slippers)
+* **gender**: The gender of the respondents who provided the rating. Options are `male`, `female`, and `average`. "Average" indicates that respondents of all genders were included when calculating provided summary statistics, though the way this is calculated differs slightly by dictionary. Some dictionaries (e.g. the 2015 US, Morocco, and Egypt dictionaries) are originally published as average values over raters of all genders. In these cases, `average` is the only provided option. Other dictionaries are originally published in male and female subsets. Average values over all raters are not provided in these originally published sets. In this case, the package calculates an approximate average by averaging the male and female values. Typically, studies recruit approximately equal numbers of men and women and men and women's ratings do not differ substantially on most terms, so we expect these approximate average values to be reasonably close to those that we would obtain from an average over all raters. For these dictionaries that provide male and female subsets separately, the package provides male, female, and approximate average versions. For more information on gender and affect control theory dictionaries, see section 4.1 of David Heise's *Expressive Order* (2007). 
+* **instcodes:** A fourteen digit binary code that further classifies terms. See the section on institution codes below for details. 
+
+## Available dictionaries
+
+This package contains data from 38 different publicly available affect control theory dictionary datasets. Basic information on these dictionaries is shown in the table below. Detailed information on each dictionary, including references, is available at the end of this page.
+
+**Please cite these data!** The datasets included in this package were originally collected by a number of different research teams. When using them for publication, please cite both their publications about the data (linked in the dataset detail section below) and this package. 
+
+Within R, metadata plus descriptions and citations from the sources can be accessed using `dict_info()`. Leaving the argument blank will print information for all data sets. Pass the function a data set key to see metadata for just that data set. 
 
 ```{r dict key table, echo = FALSE}
 dict_table <- actdata:::get_meta("dict") %>% 
   dplyr::select(-filetype) %>% 
-  dplyr::select(key, context, year, stats, components, genders, individual, information, notes) %>% 
-  mutate(linkname = "Webpage")
+  dplyr::select(key, context, year, stats, components)
+                # , genders, individual, information, notes) %>% 
+  # mutate(linkname = "Webpage")
 
-dict_table$information <- kableExtra::cell_spec(dict_table$linkname, format = "html", link = dict_table$information)
+# dict_table$information <- kableExtra::cell_spec(dict_table$linkname, format = "html", link = dict_table$information)
 
-dict_table <- dplyr::select(dict_table, -linkname)
+# dict_table <- dplyr::select(dict_table, -linkname)
 
-names(dict_table) <- c("Dataset key", "Country or context", "Year", "Statistics available", "Components", "Genders", "Individual data available", "More information", "Notes")
+names(dict_table) <- c("Dataset key", "Country or context", "Year", "Statistics available", "Components")
+# , "Genders", "Individual data available", "More information", "Notes")
 
 dict_table %>% 
   kableExtra::kable(escape = FALSE) %>% 
   kableExtra::kable_styling()
 ```
-
-* *Dataset key*: an identifier unique to a particular study (e.g. `nc1978`; `morocco2015`). These keys are used within this package's functions to access particular datasets.
-* *Country or context*: The country (or other context, such as the internet) where the data was originally collected. 
-* *Year*: The year of data collection. In some cases these are approximate; always check original sources for definitive information.
-* *Data types*: This column indicates what types of summary data are available in a dictionary. Most older dictionaries (pre-2015) provide term EPA values only as `mean` values. For some more recent datasets, standard deviation (`sd`) and covariance (`cov`) information is also available. Most research in the affect control theory tradition has utilized just mean values, but some recent work (e.g., [Rogers 2019](https://doi.org/10.1177/2329496518805688)) and BayesACT ([Schröder, Hoey, and Rogers 2016](https://doi.org/10.1177/0003122416650963)), a recent Bayesian extension of the theory, have used variance information and individual-level responses to investigate topics like demographic patterning in meaning and the effects of meaning uncertainty.
-* *Component*: indicates what kind of terms are included in the dictionary dataset. Typically, studies provide dictionary datasets with more than one component, but not all studies provide all possible components. Components include: 
-    * *identity:* Words that describe actors. Typically nouns (e.g. academic, woman, youngster)
-    * *behavior:* Actions that actors can perform. Typically verbs (e.g. wheedle, acclaim, work)
-    * *modifier:* Typically adjectives that can be applied to identities (e.g. active, witty, young)
-    * *setting:* Places and situations (e.g. airplane, alley, worship_service)
-* *Genders*: indicates available gender subsets. Options are `male`, `female`, and `average`. "Average" indicates that participants of all genders were included, though the way this is calculated differs slightly by dictionary. Some dictionaries (e.g. the 2015 US, Morocco, and Egypt dictionaries) are originally published as average values over raters of all genders. In these cases, `average` is the only provided option. Other dictionaries are originally published in male and female subsets. Average values over all raters are not provided in these originally published sets. In this case, the package calculates an approximate average by averaging the male and female values. Typically, studies recruit approximately equal numbers of men and women and men and women's ratings do not differ substantially on most terms, so we expect these approximate average values to be reasonably close to those that we would obtain from an average over all raters. For these dictionaries that provide male and female subsets separately, the package provides male, female, and approximate average versions. For more information on gender and affect control theory dictionaries, see section 4.1 of David Heise's *Expressive Order* (2007). 
-* *Individual data available*: All data sets contain summary information. For some recent data sets, the respondent-level data used to generate summary statistics is available as well.
 
 ```{r}
 dict_info("nc1978")
@@ -94,7 +104,7 @@ head(f_mean_ontario1980)
 
 EPA summary information is likely to be sufficient for most research questions. Existing research in affect control theory almost always uses summary data. However, the respondent-level data used to compute these summaries may also be useful in particular instances. 
 
-Ten data sets, all from 2015 or later, include individual-level data, newly made publicly available in this package. Some of these are subsets of others. These are the following (see the dictionary table above or call `dict_info()` for more information):
+A number of data sets, all from 2015 or later, include individual-level data, newly made publicly available in this package. Some of these are subsets of others. These are the following (see the dictionary table above or call `dict_info()` for more information):
 
 1. morocco2015
 2. egypt2015
@@ -106,6 +116,9 @@ Ten data sets, all from 2015 or later, include individual-level data, newly made
 8. usfullsurveyor2015 (a combination of 4, 5, and 6)
 9. occs2019
 10. occs2020
+11. artifactmods2022
+12. humanvalues2022
+13. products2022
 
 All individual data is located in the `individual` data frame within this package. Like the summary datasets, these data are provided in long form, with one respondent's ratings of one term per row. Where available, respondents' gender, race, and age are also included.
 
@@ -156,18 +169,20 @@ Contexts restrict the labels that we consider reasonable choices. For instance, 
 EPA dictionaries usually contain 14-digit binary strings known as "institution codes" that contain information about what social contexts terms apply within. These codes can be used by analysis software when simulating interaction. 
 
 Valid categories are (see Heise's 2007 book *Expressive Order* for details): 
-  * male, female: What genders terms can typically be applied to (identities only)
-  * overt, surmised: Whether labeling behaviors requires interpretation or insight on the part of the observer (behaviors only)
-  * place, time: Type of setting (settings only)
-  * lay, business, law, politics, academe, medicine, religion, family, sexual: Social institutions that terms may belong to. Institutions, behaviors, and settings only.
-  * monadic, group, corporal: How a term requires or implicates others. Identities, behaviors, and settings only.
-  * adjective, adverb: Part of speech (modifiers)
-  * emotion, trait, status, feature, emotion_spiral: Categories for modifiers.
+
+* male, female: What genders terms can typically be applied to (identities only)
+* overt, surmised: Whether labeling behaviors requires interpretation or insight on the part of the observer (behaviors only)
+* place, time: Type of setting (settings only)
+* lay, business, law, politics, academe, medicine, religion, family, sexual: Social institutions that terms may belong to. Identities, behaviors, and settings only.
+* monadic, group, corporal: How a term requires or implicates others. Identities, behaviors, and settings only.
+* adjective, adverb: Part of speech (modifiers)
+* emotion, trait, status, feature, emotion_spiral: Categories for modifiers.
 
 This package provides several ways to demystify and make use of these codes. See the function documentation for more details. 
-  * The `epa_subset()` function takes an `institutions` argument that allows a user to filter by institution. 
-  * The `expand_instcodes()` function converts institution code strings into columns containing TRUE/FALSE/NA values. These values indicate whether a category is applicable to a term and, if so, whether the term belongs to the category. Representing institutions in this way makes it easier for users to work with them. 
-  * The `create_instcode()` function takes a component and a set of logical values indicating category membership and returns a properly formatted institution code binary string. This is useful for creating new institution codes.
+
+* The `epa_subset()` function takes an `institutions` argument that allows a user to filter by institution. 
+* The `expand_instcodes()` function converts institution code strings into columns containing TRUE/FALSE/NA values. These values indicate whether a category is applicable to a term and, if so, whether the term belongs to the category. Representing institutions in this way makes it easier for users to work with them. 
+* The `create_instcode()` function takes a component and a set of logical values indicating category membership and returns a properly formatted institution code binary string. This is useful for creating new institution codes.
 
 ```{r institution codes}
 businesslaw <- epa_subset(dataset = "morocco2015", institutions = c("business", "law"), stat = "mean") %>% 
@@ -183,4 +198,237 @@ head(businesslaw, 7)
 newcode <- create_instcode(component = "setting", place = TRUE, family = TRUE, religion = TRUE)
 print(paste("The institution code", newcode, "represents a setting that is a place and is relevant to only the family and religion domains."))
 ```
+
+# Dataset collection details
+
+Data collection efforts are typically intended to either be general or specific. General data collections aim to provide information on the typical, normative culture of a place, typically a country. They measure EPA for terms that apply to a wide range of social situations, and use samples of respondents that are argued to be either representative of a country's population at large or "cultural experts" who are deeply familiar with the types of spaces in which the cultural of interest is reproduced (Heise 2007). Data from these general data collections is often used in simulations of actor-behavior-object ACT events. Specific data collections measure EPA for terms in only a particular domain of interest, and may recruit respondents from only a target subpopulation of interest. Such data are sometimes used in simulations of events, but often the reason to collect them is to be able to better describe meanings in a particular domain. 
+
+Below, in approximate reverse chronological order within general/specific categories, are details including links for more information about the collection of each of the datasets contained in this package.
+
+
+## General dictionaries
+
+### mostafaviestimates2022
+
+Description: These EPA values were estimated using Mostafavi, Porter, and Robinson's Bidirectional Encoder Representations from Transforms (BERT) model. Most terms from previously collected dictionaries are included. 
+
+Sample: Not applicable; values were estimated, not empirically measured. However, the model was trained on the 2015 US Full Surveyor (usfullsurveyor2015) dataset. 
+
+Authors: Moeen Mostafavi, Michael D. Porter, Dawn T. Robinson
+
+Relevant publications/more information: [Mostafavi, Porter, and Robinson 2022](https://arxiv.org/abs/2202.00065)
+
+
+
+### Calcutta: calcuttaall2017 and calcuttasubset2017
+
+Description: Semantic differential ratings of 1,469 concepts in Bengali, a language spoken by about 250 million individuals in eastern India and Bangladesh. The calcuttaall2017 dataset contains summary information from all respondents. The calcuttasubset2017 dataset contains summary information calculated using data from just respondents who used scales as expected. See linked paper for details. 
+
+Sample: 20 male and 20 female native Bengali speakers living in Calcutta, India
+
+Year collected: Unknown
+
+Authors: Shibashis Mukherjee, David Heise
+
+Relevant publications/more information: [Mukherjee and Heise 2017](https://link.springer.com/article/10.3758/s13428-016-0704-6)
+
+
+
+### United States 2015: dukecommunity2015, dukestudent2015, uga2015, usfullsurveyor2015, usmturk2015, usstudent2015
+
+Description: Ratings of 929 identities, 814 behaviors, and 660 modifiers collected between 2012 and 2014 from several samples of people living in the United States: students at the University of Georgia (uga2015), students at Duke University (dukestudent2015), non-students living in Durham, North Carolina (dukecommunity2015), and US-based workers on Amazon Mechanical Turk (usmturk2015). Some keys refer to combinations of datasets. usstudent2014 is the combination of dukestudent2015 and uga2015. usfullsurveyor2015 is the combination of both student samples and the community sample (dukestudent2015, uga2015, and dukecommunity2015). 
+
+Sample: n = 1368 undergraduates at the University of Georgia (uga2015), n = 216 students at Duke University (dukestudent2015), n = 159 non-students living in Durham, North Carolina (dukecommunity2015), and n = 2615 US Amazon Mechanical Turk workers. 
+
+Year collected: 2012-2014
+
+Authors: Lynn Smith-Lovin, Dawn T. Robinson, Bryan C. Cannon, Jesse K. Clark, Robert Freeland, Jonathan H. Morgan, Kimberly B. Rogers
+
+Relevant publications/more information/citations: [usstudent](http://affectcontroltheory.org/usa-student-surveyor-dictionary-2015/), [usfullsurveyor](http://affectcontroltheory.org/usa-combined-surveyor-dictionary-2015/), [uga](http://affectcontroltheory.org/usa-georgia-dictionary-2015/), [usmturk](http://affectcontroltheory.org/usa-online-dictionary-2015/)
+
+
+### egypt2015 and morocco2015
+
+Description: 
+
+Sample: 
+
+Year collected: 
+
+Authors: 
+
+Relevant publications/more information: 
+
+
+### germany2007
+
+Description: 
+
+Sample: 
+
+Year collected: 
+
+Authors: 
+
+Relevant publications/more information: 
+
+
+### indiana2003
+
+### ontario2001
+
+### china1999
+
+### texas1998
+
+### japan1995
+
+### germany1989
+
+### ontario1980
+
+### nc1978
+
+### nireland1977
+
+
+## Specific dictionaries
+
+### artifactmods2022
+
+Description: Ratings of 58 identities, 52 physical artifacts, and 212 artifact-modified identities across a range of identities and artifact types.
+
+Sample: n = 825 participants recruited through Amazon Mechanical Turk who had lived in the U.S. over half their lives.
+
+Year collected: 2015
+
+Authors: Rohan Lulham and Daniel B. Shank
+
+Relevant publications/more information: [Lulham and Shank 2022](https://doi.org/10.1177/00027642211066045)
+
+
+### employeeorg2022
+
+Description: Ratings of organizations (e.g., *library*) and their employees (e.g., *employee of a library*). 
+
+Sample: 118-119 participants in the U.S. recruited through Amazon Mechanical Turk. 
+
+Year collected: Unknown
+
+Authors: Daniel B. Shank and Alexander Burns
+
+Relevant publications/more information: [Shank and Burns 2022](https://doi.org/10.1016/j.ssresearch.2022.102723)
+
+
+### humanvalues2022
+
+Description: Ratings of 393 values, traits, etc. Collected with data for Lulham and Shank 2022 (artifactmods2022).
+
+Sample: n = 825 participants recruited through Amazon Mechanical Turk who had lived in the U.S. over half their lives.
+
+Year collected: 2015
+
+Authors: Rohan Lulham and Daniel B. Shank
+
+Relevant publications/more information: [Lulham and Shank 2022](https://doi.org/10.1177/00027642211066045)
+
+
+### products2022
+
+Description: Ratings of 132 everyday products. Collected with data for Lulham and Shank 2022 (artifactmods2022).
+
+Sample: n = 825 participants recruited through Amazon Mechanical Turk who had lived in the U.S. over half their lives.
+
+Year collected: 2015
+
+Authors: Rohan Lulham and Daniel B. Shank
+
+Relevant publications/more information: [Lulham and Shank 2022](https://doi.org/10.1177/00027642211066045)
+
+
+### techvshuman2021
+
+Description: Ratings of 59 roles as performed by a human, a computer, or an AI identity (e.g., a product assembling employee, a product assembling computer system, a product assembling artificial intelligence).
+
+Sample: n = 549 people recruited using Prolific who had lived over half their lives in the United States.
+
+Year collected: Unknown
+
+Authors: Daniel B. Shank, Madison Bowen, Alexander Burns, Matthew Dew
+
+Relevant publications/more information: [Shank, Bowen, Burns, and Dew 2021](https://www.sciencedirect.com/science/article/pii/S2451958821000403)
+
+
+### generaltech2020
+
+Description: Ratings of 25 general technology terms (e.g. bot, artificial intelligence).
+
+Sample: 59 Amazon Mechanical Turk workers who had lived in the US at least half their lives. 
+
+Year collected: Unknown
+
+Authors: Daniel B. Shank, Alexander Burns, Sophia Rodriguez, Madison Bowen
+
+Relevant publications/more information: [Shank, Burns, Rodriguez, and Bowen 2020](https://crisp.org.uiowa.edu/sites/crisp.org.uiowa.edu/files/2020-06/crisp_28_4_shank.pdf)
+
+
+### Occupations: occs2019 and occs2020
+
+### nounphrasegrammar2019
+
+Description: Participants rate 28 social identity concepts, which are either count or collective nouns, presented in one of five grammatical forms. These data have been used to examine the influences of determiners (a/an, the, and all) and grammatical number (singular or plural) on the affective meaning of social identity concepts. 
+
+Sample: Between 372 and 384 Amazon Mechanical Turk workers living in the United States. 
+
+Year collected: Unknown
+
+Authors: Daniel B. Shank, Sarah E. Hercula, Brent Curdy
+
+Relevant publications/more information: [Shank, Hercula, and Curdy 2019](https://journal.equinoxpub.com/JRDS/article/view/15490)
+
+
+### groups2019
+
+Description: Ratings of 170 group-related concepts. These were collected as pilot data for Shank, Hercula, and Curdy 2019 (nounphrasegrammar2019) and Shank and Burns 2022 (employeeorg2022). 
+
+Relevant publications/more information: [Shank, Hercula, and Curdy 2019](https://journal.equinoxpub.com/JRDS/article/view/15490), [Shank and Burns 2022](https://doi.org/10.1016/j.ssresearch.2022.102723)
+
+
+### groups2017
+
+Description: EPA ratings of 64 group-related concepts, including primary groups, task groups, categories of people, and collectives.
+
+Sample: 155 Amazon Mechanical Turk workers who had lived in the US the majority of their lives. 
+
+Year collected: 2017
+
+Authors: Daniel B. Shank and Alexander Burns
+
+Relevant publications/more information: [Shank and Burns 2018](https://crisp.org.uiowa.edu/sites/crisp.org.uiowa.edu/files/2020-04/crisp_vol_26_5.pdf)
+
+
+### ugatech2008
+
+Description: Ratings of 80 technology-related items and concepts. 
+
+Sample: n = 174 undergraduate students at the University of Georgia; 100 women and 74 men. 
+
+Year collected: 2008
+
+Authors: Daniel B. Shank
+
+Relevant publications/more information: [Shank 2010](https://crisp.org.uiowa.edu/sites/crisp.org.uiowa.edu/files/2020-04/15.10.pdf)
+
+
+### politics2003
+
+### expressive2002
+
+### internet1998
+
+### household1994
+
+### internationaldomesticrelations1981
+
+### gaymensanfrancisco1980
 

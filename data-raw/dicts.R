@@ -277,7 +277,8 @@ for(file in files){
                     gender = dplyr::case_when(gender == "m" ~ "male",
                                               gender == "f" ~ "female",
                                               gender == "a" ~ "average")) %>%
-      dplyr::mutate(across(where(is.numeric), ~round(., digits = 2)))
+      dplyr::mutate(across(where(is.numeric), ~round(., digits = 2))) %>%
+      dplyr::mutate(component = ifelse(.data$component == "other", "artifact", .data$component))
   } else {
     data <- read.csv(path)
 
@@ -421,7 +422,10 @@ for(file in files){
     } else if(grepl("mostafavi", key)){
       data_std <- data %>%
         dplyr::select(Original_term, component, E, P, A, E_std, P_std, A_std) %>%
-        dplyr::rename(term = Original_term) %>%
+        dplyr::rename(term = Original_term,
+                      sd_E = E_std,
+                      sd_P = P_std,
+                      sd_A = A_std) %>%
         dplyr::mutate(gender = "average") %>%
         standardize_terms(key = key)
 
