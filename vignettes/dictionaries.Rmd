@@ -310,7 +310,7 @@ Year collected: 2001-2003
 
 Authors: Neil J. MacKinnon
 
-Relevant publications/more information: [Affect Control Theory website](https://affectcontroltheory.org/canada-dictionary-2001-2003/). Raw data available through Interact Java applet. 
+Relevant publications/more information: [Luke 2010](https://uwspace.uwaterloo.ca/handle/10012/5584), [Affect Control Theory website entry](https://affectcontroltheory.org/canada-dictionary-2001-2003/). Raw data available through Interact Java applet. 
 
 
 ### china1999
@@ -330,7 +330,7 @@ Relevant publications/more information: [Zhao 2022](https://doi-org.proxy.lib.du
 
 Description: Ratings of 443 Identities, 278 Behaviors, 65 Modifiers, and 1 Setting were collected at Texas Tech University with program Attitude.
 
-Sample: Some disagreement between sources regarding sample size. [Schneider 2007](https://kb-research.ca/archives/ACT/recovered/TX_stereo.ppp.pdf) says 420 undergraduate students received a small monetary incentive for rating 413 identities. The [affect control theory website](https://affectcontroltheory.org/usa-texas-1998/) claims sample size is 482. It may be that this data set contains the combined ratings of Texas Tech students with those of additional terms by University of Missouri students collected at around the same time by Herm Smith (see Schneider 2007). 
+Sample: Some disagreement between sources regarding sample size. [Schneider 2007](https://kb-research.ca/archives/ACT/recovered/TX_stereo.ppp.pdf) says 420 undergraduate students received a small monetary incentive for rating 413 identities. The [affect control theory website entry](https://affectcontroltheory.org/usa-texas-1998/) claims sample size is 482. It may be that this data set contains the combined ratings of Texas Tech students with those of additional terms by University of Missouri students collected at around the same time by Herm Smith (see Schneider 2007). 
 
 Year collected: 1998
 
@@ -383,7 +383,7 @@ Year collected: 1980-1986
 
 Authors: Neil J. MacKinnon
 
-Relevant publications/more information: [MacKinnon and Luke 2002](https://www.jstor.org/stable/3341547), [Affect Control Theory website](https://affectcontroltheory.org/canada-1980-1986/). Raw data available through Interact Java applet. 
+Relevant publications/more information: [MacKinnon and Luke 2002](https://www.jstor.org/stable/3341547). Raw data available through Interact Java applet. 
 
 
 ### nc1978
@@ -409,7 +409,7 @@ Year collected: 1977
 
 Authors: Willigan and Heise
 
-Relevant publications/more information: Raw data available through Interact Java applet. 
+Relevant publications/more information: [Affect Control Theory website entry](https://affectcontroltheory.org/northern-ireland-dictionary-1977/). Raw data available through Interact Java applet. 
 
 
 
