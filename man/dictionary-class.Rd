@@ -24,7 +24,7 @@ Dictionary
 
 \item{\code{stats}}{vector. What summary statistics available (mean, SD, COV)}
 
-\item{\code{genders}}{vector. What genders are available (male, female, av)}
+\item{\code{groups}}{vector. What groups are available (male, female, av)}
 
 \item{\code{individual}}{logical. Whether or not individual data is available.}
 

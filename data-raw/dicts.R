@@ -9,7 +9,7 @@ cnames <- c(
   "year",
   "component",
   "instcodes",
-  "gender",
+  "group",
   "E",
   "P",
   "A",
@@ -37,7 +37,7 @@ meannames <- c(
   "year",
   "component",
   "instcodes",
-  "gender",
+  "group",
   "E",
   "P",
   "A"
@@ -173,7 +173,7 @@ for(file in means_file_list){
       average$context <- context
       average$year <- year
       average$component <- component
-      average$gender <- "average"
+      average$group <- "all"
       average <- dplyr::select(average, all_of(meannames))
 
       mean_epa <- rbind(mean_epa, average)
@@ -185,15 +185,23 @@ for(file in means_file_list){
         male$context <- context
         male$year <- year
         male$component <- component
-        male$gender <- "male"
+        male$group <- "male"
         male <- dplyr::select(male, all_of(meannames))
 
         female$dataset <- key
         female$context <- context
         female$year <- year
         female$component <- component
-        female$gender <- "female"
+        female$group <- "female"
         female <- dplyr::select(female, all_of(meannames))
+
+        if(key == "internationaldomesticrelations1981"){
+          male$group <- "professional"
+          female$group <- "nonprofessional"
+        } else if(key == "gaymensanfrancisco1980"){
+          male$group <- "unsafebetter"
+          female$group <- "safebetter"
+        }
 
         mean_epa <- rbind(mean_epa, male)
         mean_epa <- rbind(mean_epa, female)
@@ -262,7 +270,7 @@ for(file in files){
       ) %>%
       dplyr::ungroup() %>%
       tidyr::pivot_longer(cols = c(-term, -component, -dataset),
-                          names_to = c("gender", ".value"),
+                          names_to = c("group", ".value"),
                           names_pattern = "^(.)(.*)") %>%
       dplyr::rename(n_E = EN,
                     n_P = PN,
@@ -274,9 +282,9 @@ for(file in files){
                     year = year,
                     dataset = dplyr::case_when(dataset == "all" ~ "calcuttaall2017",
                                                dataset == "subset" ~ "calcuttasubset2017"),
-                    gender = dplyr::case_when(gender == "m" ~ "male",
-                                              gender == "f" ~ "female",
-                                              gender == "a" ~ "average")) %>%
+                    group = dplyr::case_when(group == "m" ~ "male",
+                                              group == "f" ~ "female",
+                                              group == "a" ~ "all")) %>%
       dplyr::mutate(across(where(is.numeric), ~round(., digits = 2))) %>%
       dplyr::mutate(component = ifelse(.data$component == "other", "artifact", .data$component))
   } else {
@@ -298,10 +306,10 @@ for(file in files){
           mean_A = stringr::str_extract(stringr::str_squish(A), ".*(?=\\s)"),
           sd_A = stringr::str_extract(stringr::str_squish(A), "(?<=\\().*(?=\\))"),
           component = "identity",
-          gender = "average"
+          group = "average"
         ) %>%
         dplyr::mutate(across(c(starts_with("mean"), starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
-        dplyr::select(term, component, gender, starts_with("mean"), starts_with("sd")) %>%
+        dplyr::select(term, component, group, starts_with("mean"), starts_with("sd")) %>%
         dplyr::rename(E = mean_E,
                       P = mean_P,
                       A = mean_A) %>%
@@ -315,7 +323,7 @@ for(file in files){
         dplyr::select(-SDs) %>%
         dplyr::mutate(across(c(E, P, A, starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
         dplyr::mutate(component = "artifact",
-                      gender = "average") %>%
+                      group = "all") %>%
         standardize_terms(key = key)
     } else if (grepl("groups2017", key)){
       data_std <- data %>%
@@ -324,7 +332,7 @@ for(file in files){
                       P = Potency,
                       A = Activity) %>%
         dplyr::mutate(component = "identity",
-                      gender = "average") %>%
+                      group = "all") %>%
         dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
         standardize_terms(key = key)
     } else if (grepl("groups2019", key)){
@@ -336,7 +344,7 @@ for(file in files){
         dplyr::select(-X) %>%
         dplyr::filter(term != "") %>%
         dplyr::mutate(component = "identity",
-                      gender = "average") %>%
+                      group = "all") %>%
         dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
         standardize_terms(key = key)
     } else if (grepl("nounphrasegrammar2019", key)){
@@ -362,7 +370,7 @@ for(file in files){
                       term = term_new) %>%
         dplyr::mutate(across(c(E, P, A, starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
         dplyr::mutate(component = "identity",
-                      gender = "average")
+                      group = "all")
     } else if (grepl("techvshuman", key)){
       data_std <- data %>%
         dplyr::rename(
@@ -386,7 +394,7 @@ for(file in files){
         dplyr::mutate(across(c(E, P, A), ~round(as.numeric(.), digits = 2))) %>%
         dplyr::select(-actortype) %>%
         dplyr::mutate(component = "identity",
-                      gender = "average") %>%
+                      group = "all") %>%
         standardize_terms(key = key)
     } else if (grepl("ugatech", key)){
       data_std <- data %>%
@@ -411,9 +419,9 @@ for(file in files){
         dplyr::ungroup() %>%
         dplyr::select(-n_male, -n_female) %>%
         tidyr::pivot_longer(cols = c(contains("male"), contains("average")),
-                            names_to = c(".value", "dimension", "gender"),
+                            names_to = c(".value", "dimension", "group"),
                             names_sep = "_") %>%
-        dplyr::group_by(term, gender) %>%
+        dplyr::group_by(term, group) %>%
         dplyr::mutate(across(c("mean", "sd"), ~round(., digits = 2))) %>%
         tidyr::pivot_wider(names_from = "dimension", values_from = c("mean", "sd", "n")) %>%
         dplyr::rename(E = mean_E,
@@ -426,7 +434,7 @@ for(file in files){
                       sd_E = E_std,
                       sd_P = P_std,
                       sd_A = A_std) %>%
-        dplyr::mutate(gender = "average") %>%
+        dplyr::mutate(group = "all") %>%
         standardize_terms(key = key)
 
     }
@@ -456,7 +464,6 @@ ind_file_list <- grep("RDS$", list.files(source_folder), value = TRUE)
 for(file in ind_file_list){
   path <- paste0(source_folder, "/", file)
 
-  # TODO: maybe some NA values in dukecommunity 2015??
   key <- stringr::str_extract(file, "^[[:alnum:]]*(?=_)")
   if(!(key %in% exclude_keys)){
     # context <- stringr::str_extract(key, "^[[:alpha:]]*(?=[[:digit:]])")
@@ -485,7 +492,7 @@ for(file in ind_file_list){
       dplyr::mutate(dataset = key,
                     context = context,
                     year = year,
-                    gender = "average",
+                    group = "all",
                     E = mean_E,
                     P = mean_P,
                     A = mean_A) %>%
@@ -566,7 +573,7 @@ epa_summary_statistics <- dplyr::bind_rows(mean_variance_epa, mean_epa) %>%
   dplyr::mutate(instcodes = ifelse(is.na(instcodes), instcodes_old, instcodes)) %>%
   dplyr::mutate(instcodes = stringr::str_trim(instcodes)) %>%
   dplyr::select(-instcodes_old) %>%
-  dplyr::select(term, component, dataset, context, year, gender, instcodes, everything())
+  dplyr::select(term, component, dataset, context, year, group, instcodes, everything())
 
 epa_summary_statistics <- tibble::as_tibble(epa_summary_statistics)  %>%
   dplyr::mutate(E = as.numeric(E),

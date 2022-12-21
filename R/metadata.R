@@ -50,7 +50,7 @@ this_dict <- function(name){
 #' @slot year character. Year collected (approximate in some cases).
 #' @slot components vector. What types of terms are included (identities, behaviors, mods, settings)
 #' @slot stats vector. What summary statistics available (mean, SD, COV)
-#' @slot genders vector. What genders are available (male, female, av)
+#' @slot groups vector. What groups are available (male, female, av)
 #' @slot individual logical. Whether or not individual data is available.
 #' @slot filetype character. Original source file extension.
 #' @slot source character. Where original data came from.
@@ -69,7 +69,7 @@ dictionary <- methods::setClass("dictionary",
                                   year = "character",
                                   components = "vector",
                                   stats = "vector",
-                                  genders = "vector",
+                                  groups = "vector",
                                   individual = "logical",
                                   filetype = "character",
                                   source = "character",
@@ -88,7 +88,7 @@ dictionary <- methods::setClass("dictionary",
 #' @param year year collected
 #' @param components available components
 #' @param stats available summary statistics
-#' @param genders available genders
+#' @param groups available groups
 #' @param individual whether individual data is available
 #' @param filetype original source filetype
 #' @param source where data came from
@@ -105,7 +105,7 @@ setMethod(f = "initialize", signature = "dictionary",
                                 year = NA_character_,
                                 components = c("identity", "behavior", "modifier"),
                                 stats = c("mean"),
-                                genders = c("male", "female", "average"),
+                                groups = c("male", "female", "all"),
                                 individual = FALSE,
                                 filetype = ".dat",
                                 source = "Interact 2.1 beta (May 2021)",
@@ -118,7 +118,7 @@ setMethod(f = "initialize", signature = "dictionary",
             .Object@year <- year
             .Object@components <- components
             .Object@stats <- stats
-            .Object@genders <- genders
+            .Object@groups <- groups
             .Object@individual <- individual
             .Object@filetype <- filetype
             .Object@source <- source
@@ -150,7 +150,7 @@ get_dicts <- function(){
       year = as.character(this$year),
       components = stringr::str_split(this$components, ", *")[[1]],
       stats = stringr::str_split(this$stats, ", *")[[1]],
-      genders = stringr::str_split(this$genders, ", *")[[1]],
+      groups = stringr::str_split(this$groups, ", *")[[1]],
       individual = this$individual,
       filetype = this$filetype,
       source = ifelse(is.na(this$source), "unknown", this$source),
@@ -194,7 +194,7 @@ dict_info <- function(name = NA){
         paste("Year:", thisdict@year),
         paste("Description:", thisdict@description),
         paste("Components:", paste(unlist(thisdict@components), collapse = ', ')),
-        paste("Genders:", paste(unlist(thisdict@genders), collapse = ', ')),
+        paste("Groups:", paste(unlist(thisdict@groups), collapse = ', ')),
         paste("Stats:", paste(unlist(thisdict@stats), collapse = ', ')),
         paste("Individual data available? ", ifelse(thisdict@individual == TRUE, "Yes", "No")),
         paste("Source:", thisdict@source),
@@ -213,7 +213,7 @@ dict_info <- function(name = NA){
           paste("Year:", d@year),
           paste("Description:", d@description),
           paste("Components:", paste(unlist(d@components), collapse = ', ')),
-          paste("Genders:", paste(unlist(d@genders), collapse = ', ')),
+          paste("Groups:", paste(unlist(d@groups), collapse = ', ')),
           paste("Stats:", paste(unlist(d@stats), collapse = ', ')),
           paste("Individual data available? ", ifelse(d@individual == TRUE, "Yes", "No")),
           paste("Source:", d@source),
@@ -309,8 +309,8 @@ eqn_info <- function(name = NA){
 
   if(!is.na(name)){
     thiseqn <- actdata::equations[which(actdata::equations$key == name),] %>%
-      dplyr::mutate(g = dplyr::case_when(gender == "male" ~ "m",
-                                         gender == "female" ~ "f",
+      dplyr::mutate(g = dplyr::case_when(group == "male" ~ "m",
+                                         group == "female" ~ "f",
                                          TRUE ~ "av"),
                     cg = paste0(.data$equation_type, "_", .data$g))
 
@@ -324,7 +324,7 @@ eqn_info <- function(name = NA){
     cat(
       paste(
         paste("Equation set name:", name),
-        paste("Equation types and genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
+        paste("Equation types and groups:", paste(unlist(thiseqn$cg), collapse = ', ')),
         sep = "\n"
       )
     )
@@ -333,15 +333,15 @@ eqn_info <- function(name = NA){
     cat("\n\n")
     for(e in eqns){
       thiseqn <- actdata::equations[which(actdata::equations$key == e),] %>%
-        dplyr::mutate(g = dplyr::case_when(gender == "male" ~ "m",
-                                           gender == "female" ~ "f",
+        dplyr::mutate(g = dplyr::case_when(group == "male" ~ "m",
+                                           group == "female" ~ "f",
                                            TRUE ~ "av"),
                       cg = paste0(.data$equation_type, "_", .data$g))
 
       cat(
         paste(
           paste("Equation set name:", e),
-          paste("Equation types and genders:", paste(unlist(thiseqn$cg), collapse = ', ')),
+          paste("Equation types and groups:", paste(unlist(thiseqn$cg), collapse = ', ')),
           sep = "\n"
         )
       )

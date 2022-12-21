@@ -201,9 +201,9 @@ check_inst_codes <- function(data, na.sub = TRUE){
 check_no_duplicate_terms <- function(terms, group){
   # for bayesact, issue warnings (I am not sure what Jesse's code does with duplicates). Change to error if it throws an issue in the simulation. Bayesact is definitionally not grouped.
   if(group == "none" & length(unlist(unique(terms))) < length(unlist(terms))){
-    warning("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. It is recommended that all terms are uniquely named.")
+    warning("Some terms are duplicated. This can indicate you have not limited to one group or dataset and have also not grouped by group or dataset. Some datasets contain duplicate terms within the same group and component. It is recommended that all terms are uniquely named.")
   } else if(group != "none" & length(unlist(unique(terms))) < .5 * length(unlist(terms))){
-    stop("Some terms are duplicated. This can indicate you have not limited to one gender or dataset and have also not grouped by gender or dataset. Some datasets contain duplicate terms within the same gender and component. All terms must be uniquely named if a long dataset is provided and grouping is used.")
+    stop("Some terms are duplicated. This can indicate you have not limited to one group or dataset and have also not grouped by group or dataset. Some datasets contain duplicate terms within the same group and component. All terms must be uniquely named if a long dataset is provided and grouping is used.")
   }
   invisible(return(TRUE))
 }

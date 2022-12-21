@@ -14,12 +14,12 @@
 #'     exact matches to the expression provided. If FALSE (default), all terms
 #'     containing the expression are returned.
 #' @param dataset The key of the data set (or list of multiple) to search in.
-#'     Default is "all. Call [dict_info()] to see available data sets.
+#'     Default is "everything". Call [dict_info()] to see available data sets.
 #' @param component The component of the dictionary to use (identity, behavior,
-#'     modifier, setting). Default is "all."
+#'     modifier, setting). Default is "everything."
 #' @param datatype Whether to retrieve summary or individual data. Default is summary.
-#' @param gender The gender of the dictionary to use (male, female, average).
-#'     Default is "all." Ignored when datatype is individual.
+#' @param group The subgroup of respondents to use. Usually datasets are subgrouped by gender; options are male, female, all.
+#'     Default is "everything." Ignored when datatype is individual.
 #' @param stat The statistics to include in the subset that is returned. Default is all,
 #'     options are mean, sd (standard deviation), cov (covariance), and n (number of
 #'     raters). Terms that do not contain values for the required statistic will be
@@ -29,7 +29,7 @@
 #'     the required statistics. Default is TRUE.
 #' @param instcodes Logical. Whether to include the institution codes in the
 #'     output. Default is TRUE.
-#' @param institutions Character list. Institutions to include (defaults to all)
+#' @param institutions Character list. Institutions to include (defaults to everything)
 #' @param drop.na.instcodes Logical. When filtering by institution, whether or
 #'     not to keep terms which have no institution code.
 #'
@@ -40,15 +40,15 @@
 #' @examples
 #' epa_subset("teacher")
 #' epa_subset(dataset = "politics2003")
-#' epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
+#' epa_subset(expr = ".*woman", component = "identity", group = c("male", "female"),
 #'     institutions = c("lay", "business"))
 #' epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
 #' epa_subset(dataset = "usmturk2015", datatype = "individual")
 epa_subset <- function(expr = ".*", exactmatch = FALSE,
-                       dataset = "all", component = "all",
-                       datatype = "summary", gender = "all", stat = "all",
+                       dataset = "everything", component = "everything",
+                       datatype = "summary", group = "everything", stat = "everything",
                        stat_na_exclude = TRUE, instcodes = TRUE,
-                       institutions = "all", drop.na.instcodes = FALSE){
+                       institutions = "everything", drop.na.instcodes = FALSE){
   if(length(datatype) > 1){
     stop("Only one data type may be provided")
   }
@@ -56,24 +56,24 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
     check_datatype(datatype)
     datatype <- standardize_option(datatype, "datatype")
   }
-  if(all(dataset != "all")){
+  if(all(dataset != "everything")){
     check_dataset(dataset, datatype)
   }
-  if(all(component != "all")){
+  if(all(component != "everything")){
     check_component(component)
     component <- standardize_option(component, "component")
   }
-  if(all(institutions != "all")){
+  if(all(institutions != "everything")){
     check_institutions(institutions)
   }
   if(!is.logical(drop.na.instcodes)){
     stop("drop.na.instcodes must be logical.")
   }
-  if(all(gender != "all")){
-    check_gender(gender)
-    gender <- standardize_option(gender, "gender")
+  if(all(group != "everything")){
+    check_group(group)
+    group <- standardize_option(group, "group")
   }
-  if(all(stat != "all")){
+  if(all(stat != "everything")){
     check_stat(stat)
     stat <- standardize_option(stat, "stat")
   }
@@ -113,7 +113,7 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
   }
 
 
-  if(all(dataset != "all")){
+  if(all(dataset != "everything")){
     k <- dataset
     if(datatype == "individual" & any(dataset == "usfullsurveyor2015")){
       k <- c(k, "dukestudent2015", "dukecommunity2015", "uga2015")
@@ -124,7 +124,7 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
       dplyr::filter(dataset %in% k)
   }
 
-  if(all(component != "all")){
+  if(all(component != "everything")){
     c <- component
     subset <- subset %>%
       dplyr::filter(component %in% c)
@@ -134,13 +134,13 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
   # not providing filters on other variables (which would get excessive
   # I think; it's easy enough to filter in dplyr) then there's no reason
   # to supply it for gender.
-  if(all(gender != "all") & datatype == "summary"){
-    g <- gender
+  if(all(group != "everything") & datatype == "summary"){
+    g <- group
     subset <- subset %>%
-      dplyr::filter(gender %in% g)
+      dplyr::filter(group %in% g)
   }
 
-  if(all(stat != "all") & datatype == "summary"){
+  if(all(stat != "everything") & datatype == "summary"){
     if(!("cov" %in% stat)){
       subset <- dplyr::select(subset, -dplyr::starts_with("cov"))
     }
@@ -175,7 +175,7 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
       dplyr::filter(!is.na(.data$instcodes))
   }
 
-  if(all(institutions != "all")){
+  if(all(institutions != "everything")){
     goodinsts <- institutions[institutions %in% c( "term", "component", inst_all)]
 
     # want to treat institution lists as an "or"--term must belong to at least one of the provided institutions
@@ -213,20 +213,20 @@ epa_subset <- function(expr = ".*", exactmatch = FALSE,
 #'
 #' @param key the name of the equation set, Call [eqn_info()] or see package readme for options.
 #' @param equation_type the type of the equation. Options: emotionid, impressionabo, impressionabos, selfdir, traitid
-#' @param gender gender. Average, female, or male.
+#' @param group respondent group (currently, this refers exclusively to gender groups, though in principle equations could be calculated for any subset of respondents). All, female, or male.
 #'
 #' @return equation dataframe
 #' @export
 #'
 #' @examples
 #' get_eqn("us2010")
-#' get_eqn("nc1978", equation_type = "impressionabos", gender = "male")
-get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
-  gender <- dplyr::case_when(
-    gender %in% c("a", "av", "mean") ~ "average",
-    gender %in% c("m", "man") ~ "male",
-    gender %in% c("f", "woman") ~ "female",
-    TRUE ~ gender
+#' get_eqn("nc1978", equation_type = "impressionabos", group = "male")
+get_eqn <- function(key, equation_type = "impressionabo", group = "all"){
+  group <- dplyr::case_when(
+    group %in% c("a", "av", "mean", "average") ~ "all",
+    group %in% c("m", "man") ~ "male",
+    group %in% c("f", "woman") ~ "female",
+    TRUE ~ group
   )
 
   if(!(key %in% actdata::equations$key)){
@@ -241,11 +241,11 @@ get_eqn <- function(key, equation_type = "impressionabo", gender = "average"){
 
   etsub <- keysub[which(keysub$equation_type == equation_type),]
 
-  if(!(gender %in% etsub$gender)){
-    stop(paste0("Gender ", gender, " is not available for key ", key, " and equation type ", equation_type, "."))
+  if(!(group %in% etsub$group)){
+    stop(paste0("Group ", group, " is not available for key ", key, " and equation type ", equation_type, "."))
   }
 
-  df <- etsub[which(etsub$gender == gender),"df"][[1]][[1]]
+  df <- etsub[which(etsub$group == group),"df"][[1]][[1]]
   return(df)
 }
 

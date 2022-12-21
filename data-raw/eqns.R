@@ -27,19 +27,19 @@ for(dict in base_list){
     toadd <- tibble::tibble(
       key = stringr::str_extract(dict, "^.*(?=_)"),
       equation_type = stringr::str_extract(dict, "(?<=_).*(?=\\.dat)"),
-      gender = "average",
+      group = "all",
       df = list(f)
       )
   } else {
     toadd <- tibble::tibble(
       key = rep(stringr::str_extract(dict, "^.*(?=_)"), 2),
       equation_type = rep(stringr::str_extract(dict, "(?<=_).*(?=\\.dat)"), 2),
-      gender = c("male", "female"),
+      group = c("male", "female"),
       df = c(list(m), list(f))
     )
   }
 
-  equations <- rbind(eqns, toadd)
+  equations <- rbind(equations, toadd)
   # if(neutral){
   #   # write.table(f, file = paste0(dest_folder, "/", gsub("\\.dat", "_av.dat", dict)), quote = FALSE, row.names = FALSE, col.names = FALSE, sep = "\t")
   #   saveit(f, name = gsub("\\.dat", "_av", dict))

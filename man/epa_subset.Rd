@@ -7,14 +7,14 @@
 epa_subset(
   expr = ".*",
   exactmatch = FALSE,
-  dataset = "all",
-  component = "all",
+  dataset = "everything",
+  component = "everything",
   datatype = "summary",
-  gender = "all",
-  stat = "all",
+  group = "everything",
+  stat = "everything",
   stat_na_exclude = TRUE,
   instcodes = TRUE,
-  institutions = "all",
+  institutions = "everything",
   drop.na.instcodes = FALSE
 )
 }
@@ -29,15 +29,15 @@ exact matches to the expression provided. If FALSE (default), all terms
 containing the expression are returned.}
 
 \item{dataset}{The key of the data set (or list of multiple) to search in.
-Default is "all. Call \code{\link[=dict_info]{dict_info()}} to see available data sets.}
+Default is "everything". Call \code{\link[=dict_info]{dict_info()}} to see available data sets.}
 
 \item{component}{The component of the dictionary to use (identity, behavior,
-modifier, setting). Default is "all."}
+modifier, setting). Default is "everything."}
 
 \item{datatype}{Whether to retrieve summary or individual data. Default is summary.}
 
-\item{gender}{The gender of the dictionary to use (male, female, average).
-Default is "all." Ignored when datatype is individual.}
+\item{group}{The subgroup of respondents to use. Usually datasets are subgrouped by gender; options are male, female, all.
+Default is "everything." Ignored when datatype is individual.}
 
 \item{stat}{The statistics to include in the subset that is returned. Default is all,
 options are mean, sd (standard deviation), cov (covariance), and n (number of
@@ -51,7 +51,7 @@ the required statistics. Default is TRUE.}
 \item{instcodes}{Logical. Whether to include the institution codes in the
 output. Default is TRUE.}
 
-\item{institutions}{Character list. Institutions to include (defaults to all)}
+\item{institutions}{Character list. Institutions to include (defaults to everything)}
 
 \item{drop.na.instcodes}{Logical. When filtering by institution, whether or
 not to keep terms which have no institution code.}
@@ -70,7 +70,7 @@ gender of raters.
 \examples{
 epa_subset("teacher")
 epa_subset(dataset = "politics2003")
-epa_subset(expr = ".*woman", component = "identity", gender = c("male", "female"),
+epa_subset(expr = ".*woman", component = "identity", group = c("male", "female"),
     institutions = c("lay", "business"))
 epa_subset(dataset = "morocco2015", stat = "cov", stat_na_exclude = FALSE)
 epa_subset(dataset = "usmturk2015", datatype = "individual")

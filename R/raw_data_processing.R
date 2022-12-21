@@ -402,6 +402,11 @@ standardize_terms <- function(data, key, component = "undetermined"){
   if(grepl("artifact", key)){
     data_clean <- data_clean %>%
       dplyr::mutate(
+        term = dplyr::case_when(
+          term == "a_safe" ~ "safe",
+          term == "a_sudoku" ~ "sudoku",
+          TRUE ~ term
+        ),
         component = dplyr::case_when(
           grepl("with", .data$term) ~ "modified_identity",
           term %in% c(

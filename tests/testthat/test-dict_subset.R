@@ -2,9 +2,9 @@ test_that("epa_subset works", {
   # tests of term, gender, and component arguments
   man_search <- actdata::epa_summary_statistics[grepl("man", actdata::epa_summary_statistics$term),]
   expect_equal(epa_subset("man"), man_search)
-  expect_equal(epa_subset("man", gender = "male"), dplyr::filter(man_search, gender == "male"))
-  expect_equal(epa_subset("man", datatype = "individual", gender = "male"), epa_subset("man", datatype = "individual"))
-  expect_equal(epa_subset("man", gender = c("f", "av")), dplyr::filter(man_search, gender %in% c("female", "average")))
+  expect_equal(epa_subset("man", group = "male"), dplyr::filter(man_search, group == "male"))
+  expect_equal(epa_subset("man", datatype = "individual", group = "male"), epa_subset("man", datatype = "individual"))
+  expect_equal(epa_subset("man", group = c("f", "av")), dplyr::filter(man_search, group %in% c("female", "all")))
   expect_equal(epa_subset("man", component = "ident"), dplyr::filter(man_search, component == "identity"))
   expect_equal(epa_subset("man", component = c("ident", "behaviour")), dplyr::filter(man_search, component %in% c("identity", "behavior")))
   expect_equal(epa_subset("man", dataset = c("egypt2015", "nc1978")), dplyr::filter(man_search, dataset %in% c("egypt2015", "nc1978")))
@@ -15,10 +15,10 @@ test_that("epa_subset works", {
   multiple_search<- actdata::epa_summary_statistics[grepl("(man)|(dude)|(friend)", actdata::epa_summary_statistics$term),]
   expect_equal(epa_subset(c("man", "dude", "friend")), multiple_search)
 
-  expect_equal(epa_subset(c("man", "dude", "friend"), component = c("identity", "beh"), gender = "average"),
-               dplyr::filter(multiple_search, component %in% c("identity", "behavior"), gender == "average"))
-  expect_equal(epa_subset(c("man", "dude", "friend"), component = "identity", gender = "average", dataset = "usmturk2015"),
-               dplyr::filter(multiple_search, component == "identity", gender == "average", dataset == "usmturk2015"))
+  expect_equal(epa_subset(c("man", "dude", "friend"), component = c("identity", "beh"), group = "all"),
+               dplyr::filter(multiple_search, component %in% c("identity", "behavior"), group == "all"))
+  expect_equal(epa_subset(c("man", "dude", "friend"), component = "identity", group = "all", dataset = "usmturk2015"),
+               dplyr::filter(multiple_search, component == "identity", group == "all", dataset == "usmturk2015"))
 
   # warning for empty result
   expect_warning(epa_subset("this is not in any dictionary"), "The search did not match any dictionary entries.")
@@ -136,7 +136,7 @@ test_that("expand_instcodes works", {
 })
 
 test_that("get_eqn works", {
-  expect_error(get_eqn("nc1978", equation_type = "selfdir", gender = "av"))
-  expect_true(is.data.frame(get_eqn("nc1978", equation_type = "selfdir", gender = "m")))
-  expect_equal(dim(get_eqn("nc1978", equation_type = "selfdir", gender = "m")), c(12, 7))
+  expect_error(get_eqn("nc1978", equation_type = "selfdir", group = "all"))
+  expect_true(is.data.frame(get_eqn("nc1978", equation_type = "selfdir", group = "m")))
+  expect_equal(dim(get_eqn("nc1978", equation_type = "selfdir", group = "m")), c(12, 7))
 })

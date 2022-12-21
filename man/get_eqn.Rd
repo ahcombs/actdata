@@ -4,14 +4,14 @@
 \alias{get_eqn}
 \title{Extract single equation data frame}
 \usage{
-get_eqn(key, equation_type = "impressionabo", gender = "average")
+get_eqn(key, equation_type = "impressionabo", group = "all")
 }
 \arguments{
 \item{key}{the name of the equation set, Call \code{\link[=eqn_info]{eqn_info()}} or see package readme for options.}
 
 \item{equation_type}{the type of the equation. Options: emotionid, impressionabo, impressionabos, selfdir, traitid}
 
-\item{gender}{gender. Average, female, or male.}
+\item{group}{respondent group (currently, this refers exclusively to gender groups, though in principle equations could be calculated for any subset of respondents). All, female, or male.}
 }
 \value{
 equation dataframe
@@ -21,5 +21,5 @@ Extract single equation data frame
 }
 \examples{
 get_eqn("us2010")
-get_eqn("nc1978", equation_type = "impressionabos", gender = "male")
+get_eqn("nc1978", equation_type = "impressionabos", group = "male")
 }

@@ -18,11 +18,11 @@ test_that("check_component works", {
   expect_error(check_component(c("identity", TRUE)), "Invalid component 'TRUE' provided. Valid components are identity, behavior, modifier, and setting.")
 })
 
-test_that("check_gender works", {
-  expect_equal(check_gender("male"), TRUE)
-  expect_equal(check_gender(c("male", "woman")), TRUE)
-  expect_equal(check_gender(c("m", "f", "average", "av", "a")), TRUE)
-  expect_error(check_gender(c("female", "notagender")), "Invalid gender 'notagender' provided. Valid genders are average, female, and male.")
+test_that("check_group works", {
+  expect_equal(check_group("male"), TRUE)
+  expect_equal(check_group(c("male", "woman")), TRUE)
+  expect_equal(check_group(c("m", "f", "average", "av", "a")), TRUE)
+  expect_error(check_group(c("female", "notagroup")), "Invalid respondent group 'notagroup' provided. Valid groups depend on dataset.")
 })
 
 test_that("check_stat works", {
@@ -33,10 +33,10 @@ test_that("check_stat works", {
 })
 
 test_that("standardize_option works", {
-  expect_equal(standardize_option("m", "gender"), "male")
-  expect_equal(standardize_option("f", "gender"), "female")
-  expect_equal(standardize_option("a", "gender"), "average")
-  expect_equal(standardize_option(c("male", "man", "woman"), "gender"), c("male", "male", "female"))
+  expect_equal(standardize_option("m", "group"), "male")
+  expect_equal(standardize_option("f", "group"), "female")
+  expect_equal(standardize_option("a", "group"), "all")
+  expect_equal(standardize_option(c("male", "man", "woman"), "group"), c("male", "male", "female"))
   expect_equal(standardize_option("behaviour", "component"), "behavior")
   expect_equal(standardize_option(c("m", "standard deviation", 3), "stat"), c("mean", "sd", "3"))
   expect_error(standardize_option("m", "not a valid parameter"), "Invalid parameter type provided.")

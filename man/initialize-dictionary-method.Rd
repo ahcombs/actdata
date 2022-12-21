@@ -11,7 +11,7 @@
   year = NA_character_,
   components = c("identity", "behavior", "modifier"),
   stats = c("mean"),
-  genders = c("male", "female", "average"),
+  groups = c("male", "female", "all"),
   individual = FALSE,
   filetype = ".dat",
   source = "Interact 2.1 beta (May 2021)",
@@ -33,7 +33,7 @@
 
 \item{stats}{available summary statistics}
 
-\item{genders}{available genders}
+\item{groups}{available groups}
 
 \item{individual}{whether individual data is available}
 

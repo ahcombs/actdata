@@ -67,23 +67,23 @@ check_component <- function(component){
   invisible(return(TRUE))
 }
 
-#' Valid gender check
+#' Valid group check
 #'
 #' Checks provided component(s) to see if they are available in the summary statistics supplied. Takes certain abbreviations/alternate spellings.
 #' Accepted values are:
 #'     m, male, man
 #'     f, female, woman
-#'     a, av, average
+#'     a, av, all
 #'
-#' @param gender string
+#' @param group string
 #'
 #' @return TRUE if available; throws error otherwise
 #' @keywords internal
-check_gender <- function(gender){
-  genders_avail <- c("m", "male", "man", "f", "female", "woman", "a", "av", "average")
-  for(g in gender){
-    if(!(g %in% unlist(genders_avail))){
-      stop(message = paste0("Invalid gender '", g,"' provided. Valid genders are average, female, and male."))
+check_group <- function(group){
+  groups_avail <- c("m", "male", "man", "f", "female", "woman", "a", "av", "average", "all", "professional", "nonprofessional")
+  for(g in group){
+    if(!(g %in% unlist(groups_avail))){
+      stop(message = paste0("Invalid respondent group '", g,"' provided. Valid groups depend on dataset."))
     }
   }
 
@@ -175,16 +175,16 @@ standardize_inst_code <- function(code){
 #' This function deals with abbreviations in parameter specification and returns the spellings that are used in the datasets.
 #'
 #' @param input the string to standardize
-#' @param param the type expected (gender, component, stat, datatype)
+#' @param param the type expected (group, component, stat, datatype)
 #'
 #' @return the standardized version of the input string
 #' @keywords internal
 standardize_option <- function(input, param){
   input <- trimws(tolower(input))
   for(i in 1:length(input)){
-    if(param == "gender"){
+    if(param == "group"){
       input[i] <- dplyr::case_when(substr(input[i], 1, 1) == "m" ~ "male",
-                                   substr(input[i], 1, 1) == "a" ~ "average",
+                                   substr(input[i], 1, 1) == "a" ~ "all",
                                    substr(input[i], 1, 1) %in% c("f", "w") ~ "female",
                                    TRUE ~ input[i])
     } else if(param == "component"){

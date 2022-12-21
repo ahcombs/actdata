@@ -46,7 +46,7 @@ term_table_forfilter <- term_table_short %>%
 
 # Now, merge this list with the EPA summary dataset to get epa values for the countries and years we are interested in.
 # First, subset the epa summary dataframe to the dictionaries we want, to only include means, and to only include gender averaged values.
-term_subset <- epa_subset(dataset = datasets, stat = "mean", gender = "average") %>% 
+term_subset <- epa_subset(dataset = datasets, stat = "mean", group = "all") %>% 
   # then right join with the term list we built before to subset to only the terms we are interested in. 
   right_join(term_table_forfilter, by = c("term", "component")) %>% 
   arrange(term)
@@ -69,7 +69,7 @@ eval_change <- term_subset %>%
   select(-year) %>% 
   # then pivot wider by time order
   pivot_wider(names_from = order, values_from = rating) %>% 
-  # we get a warning here because there are a few duplicate terms. Clown, secretary, and waiter are all included more than once in the nc1978 dataset. This is something to watch for; there are other duplicates in other datasets as well. These are in the original raw data files and they have been left as is in this package. Here, I remove these terms. I also remove "no_emotion" here.
+  # we get a warning here because there are a few duplicate terms. Clown, secretary, and waiter are all included more than once in the nc1978 data set. This is something to watch for; there are a handful of duplicates in other data sets as well. These are in the original raw data files and they have been left as is in this package. Here, I remove these terms. I also remove "no_emotion" here.
   filter(!(term %in% c("waiter", "clown", "secretary", "no_emotion"))) %>% 
   # now calculate change
   mutate(change = as.numeric(late) - as.numeric(early)) 

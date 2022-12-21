@@ -82,8 +82,9 @@
 #'   \item{dataset}{what data collection the statistics originate from}
 #'   \item{context}{the country or other context data were collected in}
 #'   \item{year}{the approximate year of data collection}
-#'   \item{gender}{whether statistics are calculated for male respondents,
-#'       female respondents, or all respondents}
+#'   \item{group}{the subset of respondents summary statistics are calculated for.
+#'   Groups are usually genders--male, female, all--but some data sets use other
+#'   grouping variables. See data set documentation.}
 #'   \item{instcodes}{institution codes}
 #'   \item{E}{evaluation mean value}
 #'   \item{P}{potency mean value}
@@ -161,7 +162,7 @@
 #' All equation dataframes
 #'
 #' This nested data frame provides information and coefficients for ACT equations.
-#' Coefficient values are reported as given in Interact. If gender is listed as average,
+#' Coefficient values are reported as given in Interact. If group is listed as all,
 #' this indicates that for the given study and subset, the values provided in
 #' Interact for male and female are identical. To retrieve coefficients for particular
 #' equation sets, I recommend using the `get_eqn()` function rather than working
@@ -173,7 +174,7 @@
 #' \describe{
 #'   \item{key}{equation set name}
 #'   \item{equation_type}{type of equation}
-#'   \item{gender}{equation gender}
+#'   \item{group}{equation gender (all, female, male)}
 #'   \item{df}{dataframe with equation coefficients}
 #'   ...
 #' }

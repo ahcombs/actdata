@@ -12,8 +12,9 @@ A data frame with 72951 rows and 25 variables:
 \item{dataset}{what data collection the statistics originate from}
 \item{context}{the country or other context data were collected in}
 \item{year}{the approximate year of data collection}
-\item{gender}{whether statistics are calculated for male respondents,
-female respondents, or all respondents}
+\item{group}{the subset of respondents summary statistics are calculated for.
+Groups are usually genders--male, female, all--but some data sets use other
+grouping variables. See data set documentation.}
 \item{instcodes}{institution codes}
 \item{E}{evaluation mean value}
 \item{P}{potency mean value}
