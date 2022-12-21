@@ -435,7 +435,8 @@ for(file in files){
                       sd_P = P_std,
                       sd_A = A_std) %>%
         dplyr::mutate(group = "all") %>%
-        standardize_terms(key = key)
+        standardize_terms(key = key) %>%
+        dplyr::filter(term != "")
 
     }
   }
