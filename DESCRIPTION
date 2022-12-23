@@ -1,5 +1,5 @@
 Package: actdata
-Title: Affect Control Theory Dictionaries and Equations
+Title: R-based repository for standardized Affect Control Theory dictionary and equation data sets
 Version: 0.0.0.9004
 Authors@R: 
     person(given = "Aidan",
@@ -7,7 +7,13 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ahc26@duke.edu",
            comment = c(ORCID = "0000-0003-1955-3572"))
-Description: This package contains affect control theory dictionary and equation datasets that have been made public, including their metadata. 
+Description: This package makes available public Affect Control Theory dictionaries (semantic 
+differential ratings of thousands of different terms) and equations (coefficients for predicting 
+interactions in the context of Affect Control Theory) collected in many cultures and contexts 
+worldwide between 1977 and present. Spellings and formats of all terms have been standardized across
+data sets to enable comparisons. Gender-averaged values have been calculated for all dictionaries,
+and standard deviations and covariance matrices between affective dimensions have been calculated
+where possible. 
 License: CC0
 Encoding: UTF-8
 LazyData: true
