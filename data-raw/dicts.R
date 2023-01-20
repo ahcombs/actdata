@@ -306,7 +306,7 @@ for(file in files){
           mean_A = stringr::str_extract(stringr::str_squish(A), ".*(?=\\s)"),
           sd_A = stringr::str_extract(stringr::str_squish(A), "(?<=\\().*(?=\\))"),
           component = "identity",
-          group = "average"
+          group = "all"
         ) %>%
         dplyr::mutate(across(c(starts_with("mean"), starts_with("sd")), ~round(as.numeric(.), digits = 2))) %>%
         dplyr::select(term, component, group, starts_with("mean"), starts_with("sd")) %>%
@@ -426,7 +426,8 @@ for(file in files){
         tidyr::pivot_wider(names_from = "dimension", values_from = c("mean", "sd", "n")) %>%
         dplyr::rename(E = mean_E,
                       P = mean_P,
-                      A = mean_A)
+                      A = mean_A) %>%
+        dplyr::mutate(group = ifelse(group == "average", "all", group))
     } else if(grepl("mostafavi", key)){
       data_std <- data %>%
         dplyr::select(Original_term, component, E, P, A, E_std, P_std, A_std) %>%
