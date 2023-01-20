@@ -45,10 +45,13 @@ This package contains data from 40 different publicly available affect control t
 
 **Please cite these data!** The data sets included in this package were originally collected by a number of different research teams. When using them for publication, please cite both their publications about the data (linked in the dataset detail section below) and this package. 
 
+Not sure which data set to use? If you simply need dependable recent ratings of a wide-ranging set of concepts in a US context (such as is used in much ACT behavior modeling research), I recommend the usfullsurveyor2015 or the usmturk2015 data sets. These are the largest and most recent general dictionaries that are currently available. Other data sets may be useful for questions regarding specific kinds of terms, other cultural contexts, or other points in time. 
+
 ```{r dict key table, echo = FALSE}
 dict_table <- actdata:::get_meta("dict") %>% 
   dplyr::select(-filetype) %>% 
-  dplyr::select(key, context, year, stats, components)
+  dplyr::select(key, context, year, stats, components) %>% 
+  dplyr::arrange(key)
                 # , genders, individual, information, notes) %>% 
   # mutate(linkname = "Webpage")
 
