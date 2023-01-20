@@ -23,7 +23,7 @@ library(ggplot2)
 
 The Tidyverse makes it easy to create new combinations or subsets of ACT dictionaries in a way that is completely replicable, and to visualize quantities of interest over time and/or across countries. An example of how these data sets can be used along with `dplyr`, `tidyr`, and `ggplot` is presented here.
 
-Say we are interested in comparing changes in evaluation ratings for terms over time in whatever countries possible. The dictionary table above as well as `dict_info()` show that the three countries in which multiple dictionaries have been collected are the U.S., Canada, and Germany. Let's choose three U.S. dictionaries (nc1978, texas1998, and usfullsurveyor2015), two Canadian dictionaries (ontario1980 and ontario2001), and two German dictionaries (germany1989 and germany2007). Now we need to find the terms that are in all seven dictionaries. The term table is useful to quickly get a first look at this.
+Say we are interested in comparing changes in evaluation ratings for terms over time in whatever countries possible. The table on the [dictionaries help page](https://ahcombs.github.io/actdata/articles/dictionaries.html) shows that the three countries in which multiple dictionaries have been collected are the U.S., Canada, and Germany. Let's choose three U.S. dictionaries (nc1978, texas1998, and usfullsurveyor2015), two Canadian dictionaries (ontario1980 and ontario2001), and two German dictionaries (germany1989 and germany2007). Now we need to find the terms that are in all seven dictionaries. The term table is useful to quickly get a first look at this.
 
 ```{r}
 datasets <- c("nc1978", "texas1998", "usfullsurveyor2015", "ontario1980", "ontario2001", "germany1989", "germany2007")
