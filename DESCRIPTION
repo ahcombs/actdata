@@ -1,6 +1,6 @@
 Package: actdata
 Title: R-based repository for standardized Affect Control Theory dictionary and equation data sets
-Version: 0.0.0.9004
+Version: 0.0.0.9005
 Authors@R: 
     person(given = "Aidan",
            family = "Combs",
