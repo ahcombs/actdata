@@ -20,7 +20,7 @@ for(file in ind_file_list){
   termrename <- c(term = "termID",  term = "variable",  term = "term_ID",
                   userid = "ResponseId",
                   E = "evaluation", P = "potency", A = "activity",
-                  race = "quota_race", gender = "filter_gender", age = "quota_age", hisp = "hispanic")
+                  raceeth = "quota_race", gender = "filter_gender", age = "quota_age", hisp = "hispanic")
   data <- read.csv2(path, sep = ",") %>%
     dplyr::rename(any_of(termrename))
 
@@ -40,7 +40,7 @@ for(file in ind_file_list){
 
   data <- standardize_terms(data, key) %>%
     dplyr::rename_with(tolower, !dplyr::matches("^[EPA]$")) %>%
-    dplyr::select(dplyr::any_of(c("userid", "gender", "age", "race", "race1", "race2", "hisp", "term", "component", "E", "P", "A"))) %>%
+    dplyr::select(dplyr::any_of(c("userid", "gender", "age", "raceeth", "race1", "race2", "hisp", "term", "component", "E", "P", "A"))) %>%
     dplyr::mutate(dplyr::across(c("E", "P", "A"), ~ifelse(. == "", NA_real_, .))) %>%
     dplyr::mutate(dplyr::across(!c("E", "P", "A"), ~as.character(.))) %>%
     dplyr::mutate(gender = dplyr::case_when(.data$gender == "1" ~ "Male",

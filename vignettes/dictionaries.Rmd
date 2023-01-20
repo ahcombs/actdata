@@ -41,11 +41,9 @@ In addition to measured (or in one case, estimated) EPA values, the package prov
 
 ## Available dictionaries
 
-This package contains data from 38 different publicly available affect control theory dictionary data sets. Basic information on these dictionaries is shown in the table below. Detailed information on each dictionary, including references, is available at the end of this page.
+This package contains data from 40 different publicly available affect control theory dictionary data sets. Basic information on these dictionaries is shown in the table below. Detailed information on each dictionary, including references, is available at the end of this page.
 
 **Please cite these data!** The data sets included in this package were originally collected by a number of different research teams. When using them for publication, please cite both their publications about the data (linked in the dataset detail section below) and this package. 
-
-Within R, metadata plus descriptions and citations from the sources can be accessed using `dict_info()`. Leaving the argument blank will print information for all data sets. Pass the function a data set key to see metadata for just that data set. 
 
 ```{r dict key table, echo = FALSE}
 dict_table <- actdata:::get_meta("dict") %>% 
@@ -64,11 +62,6 @@ names(dict_table) <- c("Dataset key", "Country or context", "Year", "Statistics 
 dict_table %>% 
   kableExtra::kable(escape = FALSE) %>% 
   kableExtra::kable_styling()
-```
-
-```{r}
-dict_info("nc1978")
-dict_info("politics2003")
 ```
 
 ## Accessing dictionary data: summary statistics
@@ -104,7 +97,7 @@ head(f_mean_ontario1980)
 
 EPA summary information is likely to be sufficient for most research questions. Existing research in affect control theory almost always uses summary data. However, the respondent-level data used to compute these summaries may also be useful in particular instances. 
 
-A number of data sets, all from 2015 or later, include individual-level data, newly made publicly available in this package. Some of these are subsets of others. These are the following (see the dictionary table above or call `dict_info()` for more information):
+A number of data sets, all from 2015 or later, include individual-level data, newly made publicly available in this package. Some of these are subsets of others. These are the following (see the dictionary table above for more information):
 
 1. morocco2015
 2. egypt2015
@@ -201,7 +194,7 @@ print(paste("The institution code", newcode, "represents a setting that is a pla
 
 # Dataset collection details
 
-Data collection efforts are typically intended to either be general or specific. General data collections aim to provide information on the typical, normative culture of a place, typically a country. They measure EPA for terms that apply to a wide range of social situations, and use samples of respondents that are argued to be either representative of a country's population at large or "cultural experts" who are deeply familiar with the types of spaces in which the cultural of interest is reproduced (Heise 2007). Data from these general data collections is often used in simulations of actor-behavior-object ACT events. Specific data collections measure EPA for terms in only a particular domain of interest, and may recruit respondents from only a target subpopulation of interest. Such data are sometimes used in simulations of events, but often the reason to collect them is to be able to better describe meanings in a particular domain. 
+Data collection efforts are typically intended to either be general or specific. General data collections aim to provide information on the typical, normative culture of a place or context, typically a country. They measure EPA for terms that apply to a wide range of social situations, and use samples of respondents that are argued to be either representative of a country's population at large or "cultural experts" who are deeply familiar with the types of spaces in which the cultural of interest is reproduced (Heise 2007). Data from these general data collections is often used in simulations of actor-behavior-object ACT events. Specific data collections measure EPA for terms in only a particular domain of interest, and may recruit respondents from only a target subpopulation of interest. Such data are sometimes used in simulations of events, but often the reason to collect them is to be able to better describe meanings in a particular domain. 
 
 Below, in approximate reverse chronological order within general/specific categories, are details including links for more information about the collection of each of the datasets contained in this package.
 

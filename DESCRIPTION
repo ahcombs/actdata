@@ -8,12 +8,12 @@ Authors@R:
            email = "ahc26@duke.edu",
            comment = c(ORCID = "0000-0003-1955-3572"))
 Description: This package makes available public Affect Control Theory dictionaries (semantic 
-differential ratings of thousands of different terms) and equations (coefficients for predicting 
-interactions in the context of Affect Control Theory) collected in many cultures and contexts 
-worldwide between 1977 and present. Spellings and formats of all terms have been standardized across
-data sets to enable comparisons. Gender-averaged values have been calculated for all dictionaries,
-and standard deviations and covariance matrices between affective dimensions have been calculated
-where possible. 
+    differential ratings of thousands of different terms) and equations (coefficients for predicting 
+    interactions in the context of Affect Control Theory) collected in many cultures and contexts 
+    worldwide between 1977 and present. Spellings and formats of all terms have been standardized across
+    data sets to enable comparisons. Gender-averaged values have been calculated for all dictionaries,
+    and standard deviations and covariance matrices between affective dimensions have been calculated
+    where possible. 
 License: CC0
 Encoding: UTF-8
 LazyData: true

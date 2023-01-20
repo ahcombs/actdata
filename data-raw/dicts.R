@@ -61,7 +61,7 @@ individual_keys <- c(
 
 # meta <- utils::read.csv("data-raw/dicts/dict_info.csv")
 
-exclude_keys <- c("prisonersdilemma", "occs2019", "occs2020")
+exclude_keys <- c("prisonersdilemma") #, "occs2019", "occs2020")
 
 mean_epa <- data.frame(matrix(nrow = 0, ncol = length(meannames)))
 names(mean_epa) <- meannames
