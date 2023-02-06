@@ -445,7 +445,7 @@ Sample: n = 825 participants recruited through Amazon Mechanical Turk who had li
 
 Year collected: 2015
 
-Authors: Rohan Lulham and Daniel B. Shank
+Authors: Rohan Lulham, Daniel B. Shank, and Clementine Thurgood
 
 Relevant publications/more information: [Lulham and Shank 2022](https://doi.org/10.1177/00027642211066045)
 
@@ -458,7 +458,7 @@ Sample: n = 825 participants recruited through Amazon Mechanical Turk who had li
 
 Year collected: 2015
 
-Authors: Rohan Lulham and Daniel B. Shank
+Authors: Rohan Lulham, Daniel B. Shank, and Clementine Thurgood
 
 Relevant publications/more information: [Lulham and Shank 2022](https://doi.org/10.1177/00027642211066045)
 
