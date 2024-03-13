@@ -8,8 +8,8 @@
 <meta name="description" content="actdata">
 <title>Comparing meanings: a worked example • actdata</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Comparing meanings: a worked example">
 <meta property="og:description" content="actdata">
@@ -122,19 +122,21 @@ term table is useful to quickly get a first look at this.</p>
 <span><span class="co">#&gt;   data %&gt;% select(all_of(datasets))</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; See &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">term_table_short</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;   term      component nc1978 texas1998 usfulls…¹ ontar…² ontar…³ germa…⁴ germa…⁵</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> champion  identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> child     identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> hero      identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> idiot     identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> judge     identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> librarian identity       1         1         1       1       1       1       1</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​usfullsurveyor2015, ²​ontario1980,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​ontario2001, ⁴​germany1989, ⁵​germany2007</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   term     component nc1978 texas1998 usfullsurveyor2015 ontario1980 ontario2001</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> champion identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> child    identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> hero     identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> idiot    identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> judge    identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> librari… identity       1         1                  1           1           1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: germany1989 &lt;dbl&gt;, germany2007 &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>We now have a list of the 225 identities included in all seven
 dictionaries. Let’s get the mean EPA values for these terms.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -151,29 +153,28 @@ dictionaries. Let’s get the mean EPA values for these terms.</p>
 <span></span>
 <span><span class="va">term_subset</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 20 × 10</span></span></span>
-<span><span class="co">#&gt;    term      component dataset  context year  group instc…¹      E      P      A</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> academic  identity  germany… Germany 1989  all   11 000…  0.81   0.54  -<span style="color: #BB0000;">0.765</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> academic  identity  germany… Germany 2007  all   11 000…  1.60   1.25  -<span style="color: #BB0000;">0.125</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> academic  identity  nc1978   US      1978  all   11 000…  0.975  0.735 -<span style="color: #BB0000;">0.5</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> academic  identity  ontario… Canada  1980  all   11 000…  1.38   1.04  -<span style="color: #BB0000;">0.42</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> academic  identity  ontario… Canada  2001  all   11 000…  1.64   1.23   0.235</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> academic  identity  texas19… US      1998  all   11 000…  1.83   1.69   0.37 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> academic  identity  usfulls… US      2015  all   11 000…  2.34   2.26  -<span style="color: #BB0000;">0.12</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> adopt     behavior  germany… Germany 1989  all   10 000…  1.8   -<span style="color: #BB0000;">0.265</span> -<span style="color: #BB0000;">0.485</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> adopt     behavior  germany… Germany 2007  all   10 000…  2.24   1.77  -<span style="color: #BB0000;">0.235</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> adopt     behavior  nc1978   US      1978  all   10 000…  1.92   1.56   0.035</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> adopt     behavior  ontario… Canada  1980  all   10 000…  2.41   1.04   0.33 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> adopt     behavior  ontario… Canada  2001  all   10 000…  2.30   1.58   0.755</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> adopt     behavior  texas19… US      1998  all   10 000…  3.04   1.88   1.25 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> adopt     behavior  usfulls… US      2015  all   10 000…  3.12   2.88   0.15 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> adulterer identity  germany… Germany 1989  all   10 000… -<span style="color: #BB0000;">1.6</span>    0.445  0.745</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> adulterer identity  germany… Germany 2007  all   10 000… -<span style="color: #BB0000;">2.46</span>   0.365  0.68 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> adulterer identity  nc1978   US      1978  all   10 000… -<span style="color: #BB0000;">1.80</span>   0      0.855</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> adulterer identity  ontario… Canada  1980  all   10 000… -<span style="color: #BB0000;">1.92</span>   0.5    0.89 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> adulterer identity  ontario… Canada  2001  all   10 000… -<span style="color: #BB0000;">2.32</span>  -<span style="color: #BB0000;">0.09</span>   0.31 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> adulterer identity  texas19… US      1998  all   10 000… -<span style="color: #BB0000;">2.77</span>  -<span style="color: #BB0000;">0.655</span>  0.345</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​instcodes</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    term     component dataset context year  group instcodes      E      P      A</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> academic identity  german… Germany 1989  all   11 00001…  0.81   0.54  -<span style="color: #BB0000;">0.765</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> academic identity  german… Germany 2007  all   11 00001…  1.60   1.25  -<span style="color: #BB0000;">0.125</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> academic identity  nc1978  US      1978  all   11 00001…  0.975  0.735 -<span style="color: #BB0000;">0.5</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> academic identity  ontari… Canada  1980  all   11 00001…  1.38   1.04  -<span style="color: #BB0000;">0.42</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> academic identity  ontari… Canada  2001  all   11 00001…  1.64   1.23   0.235</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> academic identity  texas1… US      1998  all   11 00001…  1.83   1.69   0.37 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> academic identity  usfull… US      2015  all   11 00001…  2.34   2.26  -<span style="color: #BB0000;">0.12</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> adopt    behavior  german… Germany 1989  all   10 00000…  1.8   -<span style="color: #BB0000;">0.265</span> -<span style="color: #BB0000;">0.485</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> adopt    behavior  german… Germany 2007  all   10 00000…  2.24   1.77  -<span style="color: #BB0000;">0.235</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> adopt    behavior  nc1978  US      1978  all   10 00000…  1.92   1.56   0.035</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> adopt    behavior  ontari… Canada  1980  all   10 00000…  2.41   1.04   0.33 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> adopt    behavior  ontari… Canada  2001  all   10 00000…  2.30   1.58   0.755</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> adopt    behavior  texas1… US      1998  all   10 00000…  3.04   1.88   1.25 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> adopt    behavior  usfull… US      2015  all   10 00000…  3.12   2.88   0.15 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> adulter… identity  german… Germany 1989  all   10 00000… -<span style="color: #BB0000;">1.6</span>    0.445  0.745</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> adulter… identity  german… Germany 2007  all   10 00000… -<span style="color: #BB0000;">2.46</span>   0.365  0.68 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> adulter… identity  nc1978  US      1978  all   10 00000… -<span style="color: #BB0000;">1.80</span>   0      0.855</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> adulter… identity  ontari… Canada  1980  all   10 00000… -<span style="color: #BB0000;">1.92</span>   0.5    0.89 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> adulter… identity  ontari… Canada  2001  all   10 00000… -<span style="color: #BB0000;">2.32</span>  -<span style="color: #BB0000;">0.09</span>   0.31 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> adulter… identity  texas1… US      1998  all   10 00000… -<span style="color: #BB0000;">2.77</span>  -<span style="color: #BB0000;">0.655</span>  0.345</span></span></code></pre></div>
 <p>Now we have a dataframe that contains just the gender-averaged EPA
 values for the terms that the seven dictionaries share.</p>
 <p>How are meanings changing overall? We can calculate meaning change
@@ -198,9 +199,9 @@ summary statistics to get a better sense of this:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Use `values_fn = list` to suppress this warning.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Use `values_fn = {summary_fun}` to summarise duplicates.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Use the following dplyr code to identify duplicates.</span></span>
-<span><span class="co">#&gt;   {data} %&gt;%</span></span>
-<span><span class="co">#&gt;   dplyr::group_by(term, component, context, dimension, order) %&gt;%</span></span>
-<span><span class="co">#&gt;   dplyr::summarise(n = dplyr::n(), .groups = "drop") %&gt;%</span></span>
+<span><span class="co">#&gt;   {data} |&gt;</span></span>
+<span><span class="co">#&gt;   dplyr::summarise(n = dplyr::n(), .by = c(term, component, context, dimension,</span></span>
+<span><span class="co">#&gt;   order)) |&gt;</span></span>
 <span><span class="co">#&gt;   dplyr::filter(n &gt; 1L)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">eval_change</span><span class="op">$</span><span class="va">change</span><span class="op">)</span></span>

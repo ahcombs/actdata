@@ -8,8 +8,8 @@
 <meta name="description" content="actdata">
 <title>Dictionaries • actdata</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Dictionaries">
 <meta property="og:description" content="actdata">
@@ -681,6 +681,23 @@ identity
 </tr>
 <tr>
 <td style="text-align:left;">
+occs2021
+</td>
+<td style="text-align:left;">
+US
+</td>
+<td style="text-align:left;">
+2021
+</td>
+<td style="text-align:left;">
+mean, sd, cov
+</td>
+<td style="text-align:left;">
+identity
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 ontario1980
 </td>
 <td style="text-align:left;">
@@ -896,66 +913,62 @@ a range) is provided for all data sets.</p>
 <span><span class="va">contains_friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epa_subset.html">epa_subset</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="st">"friend"</span>, group <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">contains_friend</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 25</span></span></span>
-<span><span class="co">#&gt;   term       compo…¹ dataset context year  group instc…²     E     P     A   n_E</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> best_frie… identi… calcut… India   2017  all   11 100…  2.84  2.5   2.08    40</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> boyfriend  identi… calcut… India   2017  all   10 000…  1.33  1.03  0.73    40</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ex_boyfri… identi… calcut… India   2017  all   10 000…  0.13  0.3   0.23    39</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ex_girlfr… identi… calcut… India   2017  all   01 000…  0.21  0.04 -<span style="color: #BB0000;">0.05</span>    39</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend     identi… calcut… India   2017  all   11 100…  2.54  2.16  2.42    40</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> friendly   modifi… calcut… India   2017  all   10 010…  1.84  1.36  1.68    36</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt;   term   component dataset context year  group instcodes     E     P     A   n_E</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> best_… identity  calcut… India   2017  all   11 10000…  2.84  2.5   2.08    40</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> boyfr… identity  calcut… India   2017  all   10 00000…  1.33  1.03  0.73    40</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ex_bo… identity  calcut… India   2017  all   10 00000…  0.13  0.3   0.23    39</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ex_gi… identity  calcut… India   2017  all   01 00000…  0.21  0.04 -<span style="color: #BB0000;">0.05</span>    39</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend identity  calcut… India   2017  all   11 10000…  2.54  2.16  2.42    40</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> frien… modifier  calcut… India   2017  all   10 01000…  1.84  1.36  1.68    36</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   sd_A &lt;dbl&gt;, cov_EE &lt;dbl&gt;, cov_EP &lt;dbl&gt;, cov_EA &lt;dbl&gt;, cov_PE &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​component, ²​instcodes</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Return all entries for the identity "friend"</span></span>
 <span><span class="va">friend</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epa_subset.html">epa_subset</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="st">"friend"</span>, exactmatch <span class="op">=</span> <span class="cn">TRUE</span>, component <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">friend</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 25</span></span></span>
-<span><span class="co">#&gt;   term   component dataset   context year  group instc…¹     E     P     A   n_E</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> friend identity  calcutta… India   2017  male  11 100…  2.73  2.21  2.5     20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> friend identity  calcutta… India   2017  fema… 11 100…  2.34  2.11  2.34    20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> friend identity  calcutta… India   2017  all   11 100…  2.54  2.16  2.42    40</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> friend identity  calcutta… India   2017  male  11 100…  2.65  1.99  2.79    19</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend identity  calcutta… India   2017  fema… 11 100…  2.34  2.45  3.4     20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> friend identity  calcutta… India   2017  all   11 100…  2.49  2.3   3.16    39</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt;   term   component dataset context year  group instcodes     E     P     A   n_E</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> friend identity  calcut… India   2017  male  11 10000…  2.73  2.21  2.5     20</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> friend identity  calcut… India   2017  fema… 11 10000…  2.34  2.11  2.34    20</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> friend identity  calcut… India   2017  all   11 10000…  2.54  2.16  2.42    40</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> friend identity  calcut… India   2017  male  11 10000…  2.65  1.99  2.79    19</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend identity  calcut… India   2017  fema… 11 10000…  2.34  2.45  3.4     20</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> friend identity  calcut… India   2017  all   11 10000…  2.49  2.3   3.16    39</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   sd_A &lt;dbl&gt;, cov_EE &lt;dbl&gt;, cov_EP &lt;dbl&gt;, cov_EA &lt;dbl&gt;, cov_PE &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable name ¹​instcodes</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Return the entire Ontario 1980 dataset</span></span>
 <span><span class="va">all_ontario1980</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epa_subset.html">epa_subset</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ontario1980"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">all_ontario1980</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 25</span></span></span>
-<span><span class="co">#&gt;   term      compon…¹ dataset context year  group instc…²     E     P     A   n_E</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abandon   behavior ontari… Canada  1980  all   01 111… -<span style="color: #BB0000;">2.74</span>  0.01  0.74    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abandon   behavior ontari… Canada  1980  male  01 111… -<span style="color: #BB0000;">2.64</span> -<span style="color: #BB0000;">0.04</span>  0.82    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> abandon   behavior ontari… Canada  1980  fema… 01 111… -<span style="color: #BB0000;">2.84</span>  0.06  0.66    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> abandoned modifier ontari… Canada  1980  all   10 000… -<span style="color: #BB0000;">2.68</span> -<span style="color: #BB0000;">1.40</span> -<span style="color: #BB0000;">0.59</span>    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> abandoned modifier ontari… Canada  1980  male  10 000… -<span style="color: #BB0000;">2.71</span> -<span style="color: #BB0000;">1.46</span> -<span style="color: #BB0000;">0.43</span>    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> abandoned modifier ontari… Canada  1980  fema… 10 000… -<span style="color: #BB0000;">2.64</span> -<span style="color: #BB0000;">1.33</span> -<span style="color: #BB0000;">0.75</span>    <span style="color: #BB0000;">NA</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt;   term   component dataset context year  group instcodes     E     P     A   n_E</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> aband… behavior  ontari… Canada  1980  all   01 11111… -<span style="color: #BB0000;">2.74</span>  0.01  0.74    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> aband… behavior  ontari… Canada  1980  male  01 11111… -<span style="color: #BB0000;">2.64</span> -<span style="color: #BB0000;">0.04</span>  0.82    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> aband… behavior  ontari… Canada  1980  fema… 01 11111… -<span style="color: #BB0000;">2.84</span>  0.06  0.66    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> aband… modifier  ontari… Canada  1980  all   10 00010… -<span style="color: #BB0000;">2.68</span> -<span style="color: #BB0000;">1.40</span> -<span style="color: #BB0000;">0.59</span>    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> aband… modifier  ontari… Canada  1980  male  10 00010… -<span style="color: #BB0000;">2.71</span> -<span style="color: #BB0000;">1.46</span> -<span style="color: #BB0000;">0.43</span>    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> aband… modifier  ontari… Canada  1980  fema… 10 00010… -<span style="color: #BB0000;">2.64</span> -<span style="color: #BB0000;">1.33</span> -<span style="color: #BB0000;">0.75</span>    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: n_P &lt;dbl&gt;, n_A &lt;dbl&gt;, sd_E &lt;dbl&gt;, sd_P &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   sd_A &lt;dbl&gt;, cov_EE &lt;dbl&gt;, cov_EP &lt;dbl&gt;, cov_EA &lt;dbl&gt;, cov_PE &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​component, ²​instcodes</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   cov_PP &lt;dbl&gt;, cov_PA &lt;dbl&gt;, cov_AE &lt;dbl&gt;, cov_AP &lt;dbl&gt;, cov_AA &lt;dbl&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Return this same dataset, but only include the female mean values for behaviors</span></span>
 <span><span class="va">f_mean_ontario1980</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epa_subset.html">epa_subset</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ontario1980"</span>, group <span class="op">=</span> <span class="st">"female"</span>, component <span class="op">=</span> <span class="st">"behavior"</span>, stat <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">f_mean_ontario1980</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
-<span><span class="co">#&gt;   term        component dataset    context year  group instc…¹     E     P     A</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abandon     behavior  ontario19… Canada  1980  fema… 01 111… -<span style="color: #BB0000;">2.84</span>  0.06  0.66</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abuse       behavior  ontario19… Canada  1980  fema… 10 101… -<span style="color: #BB0000;">3.03</span>  1.21  1.88</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> acclaim     behavior  ontario19… Canada  1980  fema… 10 000…  1.9   0.8   0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> accommodate behavior  ontario19… Canada  1980  fema… 10 111…  2.31  0.87  0.12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> accuse      behavior  ontario19… Canada  1980  fema… 10 111… -<span style="color: #BB0000;">1.73</span>  0.97  0.85</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> address     behavior  ontario19… Canada  1980  fema… 10 111…  1.36  0.36 -<span style="color: #BB0000;">0.15</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable name ¹​instcodes</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   term        component dataset  context year  group instcodes     E     P     A</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abandon     behavior  ontario… Canada  1980  fema… 01 11111… -<span style="color: #BB0000;">2.84</span>  0.06  0.66</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abuse       behavior  ontario… Canada  1980  fema… 10 10100… -<span style="color: #BB0000;">3.03</span>  1.21  1.88</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> acclaim     behavior  ontario… Canada  1980  fema… 10 00010…  1.9   0.8   0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> accommodate behavior  ontario… Canada  1980  fema… 10 11111…  2.31  0.87  0.12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> accuse      behavior  ontario… Canada  1980  fema… 10 11111… -<span style="color: #BB0000;">1.73</span>  0.97  0.85</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> address     behavior  ontario… Canada  1980  fema… 10 11111…  1.36  0.36 -<span style="color: #BB0000;">0.15</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="accessing-dictionary-data-individual-level-data">Accessing dictionary data: individual-level data<a class="anchor" aria-label="anchor" href="#accessing-dictionary-data-individual-level-data"></a>
@@ -1011,7 +1024,7 @@ from the appropriate combination of data sets.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> egypt2015 Egypt   2015  Egypt1621 Male   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    spor…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> egypt2015 Egypt   2015  Egypt1072 Male   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    grad…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> egypt2015 Egypt   2015  Egypt165  Female <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    pede…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: component &lt;chr&gt;, instcodes &lt;chr&gt;, E &lt;dbl&gt;, P &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: component &lt;chr&gt;, instcodes &lt;chr&gt;, E &lt;dbl&gt;, P &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   A &lt;dbl&gt;</span></span></span>
 <span></span>
 <span><span class="co"># Return all ratings by female-identifying students in the usstudent2015 data set</span></span>
@@ -1027,7 +1040,7 @@ from the appropriate combination of data sets.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> dukestudent… US      2015  DStu5… Female 20    <span style="color: #BB0000;">NA</span>      Whit… No a… <span style="color: #BB0000;">NA</span>    some…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> dukestudent… US      2015  DStu5… Female 22 t… <span style="color: #BB0000;">NA</span>      Blac… No a… <span style="color: #BB0000;">NA</span>    aban…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> dukestudent… US      2015  DStu5… Female 18    <span style="color: #BB0000;">NA</span>      Whit… No a… <span style="color: #BB0000;">NA</span>    aban…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: component &lt;chr&gt;, instcodes &lt;chr&gt;, E &lt;dbl&gt;, P &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: component &lt;chr&gt;, instcodes &lt;chr&gt;, E &lt;dbl&gt;, P &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   A &lt;dbl&gt;</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -1047,43 +1060,43 @@ term table.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the whole table</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">term_table</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 41</span></span></span>
-<span><span class="co">#&gt;   term   compo…¹ artif…² calcu…³ calcu…⁴ china…⁵ dukec…⁶ dukes…⁷ egypt…⁸ emplo…⁹</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abort… identi…       1       1       1       1       1       1       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abort… modifi…       1       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> abort… modifi…       1       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> abort… modifi…       1       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> abort… modifi…       1       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> abort… modifi…       1       0       0       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 31 more variables: expressive2002 &lt;dbl&gt;, gaymensanfrancisco1980 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;, germany2007 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 42</span></span></span>
+<span><span class="co">#&gt;   term   component artifactmods2022 calcuttaall2017 calcuttasubset2017 china1999</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abort… identity                 1               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abort… modified…                1               0                  0         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> abort… modified…                1               0                  0         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> abort… modified…                1               0                  0         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> abort… modified…                1               0                  0         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> abort… modified…                1               0                  0         0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 36 more variables: dukecommunity2015 &lt;dbl&gt;, dukestudent2015 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   egypt2015 &lt;dbl&gt;, employeeorg2022 &lt;dbl&gt;, expressive2002 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   gaymensanfrancisco1980 &lt;dbl&gt;, generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   germany2007 &lt;dbl&gt;, groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   humanvalues2022 &lt;dbl&gt;, indiana2003 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   internationaldomesticrelations1981 &lt;dbl&gt;, internet1998 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   nc1978 &lt;dbl&gt;, nireland1977 &lt;dbl&gt;, nounphrasegrammar2019 &lt;dbl&gt;, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;, …</span></span></span>
 <span></span>
 <span><span class="co"># settings only</span></span>
 <span><span class="va">set_tt</span> <span class="op">&lt;-</span> <span class="va">term_table</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">component</span> <span class="op">==</span> <span class="st">"setting"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">set_tt</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 41</span></span></span>
-<span><span class="co">#&gt;   term   compo…¹ artif…² calcu…³ calcu…⁴ china…⁵ dukec…⁶ dukes…⁷ egypt…⁸ emplo…⁹</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abort… setting       0       1       1       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> adult… setting       0       1       1       1       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> airpl… setting       0       1       1       1       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ambul… setting       0       1       1       1       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> amuse… setting       0       1       1       1       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> april… setting       0       1       1       0       0       0       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 31 more variables: expressive2002 &lt;dbl&gt;, gaymensanfrancisco1980 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;, germany2007 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 42</span></span></span>
+<span><span class="co">#&gt;   term   component artifactmods2022 calcuttaall2017 calcuttasubset2017 china1999</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abort… setting                  0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> adult… setting                  0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> airpl… setting                  0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ambul… setting                  0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> amuse… setting                  0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> april… setting                  0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 36 more variables: dukecommunity2015 &lt;dbl&gt;, dukestudent2015 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   egypt2015 &lt;dbl&gt;, employeeorg2022 &lt;dbl&gt;, expressive2002 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   gaymensanfrancisco1980 &lt;dbl&gt;, generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   germany2007 &lt;dbl&gt;, groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   humanvalues2022 &lt;dbl&gt;, indiana2003 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   internationaldomesticrelations1981 &lt;dbl&gt;, internet1998 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   nc1978 &lt;dbl&gt;, nireland1977 &lt;dbl&gt;, nounphrasegrammar2019 &lt;dbl&gt;, …</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;, …</span></span></span>
 <span></span>
 <span><span class="co"># limit to only the two Germany dictionaries and exclude terms in neither</span></span>
 <span><span class="va">german_tt</span> <span class="op">&lt;-</span> <span class="va">term_table</span> <span class="op">%&gt;%</span> </span>
@@ -1104,22 +1117,22 @@ term table.</p>
 <span><span class="va">friend_tt</span> <span class="op">&lt;-</span> <span class="va">term_table</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">term</span>, <span class="st">"friend"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">friend_tt</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 41</span></span></span>
-<span><span class="co">#&gt;   term   compo…¹ artif…² calcu…³ calcu…⁴ china…⁵ dukec…⁶ dukes…⁷ egypt…⁸ emplo…⁹</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> best_… identi…       0       1       1       0       1       1       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> boyfr… identi…       0       1       1       1       1       1       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ex_bo… identi…       0       1       1       0       1       1       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ex_gi… identi…       0       1       1       0       1       1       0       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend identi…       0       1       1       0       1       1       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> frien… modifi…       0       1       1       1       1       1       1       0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 31 more variables: expressive2002 &lt;dbl&gt;, gaymensanfrancisco1980 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;, germany2007 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 42</span></span></span>
+<span><span class="co">#&gt;   term   component artifactmods2022 calcuttaall2017 calcuttasubset2017 china1999</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> best_… identity                 0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> boyfr… identity                 0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ex_bo… identity                 0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ex_gi… identity                 0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> friend identity                 0               1                  1         0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> frien… modifier                 0               1                  1         1</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 36 more variables: dukecommunity2015 &lt;dbl&gt;, dukestudent2015 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   egypt2015 &lt;dbl&gt;, employeeorg2022 &lt;dbl&gt;, expressive2002 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   gaymensanfrancisco1980 &lt;dbl&gt;, generaltech2020 &lt;dbl&gt;, germany1989 &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   germany2007 &lt;dbl&gt;, groups2017 &lt;dbl&gt;, groups2019 &lt;dbl&gt;, household1994 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   humanvalues2022 &lt;dbl&gt;, indiana2003 &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   internationaldomesticrelations1981 &lt;dbl&gt;, internet1998 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   nc1978 &lt;dbl&gt;, nireland1977 &lt;dbl&gt;, nounphrasegrammar2019 &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   japan1995 &lt;dbl&gt;, morocco2015 &lt;dbl&gt;, mostafaviestimates2022 &lt;dbl&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="institution-codes">Institution codes<a class="anchor" aria-label="anchor" href="#institution-codes"></a>
@@ -1188,19 +1201,18 @@ creating new institution codes.</li>
 <span><span class="co">#&gt; At least one of the institution codes is NA.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">businesslaw</span>, <span class="fl">7</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 19</span></span></span>
-<span><span class="co">#&gt;   term    compo…¹ instc…² male  female overt surmi…³ lay   busin…⁴ law   polit…⁵</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abandon behavi… 01 111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE TRUE    TRUE  TRUE    TRUE  TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abuse   behavi… 10 101… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE   TRUE  FALSE   TRUE  FALSE  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> accuse  behavi… 10 111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE   TRUE  TRUE    TRUE  TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> address behavi… 10 111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE   TRUE  TRUE    TRUE  TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> admoni… behavi… 10 011… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE   FALSE TRUE    TRUE  TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> advise  behavi… 10 011… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE   FALSE TRUE    TRUE  TRUE   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advisor identi… <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: academe &lt;lgl&gt;, medicine &lt;lgl&gt;, religion &lt;lgl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   family &lt;lgl&gt;, sexual &lt;lgl&gt;, monadic &lt;lgl&gt;, group &lt;lgl&gt;, corporal &lt;lgl&gt;, and</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   abbreviated variable names ¹​component, ²​instcodes, ³​surmised, ⁴​business,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​politics</span></span></span>
+<span><span class="co">#&gt;   term     component instcodes  male  female overt surmised lay   business law  </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> abandon  behavior  01 111111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     FALSE TRUE     TRUE  TRUE     TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> abuse    behavior  10 101000… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE    TRUE  FALSE    TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> accuse   behavior  10 111111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE    TRUE  TRUE     TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> address  behavior  10 111111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE    TRUE  TRUE     TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> admonish behavior  10 011111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE    FALSE TRUE     TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> advise   behavior  10 011111… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     TRUE  FALSE    FALSE TRUE     TRUE </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> advisor  identity  <span style="color: #BB0000;">NA</span>         <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 9 more variables: politics &lt;lgl&gt;, academe &lt;lgl&gt;, medicine &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   religion &lt;lgl&gt;, family &lt;lgl&gt;, sexual &lt;lgl&gt;, monadic &lt;lgl&gt;, group &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   corporal &lt;lgl&gt;</span></span></span>
 <span></span>
 <span><span class="va">newcode</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_instcode.html">create_instcode</a></span><span class="op">(</span>component <span class="op">=</span> <span class="st">"setting"</span>, place <span class="op">=</span> <span class="cn">TRUE</span>, family <span class="op">=</span> <span class="cn">TRUE</span>, religion <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The institution code"</span>, <span class="va">newcode</span>, <span class="st">"represents a setting that is a place and is relevant to only the family and religion domains."</span><span class="op">)</span><span class="op">)</span></span>
