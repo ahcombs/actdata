@@ -38,6 +38,7 @@ modifier, or setting)}
 \item{nounphrasegrammar2019}{dictionary}
 \item{occs2019}{dictionary}
 \item{occs2020}{dictionary}
+\item{occs2021}{dictionary}
 \item{ontario1980}{dictionary}
 \item{ontario2001}{dictionary}
 \item{politics2003}{dictionary}

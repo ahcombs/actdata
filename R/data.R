@@ -48,6 +48,7 @@
 #'   \item{nounphrasegrammar2019}{dictionary}
 #'   \item{occs2019}{dictionary}
 #'   \item{occs2020}{dictionary}
+#'   \item{occs2021}{dictionary}
 #'   \item{ontario1980}{dictionary}
 #'   \item{ontario2001}{dictionary}
 #'   \item{politics2003}{dictionary}
@@ -134,7 +135,7 @@
 #'   \item{gender}{respondent's gender identity. Male/female except in
 #'       occupations data sets, where genderqueer/nonbinary and other are options as well.}
 #'   \item{age}{respondent's age or age bracket}
-#'   \item{raceeth}{respondent's racial/ethnic identification (relevant to artifactmods2022, humanvalues2022, products2022, occs2019, occs2020)}
+#'   \item{raceeth}{respondent's racial/ethnic identification (relevant to artifactmods2022, humanvalues2022, products2022, occs2019, occs2020, occs2021)}
 #'   \item{race1}{respondent's primary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
 #'   \item{race2}{respondent's secondary racial identification (relevant to dukecommunity2015, dukestudent2015, uga2015, usmturk2015, usstudent2015, usfullsurveyor2015)}
 #'   \item{hisp}{whether a respondent identifies as Hispanic (relevant to uga2015, mturk2015, usstudent2015, usfullsurveyor2015)}

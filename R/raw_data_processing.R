@@ -16,17 +16,25 @@
 #' @return the standardized dataset
 #' @keywords internal
 standardize_terms <- function(data, key, component = "undetermined"){
-  if(component == "identities" & key %in% c("uga2015", "usfullsurveyor2015", "usmturk2015", "usstudent2015", "indiana2003")){
+  if(
+    component == "identities" & key %in% c("uga2015", "usfullsurveyor2015", "usmturk2015", "usstudent2015", "indiana2003")
+  ){
     data <- data %>%
       dplyr::mutate(term = str_replace(.data$term, "divorc[e\\u00e9][e\\u00e9]", "divorcee (female)"),
                     term = str_replace(.data$term, "divorc[e\\u00e9](?![_e\\u00e9 ])", "divorcee (male)"))
+  } else if (component == "undetermined" & key %in% c("calcutta")){
+    data <- data %>%
+      dplyr::mutate(term = str_replace(.data$term, "i_divorc[\\ufffd]e", "i_divorcee (female)"),
+                    term = str_replace(.data$term, "i_divorc[\\ufffd](?![_e\\u00e9 ])", "i_divorcee (male)"))
   } else if (component == "identities") {
     data <- data %>%
       dplyr::mutate(term = str_replace(.data$term, "divorcee", "divorcee (gender neutral)"))
-  } else if (component == "undetermined" &
-             !(grepl("generaltech", key) | grepl("employeeorg", key) | grepl("ugatech", key) |
-               grepl("groups", key) | grepl("nounphrasegrammar", key) | grepl("techvshuman", key) |
-               grepl("mostafavi", key))){
+  }
+
+  if (component == "undetermined" &
+      !(grepl("generaltech", key) | grepl("employeeorg", key) | grepl("ugatech", key) |
+        grepl("groups", key) | grepl("nounphrasegrammar", key) | grepl("techvshuman", key) |
+        grepl("mostafavi", key))){
     # this applies to the individual level data where all terms are mixed together. We need to extract the component from the term ID
     # most terms have an indicator on the front followed by an underscore (ie, i_firefighter)
     # in the Egypt and Morocco dictionaries, some do not and instead they have some other code that I don't understand for term ID (ie, mi29)

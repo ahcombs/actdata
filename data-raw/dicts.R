@@ -54,6 +54,7 @@ individual_keys <- c(
   "usfullsurveyor2015",
   "occs2019",
   "occs2020",
+  "occs2021",
   "artifactmods2022",
   "humanvalues2022",
   "products2022"
@@ -227,10 +228,10 @@ mean_epa <- mean_epa %>%
 
 #### MEANS DATASETS THAT NEED MORE REFORMATTING: CALCUTTA, LULHAM AND SHANK, MOSTAFAVI ####################################################
 
-source_folder <- "data-raw/dicts/summary_raw/"
+source_folder <- "data-raw/dicts/summary_raw"
 files <- list.files(source_folder)
 
-for(file in files){
+for(file in files[files != "17_Cultures_EPA.xlsx"]){
   path <- paste0(source_folder, "/", file)
   key <- stringr::str_extract(file, "^[[:alnum:]]*")
   year <- stringr::str_extract(key, "[[:digit:]]*$")
@@ -241,9 +242,9 @@ for(file in files){
     data <- readr::read_csv(path) %>%
       dplyr::rename(term = English) %>%
       dplyr::select(-Bengali) %>%
-      dplyr::mutate(term = tolower(term)) %>%
       dplyr::rename_with(~stringr::str_replace(., "@", "all_")) %>%
-      dplyr::rename_with(~stringr::str_replace(., "%", "subset_"))
+      dplyr::rename_with(~stringr::str_replace(., "%", "subset_")) %>%
+      dplyr::mutate(term = stringr::str_to_lower(term))
 
     # standardize terms
     data_std <- standardize_terms(data, key = "calcutta", component = "undetermined") %>%
