@@ -42,5 +42,4 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-URL: https://ahcombs.github.io/actdata/,
-    https://github.com/ahcombs
+URL: https://github.com/ahcombs/actdata
