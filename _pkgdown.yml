@@ -5,29 +5,25 @@ template:
   bslib:
     pkgdown-nav-height: 81.4px
 reference:
-- title: "View metadata"
-  desc: >
-    Functions for accessing the metadata associated with data
-    available in the package. This metadata includes keys
-    associated with data sets and kinds of data available.
+- title: View metadata
+  desc: |
+    Functions for accessing the metadata associated with data available in the package. This metadata includes keys associated with data sets and kinds of data available.
   contents:
   - dict_info
   - eqn_info
   - term_table
-- title: "Get data"
-  desc: >
-    Functions for retrieving desired subsets of available data and
-    data frames where these data are located in full.
+- title: Get data
+  desc: |
+    Functions for retrieving desired subsets of available data and data frames where these data are located in full.
   contents:
   - epa_subset
   - get_eqn
   - epa_summary_statistics
   - equations
   - individual
-- title: "Modify and export data"
-  desc: >
-    Functions for summarizing and reformatting data and exporting
-    it in formats friendly to analysis software.
+- title: Modify and export data
+  desc: |
+    Functions for summarizing and reformatting data and exporting it in formats friendly to analysis software.
   contents:
   - epa_summary
   - expand_instcodes
@@ -39,3 +35,4 @@ reference:
   - get_dicts
   - this_dict
   - dataset_keys
+
