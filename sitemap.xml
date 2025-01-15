@@ -1,153 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ahcombs.github.io/actdata/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/actdata.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/dictionaries.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/equations.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/export.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/standardization.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/articles/tidyversesubsetexample.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_component.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_data_cols.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_data_frame.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_dataset.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_datatype.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_group.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_group_col.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_inst_codes.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_institutions.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_no_duplicate_terms.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/check_stat.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/create_instcode.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/dataset_keys.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/dict_info.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/dictionary-class.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/epa_subset.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/epa_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/epa_summary_statistics.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/eqn_info.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/equation-class.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/equations.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/expand_instcodes.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/format_for_bayesact.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/get_dicts.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/get_eqn.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/get_meta.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/individual.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/initialize-dictionary-method.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/initialize-equation-method.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/just_once.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/reformat.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/save_for_interact.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/saveit.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/standardize_inst_code.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/standardize_option.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/standardize_terms.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/term_table.html</loc>
-  </url>
-  <url>
-    <loc>https://ahcombs.github.io/actdata/reference/this_dict.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ahcombs.github.io/actdata/404.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/LICENSE.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/actdata.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/dictionaries.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/equations.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/export.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/index.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/standardization.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/articles/tidyversesubsetexample.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/authors.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/index.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_component.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_data_cols.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_data_frame.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_dataset.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_datatype.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_group.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_group_col.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_inst_codes.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_institutions.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_no_duplicate_terms.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/check_stat.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/create_instcode.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/dataset_keys.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/dict_info.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/dictionary-class.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/epa_subset.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/epa_summary.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/epa_summary_statistics.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/eqn_info.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/equation-class.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/equations.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/expand_instcodes.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/format_for_bayesact.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/get_dicts.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/get_eqn.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/get_meta.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/index.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/individual.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/initialize-dictionary-method.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/initialize-equation-method.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/just_once.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/reformat.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/save_for_interact.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/saveit.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/standardize_inst_code.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/standardize_option.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/standardize_terms.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/term_table.html</loc></url>
+<url><loc>https://ahcombs.github.io/actdata/reference/this_dict.html</loc></url>
 </urlset>
+
