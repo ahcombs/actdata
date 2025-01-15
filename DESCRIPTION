@@ -43,3 +43,5 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://doi.org/10.5281/zenodo.14652399
+
+
