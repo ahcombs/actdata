@@ -4,6 +4,7 @@
 # actdata
 
 <!-- badges: start -->
+[![DOI](https://zenodo.org/badge/378248080.svg)](https://doi.org/10.5281/zenodo.14652399)
 <!-- badges: end -->
 
 This package is a repository for standardized versions of publicly
